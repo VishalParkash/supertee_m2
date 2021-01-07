@@ -1,0 +1,93 @@
+<?php 
+
+$attributeSetName = "color"; // put your own attribute set name
+// $attribute_set = Mage::getModel("eav/entity_attribute_set")->getCollection();
+// $attribute_set->addFieldToFilter("attribute_set_name", $attributeSetName)->getFirstItem();
+// echo $attribute_set->getAttributeSetId();
+
+// die;
+// $attributeSetId = 4;
+// $attributeSet = $this->getAttributeIdbyProductIds($attributeSetId);
+// echo "<pre>";print_r($attributeSet);
+
+// die;
+// $productCollection = $block->getProductCollection();
+// foreach ($productCollection as $product) {
+//     echo "<pre>";print_r($product->getData());  
+//     // echo $block->getProductImageUrl($product->getData());;  die;
+//     echo "<br>";
+
+// }
+// die;
+// echo $block->getProductImageUrl($_product->getData()['entity_id']);
+// die;
+?>
+<div class="category-products">
+    <?php if (($productCollection = $block->getProductCollection()) && $_collectionSize = $productCollection->getSize()): ?>
+
+    
+
+    <?php $_iterator = 0; ?>
+    <ul class="products-list" id="products-list">
+        <?php foreach ($productCollection as $_product): ?>
+        	<?php //echo $_product->getData()['entity_id'];die;?>
+        <li class="item<?php if( ++$_iterator == sizeof($productCollection->getItems()) ): ?> last<?php endif; ?>">
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo ($_product->getName()) ?>">
+            <img class="product-image" src="<?php echo $block->getProductImageUrl($_product->getData()['entity_id']); ?>" width="94" height="120" alt="<?php echo ($_product->getName()) ?>" />
+            </a>
+            <?php // Product description ?>
+            <div class="product-shop">
+                <div class="f-fix">
+                    <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo ($_product->getName()) ?>"><?php echo ($_product->getName()) ?></a></h2>
+                     <?php if($_product->getRatingSummary()): ?>
+                        <?php echo $this->getReviewsSummaryHtml($_product) ?>
+                     <?php endif; ?>
+                <?php echo $this->getPriceHtml($_product, true) ?>
+                <div class="desc std">
+                    <?php echo  $_product->getShortDescription() ?>
+                    <a href="<?php echo $block->getProductImageUrl($_product->getData()['entity_id']); ?>" title="<?php echo ($_product->getName()) ?>" class="link-learn"><?php //echo $this->__('Learn More') ?></a>
+                </div>
+                        <?php if($_product->isSaleable()): ?>
+                            <!-- <button type="button" title="Customise" class="button btn-cart"><span><span>Customise</span></span></button> -->
+                            <button id="btnCustomize" type="button">Customize</button>
+                            <form id="Product_<?php echo $_product->getData()['entity_id']; ?>" action="<?php echo $block->getBaseUrl();?>/customize/zeke/customize">
+                            <input type="hidden" name="sku" />
+                            <input type="hidden" name="zakeke_design" id="zakeke_design" value="new"/>
+                            <input type="hidden" name="quantity" value="1" />
+                            <input type="hidden" name="color" value="White" />
+                            <input type="hidden" name="productid" />
+                            <input type="hidden" name="size" />
+                            </form>
+                        <script>
+                        var btnCustomizer = document.getElementById('btnCustomize');
+                        btnCustomizer.addEventListener('click',
+                        function(evt)
+                        {
+                            evt.preventDefault();
+                            // var formCustomizer = document.getElementById("frmCustomizer");
+                            var formCustomizer = document.getElementById("Product_<?php echo $_product->getData()['entity_id']; ?>");
+                            formCustomizer.elements["productid"].value =<?php echo $_product->getData()['entity_id']; ?>;
+                            formCustomizer.elements["sku"].value ="<?php echo $_product->getData()['sku']; ?>";
+                            // formCustomizer.elements["productid"].value ="138436";
+                            // formCustomizer.elements["productid"].value =<?php //echo $_product->getData()['entity_id']; ?>;
+                            
+                            formCustomizer.submit();
+                        });
+                        </script>
+
+                        <?php else: ?>
+                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <?php endif; ?>
+
+                   
+                </div>
+            </div>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+    <button type="button" title="Skip" class="button btn-cart"><span><span>Skip</span></span></button>
+    
+
+<?php endif;?>
+</div>
+<?php echo $this->getToolbarHtml() ?>

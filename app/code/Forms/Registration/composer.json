@@ -1,0 +1,17 @@
+{
+    "name": "Forms/Registration",
+       "description": "Form Registration ",
+       "require": {
+           "magento/magento-composer-installer": "*"
+       },
+       "type": "magento2-module",
+       "version": "1.1",
+       "extra": {
+           "map": [
+               [
+                   "*",
+                   "Forms/Registration"
+               ]
+           ]
+       }
+   }

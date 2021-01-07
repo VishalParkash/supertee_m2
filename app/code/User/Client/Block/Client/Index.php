@@ -1,0 +1,59 @@
+<?php
+
+namespace User\Client\Block\Client;
+
+// class Index extends BaseBlock
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Sales\Api\Data\TransactionInterface;
+use Magento\Sales\Api\TransactionRepositoryInterface;
+use Magento\Framework\View\Element\Template;
+
+class Index extends Template
+{
+    protected $_orderCollectionFactory;
+    protected $orderRepository;
+    protected $_customerSession;
+    protected $redirect;
+
+
+    public function __construct(
+        Template\Context $context,
+        \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\UrlInterface $url,
+        \Magento\Framework\App\Response\Http $redirect,
+        array $data = []
+    ) {
+        $this->_orderCollectionFactory = $orderCollectionFactory;
+        $this->orderRepository = $orderRepository;
+        $this->_customerSession = $customerSession;
+        $this->redirect = $redirect;
+        $this->_url = $url;
+        parent::__construct($context, $data);
+    }
+
+    public function getLoggedinCustomerId() 
+    {
+        if ($this->_customerSession->isLoggedIn()) {
+            return $this->_customerSession->getId();
+        }
+        $CustomRedirectionUrl = $this->_url->getUrl().'/';
+        $this->redirect->setRedirect($CustomRedirectionUrl);
+        return;
+
+    }
+    public function getOrderList($cust_id)
+    {
+        $order_collection = $this->_orderCollectionFactory->create();
+        $order_collection->addFieldToFilter('customer_id', $cust_id);
+        $order_collection->setOrder('created_at', 'desc');
+        $order_collection->addAttributeToSelect('*');
+
+        return $order_collection;
+    }
+    public function getOrderItems($order_id)
+    {
+        return $this->orderRepository->get($order_id);
+    }
+}

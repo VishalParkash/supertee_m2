@@ -1,0 +1,341 @@
+.billingInfo{
+    padding-right:100px;
+    padding-bottom:90px;
+    .breadcrumb {
+        margin-bottom: 24px;
+    }
+    .customCheck {
+        color: $gray;
+    }
+    .checkUnCheck {
+        margin: 0;
+    }
+    .shippingAddressItem {
+        padding-bottom: 24px;
+        .shippingAddressItemSub {
+            padding: 15px 0 0;
+            display: none;
+            .checkUnCheck {
+                color: $gray;
+            }
+            p {
+                color: $gray;
+                margin: 0 0 15px;
+                font-size: 0.9375rem;
+                line-height: 1.2em;
+            }
+        }
+        .checkUnCheck {
+            padding-left: 50px;
+            color: $blackLight;
+            input {
+                &:checked {
+                    & ~ .shippingAddressItemSub {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.custom_field{
+    .form-row{
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+    .form-row>[class*=col-]{
+        padding: 0 15px;
+    }
+
+    .fieldHead{
+        font-size:0.938em;
+        margin:24px 0;
+    }
+
+    .form-group {
+        margin-bottom:24px;
+        input {
+            border: 1px solid $border;
+            box-shadow: inset 0px 4px 20px rgba($black, 0.05);
+            border-radius: 10px;
+            font-size: 0.9375rem;
+            line-height: 1.2em;
+            padding:15px 24px;
+            width:100%;
+            color: $blackLight;
+            &::placeholder {
+                font-size: inherit;
+                color: $border;
+                font-weight:normal;
+            }
+            &:focus {
+                border-color: $primaryColor;
+            }
+        }
+    }
+
+    .customCheck{
+        &.roundCheck{
+            font-size:unset;
+        }
+        label{
+            font-size:0.938em;
+        &:before{
+            margin-right:15px;
+            border: 1px solid #ABABAB;
+        }
+        }
+    }
+
+    .btn{
+        margin-top:40px;
+    }
+}
+
+
+.addAddress{
+    margin-bottom:24px;
+     label {
+        display: inline-block;
+        padding: 10px;
+        border: solid 2px transparent;
+        transition: all 0.3s;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.9375rem;
+        line-height: 1.2em;
+        border: 1px solid $border;
+        color: $border;
+        margin: 0;
+        &:not(:last-child) {
+            margin-right: 15px;
+        }
+
+    }
+    
+    input[type="radio"] {
+        display: none;
+    }
+    
+    input[type="radio"]:checked + label.addressOption {
+        color: $blueDark;
+        border-color: $blueDark;
+    }
+}
+
+
+// savedAddress
+.savedAddress{
+    font-size:0.938em;
+    padding-bottom:30px;
+    .addAddress{
+        label {
+            padding:0;
+            border:0;
+            width:100%;
+        }
+        .address_box {
+            color: $blackLight;
+        }
+        input[type="radio"]:checked + label {
+            padding:0;
+            border:0;
+            .address_box{
+                background: $primaryColor;
+                color: $green;
+                .address{
+                    color:#fff;
+                }
+
+                svg{
+                    // fill:$blue;
+                    fill: $green;
+                }
+            }
+          }
+    }
+
+    .address_box{
+        background: #F3F3F3;
+        border-radius: 5px;
+        padding:16px 24px 23px 24px;
+
+        .address{
+            color: #727272;
+            margin:14px 0;
+            span{
+                display:block;
+                margin-top:5px;
+                padding-right: 50px;
+
+            }
+        }
+    }
+    h6{
+        font-size:inherit;
+    }
+}
+
+
+// PaymentMethod
+.paymentMethod{
+    // .nav-pills{
+    //     flex: 0 0 200px;
+    //     width:200px;
+
+    //     a{
+    //         font-size:1.125em;
+    //     &.active{
+    //         background:transparent;
+    //         color:$primaryColor;
+    //         font-weight:bold;
+    //     }
+    //     }
+    // }
+
+    // .tab-content{
+    //     flex-grow:1;
+    //     max-width:420px;
+    // }
+
+    // .form-group{
+    //     position: relative;
+    //     input{
+    //         font-weight:bold;
+    //         padding-right:80px;
+    //     }
+    //     .rightIcon{
+    //         position: absolute;
+    //         top:50%;
+    //         right:25px;
+    //         transform: translateY(-50%);
+    //     }
+    // }
+    p {
+        max-width: 570px;
+        line-height: 150%;
+        font-size: 0.9375rem;
+        color: $gray;
+        margin: 15px 0 0;
+    }
+    .paymentMethodGrid {
+        margin: 48px 0 0;
+        .paymentMethodItem {
+            padding: 0;
+            margin: 0 24px 24px 0;
+            cursor: pointer;
+            .paymentMethodItemCard {
+                width: 222px;
+                height: 117px;
+                border-radius: 10px;
+                border: 1px solid $grayLight;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                .paymentMethodItemCardLogo {
+                    padding-left: 15px;
+                }
+            }
+            input {
+                display: none;
+                &:checked {
+                    & + .paymentMethodItemCard {
+                        border-color: $blueDark;
+                        svg {
+                            path {
+                                fill: $green2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+// orderSuccessful
+.orderSuccessful{
+    // flex-grow:1;
+    background-color: $grayLight4;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 100px 0;
+    .successfulContent{
+        h3{
+            margin-top:20px;
+            font-size: 2.25rem;
+        }
+        button {
+            margin-top:48px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+    }
+}
+.setUpStoreModal {
+    text-align: center;
+    .modal-dialog  {
+        width: 700px;
+        max-width: 90vw;
+    }
+    .modal-content {
+        border-radius: 10px;
+        padding: 48px 48px 64px;
+        // position: relative;
+    }
+    .close {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        opacity: 1;
+        &:focus {
+            outline: 0;
+        }
+    }
+    h4 {
+        font-size: 1.625rem;
+        margin-bottom: 24px;
+    }
+    p {
+        max-width: 450px;
+        margin: 0 auto 24px;
+        font-size: 1.125rem;
+        line-height: 1.375rem;
+        color: $gray;
+    }
+    .btn {
+        min-width: 135px;
+        border-radius: 100px;
+        &:not(:last-child) {
+            margin-right: 24px;
+        }
+    }
+}
+
+.viewMoreAddress {
+    a {
+        font-size: 0.9375rem;
+        line-height: 1.2em;
+        font-weight: 700;
+        svg, b {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        svg {
+            margin-right: 15px;
+        }
+    }
+}

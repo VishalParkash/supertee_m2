@@ -1,0 +1,61 @@
+.viewStore {
+    min-height: 100%;
+    padding-bottom: 100px;
+}
+.viewStoreBanner {
+    .viewStoreBannerInner {
+        // background: linear-gradient(270.53deg, #C4C4C4 0.48%, rgba($white, 0) 91.12%);
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        .viewStoreBannerText {
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            right: 126px;
+            h4 {
+                font-size: 3em;
+                line-height: 1.1666666666666667em;
+                margin: 0;
+                font-weight: bold;
+                color: $primaryColor;
+                font-family: $roboto;
+            }
+            .viewStoreBannerAmount {
+                position: relative;
+                color: $blue;
+                margin-top: -20px;
+                margin-bottom: -20px;
+                span {
+                    font-family: $roboto;
+                    line-height: 1em;
+                    font-weight: 900;
+                    &.viewStoreBannerAmountVal {
+                        font-size: 12.8125em;
+                    }
+                    &.viewStoreBannerAmountPar {
+                        font-size: 7.6875em;
+                        margin-top: 8px;
+                        margin-bottom: -5px;
+                    }
+                    &.viewStoreBannerAmountOff {
+                        font-size: 3.5625em;
+                    }
+                }
+
+            }
+            h3 {
+                font-size: 2.9375em;
+                line-height: 1.1702127659574468em;
+                margin: 0 0 24px;
+                font-weight: bold;
+                color: $primaryColor;
+                font-family: $roboto;
+            }
+        }
+    }
+    img {
+        max-width: 100%;
+    }
+}

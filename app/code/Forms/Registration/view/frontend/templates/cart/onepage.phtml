@@ -1,0 +1,270 @@
+
+ <main class="main">
+
+        <section class="cartSection">
+            <div class="outerContainer">
+                <div class="container addPadding">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="billingInfo">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Cart </a></li>
+                                       <!--  <li class="breadcrumb-item"><a href="#">Store information </a></li> -->
+                                        <li class="breadcrumb-item active" aria-current="page">Billing information</li>
+                                        <li class="breadcrumb-item"><a href="#">Payment</a></li>
+                                    </ol>
+                                </nav>
+                                
+                                <form class="custom_field">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Name">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="number" class="form-control" placeholder="Contact number">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="email" class="form-control" placeholder="Email">
+                                        </div>
+                                    </div>
+
+                                    <h6 class="fieldHead">
+                                        Billing address
+                                    </h6>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <input type="number" class="form-control" placeholder="Zip code">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control"
+                                                placeholder="Address (house no, building, street, area)*">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Location/tTown">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="City/District">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="State">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Country">
+                                        </div>
+                                    </div>
+
+                                    <h6 class="fieldHead">
+                                        Save address as
+                                    </h6>
+                                    <div class="addAddress">
+                                        <input type="radio" id="addressHome" name="addressOprion" value="addressHome"
+                                            checked>
+                                        <label class="addressOption" for="addressHome">Home</label>
+
+                                        <input type="radio" id="addressWork" name="addressOprion" value="addressWork">
+                                        <label class="addressOption" for="addressWork">Work</label>
+                                    </div>
+
+                                    <div class="customCheck">
+                                        <div class="form-group">
+                                            <input type="checkbox" id="item1">
+                                            <label for="item1" class=" d-flex align-items-center">Make this as
+                                                my default address</label>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <h6 class="fieldHead">
+                                        Shipping address
+                                    </h6>
+                                    <div class="shippingAddressItem">
+                                        <label class="checkUnCheck">
+                                            <input type="radio" name="check">
+                                            <span class="checkUnCheckBox"></span>
+                                            <span class="checkUnCheckText">Self Pick-up</span>
+                                            <div class="shippingAddressItemSub">
+                                                <p>You can pickup your order from the below mention address</p>
+                                                <div class="shippingOptionItemLocation">
+                                                    <div class="shippingOptionItemLocationIcon">
+                                                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M16.925 4.25C12.0582 4.25 8 7.68525 8 12.5512C8 14.3998 8.76872 16.5767 9.59375 18.0082L16.0783 29.2741C16.1594 29.4177 16.2811 29.5379 16.4304 29.6218C16.5796 29.7057 16.7506 29.75 16.925 29.75C17.0994 29.75 17.2704 29.7057 17.4196 29.6218C17.5689 29.5379 17.6906 29.4177 17.7717 29.2741L24.2563 18.0082C25.0813 16.5767 25.85 14.3998 25.85 12.5512C25.85 7.68525 21.7918 4.25 16.925 4.25ZM16.925 6.02883C20.8602 6.02883 23.9375 8.57538 23.9375 12.5512C23.9375 13.8893 23.2243 16.0347 22.5729 17.1651L16.925 26.9579L11.2771 17.1651C10.6257 16.0347 9.9125 13.8893 9.9125 12.5512C9.9125 8.57538 12.9898 6.02883 16.925 6.02883ZM16.925 8.40061C14.4717 8.40061 12.4625 10.2695 12.4625 12.5512C12.4625 14.833 14.4718 16.7018 16.925 16.7018C19.3782 16.7018 21.3875 14.833 21.3875 12.5512C21.3875 10.2695 19.3783 8.40061 16.925 8.40061ZM16.925 10.1794C18.3446 10.1794 19.475 11.2309 19.475 12.5512C19.475 13.8716 18.3446 14.923 16.925 14.923C15.5054 14.923 14.375 13.8716 14.375 12.5512C14.375 11.2309 15.5054 10.1794 16.925 10.1794Z"
+                                                                fill="#727272"></path>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="shippingOptionItemLocationText">
+                                                        Dummy # 706, 7th Floor, Crown Heights, California
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="shippingAddressItem">
+                                        <label class="checkUnCheck">
+                                            <input type="radio" name="check" checked>
+                                            <span class="checkUnCheckBox"></span>
+                                            <span class="checkUnCheckText">Deliver to my address</span>
+                                            <div class="shippingAddressItemSub">
+                                                <label class="checkUnCheck">
+                                                    <input type="checkbox" name="check">
+                                                    <span class="checkUnCheckBox"></span>
+                                                    <span class="checkUnCheckText">Use same as billing address</span>
+                                                </label>
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <input type="number" class="form-control" placeholder="Zip code">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control"
+                                                placeholder="Address (house no, building, street, area)*">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Location/Town">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="City/District">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="State">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Country">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="cartDetailWrap checkoutWrap">
+                                <div class="coupen border-0">
+                                    <h6>Coupon</h6>
+                                    <div class="coupenWrap d-flex align-items-center">
+                                        <div class="inputWrap position-relative">
+                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M11 14V16H9V14H11ZM14 11H16V9H14V11ZM16 19H14V21H16V19ZM19 14V16H21V14H19ZM18 11C18.2652 11 18.5196 11.1054 18.7071 11.2929C18.8946 11.4804 19 11.7348 19 12H21C21 11.2044 20.6839 10.4413 20.1213 9.87868C19.5587 9.31607 18.7957 9 18 9V11ZM19 18C19 18.2652 18.8946 18.5196 18.7071 18.7071C18.5196 18.8946 18.2652 19 18 19V21C18.7957 21 19.5587 20.6839 20.1213 20.1213C20.6839 19.5587 21 18.7957 21 18H19ZM12 19C11.7348 19 11.4804 18.8946 11.2929 18.7071C11.1054 18.5196 11 18.2652 11 18H9C9 18.7957 9.31607 19.5587 9.87868 20.1213C10.4413 20.6839 11.2044 21 12 21V19ZM15.21 13.79C14.43 14.57 13.163 14.572 12.382 13.792L12.38 13.79L8 9.41L6.57 10.85C6.85 11.356 6.997 11.923 7 12.5C7 13.1922 6.79473 13.8689 6.41015 14.4445C6.02556 15.0201 5.47894 15.4687 4.83939 15.7336C4.19985 15.9985 3.49612 16.0678 2.81719 15.9328C2.13825 15.7977 1.51461 15.4644 1.02513 14.9749C0.535644 14.4854 0.202301 13.8618 0.0672531 13.1828C-0.0677952 12.5039 0.00151649 11.8002 0.266423 11.1606C0.53133 10.5211 0.979934 9.97444 1.55551 9.58986C2.13108 9.20527 2.80777 9 3.5 9C4.077 9.003 4.644 9.15 5.15 9.43L6.59 8L5.15 6.57C4.64475 6.84941 4.07736 6.99728 3.5 7C2.80777 7 2.13108 6.79473 1.55551 6.41015C0.979934 6.02556 0.53133 5.47894 0.266423 4.83939C0.00151649 4.19985 -0.0677952 3.49612 0.0672531 2.81719C0.202301 2.13825 0.535644 1.51461 1.02513 1.02513C1.51461 0.535644 2.13825 0.202301 2.81719 0.0672531C3.49612 -0.0677952 4.19985 0.00151649 4.83939 0.266423C5.47894 0.53133 6.02556 0.979934 6.41015 1.55551C6.79473 2.13108 7 2.80777 7 3.5C6.99728 4.07736 6.84941 4.64475 6.57 5.15L8 6.59L11.88 2.71C12.2549 2.33504 12.7633 2.12422 13.2936 2.12384C13.8238 2.12347 14.3326 2.33357 14.708 2.708L14.71 2.71L9.41 8L15.21 13.79ZM3.5 5C3.69705 4.99994 3.89216 4.96106 4.07418 4.88559C4.2562 4.81012 4.42158 4.69954 4.56087 4.56016C4.70016 4.42078 4.81063 4.25533 4.88597 4.07326C4.96132 3.89118 5.00007 3.69605 5 3.499C4.99994 3.30195 4.96106 3.10685 4.88559 2.92482C4.81012 2.7428 4.69954 2.57742 4.56016 2.43813C4.42078 2.29885 4.25533 2.18838 4.07326 2.11303C3.89118 2.03768 3.69605 1.99894 3.499 1.999C3.10104 1.99913 2.71944 2.15735 2.43813 2.43884C2.15683 2.72033 1.99887 3.10204 1.999 3.5C1.99913 3.89796 2.15735 4.27956 2.43884 4.56087C2.72033 4.84217 3.10204 5.00013 3.5 5ZM5 12.5C4.99994 12.303 4.96106 12.1078 4.88559 11.9258C4.81012 11.7438 4.69954 11.5784 4.56016 11.4391C4.42078 11.2998 4.25533 11.1894 4.07326 11.114C3.89118 11.0387 3.69605 10.9999 3.499 11C3.30195 11.0001 3.10685 11.0389 2.92482 11.1144C2.7428 11.1899 2.57742 11.3005 2.43813 11.4398C2.29885 11.5792 2.18838 11.7447 2.11303 11.9267C2.03768 12.1088 1.99894 12.304 1.999 12.501C1.99913 12.899 2.15735 13.2806 2.43884 13.5619C2.72033 13.8432 3.10204 14.0011 3.5 14.001C3.89796 14.0009 4.27956 13.8427 4.56087 13.5612C4.84217 13.2797 5.00013 12.898 5 12.5Z"
+                                                    fill="#151515"></path>
+                                            </svg>
+                                            <input type="text" placeholder="">
+                                            <span disabled datasidebarright="viewCoupons">View coupons</span>
+                                        </div>
+                                        <button type="button" disabled class="btn-outline-primary">Apply</button>
+                                    </div>
+
+                                </div>
+                                <div class="checkOutCheckBox">
+                                    <label class="checkUnCheck">
+                                        <input type="checkbox" name="check" checked>
+                                        <span class="checkUnCheckBox"></span>
+                                        <span class="checkUnCheckText">Redeem <b>1000</b> points <b
+                                                class="text-blue">($2 off)</b></span>
+                                    </label>
+                                </div>
+                                <div class="head">
+                                    <h6>Order summary</h6>
+                                    <span class="itemCount">3 items</span>
+                                </div>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="shortInfo d-flex align-items-start">
+                                                    <img src="images/product/product1_1.jpg" alt="">
+                                                    <div class="detail">
+                                                        <span class="prodId">
+                                                            #5423789
+                                                        </span>
+                                                        <h6>Moda rapido</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="price text-right">
+                                                    $25 .00
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="shortInfo d-flex align-items-start">
+                                                    <img src="images/product/product1_1.jpg" alt="">
+                                                    <div class="detail">
+                                                        <span class="prodId">
+                                                            #5423789
+                                                        </span>
+                                                        <h6>Moda rapido</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="price text-right">
+                                                    $25 .00
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="summary">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <span>Total</span>
+                                            <b>$75.00</b>
+                                        </li>
+                                        <li>
+                                            <span>Tax</span>
+                                            <span>$10.00</span>
+                                        </li>
+                                        <li>
+                                            <span>Discount</span>
+                                            <span class="cartTotal">$20.00</span>
+                                        </li>
+                                        <li>
+                                            <span>- 1000 redeem points</span>
+                                            <b>$2.00</b>
+                                        </li>
+                                        <li>
+                                            <span>Grand total</span>
+                                            <b>$65.00</b>
+                                        </li>
+                                    </ul>
+
+                                    <button type="button" class="btn btn-primary d-flex align-items-center">
+                                        Continue for checkout <svg class="ml-4" width="24" height="12"
+                                            viewBox="0 0 24 12" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+    </main>
