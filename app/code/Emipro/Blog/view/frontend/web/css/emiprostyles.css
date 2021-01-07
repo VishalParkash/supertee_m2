@@ -1,0 +1,16 @@
+.postrow{
+	background:#F0F0F0;padding:10px;margin-bottom:5px;
+}
+.postrow blockquote{
+	margin:0;
+}
+.postrow blockquote footer{
+	text-align:right;
+}
+.postrow blockquote footer .remove{
+font-size: 12px;text-decoration:none;
+}
+.postrow blockquote h2 a.edit{
+font-size:12px;
+float:right;
+}

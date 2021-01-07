@@ -1,0 +1,14 @@
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+<!--            <block class="Magento\Checkout\Block\Cart" name="checkout.cart" template="Magento_Checkout::cart.phtml" before="-"/>-->
+                <block class="Forms\Registration\Block\Checkout\Cart" name="checkout.cart" template="Forms_Registration::cart/cart.phtml" before="-"/>
+            <container name="checkout.cart.noitems" as="no-items">
+                <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="Magento_Checkout::cart/noItems.phtml">
+                    <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="checkout.cart.empty" remove="true" />
+    </body>
+</page>

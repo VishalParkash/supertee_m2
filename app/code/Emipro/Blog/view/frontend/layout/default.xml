@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<body>
+ <referenceBlock name="header.links">
+	 <block class="Magento\Framework\View\Element\Html\Link\Current" name="blog">
+		 <arguments>
+		 <argument name="label" xsi:type="string">Blog</argument>
+		 <argument name="path" xsi:type="string">blog</argument>
+		 </arguments>
+	 </block>
+	 <block class="Magento\Framework\View\Element\Html\Link\Current" name="blogajax">
+		 <arguments>
+		 <argument name="label" xsi:type="string">Blog Search</argument>
+		 <argument name="path" xsi:type="string">blog/index/ajax</argument>
+		 </arguments>
+	 </block>
+ </referenceBlock>
+</body>

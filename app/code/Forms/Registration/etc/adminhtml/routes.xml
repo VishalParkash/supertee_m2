@@ -1,0 +1,31 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route frontName="store" id="store">
+            <module name="Forms_Registration"/>
+        </route>
+	<route frontName="reauth" id="reauth">
+            <module name="Forms_Registration"/>
+        </route>
+    <route frontName="return" id="return">
+        <module name="Forms_Registration"/>
+    </route>
+        <route id="endpoint" frontName="endpoint">
+            <module name="Forms_Registration" />
+        </route>
+        <route id="postvendor" frontName="postvendor">
+            <module name="Forms_Registration" />
+        </route>
+        <route id="customprodlist" frontName="customprodlist">
+            <module name="Forms_Registration" />
+        </route>
+        <route id="customize" frontName="customize">
+            <module name="Forms_Registration" />
+        </route>
+        <route id="savecanvas" frontName="savecanvas">
+            <module name="Forms_Registration" />
+        </route>
+        <route id="list" frontName="list">
+            <module name="Forms_Registration" />
+        </route>
+    </router>
+</config>

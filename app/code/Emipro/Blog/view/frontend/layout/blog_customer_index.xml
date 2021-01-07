@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>My Blog Post</title>
+        <css src="Emipro_Blog::css/emiprostyles.css"/>
+	    <css src="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" src_type="url"/>
+    </head>
+    <update handle="customer_account"/>
+    <body>
+    	<referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">My Blog Post</argument>
+            </action>
+     </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Emipro\Blog\Block\Blog" name="blog_customer" template="Emipro_Blog::userpost.phtml" after="-" />
+        </referenceContainer>
+    </body>
+</page>
+

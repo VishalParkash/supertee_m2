@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+   <menu>
+        <add id="Emipro_Blog::view" title="Emipro Blog" module="Emipro_Blog" sortOrder="11" resource="Emipro_Blog::view"/>
+
+        <add id="Emipro_Blog::grid" title="Manage Blog" module="Emipro_Blog" sortOrder="10" parent="Emipro_Blog::view" action="blog/grid/index" resource="Emipro_Blog::view"/>
+</menu>
+</config>

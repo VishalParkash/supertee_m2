@@ -1,0 +1,854 @@
+<?php //echo $block->getVendorLogo($product_id);?>
+
+<style type="text/css">
+body {
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+}
+.container {
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+.formRow {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /*-webkit-box-align: center;*/
+    /*-ms-flex-align: center;*/
+    /*align-items: center;*/
+}
+.formRowCol {
+    /* width: 50%; */
+    padding: 0 15px;
+}
+.formRowColLeft {
+    width: 60%;
+}
+.formRowColRight {
+    width: 40%;
+}
+input {
+    width: 100%;
+    margin: 10px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    outline: 0;
+    border: 1px solid #e0e0e0;
+}
+.imgFull {
+    width: 100%;
+    display: block;
+}
+.productImage {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.productImageAction {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    max-height: 200px;
+    overflow: auto;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 30px;
+}
+.productImageActionItem {
+    background-color: #eee;
+    width: 92px;
+    height: 92px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 4px;
+}
+.productImageView {
+    width: -webkit-calc(100% - 150px);
+    width: calc(100% - 150px);
+    margin-left: 100px;
+    position: relative;
+}
+.productImageViewOver {
+    position: absolute;
+    top: 130px;
+    left: 0;
+    right: 0;
+    width: 180px;
+    margin: auto;
+    text-align: center;
+}
+.productImageViewOver img {
+    max-width: 100%;
+    margin: 0;
+    /* display: block; */
+    margin: 0 auto;
+}
+.productImageViewOver img:empty {
+    /* display: none; */
+}
+.borderTopImg, .borderBottomImg, .logoImg {
+    display: none;
+}
+.style4 .borderTopImg, .style4 .borderBottomImg {
+    display: block;
+}
+.style4 .logo {
+    display: none;
+}
+.style3 .logoImg {
+    display: block;
+}
+
+
+
+
+
+.productImageViewAction {
+    width: 70px;
+    position: absolute;
+    top: 70px;
+    left: -150px;
+}
+.productImageViewActionItm {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+.productImageViewAction img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.contentRow {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+    width: -webkit-calc(100% + 30px);
+    width: calc(100% + 30px);
+}
+.contentRow > div {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.contentRowCol40 {
+    width: 40%;
+}
+.contentRowCol50 {
+    width: 50%;
+}
+.contentRowCol60 {
+    width: 60%;
+}
+
+/*.wrapper { position: relative }
+    .imgFull {
+        position: absolute; left: 0; top: 0; 
+    }*/
+</style>
+<?php $product_id = ($this->request->getParams()['id']);?>
+
+<div style="padding: 100px 0;">
+        <div class="container">
+            <div class="formRow">
+            	<div class="formRowCol formRowColLeft">
+                    <div class="productImage">
+                        <div class="productImageView">
+                            <div class="productImageViewAction">
+                            	<?php 
+                            	$count = 1;
+                            	foreach($block->getAllProductImages($product_id) as $images){
+                            		?>
+                                <div class="productImageViewActionItm">
+                                    <img src="<?php echo $images['url'];?>" id="side_<?php echo $count; ?>" data-side ="<?php echo $images['url'];?>"/>
+                                </div>
+                                <?php $count ++ ; 
+                            } ?>
+                            </div>
+<!-- 
+                            <div class="wrapper"> -->
+							 <canvas id="canvas" class="imgFull" width="700" height="700"></canvas>
+							 <canvas id="canvasBack" class="imgFull" width="700" height="700" style="display: none"></canvas>
+							 <canvas id="canvasLeft" class="imgFull" width="700" height="700" style="display: none"></canvas>
+							 <canvas id="canvasRight" class="imgFull" width="700" height="700" style="display: none"></canvas>
+							 <canvas id="innerCanvas" class="imgFull" width="700" height="700" style="display: none"></canvas>
+<!-- 							</div>
+ -->
+                            <img src="<?php echo $block->getProductImage($product_id);?>" alt="img1" class="imgFull"
+                                id="imgViewFull" style="display: none"/>
+                            <div class="productImageViewOver">
+                                <!-- <div>
+                                    <img src="./assets/images/borderTop.png" />
+                                    <img src="./assets/images/actionLogoImg3.png" />
+                                    <div class="text1">text1</div>
+                                    <img src="./assets/images/actionLogo3.png" />
+                                    <div class="text2">text1</div>
+                                    <img src="./assets/images/borderBottom.png" />
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="formRowCol">
+                    <div>
+                        <b>Textline:</b></p>
+                        <input type="text" id="getTaglines" value="<?php //echo ($block->getTaglines());?>" disabled> 
+                    </div>
+                        <input type="text" id="text2">
+                    </div> 
+                </div-->
+
+                <div class="formRowCol formRowColRight">
+                    <div class="productImage">
+                        <div class="productImageAction">
+                            <div class="productImageActionItem" data-id="1" data-image1 = '<?php echo $block->getImagePath();?>actionLogo1.png' data-image1W = "163" data-image1H = "21" img1CdntX = "100" img1CdntY = "100" id="temp1">
+                            	
+                                <img src="<?php echo $block->getImagePath();?>action1.png" alt="action1" class="imgFull" />
+                                
+                            </div>
+                            <div class="productImageActionItem" data-id="2" data-image1 = '<?php echo $block->getImagePath();?>actionLogo2.png' data-image1W = "163" data-image1H = "42" id="temp2">
+                                	<img src="<?php echo $block->getImagePath();?>action2.png" alt="action2" class="imgFull" />
+                            </div>
+                            <div class="productImageActionItem" data-id="3" data-image1 = '<?php echo $block->getImagePath();?>actionLogoImg3.png' data-image2 = "<?php echo $block->getImagePath();?>actionLogo3.png"data-image1W = "139" data-image1H = "38" data-image2W = "139" data-image2H = "21" id="temp3">
+                                <img src="<?php echo $block->getImagePath();?>action3.png" alt="action3" class="imgFull" />
+                            </div>
+                            <div class="productImageActionItem" data-id="4" data-image2 = '<?php echo $block->getImagePath();?>borderBottom.png' data-image1 = "<?php echo $block->getImagePath();?>borderTop.png" data-image1W = "185" data-image1H = "12" data-image2W = "185" data-image2H = "12" id="temp4">
+                                <img src="<?php echo $block->getImagePath();?>action4.png" alt="action4" class="imgFull" />
+                            </div>
+                            <div class="productImageAction side_view onlyChar" data-id="5" id="paramName" style="display: none">
+                          Name
+                        </div>
+                        <div class="productImageAction side_view onlyInt" data-id="6" id="paramNum" style="display: none">
+                          00
+                        </div>
+                        <div class="productImageAction side_view alphaNumric" id="numName" data-id="6" style="display: none">
+                          Name 00
+                        </div>
+                        </div>
+                        <input type="text" name="addNumber" id="addNumber" disabled="" value="00">
+                        <input type="text" name="addName" id="addName" disabled="" value="My Name">
+                        <div class="productImageView">
+                        	
+                            <img src="<?php echo $block->getProductImage($product_id);?>" alt="img1" class="imgFull" style="display: none"/>
+                            <div class="productImageViewOver">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <?php 
+
+    $getCoordinates = ($block->getCoordinates($product_id));
+          if(!empty($getCoordinates)){
+            $xCoordinate = $getCoordinates[0]['xCoordinate'];
+            $yCoordinate = $getCoordinates[0]['yCoordinate'];
+            $canvasWidth = $getCoordinates[0]['canvasWidth'];
+            $canvasHeight = $getCoordinates[0]['canvasHeight'];  
+          }else{
+            $xCoordinate = 100;
+            $yCoordinate = 100;
+            $canvasWidth = 120;
+            $canvasHeight = 20;
+          }
+
+
+const PARAM_NAME_BASE64_URL = 'r64';
+const PARAM_NAME_URL_ENCODED = 'uenc';
+use Magento\Framework\App\Action\Action; 
+$_productCollection = $block->getProductCollection();
+?>
+<?php foreach ($_productCollection as $_product): ?>
+	<?php if($product_id == $_product->getId()){ ?>
+    <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+    <?php echo $_product->getName()?>
+    <form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+        <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+        <input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <?php $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Store\Model\StoreManagerInterface'); ?>
+            <button type="submit"
+                    title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                    class="action tocart primary">
+                <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+            </button>
+    </form>
+<?php } ?>
+<?php endforeach;?>
+<script>
+require([ 'jquery', 'jquery/ui'], function($) { 
+	$(document).ready(function (){
+    var actions = [
+        {
+            id: 1,
+            logo: "<?php echo $block->getImagePath();?>actionLogo1.png",
+            logoImg: "",
+            text1: "",
+            text2: "",
+            borderTop: "",
+            borderBottom: ""
+        },
+        {
+            id: 2,
+            logo: "<?php echo $block->getImagePath();?>actionLogo2.png",
+            logoImg: "",
+            text1: "",
+            text2: "",
+            borderTop: "",
+            borderBottom: ""
+        },
+        {
+            id: 3,
+            logo: "<?php echo $block->getImagePath();?>actionLogo3.png",
+            logoImg: "<?php echo $block->getImagePath();?>actionLogoImg3.png",
+            borderTop: "",
+            borderBottom: ""
+        },
+        {
+            id: 4,
+            logo: "",
+            logoImg: "",
+            borderTop: "<?php echo $block->getImagePath();?>borderTop.png",
+            borderBottom: "<?php echo $block->getImagePath();?>borderBottom.png"
+        }
+    ];
+
+
+    $('input').on('focusout', function(){
+    	
+
+    	if($('#canvasRight').is(':visible')) {
+			var canvas = document.getElementById('canvasRight');
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_4').attr('data-side');
+	      var sideNo = 'side_4';
+    	}else{
+    		var canvas = document.getElementById('canvasLeft');
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_3').attr('data-side');
+	      var sideNo = 'side_3';
+    	}
+    	$("#side_"+sideNo).trigger("click");
+        var inputId = $(this).attr('id');
+        console.log(inputId);
+        var newValue = $(this).val();
+
+        console.log(newValue);
+        $(this).val(newValue);
+
+        var addName = $('#addName').val();
+    	var addNumber = $('#addNumber').val();
+
+    	$('#canvas').hide();
+    	// var canvas = document.getElementById('canvas');
+     //  	var context = canvas.getContext('2d');
+     //  	context.clearRect(0, 0, canvas.width, canvas.height);
+
+
+    	// var canvas = document.getElementById('canvasLeft');
+	    //   var ctx = canvas.getContext('2d');
+	    //   var newimage = new Image();
+	    //   newimage.src = $('#side_3').attr('data-side');
+	      // newimage.src = "<?php //echo $block->getProductImage($product_id);?>";
+	      context.drawImage(newimage, 0, 0, 700, 700);
+	      context.font = '30px Impact';
+        // context.fontFamily = 'Impact';
+        	context.fillText(addName, 330, 180);
+        	context.fillText(addNumber, 360, 230);
+
+    });
+
+    $("#side_1").on("click", function () {
+    	$('#addNumber').prop('disabled', true);
+    	$('#addName').prop('disabled', true);
+    	var Tagline = "Dummy";
+
+    	$('#canvas').show();
+    	$('#canvasLeft').hide();
+    	$('#canvasRight').hide();
+    	$('#canvasBack').hide();
+
+
+    	$('#temp1').show();
+    	$('#temp2').show();
+    	$('#temp3').show();
+    	$('#temp4').show();
+
+
+    	$('#paramNum').hide();
+    	$('#paramName').hide();
+    	$('#numName').hide();
+    	// var canvasLeft = document.getElementById('canvasLeft');
+     //  	var context1 = canvasLeft.getContext('2d');
+     //  	context1.clearRect(0, 0, canvasLeft.width, canvasLeft.height);
+
+     //  	var canvasRight = document.getElementById('canvasRight');
+     //  	var context2 = canvasRight.getContext('2d');
+     //  	context2.clearRect(0, 0, canvasRight.width, canvasRight.height);
+
+     //  	var canvasBack = document.getElementById('canvasBack');
+     //  	var context3 = canvasBack.getContext('2d');
+     //  	context3.clearRect(0, 0, canvasBack.width, canvasBack.height);
+
+
+    	var canvas = document.getElementById('canvas');
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_1').attr('data-side');
+	      // newimage.src = "<?php //echo $block->getProductImage($product_id);?>";
+	      context.drawImage(newimage, 0, 0, 700, 700);
+	      context.font = '40px Impact';
+        // context.fontFamily = 'Impact';
+        	context.fillText("<?php echo $block->getTaglines();?>", 350, 350);
+        	
+    });
+
+
+    $("#side_2").on("click", function () {
+    	$('#addNumber').prop('disabled', true);
+    	$('#addName').prop('disabled', true);
+
+
+    	// var canvasFront = document.getElementById('canvas');
+     //  	var context1 = canvasFront.getContext('2d');
+     //  	context1.clearRect(0, 0, canvasFront.width, canvasFront.height);
+
+     //  	var canvasRight = document.getElementById('canvasRight');
+     //  	var context2 = canvasRight.getContext('2d');
+     //  	context2.clearRect(0, 0, canvasRight.width, canvasRight.height);
+
+     //  	var canvasLeft = document.getElementById('canvasLeft');
+     //  	var context3 = canvasLeft.getContext('2d');
+     //  	context3.clearRect(0, 0, canvasLeft.width, canvasLeft.height);
+     	$('#canvasBack').show();
+      	$('#canvas').hide();
+    	$('#canvasRight').hide();
+    	$('#canvasLeft').hide();
+
+    	$('#temp1').show();
+    	$('#temp2').show();
+    	$('#temp3').show();
+    	$('#temp4').show();
+
+
+    	$('#paramNum').hide();
+    	$('#paramName').hide();
+    	$('#numName').hide();
+
+    	var canvas = document.getElementById('canvasBack');
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_2').attr('data-side');
+	      // newimage.src = "<?php //echo $block->getProductImage($product_id);?>";
+	      context.drawImage(newimage, 0, 0, 700, 700);
+    });
+
+
+    
+    $("#side_3").on("click", function () {
+    	$('#addNumber').prop('disabled', false);
+    	$('#addName').prop('disabled', false);
+
+    	var addName = $('#addName').val();
+    	var addNumber = $('#addNumber').val();
+
+
+    	// var canvasFront = document.getElementById('canvas');
+     //  	var context1 = canvasFront.getContext('2d');
+     //  	context1.clearRect(0, 0, canvasFront.width, canvasFront.height);
+
+     //  	var canvasRight = document.getElementById('canvasRight');
+     //  	var context2 = canvasRight.getContext('2d');
+     //  	context2.clearRect(0, 0, canvasRight.width, canvasRight.height);
+
+     //  	var canvasBack = document.getElementById('canvasBack');
+     //  	var context3 = canvasBack.getContext('2d');
+     //  	context3.clearRect(0, 0, canvasBack.width, canvasBack.height);
+		$('#canvasLeft').show();
+      	$('#canvas').hide();
+    	$('#canvasRight').hide();
+    	$('#canvasBack').hide();
+    	
+
+    	$('#temp1').hide();
+    	$('#temp2').hide();
+    	$('#temp3').hide();
+    	$('#temp4').hide();
+
+
+    	$('#paramNum').show();
+    	$('#paramName').show();
+    	$('#numName').show();
+
+
+
+    	var canvas = document.getElementById('canvasLeft');
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_3').attr('data-side');
+	      // newimage.src = "<?php //echo $block->getProductImage($product_id);?>";
+	      context.drawImage(newimage, 0, 0, 700, 700);
+	      context.font = '30px Impact';
+        // context.fontFamily = 'Impact';
+        	context.fillText(addName, 330, 180);
+        	context.fillText(addNumber, 360, 230);
+    });
+
+    $("#side_4").on("click", function () {
+    	$('#addNumber').prop('disabled', false);
+    	$('#addName').prop('disabled', false);
+
+    	var addName = $('#addName').val();
+    	var addNumber = $('#addNumber').val();
+
+    	// var canvasFront = document.getElementById('canvas');
+     //  	var context1 = canvasFront.getContext('2d');
+     //  	context1.clearRect(0, 0, canvasFront.width, canvasFront.height);
+
+     //  	var canvasLeft = document.getElementById('canvasLeft');
+     //  	var context2 = canvasLeft.getContext('2d');
+     //  	context2.clearRect(0, 0, canvasLeft.width, canvasLeft.height);
+
+     //  	var canvasBack = document.getElementById('canvasBack');
+     //  	var context3 = canvasBack.getContext('2d');
+     //  	context3.clearRect(0, 0, canvasBack.width, canvasBack.height);
+
+      	$('#canvasRight').show();
+      	$('#canvas').hide();
+    	$('#canvasLeft').hide();
+    	$('#canvasBack').hide();
+
+    	$('#temp1').hide();
+    	$('#temp2').hide();
+    	$('#temp3').hide();
+    	$('#temp4').hide();
+
+
+    	$('#paramNum').show();
+    	$('#paramName').show();
+    	$('#numName').show();
+
+      	var canvas = document.getElementById('canvasRight');
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_4').attr('data-side');
+	      // newimage.src = "<?php //echo $block->getProductImage($product_id);?>";
+	      context.drawImage(newimage, 0, 0, 700, 700);
+	      context.font = '30px Impact';
+        // context.fontFamily = 'Impact';
+        	context.fillText(addName, 300, 180);
+        	context.fillText(addNumber, 330, 230);
+    });
+
+
+    $("#paramNum").on("click", function () {
+
+    	$('#addNumber').prop('disabled', true);
+    	$('#addName').prop('disabled', false);
+
+    	var addName = $('#addName').val('');
+    	var addNumber = $('#addNumber').val();
+
+    	if ($('#canvasLeft').css("visibility") == "visible") {
+
+    		var canvas = document.getElementById('canvasLeft');
+    		var side_id = 'side_3';
+    		var Xcdn = 330;
+    		var Ycdn = 180;
+    	}else{
+    		var canvas = document.getElementById('canvasRight');
+    		var side_id = 'side_4';
+    		var Xcdn = 360;
+    		var Ycdn = 180;
+    	}
+    	
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_'+side_id).attr('data-side');
+	      // newimage.src = "<?php //echo $block->getProductImage($product_id);?>";
+	      context.drawImage(newimage, 0, 0, 700, 700);
+	      context.font = '30px Impact';
+        // context.fontFamily = 'Impact';
+        	context.fillText(addName, 360, 180);
+        	context.fillText(addNumber, Xcdn, Ycdn);
+
+    })
+
+    $("#numName").on("click", function () {
+
+    	$('#addNumber').prop('disabled', true);
+    	$('#addName').prop('disabled', false);
+
+    	var addName = $('#addName').val();
+    	var addNumber = $('#addNumber').val();
+
+    	if ($('#canvasLeft').css("visibility") == "visible") {
+
+    		var canvas = document.getElementById('canvasLeft');
+    		var side_id = 'side_3';
+    		var Xcdn = 330;
+    		var Ycdn = 180;
+    	}else{
+    		var canvas = document.getElementById('canvasRight');
+    		var side_id = 'side_4';
+    		var Xcdn = 360;
+    		var Ycdn = 180;
+    	}
+    	
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_'+side_id).attr('data-side');
+	      // newimage.src = "<?php //echo $block->getProductImage($product_id);?>";
+	      context.drawImage(newimage, 0, 0, 700, 700);
+	      context.font = '30px Impact';
+        // context.fontFamily = 'Impact';
+        	context.fillText(addName, 360, 180);
+        	context.fillText(addNumber, 360, 230);
+
+    })
+
+    $("#paramName").on("click", function () {
+
+    	$('#addNumber').prop('disabled', true);
+    	$('#addName').prop('disabled', false);
+
+    	var addName = $('#addName').val();
+    	// var addNumber = $('#addNumber').val('');
+
+    	if ($('#canvasLeft').css("visibility") == "visible") {
+
+    		var oldCanvas = document.getElementById('canvasLeft');
+	      	var oldContext = oldCanvas.getContext('2d');
+	      	oldContext.clearRect(0, 0, oldCanvas.width, oldCanvas.height);
+
+	      	var canvas = document.getElementById('canvasLeft');
+    		var side_id = 'side_3';
+    		var Xcdn = 330;
+    		var Ycdn = 180;
+    	}else{
+    		var oldCanvas = document.getElementById('canvasRight');
+	      	var oldContext = oldCanvas.getContext('2d');
+	      	oldContext.clearRect(0, 0, oldCanvas.width, oldCanvas.height);
+	      	var canvas = document.getElementById('canvasRight');
+    		var side_id = 'side_4';
+    		var Xcdn = 360;
+    		var Ycdn = 180;
+    	}
+    		console.log('side'+side_id);
+	      var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      console.log("this is"+newimage.src)
+	      newimage.src = $('#side_'+side_id).attr('data-side');
+	      // newimage.src = "<?php //echo $block->getProductImage($product_id);?>";
+	      context.drawImage(newimage, 0, 0, 700, 700);
+	      context.font = '30px Impact';
+        // context.fontFamily = 'Impact';
+        	context.fillText(addName, 360, 180);
+        	// context.fillText(addNumber, 360, 230);
+
+    })
+
+    $(".productImageActionItem").on("click", function () {
+
+    	var canvas = document.getElementById('canvasLeft');
+      	var context = canvas.getContext('2d');
+      	context.clearRect(0, 0, canvas.width, canvas.height);
+
+      	var canvas = document.getElementById('canvasLeft');
+      	var context = canvas.getContext('2d');
+      	context.clearRect(0, 0, canvas.width, canvas.height);
+
+      	// if ($('#canvas').css("visibility") == "visible") {
+      	if($('#canvas').is(':visible')) {
+	      	var canvas = document.getElementById('canvas');
+	      	var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_1').attr('data-side');
+	      context.drawImage(newimage, 0, 0, 700, 700);
+    		var side_id = 'side_1';
+    		var Xcdn = 350;
+    		var Ycdn = 350;
+    	}else{
+	      	var canvas = document.getElementById('canvasBack');
+	      	var context = canvas.getContext('2d');
+	      var newimage = new Image();
+	      newimage.src = $('#side_2').attr('data-side');
+	      context.drawImage(newimage, 0, 0, 700, 700);
+    		var side_id = 'side_2';
+    		var Xcdn = 295;
+    		var Ycdn = 350;
+    	}
+
+	      
+	      context.font = '40px Impact';
+        context.fillText('<?php echo $block->getTaglines();?>', Xcdn, Ycdn);
+    	var dataId = $(this).attr("data-id");
+
+    	var imgSrc = [];
+    	var imgSrcCdnt = [];
+    	var image1 = $(this).attr("data-image1");
+    	var image2 = $(this).attr("data-image2");
+    	var image3 = $(this).attr("data-image3");
+
+    	if((typeof image1 !== 'undefined')){
+    		imgSrc['image1'] = (image1);
+
+    		imgSrcCdnt['image1W'] = $(this).attr("data-image1W");
+    		imgSrcCdnt['image1H'] = $(this).attr("data-image1H");
+    	}if((typeof image2 !== 'undefined')){
+    		imgSrcCdnt['image2W'] = $(this).attr("data-image2W");
+    		imgSrcCdnt['image2H'] = $(this).attr("data-image2H");
+    		imgSrc['image2'] = (image2);
+    	}if((typeof image3 !== 'undefined')){
+    		imgSrc['image3'] = (image3);
+    	}
+
+    	console.log(imgSrcCdnt);
+
+        function loadImages(sources, callback) {
+		var images = {};
+        var loadedImages = 0;
+        var numImages = 0;
+        // get num of sources
+        for(var src in sources) {
+          numImages++;
+        }
+        for(var src in sources) {
+          images[src] = new Image();
+          images[src].onload = function() {
+            if(++loadedImages >= numImages) {
+              callback(images);
+            }
+          };
+          images[src].src = sources[src];
+        }
+      }
+      // var canvas = document.getElementById('canvas');
+      if($('#canvas').is(':visible')) {
+      		$('#canvasBack').hide();
+	      	var canvas = document.getElementById('canvas');
+	      	var context = canvas.getContext('2d');
+    		var side_id = 'side_1';
+    		var Xcdn = 350;
+    		var Ycdn = 350;
+    	}else{
+    		$('#canvas').hide();
+	      	var canvas = document.getElementById('canvasBack');
+	      	var context = canvas.getContext('2d');
+    		var side_id = 'side_2';
+    		var Xcdn = 320;
+    		var Ycdn = 350;
+    	}
+      
+      var sources = (imgSrc);
+
+      loadImages(sources, function(images) {
+      console.log(sources);
+
+      	if(images.image1 != ''){
+      		var image1W = imgSrcCdnt['image1W'];
+      		var image1H = imgSrcCdnt['image1H'];
+      		context.drawImage(images.image1, 280, 280, image1W, image1H);
+      	}if(images.image2 != ''){
+      		var image2W = imgSrcCdnt['image2W'];
+      		var image2H = imgSrcCdnt['image2H'];
+      		context.drawImage(images.image2, 280, 350, image2W, image2H);
+      	}if(images.image3 != ''){
+      		context.drawImage(images.image3, 250, 350, 100, 31);
+      	}
+        
+        context.font = '40px Impact';
+        context.fillText('<?php echo $block->getTaglines();?>', Xcdn, Ycdn);
+      });
+
+    });
+  	
+var arr = ["Roboto", "Open+Sans", "Lato", "Raleway", "Source+Sans+Pro", "Ubuntu", "Titillium+Web", "Poppins", "Dosis", "Nunito", "Work+Sans", "Cabin", "Josefin+Sans", "Merriweather+Sans", "Exo+2", "Source+Code+Pro", "Kanit", "Exo", "Rokkitt", "Martel", "Alegreya+Sans+SC", "Arima+Madurai", "Montserrat+Alternates", "Martel+Sans", "Expletus+Sans", "Inknut+Antiqua", 'Krona+One', 'Abril+Fatface', 'Courgette', 'Dancing+Script','Great+Vibes', 'Lobster+Two', 'Pinyon+Script', 'Satisfy' ];
+function drawImage(){
+
+
+	var xCoordinate = '<?php echo $getCoordinates[0]['xCoordinate']; ?>';
+    var yCoordinate = '<?php echo $getCoordinates[0]['yCoordinate']; ?>';
+    var canvasWidth = '<?php echo $getCoordinates[0]['canvasWidth']; ?>';
+    var canvasHeight = '<?php echo $getCoordinates[0]['canvasHeight']; ?>'; 
+
+	var fontFamily = arr[Math.floor(Math.random() * arr.length)];
+	var link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = 'https://fonts.googleapis.com/css?family='+fontFamily;
+	console.log(link);
+	document.getElementsByTagName('head')[0].appendChild(link);
+
+
+    img = new Image();
+    
+    img.onload = function(){
+    	var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, 700, 700);
+        
+        ctx.textAlign = 'center';
+        fontFamily.replace('+', ' ');
+
+	      ctx.font = '40px Impact';
+	      // ctx.fillText(, 350, 350);
+	      // ctx.fillText('<?php echo $block->getTaglines();?>', xCoordinate, yCoordinate);
+	      ctx.fillText('<?php echo $block->getTaglines();?>', 350, 350);
+    };
+
+    img.src = '<?php echo $block->getProductImage($product_id);?>';
+}
+
+drawImage();
+
+
+// var getVendorLogoPath = '<?php //echo $block->getVendorLogoPath($block->getVendorLogo(18)[0]['Vendorlogo'])?>';
+// var canvas = document.getElementById('canvas'); 
+// var context = canvas.getContext('2d'); 
+// Image img1 = new Image(); 
+// Image img2 = new Image(); 
+ 
+// img1.onload = function() { 
+//     canvas.width = img1.width; 
+//     canvas.height = img1.height; 
+//     img2.src = getVendorLogoPath;
+// }; 
+// img2.onload = function() { 
+//     context.globalAlpha = 1.0; 
+//     context.drawImage(img1, 0, 0); 
+//     context.globalAlpha = 0.5; //Remove if pngs have alpha 
+//     context.drawImage(img2, 0, 0); 
+// };         
+ 
+// img1.src = '<?php echo $block->getProductImage($product_id);?>'; 
+});
+});
+
+
+
+
+</script>
