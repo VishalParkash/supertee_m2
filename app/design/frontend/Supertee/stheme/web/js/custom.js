@@ -1,4 +1,6 @@
-$(document).on('ready', function () {
+require([ 'jquery', 'slick', 'bootstrap4'], function($,modal){ 
+$(document).ready(function () {
+
     // AOS.init();
     $(".productSlider ").slick({
         dots: false,
@@ -450,5 +452,6 @@ $(".productImgSliderNav").slick({
     focusOnSelect: true,
     adaptiveHeight: true,
     infinite: false,
+});
 });
 

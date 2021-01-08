@@ -15,6 +15,8 @@
 <referenceBlock name="category.product.addto.compare" remove="true"/> <!-- Category add compare -->
 <referenceBlock name="view.addto.compare" remove="true" /> <!-- Product addto compare -->
 <referenceBlock name="breadcrumbs" remove="true" />
+<referenceBlock name="catalog.leftnav" remove="true" />
+
 
 
     </body>
