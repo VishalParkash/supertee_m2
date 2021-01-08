@@ -112,7 +112,8 @@ $itemsVisible = $cart->getQuote()->getAllVisibleItems();
 
 #discount-coupon-form input{
     border-radius: 10px;
-    padding: 13px 120px 13px 40px;
+    /*padding: 13px 120px 13px 40px;*/
+    padding: 13px 40px 13px 40px;
     width: 100%;
     font-size: 1.125em;
     background-color: transparent;
@@ -168,6 +169,23 @@ $itemsVisible = $cart->getQuote()->getAllVisibleItems();
     color: #00BFF3;
 }
 
+.actions-toolbar .apply.btn-outline-primary{
+    padding: 15px 10px;
+    font-weight: bold;
+    font-size: 1.125em;
+    line-height: 100%;
+    border-radius: 10px;
+    margin-left: 20px;
+    color: #00263E;
+    border-color: #00263E;
+    cursor: pointer;
+    background:transparent;
+}
+
+.cartSection .btn_wrap button{
+    margin-bottom:25px;
+}
+
 </style>
 
 <main class="main">
@@ -190,7 +208,7 @@ $itemsVisible = $cart->getQuote()->getAllVisibleItems();
                             <div class="topHead d-flex align-items-center justify-content-between">
                                 <h6>My shopping cart ( <?php echo $itemCount;?> items)</h6>
                                 <h6 class="totalValue">
-                                    Total amount: $<?php echo $grandTotal;?>
+                                    Total amount: $<?php echo number_format($grandTotal, 2);?>
                                 </h6>
                             </div>
                             <div class="table-responsive">
@@ -500,7 +518,7 @@ $itemsVisible = $cart->getQuote()->getAllVisibleItems();
                                                     <div class="actions-toolbar">
                                                     <?php if (!strlen($block->getCouponCode())): ?>
                                                         <div class="primary">
-                                                            <button class="action apply primary" type="button" value="<?= /* @escapeNotVerified */ __('Apply') ?>">
+                                                            <button class="action apply btn-outline-primary" type="button" value="<?= /* @escapeNotVerified */ __('Apply') ?>">
                                                                 <span><?= /* @escapeNotVerified */ __('Apply') ?></span>
                                                             </button>
                                                         </div>
@@ -553,13 +571,14 @@ $itemsVisible = $cart->getQuote()->getAllVisibleItems();
                     "checkoutUrl":"<?php echo $block->getBaseUrl(); ?>checkout"
                 }
             }'
-            class="action primary checkout btn btn-primary d-flex align-items-center">
+            class="action checkout btn btn-primary d-flex align-items-center">
+            <?= $block->escapeHtml(__('Checkout')) ?>
             <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12"
-                                            fill="#fff" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" />
-                                        </svg>
-        <span><?= $block->escapeHtml(__('Proceed to Checkout')) ?></span>
+                fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" />
+            </svg>
+        
     </button>
                                     <!-- <a href="<?php //echo $block->getBaseUrl(); ?>checkout"> -->
                                     <!-- <button type="button" data-role="proceed-to-checkout" title="Proceed to Checkout" class="btn btn-primary d-flex align-items-center action primary checkout"> -->

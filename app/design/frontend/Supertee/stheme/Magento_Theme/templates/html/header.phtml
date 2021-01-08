@@ -205,13 +205,8 @@ $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer
                                 <span class="navbar-toggler-icon"></span>
                             </button>
 
-                            <div class="collapse navbar-collapse order-xl-2 position-relative" id="navbarSupportedContent">
-                                <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}' class="navbar-nav mx-auto">
-                            <?php //echo $_menu; ?>
-                            <?php echo $block->getChildHtml(); ?>
-                            </ul>
-                                
-                                <div class="iconWrap my-2 my-lg-0 d-flex align-items-center">
+
+                                <div class="iconWrap my-2 my-lg-0 d-flex align-items-center order-xl-3">
                                     <div class="search">
                                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -275,6 +270,14 @@ $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer
                                         </a>
                                     </div>
                                 </div>
+
+
+                            <div class="collapse navbar-collapse order-xl-2 position-relative" id="navbarSupportedContent">
+                              <?php echo $block->getChildHtml(); ?>
+                               <!--  <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}' class=" mx-auto">
+                                  <?php //echo $_menu; ?>
+                                  <?php //echo $block->getChildHtml(); ?>
+                                </ul> --> 
                             </div>
                         </nav>
                     </div>
