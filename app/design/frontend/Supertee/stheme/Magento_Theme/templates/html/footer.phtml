@@ -1492,6 +1492,9 @@
             </div>
 
         </div>
+
+        <!-- Signin Modal -->
+  
     <!-- script -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
@@ -1499,7 +1502,7 @@
     <script src="<?php echo $block->getViewFileUrl('js/custom.js'); ?>"></script>
 
     <script>
-        require([ 'jquery', 'bootstrap4'], function($){ 
+        require([ 'jquery', 'bootstrap4', 'Magento_Ui/js/modal/modal'], function($, modal){ 
         $(document).ready(function() {
         $('.iconWrap .showSearch').on('click', function(){
            $('.search_box').addClass('show'); 
@@ -1585,15 +1588,21 @@
     });
 
     // customTabbing
-    $('.nav-tabs .nav-item').click(function(){
+    $('.tab_wrap .nav-tabs .nav-item').click(function(){
         var navId = $(this).attr('href');
 
-        $('.nav-tabs .nav-item').removeClass('active');
-        $('.tab-content .tab-pane').removeClass('show active');
+        $('.tab_wrap .nav-tabs .nav-item').removeClass('active');
+        $('.tab_wrap .tab-content .tab-pane').removeClass('show active');
 
         $(this).addClass('active');
         $(navId).addClass('show active');
     });
+
+
+     // $("#LoginId").on('click',function(){
+     //        $('.login_process').modal('show');
+     //    });
+
 
         });
         });

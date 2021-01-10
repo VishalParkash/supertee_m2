@@ -322,7 +322,7 @@ $itemsVisible = $cart->getQuote()->getAllVisibleItems();
                                             <td>
                                                 <span class="price">
                                                     <strong>
-                                                        $<?php echo $item->getPrice(); ?>
+                                                        $<?php echo number_format($item->getPrice(), 2); ?>
                                                     </strong>
                                                 </span>
                                             </td>
@@ -555,7 +555,7 @@ $itemsVisible = $cart->getQuote()->getAllVisibleItems();
                                         </li>
                                         <li>
                                             <span>Discount</span>
-                                            <span>$<?php echo $item->getDiscountAmount();?></span>
+                                            <span>$<?php echo number_format($item->getDiscountAmount() , 2);?></span>
                                         </li>
                                         <li>
                                             <span>Grand total</span>
