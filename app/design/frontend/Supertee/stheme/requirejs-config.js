@@ -10,7 +10,7 @@ var config = {
             deps: ['jquery']
         },
         bootstrap4: {
-            deps: ['jquery']
+            deps: ['jquery',,'jquery/ui','Magento_Ui/js/modal/modal']
         }
     }
 };
