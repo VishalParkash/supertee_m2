@@ -36,6 +36,19 @@
                                         <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
                                         <item name="displayArea" xsi:type="string">messages</item>
                                     </item>
+                                    <item name="authentication" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">1</item>
+                                        <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication</item>
+                                        <item name="displayArea" xsi:type="string">authentication</item>
+                                        <item name="children" xsi:type="array">
+                                            <!--Additional authentication fields-->
+                                            <item name="errors" xsi:type="array">
+                                                <item name="sortOrder" xsi:type="string">0</item>
+                                                <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication-messages</item>
+                                                <item name="displayArea" xsi:type="string">messages</item>
+                                            </item>
+                                        </item>
+                                    </item>
                                     <item name="progressBar" xsi:type="array">
                                         <item name="sortOrder" xsi:type="string">0</item>
                                         <item name="component" xsi:type="string">Magento_Checkout/js/view/progress-bar</item>
@@ -47,7 +60,17 @@
                                             </item>
                                         </item>
                                     </item>
-                                    
+                                    <item name="estimation" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">10</item>
+                                        <item name="component" xsi:type="string">Magento_Checkout/js/view/estimation</item>
+                                        <item name="displayArea" xsi:type="string">estimation</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Magento_Checkout/estimation</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">checkout.sidebar</item>
+                                            </item>
+                                        </item>
+                                    </item>
                                     <item name="steps" xsi:type="array">
                                         <item name="component" xsi:type="string">uiComponent</item>
                                         <item name="displayArea" xsi:type="string">steps</item>
@@ -100,9 +123,9 @@
                                                             <item name="customer-email" xsi:type="array">
                                                                 <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email</item>
                                                                 <item name="displayArea" xsi:type="string">customer-email</item>
-                                                                <!-- <item name="tooltip" xsi:type="array">
+                                                                <item name="tooltip" xsi:type="array">
                                                                     <item name="description" xsi:type="string" translate="true">We'll send your order confirmation here.</item>
-                                                                </item> -->
+                                                                </item>
                                                                 <item name="children" xsi:type="array">
                                                                     <item name="before-login-form" xsi:type="array">
                                                                         <item name="component" xsi:type="string">uiComponent</item>
@@ -183,13 +206,27 @@
                                                                         </item>
                                                                     </item>
                                                                     <item name="postcode" xsi:type="array">
+                                                                        <!-- post-code field has custom UI component -->
                                                                         <item name="component" xsi:type="string">Magento_Ui/js/form/element/post-code</item>
                                                                         <item name="validation" xsi:type="array">
                                                                             <item name="required-entry" xsi:type="boolean">true</item>
                                                                         </item>
                                                                     </item>
+                                                                    <item name="company" xsi:type="array">
+                                                                        <item name="validation" xsi:type="array">
+                                                                            <item name="min_text_length" xsi:type="number">0</item>
+                                                                        </item>
+                                                                    </item>
+                                                                    <item name="fax" xsi:type="array">
+                                                                        <item name="validation" xsi:type="array">
+                                                                            <item name="min_text_length" xsi:type="number">0</item>
+                                                                        </item>
+                                                                    </item>
                                                                     <item name="telephone" xsi:type="array">
                                                                         <item name="config" xsi:type="array">
+                                                                            <item name="tooltip" xsi:type="array">
+                                                                                <item name="description" xsi:type="string" translate="true">For delivery questions.</item>
+                                                                            </item>
                                                                         </item>
                                                                     </item>
                                                                 </item>
@@ -227,9 +264,9 @@
                                                             <item name="customer-email" xsi:type="array">
                                                                 <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email</item>
                                                                 <item name="displayArea" xsi:type="string">customer-email</item>
-                                                                <!-- <item name="tooltip" xsi:type="array">
+                                                                <item name="tooltip" xsi:type="array">
                                                                     <item name="description" xsi:type="string" translate="true">We'll send your order confirmation here.</item>
-                                                                </item> -->
+                                                                </item>
                                                                 <item name="children" xsi:type="array">
                                                                     <item name="before-login-form" xsi:type="array">
                                                                         <item name="component" xsi:type="string">uiComponent</item>

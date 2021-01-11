@@ -6,13 +6,13 @@
 -->
 
 <!-- ko if: (visible)-->
-<div class="field addresses">
-    <div class="control">
-        <div class="shipping-address-items">
+<div class="field addresses form-row">
+    
+        <div class="shipping-address-items form-group col-md-6">
             <!-- ko foreach: { data: elems, as: 'element' } -->
             <!-- ko template: element.getTemplate() --><!-- /ko -->
             <!-- /ko -->
         </div>
-    </div>
+    
 </div>
 <!-- /ko -->

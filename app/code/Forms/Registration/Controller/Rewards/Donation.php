@@ -47,63 +47,9 @@ class Donation extends \Magento\Framework\App\Action\Action
                 return $result;
                 
                 } catch (Exception $e) {
+                    return 'error';
                     \Zend_Debug::dump($e->getMessage());
                 }
-
-
-        
-  //       if(!empty($this->getRequest()->getParam ( 'brand' )) && (!empty($this->getRequest()->getParam ( 'size' )))) {
-  //   		$getBrand = $this->getRequest()->getParam ( 'brand' );
-  //   		$getSize = $this->getRequest()->getParam ( 'size' );
-
-  //   		$productCollection->addAttributeToSelect ( '*' )
-  //       	->addAttributeToFilter ( 'size', $getSize )
-  //       	->addAttributeToFilter ( 'brand', $getBrand );
-         	
-  //   	}elseif(!empty($this->getRequest()->getParam ( 'brand' ))) {
-  //   		$getBrand = $this->getRequest()->getParam ( 'brand' );
-
-  //   		$productCollection->addAttributeToSelect ( '*' )
-  //       	->addAttributeToFilter ( 'brand', $getBrand );
-         	
-  //   	}elseif(!empty($this->getRequest()->getParam ( 'size' ))){
-  //   		$getSize = $this->getRequest()->getParam ( 'size' );
-
-  //   		$productCollection->addAttributeToSelect ( '*' )
-  //       	->addAttributeToFilter ( 'size', $getSize );
-  //   	}elseif(!empty($this->getRequest()->getParam ( 'priceRange' ))){
-  //   		$priceRange = $this->getRequest()->getParam ( 'priceRange' );
-  //   		$priceArr = explode("_", $priceRange);
-
-  //   		$pricefrom = $priceArr[0];
-  //   		$priceto = $priceArr[1];
-
-  //   		$productCollection->addFieldToSelect ( '*' )
-  //       	->addFieldToFilter ( 'price', array(
-  //                               array('from' => $pricefrom, 'to' => $priceto),
-  //                           ) );
-  //   	}elseif((!empty($this->getRequest()->getParam ( 'categories' )))){
-  //   		$categoryId = $this->getRequest()->getParam ( 'categories' );
-  //   		$category = $categoryFactory->create()->load($categoryId);
- 
-		// $productCollection = $category->getProductCollection()
-  //   ->addAttributeToSelect('*');
-  //   	}
-  //   	// echo $productCollection->getSelect();die;
-  //   	$productIds = array();
-  //   	foreach($productCollection as $products){
-	 //         	$data[] = $products->getId();
-	         	
-  //       	}
-
-  //       	$block = $resultPage->getLayout()
-  //               ->createBlock('Forms\Registration\Block\Index\View')
-  //               ->setTemplate('Forms_Registration::view.phtml')
-  //               ->setData('data',$data)
-  //               ->toHtml();
- 
-  //       $result->setData(['output' => $block]);
-  //       return $result;
         
     }
 }

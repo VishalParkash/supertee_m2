@@ -1,4 +1,24 @@
-<?php $helper = $this->helper('Forms\Registration\Helper\Data'); ?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+$getFirstName = explode(" ", $customerSession->getCustomer()->getName());
+$firstName = $getFirstName[0];
+// if($customerSession->isLoggedIn()){
+//    die('ksks');
+// }
+//     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+
+
+//     $ObjectManager= \Magento\Framework\App\ObjectManager::getInstance();
+// $context = $ObjectManager->get('Magento\Framework\App\Http\Context');
+// $isLoggedIn = $context->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
+// return $isLoggedIn;
+
+// $SessionCustomer = $this->helper('Forms/Registration/Helper/Data');
+// echo "<pre>";print_r($SessionCustomer);
+
+?>
 <?php 
 // Magento\Theme\Block\Html\Topmenu
 $urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
@@ -253,8 +273,8 @@ $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer
                                             </defs>
                                         </svg></a>
                                 </div>
-                                <?php if(!$helper->isLoggedIn()){ ?>
-                                <a href="#" id="modalOpen" data-target="#signin">
+                                <?php if(!$customerSession->isLoggedIn()){ ?>
+                                <a href="#" id="login-popup" data-target="#signin">
                               <span>Login</span>
                             </a>
                             <?php }else {?>
@@ -268,9 +288,7 @@ $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M5.64296 28.1959C4.96987 27.624 4.33837 26.9904 3.766 26.3127C1.33731 23.434 0 19.7717 0 16C0 11.7262 1.66425 7.70825 4.68625 4.68625C7.70825 1.66425 11.7262 0 16 0C20.2738 0 24.2917 1.66425 27.3137 4.68625C30.3357 7.70825 32 11.7262 32 16C32 19.7717 30.6627 23.4341 28.2343 26.3124C27.6605 26.9918 27.0276 27.6266 26.3528 28.1996C26.349 28.2029 26.3451 28.2061 26.3413 28.2094C23.4586 30.6538 19.7862 32 16 32C12.2157 32 8.54519 30.6552 5.66306 28.213C5.65629 28.2074 5.64959 28.2017 5.64296 28.1959ZM5.0049 24.6679C3.06393 22.2072 2 19.1472 2 16C2 8.28037 8.28037 2 16 2C23.7196 2 30 8.28037 30 16C30 19.1474 28.936 22.2075 26.9951 24.6679C26.9128 21.8807 25.796 19.2659 23.8293 17.2731C22.6674 16.0958 21.2847 15.2122 19.7735 14.6616C21.131 13.5607 22 11.8799 22 10C22 6.69156 19.3084 4 16 4C12.6916 4 10 6.69156 10 10C10 11.8799 10.8691 13.5607 12.2265 14.6617C10.7154 15.2123 9.33267 16.0959 8.17075 17.2731C6.20398 19.2659 5.08716 21.8807 5.0049 24.6679ZM24.8016 26.8878C24.9333 26.2701 25 25.6366 25 25C25 20.1072 21.0221 16.0709 16.1317 16.0006L16 16L15.8683 16.0006C10.9779 16.0709 7 20.1072 7 25C7 25.6366 7.06667 26.2702 7.19836 26.8878C9.68159 28.8971 12.794 30 16 30C19.2061 30 22.3186 28.8971 24.8016 26.8878ZM16 6C13.7944 6 12 7.79437 12 10C12 12.2056 13.7944 14 16 14C18.2056 14 20 12.2056 20 10C20 7.79437 18.2056 6 16 6Z" />
                                         </svg>
-                                        <a href="#" id="modalOpen1" data-target="#signi1n">
-                                        <span><?php $helper->getCustomer()->getName(); ?>></span>
-                                      </a>
+                                        <span><?php echo ucwords($firstName); ?></span>
                                       
                                       </button>
                                   

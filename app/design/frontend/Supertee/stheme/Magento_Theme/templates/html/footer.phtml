@@ -1,3 +1,45 @@
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customSession = $objectManager->create('Forms\Registration\Model\Session');
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+$customerId = $customerSession->getId();
+$getFirstName = explode(" ", $customerSession->getCustomer()->getName());
+
+$firstName = $getFirstName[0];
+// $customerSession->setMyValue('testing value');
+// $customSession->getData('donation_data');
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+$themeTable = $resource->getTableName('user_rewards'); //gives table name
+
+$getUserPointsSql = "SELECT * FROM " . $themeTable . " WHERE customer_id ='".$customerId."'";
+$getUserPoints = $connection->fetchAll($getUserPointsSql);
+
+$credit = 0;
+$debit = 0;
+foreach($getUserPoints as $points){
+    if($points['reward_type'] == 'credit'){
+        $credit += $points['reward_points'];
+    }elseif($points['reward_type'] == 'debit'){
+        $debit += $points['reward_points'];
+    }
+} 
+$earnedPoints = ($credit - $debit);
+
+
+//Select Data from table
+// $sql = $connection->select()->from(
+//          ["tn" => $tableName]
+//     );
+// $result = $connection->fetchAll($getUserPoints);
+
+// $session = $this->session->getData('donation_data'); 
+    $session = ($customSession->getData('donation_data'));
+?>
 <!-- Footer -->
     <footer class="text-white">
         <div class="footerTop">
@@ -884,9 +926,17 @@
             </div>
         </div>
     </div>
-
+    <?php 
+        if($customerSession->isLoggedIn()){
+            $viewId = 'rwd_view_reward_user';
+        }else{
+            $viewId = 'view_main';
+        }
+        
+    ?>
+    
     <div class="rwd_container">
-            <a href="javascript:void(0)" view-id="view_main" class="btn-widget btn-secondary btn align-items-center" id="rwd_widget">
+            <a href="javascript:void(0)" view-id="<?php echo $viewId;?>" class="btn-widget btn-secondary btn align-items-center" id="rwd_widget">
                 <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18.2474 11.6824C18.7221 11.2605 18.4848 10.4694 17.8519 10.4166L14.9247 10.1793C14.6609 10.1529 14.4236 9.99467 14.3181 9.73096L13.1841 7.01472C12.9468 6.43455 12.1029 6.43455 11.8656 7.01472L10.7316 9.73096C10.6261 9.9683 10.3888 10.1529 10.1251 10.1793L7.22423 10.443C6.59132 10.4957 6.32761 11.2869 6.82866 11.7088L9.04385 13.6075C9.25482 13.7921 9.33394 14.0559 9.28119 14.3196L8.59554 17.1677C8.43731 17.7742 9.12297 18.2753 9.65039 17.9324L12.1557 16.4029C12.393 16.271 12.6831 16.271 12.8941 16.4029L15.3993 17.9324C15.9531 18.2753 16.6124 17.7742 16.4542 17.1677L15.7685 14.3196C15.7158 14.0559 15.7949 13.7921 16.0059 13.6075L18.2474 11.6824Z" fill="#FFC62E"/>
                     <path d="M12.5255 3.9557C12.9738 3.9557 13.3167 3.5865 13.3167 3.16456V0.791139C13.3167 0.342827 12.9475 0 12.5255 0C12.1036 0 11.7344 0.369198 11.7344 0.791139V3.16456C11.7344 3.5865 12.1036 3.9557 12.5255 3.9557Z" fill="#FFC62E"/>
@@ -898,10 +948,15 @@
                     <path d="M24.2349 11.7354H21.8615C21.4131 11.7354 21.0703 12.1045 21.0703 12.5265C21.0703 12.9484 21.4395 13.3176 21.8615 13.3176H24.2349C24.6832 13.3176 25.026 12.9484 25.026 12.5265C25.026 12.1045 24.6568 11.7354 24.2349 11.7354Z" fill="#FFC62E"/>
                     <path d="M19.1193 6.69827C19.3302 6.69827 19.5148 6.61915 19.6731 6.46093L21.3608 4.77316C21.6773 4.45671 21.6773 3.95565 21.3608 3.6392C21.0444 3.32274 20.5433 3.32274 20.2269 3.6392L18.5655 5.35333C18.249 5.66979 18.249 6.17084 18.5655 6.4873C18.7237 6.64553 18.9347 6.69827 19.1193 6.69827Z" fill="#FFC62E"/>
                 </svg>
+                <?php if($customerSession->isLoggedIn()){?>
+                        <span>you have $<?php echo number_format($earnedPoints, 2); ?> in points </span>
+                <?php }else{?>
                 <span>sign up & earn points</span>
+            <?php } ?>
             </a>
 
             <!-- rwd_main -->
+            <?php if(!$customerSession->isLoggedIn()){?>
             <div class="rwd_main " id="view_main">
                 <div class="rwd_top text-white d-flex align-items-center justify-content-between">
                     <div class="head">
@@ -918,7 +973,8 @@
                             <span class="top_text">create an account & instantly earn</span>
                             <h6>100 points</h6>
                             <a href="javascript:void(0);" id="action_btn" view-id="rwd_view_reward" class="view_reward">view rewards</a>
-                            <button type="button" id="action_btn" view-id="rwd_view_reward_user" class="btn btn-primary d-flex align-items-center">
+                            <a href="<?php echo $block->getBaseUrl()?>#register">
+                            <button type="button" id="modalOpen" view-id="rwd_view_reward_user" data-target="#signin" class="btn btn-primary d-flex align-items-center">
                                     sign up now <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12"
                                     fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -926,13 +982,17 @@
                                     </path>
                                 </svg>
                             </button>
+                        </a>
                             <div class="bottom_text ">
-                                <p>Already have an account? <a href="javascript:void(0);" id="action_btn" view-id="rwd_view_reward_user">sign in</a> </p>
+                                <p>Already have an account? <a href="<?php echo $block->getBaseUrl()?>#login" id="modalOpenSignin" data-target="#signin" view-id="rwd_view_reward_user">sign in</a> </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        <?php }else{
+
+        } ?>
 
             <!-- rwd_view_reward -->
             <div class="rwd_main rwd_view_reward " id="rwd_view_reward">
@@ -1090,7 +1150,7 @@
                         <div class="user_balance d-flex align-items-center justify-content-between">
                             <div class="balance_detail d-flex flex-column">
                                 <h6 class="font-18">balance</h6>
-                                <span class="amount">500</span>
+                                <span class="amount"><?php echo number_format($earnedPoints, 2);?></span>
                                 <span class="point_value">value $10.00</span>
                             </div>
                             <img src="images/balance.png" alt="">
@@ -1338,8 +1398,8 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M0.241097 15.7585C0.401226 15.9198 0.611984 16 0.822743 16C1.0333 16 1.24406 15.9188 1.40539 15.7585L8.00012 9.16377L14.5954 15.7585C14.7557 15.9198 14.9663 16 15.1771 16C15.3866 16 15.5972 15.9188 15.7585 15.7585C16.08 15.437 16.08 14.9159 15.7585 14.5944L9.16404 7.99985L15.7585 1.40539C16.08 1.08373 16.08 0.56256 15.7585 0.241097C15.437 -0.0803657 14.9159 -0.0803657 14.5944 0.241097L7.99985 6.83565L1.40539 0.241097C1.08373 -0.0803657 0.56256 -0.0803657 0.241097 0.241097C-0.0803657 0.56256 -0.0803657 1.08373 0.241097 1.40539L6.83588 7.99962L0.241097 14.5944C-0.0803657 14.9159 -0.0803657 15.437 0.241097 15.7585Z" fill="white"/>
                         </svg>
                     </div>
-                <div class="rwd_body">
-
+                <div class="rwd_body" id="donationFormaData">
+                    <form method="post" id="donationData" style="overflow-y:auto; height:100%;">
                     <div class="top_wrap d-flex">
                         <div class="user_balance d-flex flex-column">
                             <h6 class="font-18">balance</h6>
@@ -1348,7 +1408,7 @@
                         </div>
                         <div class="donate_point user_balance">
                             <h6 class="font-18">balance</h6>
-                            <input type="number" placeholder="100" />
+                            <input type="number" placeholder="Enter Points to donate" name="donation_points" />
                             <p>100 points = <span>$2</span> </p>
                         </div>
                     </div>
@@ -1357,29 +1417,29 @@
                         <h6 class="font-18">
                             whom do you want to donate to?
                         </h6>
-                        <form action="">
+                        
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="organisation name">
+                                 <input type="text" class="form-control"  placeholder="organisation name" name="organisation_name">
                             </div>
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="contact person">
+                                 <input type="text" class="form-control"  placeholder="contact person" name="contact_person">
                             </div>
                             <div class="form-group">
-                                 <input type="email" class="form-control"  placeholder="e-mail">
+                                 <input type="email" class="form-control"  placeholder="e-mail" name="org_email">
                             </div>
                             <div class="form-group">
-                                 <input type="number" class="form-control"  placeholder="phone number">
+                                 <input type="number" class="form-control"  placeholder="phone number" name="org_phone">
                             </div>
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="address">
+                                 <input type="text" class="form-control"  placeholder="address" name="org_address">
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control"  rows="3" placeholder="notes"></textarea>
+                                <textarea class="form-control"  rows="3" placeholder="notes" name="donation_notes"></textarea>
                             </div>
-                        </form>
+                        
 
                         <div class="btn-wrap text-center">
-                            <button class="btn btn-primary" id="action_btn" view-id="rwd_donation_confirm">
+                            <button type="button" class="btn btn-primary" id="donateButton" view-id="rwd_donation_confirm">
                                 donate
                                 <svg class="ml-2" width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -1387,6 +1447,7 @@
                                         fill="white" />
                                 </svg>
                             </button>
+                            </form>
                         </div>
                     </div>
                     
@@ -1407,37 +1468,44 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M0.241097 15.7585C0.401226 15.9198 0.611984 16 0.822743 16C1.0333 16 1.24406 15.9188 1.40539 15.7585L8.00012 9.16377L14.5954 15.7585C14.7557 15.9198 14.9663 16 15.1771 16C15.3866 16 15.5972 15.9188 15.7585 15.7585C16.08 15.437 16.08 14.9159 15.7585 14.5944L9.16404 7.99985L15.7585 1.40539C16.08 1.08373 16.08 0.56256 15.7585 0.241097C15.437 -0.0803657 14.9159 -0.0803657 14.5944 0.241097L7.99985 6.83565L1.40539 0.241097C1.08373 -0.0803657 0.56256 -0.0803657 0.241097 0.241097C-0.0803657 0.56256 -0.0803657 1.08373 0.241097 1.40539L6.83588 7.99962L0.241097 14.5944C-0.0803657 14.9159 -0.0803657 15.437 0.241097 15.7585Z" fill="white"/>
                         </svg>
                     </div>
-                <div class="rwd_body">
+                <div class="rwd_body" id="donationSubmission">
 
                     <ul class="donation_info list list-unstyled">
                         <li class="top_info">
                             <div class="heading">donation information</div>
-                            <div class="info">Cry - Home for Childrens Donation</div>
+                            <div class="info"><?php echo $session['organisation_name']?></div>
                         </li>
                         <li>
                             <div class="heading">donation amount</div>
-                            <div class="info">$4.00</div>
+                            <div class="info"><?php echo $session['donation_points']?></div>
                         </li>
                         <li>
                             <div class="heading">organisation name</div>
-                            <div class="info">Cry - Home for Childrens</div>
+                            <div class="info"><?php echo $session['organisation_name']?></div>
                         </li>
                         <li>
                             <div class="heading">e-mail</div>
-                            <div class="info">maria.thomas@gmail.com</div>
+                            <div class="info"><?php echo $session['org_email']?></div>
                         </li>
                         <li>
                             <div class="heading">phone number</div>
-                            <div class="info">+1 098-7654-321</div>
+                            <div class="info"><?php echo $session['org_phone']?></div>
                         </li>
                         <li>
                             <div class="heading">notes</div>
-                            <div class="info">Mauris eget consectetur eget bibendum. Nunc am et nisi feugiat nam nunc feugiat tempor. Arcu, habitasse venenatis sit proin.</div>
+                            <div class="info"><?php echo $session['donation_notes']?></div>
                         </li>
                     </ul>
-
+                    <form method="post" action="<?php echo $block->getBaseUrl(); ?>/donationform/submit/donate">
+                        <input type="hidden" name="organisation_name" value="<?php echo $session['organisation_name']?>">
+                        <input type="hidden" name="contact_person" value="<?php echo $session['contact_person']?>">
+                        <input type="hidden" name="donation_points" value="<?php echo $session['donation_points']?>">
+                        <input type="hidden" name="org_email" value="<?php echo $session['org_email']?>">
+                        <input type="hidden" name="org_phone" value="<?php echo $session['org_phone']?>">
+                        <input type="hidden" name="org_address" value="<?php echo $session['org_address']?>">
+                        <input type="hidden" name="donation_notes" value="<?php echo $session['donation_notes']?>">
                     <div class="btn-wrap">
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" id="submitDonation">
                             confirm
                             <svg class="ml-2" width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -1449,7 +1517,7 @@
                             cancel
                         </button>
                     </div>
-                    
+                    </form>
                 </div>
             </div>
 
@@ -1571,7 +1639,7 @@
             $('.rwd_main').removeClass('show');
             $('.btn-widget').attr('view-id','rwd_view_reward_user');
             $('.btn-widget').addClass('d-block user_logged_in');
-            $('.btn-widget span').html('you have $2.00 in points');
+            // $('.btn-widget span').html('you have $2.00 in points');
         }
     });
 
@@ -1598,66 +1666,44 @@
         $(navId).addClass('show active');
     });
 
-
-     // $("#LoginId").on('click',function(){
-     //        $('.login_process').modal('show');
-     //    });
-
+    $('#donateButton').click(function(){
+        // alert('clicked');
+                // forgetButton.text(forgetText);
+                // forgetButton.attr("disabled", "disabled");
+                var formData = $("#donationData").serialize()
+               //console.log(formData);
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $block->getUrl()?>/donation/rewards/donation/",
+                    data: formData,
+                    dataType: "json",
+                    success: function(data) {
+                            if(data != 'error'){
+                                $('#rwd_donation').removeClass('show');
+                                $('#rwd_donation_confirm').addClass('show');
+                            }
+                        // console.log(data);
+                        // showResponse(data);
+                        // if(data.errors) {
+                        //     forgetButton.text(forgetsText);
+                        //     forgetButton.removeAttr('disabled');
+                        // } else {
+                        //     //console.log('here we are');
+                        //     forgetButton.text(forgetsText);
+                        //     forgetButton.removeAttr('disabled');
+                        //     //location.reload();
+                        //     resetLinkModal();
+                        // }
+                    }
+                });
+                return false;
+            });
 
         });
         });
 
 
     </script>
-
-    <!-- customModal -->
-    <!-- <script>
-        $('body').on('click', '#modalOpen', function(e){
-            var target = $(this).attr('data-target');
-            console.log(target);
-            e.stopPropagation(); 
-            $('.modal').removeClass('show d-block');
-            $(target).addClass('show d-block');
-            $('body').addClass("modal-open");
-            $('body').append('<div class="modal-backdrop fade show"></div>');
-        }); 
-
-        $('.modal #modalOpen').on('click', function(e){
-            var target = $(this).attr('data-target');
-            console.log(target);
-            e.stopPropagation(); 
-            $('.modal').removeClass('show d-block');
-            $(target).addClass('show d-block');
-            $('body').addClass("modal-open");
-            $('body').append('<div class="modal-backdrop fade show"></div>');
-        }); 
-
-        //hide it when clicking anywhere else except the popup and the trigger
-        $(document).on('click touch', function(event) {
-            console.log('outsideclick');
-            $(this).find('.modal').removeClass('show d-block');
-            $('.modal-backdrop').remove();
-            $('body').removeClass("modal-open");
-            $('.btn-widget').addClass('d-block user_logged_in');
-
-        });
-        
-        // Stop propagation to prevent hiding "#tooltip" when clicking on it
-        $('.modal-dialog').on('click touch', function(event) {
-            event.stopPropagation();
-         });
-
-        $(document).on('keydown',function(event){
-            if (event.keyCode == 27){
-                $('.modal').removeClass('show d-block');
-                $('.modal-backdrop').remove();
-                $('body').removeClass("modal-open");
-                $('.btn-widget').addClass('d-block user_logged_in');
-            }
-        });
-
-    </script> -->
-
 </body>
 
 </html>
