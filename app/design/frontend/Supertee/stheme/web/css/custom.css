@@ -1,4 +1,15 @@
 
+.column{
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.checkout-container {
+  max-width: 1710px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;      
+}
 
 /*checkoutPage Update*/
 
@@ -15,7 +26,7 @@
       margin-bottom: 24px;
           background: transparent;
     font-size: 1.313em;
-    padding: 0;
+    padding: 0 15px;
     margin-top: 24px;
            display: -webkit-box;
     display: -ms-flexbox;
@@ -67,9 +78,9 @@
 }
 
 #checkout .opc-wrapper #checkoutSteps{
-      padding-left: 0px;
-      margin-top:20px;
-      list-style-type: none;
+  padding-left: 0px;
+  margin-top:20px;
+  list-style-type: none;
 }
 
 #checkout .opc-wrapper #checkoutSteps .step-title{
@@ -79,7 +90,7 @@
 
 #checkout .opc-wrapper #checkoutSteps li{
   margin-bottom:30px;
-  /*padding-left:10px;*/
+  padding-left:15px;
 }
 
 
@@ -87,15 +98,16 @@
   height:unset;
 }
 
-#checkoutform .form .fieldset >div{
-  padding: 0 15px;  
-  margin-bottom: 24px;
+#checkout .form .fieldset >div{
+  flex-direction:column;
+  margin:0;
 }
 
-#checkoutform .form .field{
-  padding: 0 15px;  
-  margin-bottom: 24px;
+#checkout .form .fieldset .field.form-row{
+  flex-direction:column;
+  margin:0;
 }
+
 
 #checkout .field label{
   margin-top:15px;
@@ -213,7 +225,10 @@ outline:0;
   position:absolute;
   right:0;
   top:200px;
+}
 
+.opc-sidebar .modal-inner-wrap{
+  max-width: 80%;
 }
 
 /*.opc-sidebar{

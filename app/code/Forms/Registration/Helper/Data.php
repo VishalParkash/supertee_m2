@@ -13,6 +13,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function isLoggedIn()
     {
-        return $this->customerSession->isLoggedIn();
+
+         if($this->customerSession->isLoggedIn()){
+            return $this->customerSession->isLoggedIn();
+        }else{
+            return false;
+        }
     }
 }
