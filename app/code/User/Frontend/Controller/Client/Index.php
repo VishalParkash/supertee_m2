@@ -3,12 +3,12 @@
  *
  * Copyright © 2015 Usercommerce. All rights reserved.
  */
-namespace User\Client\Controller\Client;
+namespace User\Frontend\Controller\Client;
 
 class Index extends \Magento\Framework\App\Action\Action
 {
 
-	/**
+    /**
      * @var \Magento\Framework\App\Cache\TypeListInterface
      */
     protected $_cacheTypeList;
@@ -48,7 +48,7 @@ class Index extends \Magento\Framework\App\Action\Action
         $this->_cacheFrontendPool = $cacheFrontendPool;
         $this->resultPageFactory = $resultPageFactory;
     }
-	
+    
     /**
      * Flush cache storage
      *
@@ -56,7 +56,7 @@ class Index extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $this->resultPage = $this->resultPageFactory->create();  
-		return $this->resultPage;
+        return $this->resultPage;
         
     }
 }

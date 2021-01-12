@@ -1,1 +1,0 @@
-/var/www/html/supertee/vendor/magento/module-sales-rule/view/frontend/web/js/model/coupon.js

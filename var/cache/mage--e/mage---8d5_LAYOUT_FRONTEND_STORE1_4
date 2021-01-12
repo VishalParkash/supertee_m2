@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610482625;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -2096,40 +2096,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"t
                            <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
                            <item name="displayArea" xsi:type="string">messages</item>
                         </item>
-                        <item name="authentication" xsi:type="array">
-                           <item name="sortOrder" xsi:type="string">1</item>
-                           <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication</item>
-                           <item name="displayArea" xsi:type="string">authentication</item>
-                           <item name="children" xsi:type="array">
-                              <item name="errors" xsi:type="array">
-                                 <item name="sortOrder" xsi:type="string">0</item>
-                                 <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication-messages</item>
-                                 <item name="displayArea" xsi:type="string">messages</item>
-                              </item>
-                           </item>
-                        </item>
-                        <item name="progressBar" xsi:type="array">
-                           <item name="sortOrder" xsi:type="string">0</item>
-                           <item name="component" xsi:type="string">Magento_Checkout/js/view/progress-bar</item>
-                           <item name="displayArea" xsi:type="string">progressBar</item>
-                           <item name="config" xsi:type="array">
-                              <item name="deps" xsi:type="array">
-                                 <item name="0" xsi:type="string">checkout.steps.shipping-step.shippingAddress</item>
-                                 <item name="1" xsi:type="string">checkout.steps.billing-step.payment</item>
-                              </item>
-                           </item>
-                        </item>
-                        <item name="estimation" xsi:type="array">
-                           <item name="sortOrder" xsi:type="string">10</item>
-                           <item name="component" xsi:type="string">Magento_Checkout/js/view/estimation</item>
-                           <item name="displayArea" xsi:type="string">estimation</item>
-                           <item name="config" xsi:type="array">
-                              <item name="template" xsi:type="string">Magento_Checkout/estimation</item>
-                              <item name="deps" xsi:type="array">
-                                 <item name="0" xsi:type="string">checkout.sidebar</item>
-                              </item>
-                           </item>
-                        </item>
                         <item name="steps" xsi:type="array">
                            <item name="component" xsi:type="string">uiComponent</item>
                            <item name="displayArea" xsi:type="string">steps</item>
@@ -2182,9 +2148,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"t
                                           <item name="customer-email" xsi:type="array">
                                              <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email</item>
                                              <item name="displayArea" xsi:type="string">customer-email</item>
-                                             <item name="tooltip" xsi:type="array">
-                                                <item name="description" translate="true" xsi:type="string">We'll send your order confirmation here.</item>
-                                             </item>
                                              <item name="children" xsi:type="array">
                                                 <item name="before-login-form" xsi:type="array">
                                                    <item name="component" xsi:type="string">uiComponent</item>
@@ -2267,22 +2230,9 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"t
                                                       <item name="required-entry" xsi:type="boolean">true</item>
                                                    </item>
                                                 </item>
-                                                <item name="company" xsi:type="array">
-                                                   <item name="validation" xsi:type="array">
-                                                      <item name="min_text_length" xsi:type="number">0</item>
-                                                   </item>
-                                                </item>
-                                                <item name="fax" xsi:type="array">
-                                                   <item name="validation" xsi:type="array">
-                                                      <item name="min_text_length" xsi:type="number">0</item>
-                                                   </item>
-                                                </item>
                                                 <item name="telephone" xsi:type="array">
                                                    <item name="config" xsi:type="array">
-                                                      <item name="tooltip" xsi:type="array">
-                                                         <item name="description" translate="true" xsi:type="string">For delivery questions.</item>
-                                                      </item>
-                                                   </item>
+                                                                        </item>
                                                 </item>
                                              </item>
                                           </item>
@@ -2318,9 +2268,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"t
                                           <item name="customer-email" xsi:type="array">
                                              <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email</item>
                                              <item name="displayArea" xsi:type="string">customer-email</item>
-                                             <item name="tooltip" xsi:type="array">
-                                                <item name="description" translate="true" xsi:type="string">We'll send your order confirmation here.</item>
-                                             </item>
                                              <item name="children" xsi:type="array">
                                                 <item name="before-login-form" xsi:type="array">
                                                    <item name="component" xsi:type="string">uiComponent</item>
@@ -7236,6 +7183,24 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"t
       <block class="Magento\Customer\Block\Account\Dashboard" name="sales.order.history" template="Forms_Registration::StoreHistory.phtml" cacheable="false"/>
    </referenceContainer>
 </body>
+</handle><handle id="setupstore_setup_page" layout="1column"><head>
+   <remove src="css/styles-m.css"/>
+   <css src="Forms_Registration::css/bootstrap.min.css"/>
+   <css src="Forms_Registration::css/bootstrap-datepicker.min.css"/>
+   <css src="Forms_Registration::css/bootstrap-slider.min.css"/>
+   <css src="Forms_Registration::css/custom.css"/>
+</head>
+<referenceBlock name="header.container" remove="true"/>
+<referenceBlock name="custom_header" remove="true"/>
+<referenceBlock name="footer_links" remove="true"/>
+<referenceBlock name="navigation.sections" display="false"/>
+<referenceBlock name="form.subscribe" remove="true"/>
+<referenceBlock name="custom_footer" remove="true"/>
+<referenceBlock name="customer_form_login" remove="true"/>
+<referenceBlock name="authentication-popup" remove="true"/>
+<referenceContainer name="content">
+   <block class="Forms\Registration\Block\Setup\Page" name="setupstore_setup_page" template="Forms_Registration::setupstore.phtml"/>
+</referenceContainer>
 </handle><handle id="store_index_index" layout="1column"><referenceContainer name="content">
    <block class="Forms\Registration\Block\Index\Index" name="helloworld_index_index" template="Forms_Registration::index.phtml"/>
 </referenceContainer>
@@ -7834,6 +7799,110 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"t
       <module name="User_Frontend"/>
    </route>
 </router>
+</handle><handle id="1client_client_index" layout="2columns-left"><head>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_index" template="client/index.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="1cms_index_index"><head>
+   <remove src="Magento_Theme::css/style.css"/>
+   <css src="User_Client::assets/css/bootstrap.min.css"/>
+   <css src="User_Client::assets/css/custom.css"/>
+   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;400;500;600;700;800;900|family=Roboto:wght@400;500;700;800|900;display=swap" rel="stylesheet"/>
+</head>
+</handle><handle id="1default_head_blocks"><head>
+   <remove src="Magento_Theme::css/style.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+   <link rel="stylesheet" src="https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;400;500;600;700;800;900|family=Roboto:wght@400;500;700;800|900;display=swap, 400italic" src_type="url"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_index" template="client/index.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="2client_client_index" layout="2columns-left"><head>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_index" template="client/index.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="2client_client_sales" layout="2columns-left"><head>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_index" template="client/sales.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_category_listing" layout="2columns-left"><head>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Frontend::css/bootstrap.min.css"/>
+   <css src="User_Frontend::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="custom_header" remove="true"/>
+   <referenceBlock name="custom_footer" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Frontend\Block\Client\Listing" name="frontend_category" template="frontend/listing.phtml">
+            </block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_frontend_index" layout="2columns-left"><head>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Frontend::css/bootstrap.min.css"/>
+   <css src="User_Frontend::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="custom_header" remove="true"/>
+   <referenceBlock name="custom_footer" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Frontend\Block\Client\Index" name="frontend_index" template="frontend/index.phtml">
+            </block>
+   </referenceContainer>
+</body>
 </handle><handle id="checkout_cart_index"><body>
    <referenceBlock name="checkout.cart.totals">
       <arguments>
@@ -8050,7 +8119,7 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"t
       <block class="Forms\Registration\Block\Product\Details" name="custombtn_product_custombtn" template="Magento_Catalog::product/view/customdetails.phtml"/>
    </referenceContainer>
 </body>
-</handle><handle id="checkout_index_index" layout="checkout"><body>
+</handle><handle id="1checkout_index_index" layout="checkout"><body>
    <referenceContainer name="content">
       <block class="Magento\Checkout\Block\Onepage" name="checkout.root" template="Magento_Checkout::onepage.phtml" cacheable="false">
          <arguments>

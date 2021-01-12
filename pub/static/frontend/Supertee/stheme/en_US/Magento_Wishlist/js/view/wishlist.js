@@ -1,0 +1,1 @@
+/var/www/html/supertee/vendor/magento/module-wishlist/view/frontend/web/js/view/wishlist.js

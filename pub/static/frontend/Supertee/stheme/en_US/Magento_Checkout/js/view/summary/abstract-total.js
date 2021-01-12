@@ -1,1 +1,0 @@
-/var/www/html/supertee/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/view/summary/abstract-total.js

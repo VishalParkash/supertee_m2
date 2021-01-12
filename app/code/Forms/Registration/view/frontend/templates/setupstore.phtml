@@ -1,0 +1,430 @@
+<div class="mainSite">
+        <div class="sideBar">
+            <div class="sideBarInner">
+                <div class="sideBarTop">
+                    <a href="index.html">
+                        <img src="<?php echo $this->getViewFileUrl('Forms_Registration::images/logoWhite.png'); ?>" alt="logoWhite" />
+                    </a>
+                </div>
+                <div class="sideBarMiddle flex1">
+                    <h4>risk-free. Stress-free.</h4>
+                    <h2>
+                        get started with your own custom printed apparel and accessories store
+                    </h2>
+                    <ul class="listCheck">
+                        <li>
+                            set up your store in minutes. choose your products, your markup and start selling.
+                        </li>
+                        <li>
+                            No hassle of managing production or shipment. We take care of all of that.
+                        </li>
+                        <li>
+                            Get payouts at regular intervals based on your markup percentage.
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <button class="btn btn-outline-light">
+                        <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="fillHover"
+                                d="M0.274963 5.33638C0.275244 5.3361 0.275479 5.33577 0.275807 5.33549L5.17443 0.460497C5.54142 0.0952939 6.135 0.096653 6.50029 0.463684C6.86554 0.830668 6.86414 1.42425 6.49715 1.78949L3.20821 5.06249L23.0625 5.06249C23.5803 5.06249 24 5.48221 24 5.99999C24 6.51777 23.5803 6.93749 23.0625 6.93749L3.20826 6.93749L6.49711 10.2105C6.86409 10.5757 6.8655 11.1693 6.50025 11.5363C6.13495 11.9034 5.54132 11.9046 5.17439 11.5395L0.27576 6.66449C0.275479 6.66421 0.275244 6.66388 0.274916 6.6636C-0.0922562 6.29713 -0.091084 5.70163 0.274963 5.33638Z"
+                                fill="white" />
+                        </svg>
+                        <b>previous</b>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="selectProducts pageContent">
+                <ul class="storeNav">
+                    <li id="selectProd" ><a href="select-products.html" class="active">01 select products</a></li>
+                    <li id="markup" ><a href="#">02 markup</a></li>
+                    <li><a href="theme.html">03 theme& logo</a></li>
+                    <li><a href="#">04 customization</a></li>
+                    <li><a href="generalSetting.html">05 general settings</a></li>
+                </ul>
+                <div class="flex1 overflowY mb15">
+                    <section class="selectProductsContent active" id="selectProd">
+                        <h1 class="mb15">select the products you want to add to your store</h1>
+                        <p class="f18 colorGray mb48 fontSecondary">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                            laudantium, totam rem aperiam, eaque ipsa quae ab illo.
+                        </p>
+                        <div>
+                            <label class="customCheckBox">
+                                <input type="radio" name="selectProducts" checked />
+                                <div class="customCheckBoxDiv">
+                                    <span class="checkBoxItem"></span>
+                                    <h4 class="mb15 fontSecondary">add all products from supertee website</h4>
+                                    <p>
+                                        this option enables you to add all products offered by supertee to your website
+                                    </p>
+                                </div>
+                            </label>
+                            <label class="customCheckBox">
+                                <input type="radio" name="selectProducts" />
+                                <div class="customCheckBoxDiv">
+                                    <span class="checkBoxItem"></span>
+                                    <h4 class="mb15 fontSecondary">select specific product</h4>
+                                    <p>
+                                        this option enables you to access all products offered by supertee to your
+                                        website and you can choose specific products for your store.
+                                    </p>
+                                    <div class="customCheckBoxHide">
+                                        <button class="btn btn-secondary" data-toggle="modal"
+                                            data-target="#selectProductsModal">
+                                            <b>select products</b>
+                                            <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path class="fillHover"
+                                                    d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
+                                                    fill="white" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+
+
+
+                </div>
+                <div class="text-right formBtn">
+                    <button class="btn btn-link btn-secondary">
+                        <b>skip</b>
+                    </button>
+                    <button class="btn btn-secondary next" >
+                        <b>next</b>
+                        <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="fillHover"
+                                d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
+                                fill="white" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade selectProductsModal modalLg" id="selectProductsModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="17.6777" cy="17.6777" r="12" transform="rotate(45 17.6777 17.6777)" fill="white"
+                            stroke="#DBDBDB" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M21.7145 15.0559C21.9098 14.8606 21.9098 14.544 21.7145 14.3488C21.5192 14.1535 21.2027 14.1535 21.0074 14.3488L17.6485 17.7077L14.3188 14.3781C14.1235 14.1828 13.807 14.1828 13.6117 14.3781C13.4164 14.5733 13.4164 14.8899 13.6117 15.0852L16.9413 18.4148L13.7168 21.6394C13.5215 21.8346 13.5215 22.1512 13.7168 22.3465C13.912 22.5418 14.2286 22.5418 14.4239 22.3465L17.6485 19.1219L20.7964 22.2699C20.9917 22.4651 21.3082 22.4651 21.5035 22.2699C21.6988 22.0746 21.6988 21.758 21.5035 21.5628L18.3556 18.4148L21.7145 15.0559Z"
+                            fill="#151515" />
+                    </svg>
+                </button>
+                <div class="modal-body">
+                    <div class="selectProductsModalInner">
+                        <div class="selectProductsModalLeft">
+                            <div class="searchDiv mb48">
+                                <input type="text" class="form-control"
+                                    placeholder="Search categories, product names, product id" />
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M23.7872 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59247 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7872 23.7871C24.0639 23.5104 24.0639 23.0528 23.7872 22.7761ZM1.43149 10.2333C1.43149 5.38005 5.38005 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38005 19.035 1.43149 15.0865 1.43149 10.2333Z"
+                                        fill="#A8A8A8" />
+                                </svg>
+                            </div>
+                            <div class="flex1 overflowY">
+                                <div class="selectProductsModalRow">
+                                    <div class="selectProductsModalSelectCategory">
+                                        <h4>select category</h4>
+                                        <div class="accordionCustom">
+                                            <div class="selectProductsModalSelectCategoryItem accordionCustomItem">
+                                                <div class="d-flex align-items-center">
+                                                    <label class="checkBoxCustom flex1">
+                                                        <input type="checkbox" name="selectCategory" />
+                                                        <span class="checkBoxCustomCheck"></span>
+                                                        <h5>apparel</h5>
+                                                    </label>
+                                                    <button class="btnAccordion"></button>
+                                                </div>
+                                                <div class="accordionCustomItemData">
+                                                    <div class="accordionCustomItemDataContent">
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>t- shirts</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>hoodies</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>sweatshirts</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>outerwear</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>trousers</p>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="selectProductsModalSelectCategoryItem accordionCustomItem">
+                                                <div class="d-flex align-items-center">
+                                                    <label class="checkBoxCustom flex1">
+                                                        <input type="checkbox" name="selectCategory" />
+                                                        <span class="checkBoxCustomCheck"></span>
+                                                        <h5>accessories</h5>
+                                                    </label>
+                                                    <button class="btnAccordion"></button>
+                                                </div>
+                                                <div class="accordionCustomItemData">
+                                                    <div class="accordionCustomItemDataContent">
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>t- shirts</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>hoodies</p>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="selectProductsModalSelectCategoryItem accordionCustomItem">
+                                                <div class="d-flex align-items-center">
+                                                    <label class="checkBoxCustom flex1">
+                                                        <input type="checkbox" name="selectCategory" />
+                                                        <span class="checkBoxCustomCheck"></span>
+                                                        <h5>drinkware</h5>
+                                                    </label>
+                                                    <button class="btnAccordion"></button>
+                                                </div>
+                                                <div class="accordionCustomItemData">
+                                                    <div class="accordionCustomItemDataContent">
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>t- shirts</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>hoodies</p>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="selectProductsModalSelectCategoryItem accordionCustomItem">
+                                                <div class="d-flex align-items-center">
+                                                    <label class="checkBoxCustom flex1">
+                                                        <input type="checkbox" name="selectCategory" />
+                                                        <span class="checkBoxCustomCheck"></span>
+                                                        <h5>accessories</h5>
+                                                    </label>
+                                                    <button class="btnAccordion"></button>
+                                                </div>
+                                                <div class="accordionCustomItemData">
+                                                    <div class="accordionCustomItemDataContent">
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>t- shirts</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>hoodies</p>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="selectProductsModalSelectCategoryItem accordionCustomItem">
+                                                <div class="d-flex align-items-center">
+                                                    <label class="checkBoxCustom flex1">
+                                                        <input type="checkbox" name="selectCategory" />
+                                                        <span class="checkBoxCustomCheck"></span>
+                                                        <h5>stationery</h5>
+                                                    </label>
+                                                    <button class="btnAccordion"></button>
+                                                </div>
+                                                <div class="accordionCustomItemData">
+                                                    <div class="accordionCustomItemDataContent">
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>t- shirts</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>hoodies</p>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="selectProductsModalSelectCategoryItem accordionCustomItem">
+                                                <div class="d-flex align-items-center">
+                                                    <label class="checkBoxCustom flex1">
+                                                        <input type="checkbox" name="selectCategory" />
+                                                        <span class="checkBoxCustomCheck"></span>
+                                                        <h5>office supplies</h5>
+                                                    </label>
+                                                    <button class="btnAccordion"></button>
+                                                </div>
+                                                <div class="accordionCustomItemData">
+                                                    <div class="accordionCustomItemDataContent">
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>t- shirts</p>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center accordionCustomItemDataContentItem">
+                                                            <label class="checkBoxCustom flex1">
+                                                                <input type="checkbox" name="selectCategory" />
+                                                                <span class="checkBoxCustomCheck"></span>
+                                                                <p>hoodies</p>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="selectProductsModalProducts">
+                                        <h4>selected products</h4>
+                                        <div class="selectProductsModalProductsList">
+                                            <div class="selectProductsModalProductsListNoItem">
+                                                <div>
+                                                    <img src="./assets/images/selectProductsTShirt.png"
+                                                        alt="selectProductsTShirt" />
+                                                    <h3>select category or sub-category to view products</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selectProductsModalRight">
+                            <div class="flex1 overflowY d-flex flex-column">
+                                <div>
+                                    <div class="d-flex selectProductsModalRightCategory">
+                                        <h4 class="flex1">selected category</h4>
+                                        <h4 class="pl-4">0</h4>
+                                    </div>
+                                    <div class="d-flex selectProductsModalRightCategory">
+                                        <h4 class="flex1">selected products</h4>
+                                        <h4 class="pl-4">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <button class="btn btn-secondary" disabled>
+                                    <b>done</b>
+                                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path class="fillHover"
+                                            d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
+                                            fill="white" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+
+require([ 'jquery', 'jquery/ui'], function($){ 
+            $( document ).ready(function() {
+                console.log('loaded');
+
+
+                // NextButton
+                $('.next').click(function() {
+                    var linkId = $('.storeNav li.'+this.id).attr('class');
+                    console.log(this.id);
+
+                    if($('.pageContent section.'+this.id).next().hasClass('active')){
+                        console.log('nextSection')
+                    }
+
+                    $('.pageContent section').removeClass("active");
+                    $('.pageContent section.'+this.id).next().addClass("active");
+                
+                    if(linkId == this.id)
+                    {    
+                        $('.storeNav li a').removeClass("active");
+                        $('.storeNav li.'+this.id).next().find('a').addClass("active");
+        
+                    }  
+        
+                    
+                }); 
+
+            });
+        });
+
+</script>
+
+

@@ -1,0 +1,95 @@
+.main .pageHead {
+  background: #2AADE5;
+  padding: 147px 0;
+}
+.main .pageHead h2 {
+  margin-bottom: 25px;
+}
+
+.contactWrap {
+  background: #fff;
+  margin-top: -100px;
+  border-radius: 10px;
+}
+
+.contactBody {
+  background: #F2F3F2;
+  padding-bottom: 120px;
+}
+.contactBody .formWrap {
+  padding: 128px 90px;
+  border-right: 1px solid #A8A8A8;
+}
+.contactBody .formWrap .headWrap {
+  max-width: 505px;
+}
+.contactBody .formWrap .headWrap h2 {
+  line-height: 72px;
+  margin-bottom: 15px;
+}
+.contactBody .formWrap .headWrap p {
+  padding-right: 60px;
+}
+.contactBody .formWrap form {
+  margin-top: 35px;
+}
+.contactBody .formWrap form .form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+.contactBody .formWrap form .form-group.textarea .optional {
+  top: 15px;
+  transform: unset;
+}
+.contactBody .formWrap form .form-group .optional {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.938em;
+  color: #A8A8A8;
+}
+.contactBody .formWrap form .form-group input, .contactBody .formWrap form .form-group textarea {
+  background: #FFFFFF;
+  border: 1px solid #A8A8A8;
+  border-radius: 5px;
+  padding: 11px 24px;
+  font-size: 1.125em;
+}
+.contactBody .formWrap form .form-group input::placeholder, .contactBody .formWrap form .form-group textarea::placeholder {
+  font-size: 1.125em;
+  color: #A8A8A8;
+}
+.contactBody .formWrap form .form-group textarea {
+  width: 100%;
+}
+.contactBody .contactInfo {
+  padding: 128px 60px 70px 90px;
+}
+.contactBody .contactInfo h3 {
+  font-weight: 900;
+  font-size: 2.25em;
+  line-height: 42px;
+  margin-bottom: 15px;
+}
+.contactBody .contactInfo p {
+  font-size: 1.125em;
+  color: #727272;
+}
+.contactBody .contactInfo .infoWrap {
+  margin-top: 30px;
+}
+.contactBody .contactInfo .infoWrap > div {
+  font-size: 1.125em;
+}
+.contactBody .contactInfo .infoWrap > div:not(:last-child) {
+  margin-bottom: 28px;
+}
+.contactBody .contactInfo .infoWrap svg {
+  flex: 0 0 40px;
+}
+.contactBody .contactInfo .map {
+  margin-top: 60px;
+}
+
+/*# sourceMappingURL=contact.css.map */

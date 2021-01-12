@@ -1,0 +1,18 @@
+/* Error: Undefined mixin.
+ *    ,
+ * 77 | /     @include min-992{
+ * 78 | |         padding:0 60px;
+ * 79 | \     }
+ *    '
+ *   scss\blog.scss 77:5  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined mixin.\a    \2577 \a 77 \2502  \250c      @include min-992{\a 78 \2502  \2502          padding:0 60px;\a 79 \2502  \2514      }\a    \2575 \a   scss\\blog.scss 77:5  root stylesheet";
+}

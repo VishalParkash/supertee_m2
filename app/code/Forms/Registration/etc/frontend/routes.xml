@@ -72,5 +72,8 @@
     <route id="request" frontName="request">
             <module name="Forms_Registration" />
     </route>
+    <route id="setupstore" frontName="setupstore">
+            <module name="Forms_Registration" />
+        </route>
     </router>
 </config>
