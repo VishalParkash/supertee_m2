@@ -318,6 +318,7 @@ return [
         'StripeIntegration_Payments' => 1,
         'Temando_ShippingRemover' => 1,
         'User_Client' => 1,
+        'User_Frontend' => 1,
         'Vertex_Tax' => 1,
         'Vertex_AddressValidationApi' => 1,
         'Vertex_AddressValidation' => 1,

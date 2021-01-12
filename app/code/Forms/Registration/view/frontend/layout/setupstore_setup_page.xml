@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<head>
+<remove src="css/styles-m.css" />
+
+   <css src="Forms_Registration::css/bootstrap.min.css"/>
+	<css src="Forms_Registration::css/bootstrap-datepicker.min.css"/>
+<css src="Forms_Registration::css/bootstrap-slider.min.css"/>
+<css src="Forms_Registration::css/custom.css"/>
+
+
+
+       
+</head>
+
+ <referenceBlock name="header.container" remove="true" />  
+ <referenceBlock name="custom_header" remove="true" />  
+<referenceBlock name="footer_links" remove="true"/>
+<referenceBlock name="navigation.sections" display="false" />
+<referenceBlock name="form.subscribe" remove="true" />
+<referenceBlock name="custom_footer" remove="true" />
+
+<referenceBlock name="customer_form_login" remove="true"/>
+<referenceBlock name="authentication-popup" remove="true"/>
+    <referenceContainer name="content">
+        <block class="Forms\Registration\Block\Setup\Page" name="setupstore_setup_page" template="Forms_Registration::setupstore.phtml" />
+    </referenceContainer>
+</page>

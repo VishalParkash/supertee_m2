@@ -1,0 +1,205 @@
+.sustain{
+    background:#00BFF3 url('../images//sustain_pattern.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+// .sustain-grid{
+//     padding:120px 0;
+// }
+
+.sustain-content{
+    font-size:1.125rem;
+    padding-top:20px;
+    padding-bottom:48px;
+    
+    @include min-768{
+        padding-top:90px;
+        padding-bottom:120px;
+    }
+
+    .inner-container{
+        &> .row{
+            &:not(:last-child){
+                margin-bottom:72px;
+                @include max-767{
+                    margin-bottom:48px !important;
+                    text-align:left !important;
+                }
+            }
+
+            &:first-child{
+                margin-bottom:120px;
+            }
+
+            @include max-767{
+                text-align:left !important;
+            }
+
+        }
+    }
+
+
+    .container{
+        position:relative;
+    &:after{
+        content:"";
+        background: url("../images/water_pattern.png") no-repeat;
+        background-size:cover;
+        position: absolute;
+        right:0;
+        top:-114px;
+        display:block;
+        // width:439px;
+        // height:583px;
+        mix-blend-mode: hard-light;
+        
+        @include min-768{
+            width:200px;
+            height:300px;
+        }
+
+        @include min-1200{
+            width:439px;
+            height:583px;
+        }
+    }
+    }
+    
+    .top-content{
+        @include min-768{
+            padding-bottom:72px;
+            border-bottom: 1px solid #DBDBDB;
+        }
+        p{
+            margin:0;
+        }
+    }
+
+    .content{
+        padding:20px 0;
+       h3{
+           margin-bottom:24px;
+       }
+    &.adjust-width{
+        @include min-768{
+            display:flex;
+            flex-direction:column;
+            align-items: flex-end;
+        }
+        &>*{
+            max-width:500px;
+
+        }
+    }
+
+
+   } 
+}
+
+.other-practices{
+    font-size:1.125rem;
+    padding:48px 0;
+    background: #F2F3F2;
+    overflow: hidden;
+    @include min-768{
+        padding:80px 0;
+    }
+
+    @include min-992{
+        padding:120px 0;
+    }
+
+    .head{
+        margin-bottom:72px;
+    }
+
+    .box_wrap{
+        padding:0 5px;
+        @include min-992{
+            padding:0 55px;
+        }
+
+        @include max-767{
+            margin-bottom:48px;
+        }
+        img{
+            margin-bottom:30px;
+            @include min-768{
+                margin-bottom:52px;
+            }
+        }
+        p{
+            margin-bottom:0;
+            
+        }
+        &:before{
+            content:"";
+            height:268px;
+            width:1px;
+            background:#DBDBDB;
+            position:absolute;
+            top:-100%;
+            left:0;
+
+            @include max-767{
+                content:none;
+            }
+        
+        }
+
+        &:after{
+            // @extend :before;
+            content:"";
+            height:268px;
+            width:1px;
+            background:#DBDBDB;
+            position:absolute;
+            right:0;
+            bottom:-120px;
+
+            @include max-767{
+                position: unset;
+                width: 161px;
+                height: 1px;
+                display:block;
+                margin:0 auto;
+                margin-top:48px;
+            }
+        }
+
+    }
+
+    .practices_wrap{
+        .col-md-4{
+            &:not(:first-child){
+                .box_wrap{
+                    &:before{
+                        content:none;
+                        // display:block;
+                    }
+                }
+            }
+
+            &:last-child{
+                .box_wrap{
+                    &:after{
+                        @include max-767{
+                            content:none;
+                        }
+                    }
+                }
+            }
+
+            &:nth-child(even){
+                .box_wrap{
+                    &:after{
+                        top:-100%;
+                        bottom:unset;
+                    }
+                }
+            }
+        }
+    }
+    
+}

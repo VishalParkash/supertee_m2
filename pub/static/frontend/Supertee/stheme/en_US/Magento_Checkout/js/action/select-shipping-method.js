@@ -1,1 +1,0 @@
-/var/www/html/supertee/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/action/select-shipping-method.js

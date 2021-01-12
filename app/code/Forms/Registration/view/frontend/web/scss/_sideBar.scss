@@ -1,0 +1,68 @@
+.sideBar {
+    background-color: $bgDark;
+    color: $white;
+    position: relative;
+     &::before {
+        content: "";
+        background-image: url(../images/dotsTop.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: right;
+        background-position-y: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 226px;
+    }
+    &::after {
+        content: "";
+        background-image: url(../images/dotsBottom.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: left;
+        background-position-y: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 206px;
+    }
+    .sideBarInner {
+        position: relative;
+        z-index: 1;
+        padding: 60px 50px;
+        height: 100%;
+        overflow: auto;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .sideBarMiddle {
+        margin: 45px 0;
+        overflow: auto;
+    }
+    h4 {
+        margin: 0 0 10px;
+    }
+    h2 {
+        @extend .titleH1;
+        // font-size: 2.25em;
+        // line-height: 1.0555555555555556em;
+        // font-weight: 900;
+        margin: 0 0 30px;
+        // line-height: 1.3333333333333333em;
+    }
+    .listCheck {
+        li {
+            padding-right: 45px;
+            &:before {
+                top: 8px;
+            }
+        }
+    }
+}
