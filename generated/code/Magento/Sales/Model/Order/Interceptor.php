@@ -31,4 +31,13 @@ class Interceptor extends \Magento\Sales\Model\Order implements \Magento\Framewo
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'place');
         return $pluginInfo ? $this->___callPlugins('place', func_get_args(), $pluginInfo) : parent::place();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function load($modelId, $field = null)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'load');
+        return $pluginInfo ? $this->___callPlugins('load', func_get_args(), $pluginInfo) : parent::load($modelId, $field);
+    }
 }

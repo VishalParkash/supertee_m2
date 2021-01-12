@@ -884,6 +884,14 @@
         'instance' => 'Magento\\InventoryShipping\\Plugin\\Sales\\ResourceModel\\Order\\Shipment\\DeleteSourceForShipmentPlugin',
       ),
     ),
+    'Magento\\Sales\\Model\\OrderRepository' => 
+    array (
+      'getInitialFeeExtensionBeforeSave' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\SaveInitialFee',
+      ),
+    ),
     'Magento\\Sales\\Model\\ResourceModel\\Order\\Handler\\Address' => 
     array (
       'addressUpdate' => 
@@ -1872,6 +1880,11 @@
         'sortOrder' => 0,
         'instance' => 'Magento\\Tax\\Model\\Quote\\ToOrderConverter',
       ),
+      'addInitialFeeToOrder' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Quote\\InitialFeeToOrder',
+      ),
     ),
     'Magento\\Quote\\Model\\Quote\\TotalsCollector' => 
     array (
@@ -2155,6 +2168,12 @@
         'sortOrder' => 0,
         'instance' => 'Magento\\SalesRule\\Plugin\\CouponUsagesDecrement',
       ),
+      'stripePaymentsOrderService' => 
+      array (
+        'sortOrder' => 1,
+        'disabled' => false,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Sales\\Model\\Service\\OrderService',
+      ),
     ),
     'Magento\\Quote\\Model\\QuoteManagement' => 
     array (
@@ -2186,6 +2205,11 @@
       array (
         'sortOrder' => 0,
         'instance' => 'Magento\\Paypal\\Plugin\\OrderCanInvoice',
+      ),
+      'setInitialFeeExtensionAfterLoad' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\LoadInitialFee',
       ),
     ),
     'Magento\\Sales\\Model\\Order\\Validation\\CanInvoice' => 
@@ -2659,6 +2683,62 @@
         'instance' => 'PayPal\\Braintree\\Plugin\\ExcludeFromMinification',
       ),
     ),
+    'Magento\\Checkout\\Model\\PaymentInformationManagement' => 
+    array (
+      'stripe_payments_paymentinformation' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\PaymentInformationManagement',
+      ),
+    ),
+    'Magento\\Checkout\\Model\\GuestPaymentInformationManagement' => 
+    array (
+      'stripe_payments_paymentinformationguest' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\GuestPaymentInformationManagement',
+      ),
+    ),
+    'Magento\\Sales\\Block\\Order\\Totals' => 
+    array (
+      'addInitialFeeTotal' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\AddInitialFeeToTotalsBlock',
+      ),
+    ),
+    'Magento\\Sales\\Model\\ResourceModel\\Order\\Collection' => 
+    array (
+      'setInitialFeeExtensionAfterLoad' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\LoadInitialFeeOnCollection',
+      ),
+    ),
+    'Magento\\Framework\\App\\Request\\CsrfValidator' => 
+    array (
+      'stripe_payments_csrf_validator_skip' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\CsrfValidatorSkip',
+      ),
+    ),
+    'Magento\\Multishipping\\Block\\Checkout\\Billing' => 
+    array (
+      'multishippingAuthorizationNeeded' => 
+      array (
+        'sortOrder' => 5,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\MultishippingAuthorizationRedirect',
+      ),
+    ),
+    'Magento\\Tax\\Model\\Config' => 
+    array (
+      'stripeSubscriptionsTaxCalculation' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Tax\\Config',
+      ),
+    ),
     'Vertex\\Utility\\SoapClientFactory' => 
     array (
       'registerLastCreatedClient' => 
@@ -2873,8 +2953,22 @@
     'Magento\\Framework\\MessageQueue\\PublisherPool' => NULL,
     'Magento\\Framework\\MessageQueue\\Bulk\\PublisherPool' => NULL,
     'Magento\\Framework\\App\\Request\\ValidatorInterface' => NULL,
-    'Magento\\Framework\\App\\Request\\CsrfValidator' => NULL,
-    'CsrfRequestValidator' => NULL,
+    'Magento\\Framework\\App\\Request\\CsrfValidator' => 
+    array (
+      'stripe_payments_csrf_validator_skip' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\CsrfValidatorSkip',
+      ),
+    ),
+    'CsrfRequestValidator' => 
+    array (
+      'stripe_payments_csrf_validator_skip' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\CsrfValidatorSkip',
+      ),
+    ),
     'Magento\\Framework\\App\\Request\\CompositeValidator' => NULL,
     'RequestValidator' => NULL,
     'Magento\\Framework\\App\\CacheInterface' => NULL,
@@ -3919,6 +4013,26 @@
     'BraintreeLpmAuthorizeRequest' => NULL,
     'BraintreeLpmAuthorizationHandler' => NULL,
     'BraintreeLpmSaleRequest' => NULL,
+    'StripeIntegration\\Payments\\Model\\PaymentMethod' => NULL,
+    'StripePaymentsFacade' => NULL,
+    'StripeIntegration\\Payments\\Model\\Method\\Invoice' => NULL,
+    'StripePaymentsInvoiceFacade' => NULL,
+    'StripeIntegration\\Payments\\Model\\Method\\Subscriptions' => NULL,
+    'StripeSubscriptionsFacade' => NULL,
+    'StripeIntegration\\Payments\\Model\\Method\\Express' => NULL,
+    'StripeExpressFacade' => NULL,
+    'StripePaymentsConfig' => NULL,
+    'StripePaymentsExpressConfig' => NULL,
+    'StripePaymentsInvoiceConfig' => NULL,
+    'StripePaymentsLogger' => NULL,
+    'StripePaymentsCountryValidator' => NULL,
+    'StripePaymentsValidatorPool' => NULL,
+    'StripePaymentsValueHandlerPool' => NULL,
+    'StripePaymentsExpressValueHandlerPool' => NULL,
+    'StripePaymentsConfigValueHandler' => NULL,
+    'StripePaymentsExpressConfigValueHandler' => NULL,
+    'StripePaymentsInvoiceValueHandlerPool' => NULL,
+    'StripePaymentsInvoiceConfigValueHandler' => NULL,
     'Vertex\\Tax\\Model\\ResourceModel\\VertexTaxCode' => NULL,
     'Vertex\\Tax\\Virtual\\ResourceModel\\Creditmemo\\VertexTaxCode' => NULL,
     'Vertex\\Tax\\Model\\ResourceModel\\TaxCode' => NULL,
@@ -5646,6 +5760,87 @@
         'instance' => 'Magento\\InventoryShipping\\Plugin\\Sales\\ResourceModel\\Order\\Shipment\\DeleteSourceForShipmentPlugin',
       ),
     ),
+    'Magento\\Sales\\Api\\OrderRepositoryInterface' => 
+    array (
+      'save_gift_message' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\GiftMessage\\Model\\Plugin\\OrderSave',
+      ),
+      'get_gift_message' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\GiftMessage\\Model\\Plugin\\OrderGet',
+      ),
+      'get_pickup_location_for_order' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\InventoryInStorePickupSales\\Plugin\\Sales\\Order\\GetPickupLocationForOrderPlugin',
+      ),
+      'save_pickup_location_for_order' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\InventoryInStorePickupSales\\Plugin\\Sales\\Order\\SavePickupLocationForOrderPlugin',
+      ),
+      'save_order_tax' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Tax\\Model\\Plugin\\OrderSave',
+      ),
+      'addVertexCustomerCountryToOrderAddress' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Vertex\\Tax\\Model\\Plugin\\AddCustomerCountryToOrderAddressPlugin',
+      ),
+      'get_vertex_order_item_attributes' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Vertex\\Tax\\Model\\Plugin\\OrderRepositoryPlugin',
+      ),
+    ),
+    'Magento\\Sales\\Model\\OrderRepository' => 
+    array (
+      'save_gift_message' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\GiftMessage\\Model\\Plugin\\OrderSave',
+      ),
+      'get_gift_message' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\GiftMessage\\Model\\Plugin\\OrderGet',
+      ),
+      'get_pickup_location_for_order' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\InventoryInStorePickupSales\\Plugin\\Sales\\Order\\GetPickupLocationForOrderPlugin',
+      ),
+      'save_pickup_location_for_order' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\InventoryInStorePickupSales\\Plugin\\Sales\\Order\\SavePickupLocationForOrderPlugin',
+      ),
+      'save_order_tax' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Tax\\Model\\Plugin\\OrderSave',
+      ),
+      'addVertexCustomerCountryToOrderAddress' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Vertex\\Tax\\Model\\Plugin\\AddCustomerCountryToOrderAddressPlugin',
+      ),
+      'get_vertex_order_item_attributes' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Vertex\\Tax\\Model\\Plugin\\OrderRepositoryPlugin',
+      ),
+      'getInitialFeeExtensionBeforeSave' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\SaveInitialFee',
+      ),
+    ),
     'Magento\\Sales\\Model\\ResourceModel\\Order\\Handler\\Address' => 
     array (
       'addressUpdate' => 
@@ -6054,44 +6249,6 @@
       array (
         'sortOrder' => 0,
         'instance' => 'Magento\\Fedex\\Plugin\\Block\\Tracking\\PopupDeliveryDate',
-      ),
-    ),
-    'Magento\\Sales\\Api\\OrderRepositoryInterface' => 
-    array (
-      'save_gift_message' => 
-      array (
-        'sortOrder' => 0,
-        'instance' => 'Magento\\GiftMessage\\Model\\Plugin\\OrderSave',
-      ),
-      'get_gift_message' => 
-      array (
-        'sortOrder' => 0,
-        'instance' => 'Magento\\GiftMessage\\Model\\Plugin\\OrderGet',
-      ),
-      'get_pickup_location_for_order' => 
-      array (
-        'sortOrder' => 0,
-        'instance' => 'Magento\\InventoryInStorePickupSales\\Plugin\\Sales\\Order\\GetPickupLocationForOrderPlugin',
-      ),
-      'save_pickup_location_for_order' => 
-      array (
-        'sortOrder' => 0,
-        'instance' => 'Magento\\InventoryInStorePickupSales\\Plugin\\Sales\\Order\\SavePickupLocationForOrderPlugin',
-      ),
-      'save_order_tax' => 
-      array (
-        'sortOrder' => 0,
-        'instance' => 'Magento\\Tax\\Model\\Plugin\\OrderSave',
-      ),
-      'addVertexCustomerCountryToOrderAddress' => 
-      array (
-        'sortOrder' => 0,
-        'instance' => 'Vertex\\Tax\\Model\\Plugin\\AddCustomerCountryToOrderAddressPlugin',
-      ),
-      'get_vertex_order_item_attributes' => 
-      array (
-        'sortOrder' => 0,
-        'instance' => 'Vertex\\Tax\\Model\\Plugin\\OrderRepositoryPlugin',
       ),
     ),
     'Magento\\Framework\\App\\PageCache\\Identifier' => 
@@ -6763,6 +6920,11 @@
         'sortOrder' => 20,
         'instance' => 'Magento\\InventoryInStorePickupQuote\\Plugin\\Quote\\SetPickupLocationToOrder',
       ),
+      'addInitialFeeToOrder' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Quote\\InitialFeeToOrder',
+      ),
     ),
     'Magento\\Quote\\Model\\Quote\\TotalsCollector' => 
     array (
@@ -7045,6 +7207,12 @@
         'sortOrder' => 0,
         'instance' => 'Magento\\SalesRule\\Plugin\\CouponUsagesDecrement',
       ),
+      'stripePaymentsOrderService' => 
+      array (
+        'sortOrder' => 1,
+        'disabled' => false,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Sales\\Model\\Service\\OrderService',
+      ),
     ),
     'Magento\\Quote\\Api\\CartManagementInterface' => NULL,
     'Magento\\Quote\\Model\\QuoteManagement' => 
@@ -7080,6 +7248,11 @@
       array (
         'sortOrder' => 0,
         'instance' => 'Magento\\Paypal\\Plugin\\OrderCanInvoice',
+      ),
+      'setInitialFeeExtensionAfterLoad' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\LoadInitialFee',
       ),
     ),
     'Magento\\Sales\\Model\\ValidatorInterface' => NULL,
@@ -7998,6 +8171,84 @@
         'instance' => 'PayPal\\Braintree\\Plugin\\ExcludeFromMinification',
       ),
     ),
+    'Magento\\Checkout\\Model\\PaymentInformationManagement' => 
+    array (
+      'validate-agreements' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\CheckoutAgreements\\Model\\Checkout\\Plugin\\Validation',
+      ),
+      'stripe_payments_paymentinformation' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\PaymentInformationManagement',
+      ),
+    ),
+    'Magento\\Checkout\\Model\\GuestPaymentInformationManagement' => 
+    array (
+      'validate-guest-agreements' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\CheckoutAgreements\\Model\\Checkout\\Plugin\\GuestValidation',
+      ),
+      'guest_payment_no_commit_after_event_workaround' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Vertex\\Tax\\Model\\Plugin\\GuestPaymentInformationManagementPlugin',
+      ),
+      'stripe_payments_paymentinformationguest' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\GuestPaymentInformationManagement',
+      ),
+    ),
+    'Magento\\Sales\\Block\\Order\\Totals' => 
+    array (
+      'addInitialFeeTotal' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\AddInitialFeeToTotalsBlock',
+      ),
+    ),
+    'Magento\\Sales\\Model\\ResourceModel\\Collection\\AbstractCollection' => 
+    array (
+      'currentPageDetection' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Theme\\Plugin\\Data\\Collection',
+      ),
+    ),
+    'Magento\\Sales\\Api\\Data\\OrderSearchResultInterface' => NULL,
+    'Magento\\Sales\\Model\\ResourceModel\\Order\\Collection' => 
+    array (
+      'currentPageDetection' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Theme\\Plugin\\Data\\Collection',
+      ),
+      'setInitialFeeExtensionAfterLoad' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\LoadInitialFeeOnCollection',
+      ),
+    ),
+    'Magento\\Payment\\Block\\Form\\Container' => NULL,
+    'Magento\\Multishipping\\Block\\Checkout\\Billing' => 
+    array (
+      'multishippingAuthorizationNeeded' => 
+      array (
+        'sortOrder' => 5,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\MultishippingAuthorizationRedirect',
+      ),
+    ),
+    'Magento\\Tax\\Model\\Config' => 
+    array (
+      'stripeSubscriptionsTaxCalculation' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\Tax\\Config',
+      ),
+    ),
     'Vertex\\Utility\\SoapClientFactory' => 
     array (
       'registerLastCreatedClient' => 
@@ -8123,6 +8374,14 @@
   ),
   2 => 
   array (
+    'Magento\\Framework\\App\\Request\\CsrfValidator_validate___self' => 
+    array (
+      2 => 'stripe_payments_csrf_validator_skip',
+    ),
+    'CsrfRequestValidator_validate___self' => 
+    array (
+      2 => 'stripe_payments_csrf_validator_skip',
+    ),
     'Magento\\Framework\\Data\\Collection_getCurPage___self' => 
     array (
       4 => 
@@ -9894,6 +10153,64 @@
         0 => 'DeleteSourceForShipment',
       ),
     ),
+    'Magento\\Sales\\Api\\OrderRepositoryInterface_save___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'save_gift_message',
+        1 => 'save_pickup_location_for_order',
+        2 => 'save_order_tax',
+        3 => 'addVertexCustomerCountryToOrderAddress',
+      ),
+    ),
+    'Magento\\Sales\\Api\\OrderRepositoryInterface_get___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'get_gift_message',
+        1 => 'get_pickup_location_for_order',
+        2 => 'get_vertex_order_item_attributes',
+      ),
+    ),
+    'Magento\\Sales\\Api\\OrderRepositoryInterface_getList___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'get_gift_message',
+        1 => 'get_vertex_order_item_attributes',
+      ),
+    ),
+    'Magento\\Sales\\Model\\OrderRepository_save___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'save_gift_message',
+        1 => 'save_pickup_location_for_order',
+        2 => 'save_order_tax',
+        3 => 'addVertexCustomerCountryToOrderAddress',
+      ),
+      1 => 
+      array (
+        0 => 'getInitialFeeExtensionBeforeSave',
+      ),
+    ),
+    'Magento\\Sales\\Model\\OrderRepository_get___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'get_gift_message',
+        1 => 'get_pickup_location_for_order',
+        2 => 'get_vertex_order_item_attributes',
+      ),
+    ),
+    'Magento\\Sales\\Model\\OrderRepository_getList___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'get_gift_message',
+        1 => 'get_vertex_order_item_attributes',
+      ),
+    ),
     'Magento\\Sales\\Model\\ResourceModel\\Order\\Handler\\Address_process___self' => 
     array (
       4 => 
@@ -10278,33 +10595,6 @@
       4 => 
       array (
         0 => 'update_delivery_date_value',
-      ),
-    ),
-    'Magento\\Sales\\Api\\OrderRepositoryInterface_save___self' => 
-    array (
-      4 => 
-      array (
-        0 => 'save_gift_message',
-        1 => 'save_pickup_location_for_order',
-        2 => 'save_order_tax',
-        3 => 'addVertexCustomerCountryToOrderAddress',
-      ),
-    ),
-    'Magento\\Sales\\Api\\OrderRepositoryInterface_get___self' => 
-    array (
-      4 => 
-      array (
-        0 => 'get_gift_message',
-        1 => 'get_pickup_location_for_order',
-        2 => 'get_vertex_order_item_attributes',
-      ),
-    ),
-    'Magento\\Sales\\Api\\OrderRepositoryInterface_getList___self' => 
-    array (
-      4 => 
-      array (
-        0 => 'get_gift_message',
-        1 => 'get_vertex_order_item_attributes',
       ),
     ),
     'Magento\\Framework\\App\\PageCache\\Identifier_getValue___self' => 
@@ -10821,6 +11111,7 @@
       array (
         0 => 'add_tax_to_order',
       ),
+      2 => 'addInitialFeeToOrder',
     ),
     'Magento\\Quote\\Model\\Quote\\TotalsCollector_collect___self' => 
     array (
@@ -11059,6 +11350,10 @@
         0 => 'coupon_uses_decrement_plugin',
       ),
     ),
+    'Magento\\Sales\\Model\\Service\\OrderService_place_inventory_reservations_placement' => 
+    array (
+      2 => 'stripePaymentsOrderService',
+    ),
     'Magento\\Quote\\Model\\QuoteManagement_submit___self' => 
     array (
       1 => 
@@ -11085,6 +11380,13 @@
       4 => 
       array (
         0 => 'express_order_invoice',
+      ),
+    ),
+    'Magento\\Sales\\Model\\Order_load___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'setInitialFeeExtensionAfterLoad',
       ),
     ),
     'Magento\\Sales\\Model\\Order\\Validation\\CanInvoice_validate___self' => 
@@ -11845,6 +12147,69 @@
       array (
         0 => 'braintreeExcludeFromMinification',
       ),
+    ),
+    'Magento\\Checkout\\Model\\PaymentInformationManagement_savePaymentInformationAndPlaceOrder___self' => 
+    array (
+      1 => 
+      array (
+        0 => 'validate-agreements',
+      ),
+      2 => 'stripe_payments_paymentinformation',
+    ),
+    'Magento\\Checkout\\Model\\PaymentInformationManagement_savePaymentInformation___self' => 
+    array (
+      1 => 
+      array (
+        0 => 'validate-agreements',
+      ),
+    ),
+    'Magento\\Checkout\\Model\\GuestPaymentInformationManagement_savePaymentInformationAndPlaceOrder___self' => 
+    array (
+      1 => 
+      array (
+        0 => 'validate-guest-agreements',
+      ),
+      4 => 
+      array (
+        0 => 'guest_payment_no_commit_after_event_workaround',
+      ),
+      2 => 'stripe_payments_paymentinformationguest',
+    ),
+    'Magento\\Sales\\Block\\Order\\Totals_getOrder___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'addInitialFeeTotal',
+      ),
+    ),
+    'Magento\\Sales\\Model\\ResourceModel\\Collection\\AbstractCollection_getCurPage___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'currentPageDetection',
+      ),
+    ),
+    'Magento\\Sales\\Model\\ResourceModel\\Order\\Collection_getCurPage___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'currentPageDetection',
+      ),
+    ),
+    'Magento\\Sales\\Model\\ResourceModel\\Order\\Collection_getItems___self' => 
+    array (
+      4 => 
+      array (
+        0 => 'setInitialFeeExtensionAfterLoad',
+      ),
+    ),
+    'Magento\\Multishipping\\Block\\Checkout\\Billing_getPostActionUrl___self' => 
+    array (
+      2 => 'multishippingAuthorizationNeeded',
+    ),
+    'Magento\\Tax\\Model\\Config_getAlgorithm___self' => 
+    array (
+      2 => 'stripeSubscriptionsTaxCalculation',
     ),
     'Vertex\\Utility\\SoapClientFactory_create___self' => 
     array (

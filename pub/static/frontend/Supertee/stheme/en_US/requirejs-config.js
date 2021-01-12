@@ -6,6 +6,77 @@
  */
 
 var config = {
+    waitSeconds: 0,
+    map: {
+        '*': {
+            'ko': 'knockoutjs/knockout',
+            'knockout': 'knockoutjs/knockout',
+            'mageUtils': 'mage/utils/main',
+            'rjsResolver': 'mage/requirejs/resolver'
+        }
+    },
+    shim: {
+        'jquery/jquery-migrate': ['jquery'],
+        'jquery/jstree/jquery.hotkeys': ['jquery'],
+        'jquery/hover-intent': ['jquery'],
+        'mage/adminhtml/backup': ['prototype'],
+        'mage/captcha': ['prototype'],
+        'mage/new-gallery': ['jquery'],
+        'mage/webapi': ['jquery'],
+        'jquery/ui': ['jquery'],
+        'MutationObserver': ['es6-collections'],
+        'matchMedia': {
+            'exports': 'mediaCheck'
+        },
+        'magnifier/magnifier': ['jquery']
+    },
+    paths: {
+        'jquery/validate': 'jquery/jquery.validate',
+        'jquery/hover-intent': 'jquery/jquery.hoverIntent',
+        'jquery/file-uploader': 'jquery/fileUploader/jquery.fileuploader',
+        'prototype': 'legacy-build.min',
+        'jquery/jquery-storageapi': 'jquery/jquery.storageapi.min',
+        'text': 'mage/requirejs/text',
+        'domReady': 'requirejs/domReady',
+        'spectrum': 'jquery/spectrum/spectrum',
+        'tinycolor': 'jquery/spectrum/tinycolor',
+        'jquery-ui-modules': 'jquery/ui-modules'
+    },
+    deps: [
+        'jquery/jquery-migrate'
+    ],
+    config: {
+        mixins: {
+            'jquery/jstree/jquery.jstree': {
+                'mage/backend/jstree-mixin': true
+            },
+            'jquery': {
+                'jquery/patches/jquery': true
+            }
+        },
+        text: {
+            'headers': {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        }
+    }
+};
+
+require(['jquery'], function ($) {
+    'use strict';
+
+    $.noConflict();
+});
+
+require.config(config);
+})();
+(function() {
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+var config = {
     map: {
         '*': {
             'rowBuilder':             'Magento_Theme/js/row-builder',
@@ -72,77 +143,6 @@ if (typeof window !== 'undefined' && window.document) {
     }
 }
 /* eslint-enable max-depth */
-
-require.config(config);
-})();
-(function() {
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-var config = {
-    waitSeconds: 0,
-    map: {
-        '*': {
-            'ko': 'knockoutjs/knockout',
-            'knockout': 'knockoutjs/knockout',
-            'mageUtils': 'mage/utils/main',
-            'rjsResolver': 'mage/requirejs/resolver'
-        }
-    },
-    shim: {
-        'jquery/jquery-migrate': ['jquery'],
-        'jquery/jstree/jquery.hotkeys': ['jquery'],
-        'jquery/hover-intent': ['jquery'],
-        'mage/adminhtml/backup': ['prototype'],
-        'mage/captcha': ['prototype'],
-        'mage/new-gallery': ['jquery'],
-        'mage/webapi': ['jquery'],
-        'jquery/ui': ['jquery'],
-        'MutationObserver': ['es6-collections'],
-        'matchMedia': {
-            'exports': 'mediaCheck'
-        },
-        'magnifier/magnifier': ['jquery']
-    },
-    paths: {
-        'jquery/validate': 'jquery/jquery.validate',
-        'jquery/hover-intent': 'jquery/jquery.hoverIntent',
-        'jquery/file-uploader': 'jquery/fileUploader/jquery.fileuploader',
-        'prototype': 'legacy-build.min',
-        'jquery/jquery-storageapi': 'jquery/jquery.storageapi.min',
-        'text': 'mage/requirejs/text',
-        'domReady': 'requirejs/domReady',
-        'spectrum': 'jquery/spectrum/spectrum',
-        'tinycolor': 'jquery/spectrum/tinycolor',
-        'jquery-ui-modules': 'jquery/ui-modules'
-    },
-    deps: [
-        'jquery/jquery-migrate'
-    ],
-    config: {
-        mixins: {
-            'jquery/jstree/jquery.jstree': {
-                'mage/backend/jstree-mixin': true
-            },
-            'jquery': {
-                'jquery/patches/jquery': true
-            }
-        },
-        text: {
-            'headers': {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        }
-    }
-};
-
-require(['jquery'], function ($) {
-    'use strict';
-
-    $.noConflict();
-});
 
 require.config(config);
 })();
@@ -828,13 +828,11 @@ require.config(config);
 var config = {
     map: {
         '*': {
-            editTrigger: 'mage/edit-trigger',
-            addClass: 'Magento_Translation/js/add-class',
-            'Magento_Translation/add-class': 'Magento_Translation/js/add-class'
+            mageTranslationDictionary: 'Magento_Translation/js/mage-translation-dictionary'
         }
     },
     deps: [
-        'mage/translate-inline'
+        'mageTranslationDictionary'
     ]
 };
 
@@ -849,11 +847,13 @@ require.config(config);
 var config = {
     map: {
         '*': {
-            mageTranslationDictionary: 'Magento_Translation/js/mage-translation-dictionary'
+            editTrigger: 'mage/edit-trigger',
+            addClass: 'Magento_Translation/js/add-class',
+            'Magento_Translation/add-class': 'Magento_Translation/js/add-class'
         }
     },
     deps: [
-        'mageTranslationDictionary'
+        'mage/translate-inline'
     ]
 };
 
@@ -1062,6 +1062,24 @@ var config = {
 require.config(config);
 })();
 (function() {
+var config = {
+    config: {
+        mixins: {
+            'Magento_Checkout/js/model/step-navigator': {
+                'PayPal_Braintree/js/model/step-navigator-mixin': true
+            }
+        }
+    },
+    map: {
+        '*': {
+            braintreeCheckoutPayPalAdapter: 'PayPal_Braintree/js/view/payment/adapter'
+        }
+    },
+};
+
+require.config(config);
+})();
+(function() {
 /**
  * Config to pull in all the relevant Braintree JS SDKs
  * @type {{paths: {braintreePayPalCheckout: string, braintreeHostedFields: string, braintreeDataCollector: string, braintreeThreeDSecure: string, braintreeGooglePay: string, braintreeApplePay: string, googlePayLibrary: string}, map: {"*": {braintree: string}}}}
@@ -1090,19 +1108,49 @@ var config = {
 require.config(config);
 })();
 (function() {
+/*jshint browser:true jquery:true*/
+/*global alert*/
 var config = {
-    config: {
-        mixins: {
-            'Magento_Checkout/js/model/step-navigator': {
-                'PayPal_Braintree/js/model/step-navigator-mixin': true
-            }
-        }
-    },
     map: {
         '*': {
-            braintreeCheckoutPayPalAdapter: 'PayPal_Braintree/js/view/payment/adapter'
+            'stripejs': 'https://js.stripe.com/v3/',
+            'stripe_payments': 'StripeIntegration_Payments/js/stripe_payments',
+            'klarnapi': 'https://x.klarnacdn.net/kp/lib/v1/api.js'
         }
     },
+    config: {
+        mixins: {
+            'Magento_Tax/js/view/checkout/summary/grand-total': {
+                'StripeIntegration_Payments/js/mixins/checkout/summary/grand_total': true
+            }
+        }
+    }
+};
+
+require.config(config);
+})();
+(function() {
+/*jshint browser:true jquery:true*/
+/*global alert*/
+var config = {
+    map: {
+        '*': {
+            'stripejs': 'https://js.stripe.com/v3/',
+            'stripe_payments': 'StripeIntegration_Payments/js/stripe_payments',
+            'stripe_payments_express': 'StripeIntegration_Payments/js/stripe_payments_express',
+            'klarnapi': 'https://x.klarnacdn.net/kp/lib/v1/api.js'
+        }
+    },
+    config: {
+        mixins: {
+            'Magento_Ui/js/view/messages': {
+                'StripeIntegration_Payments/js/messages-mixin': true
+            },
+            'MSP_ReCaptcha/js/ui-messages-mixin': {
+                'StripeIntegration_Payments/js/messages-mixin': true
+            }
+        }
+    }
 };
 
 require.config(config);

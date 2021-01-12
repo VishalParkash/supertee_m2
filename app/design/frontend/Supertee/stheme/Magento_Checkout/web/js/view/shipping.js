@@ -249,13 +249,14 @@ define([
          * Set shipping information handler
          */
         setShippingInformation: function () {
-            if (this.validateShippingInformation()) {
+            // if (this.validateShippingInformation()) {
                 quote.billingAddress(null);
                 checkoutDataResolver.resolveBillingAddress();
                 registry.async('checkoutProvider')(function (checkoutProvider) {
                     var shippingAddressData = checkoutData.getShippingAddressFromData();
 
                     if (shippingAddressData) {
+                        console.log('here checkout');
                         checkoutProvider.set(
                             'shippingAddress',
                             $.extend(true, {}, checkoutProvider.get('shippingAddress'), shippingAddressData)
@@ -267,7 +268,7 @@ define([
                         stepNavigator.next();
                     }
                 );
-            }
+            // }
         },
 
         /**
