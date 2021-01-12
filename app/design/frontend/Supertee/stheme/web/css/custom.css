@@ -9,11 +9,12 @@
   margin-right: auto;
   margin-left: auto;
   width: 100%;      
+  align-items: flex-start;
 }
 
 /*checkoutPage Update*/
 
-#checkout .cartSection:after{
+#checkout .opc-summary-wrapper:after{
   width: 40%;
 }
 
@@ -56,7 +57,7 @@
 }
 
 #checkout .opc-wrapper{
-  width:60%;
+  /*width:60%;*/
   padding-right:120px;
 }
 
@@ -90,7 +91,7 @@
 
 #checkout .opc-wrapper #checkoutSteps li{
   margin-bottom:30px;
-  padding-left:15px;
+  /*padding-left:15px;*/
 }
 
 
@@ -219,24 +220,24 @@ outline:0;
     top:200px;
 }*/
 
-.opc-sidebar{
+/*.opc-sidebar{
   background: #F2F3F2;
   width:40%;
   position:absolute;
   right:0;
   top:200px;
-}
+}*/
 
 .opc-sidebar .modal-inner-wrap{
-  max-width: 80%;
+  /*max-width: 80%;*/
 }
 
-/*.opc-sidebar{
+.opc-sidebar{
   background: #F2F3F2;
   border:0;
   outline:0;
-  width: 70%;
-}*/
+  width: 33%;
+}
 
 .opc-sidebar .modal-header{
   padding:40px;

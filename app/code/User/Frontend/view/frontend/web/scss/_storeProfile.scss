@@ -1,0 +1,142 @@
+.storeProfile {
+    padding: 24px 0 70px;
+}
+.storeProfileBanner {
+    position: relative;
+    padding: 190px 0;
+    @include min-992 {
+        padding: 145px 0;
+    }
+    &:before {
+        content: "";
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, $black 100%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .storeProfileInner {
+        position: relative;
+        z-index: 1;
+        img {
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+    }
+}
+.storeProfileForm {
+    border-bottom: 1px solid $borderLight;
+    @include min-992 {
+        border-bottom: 0;
+    }
+    .storeProfileFormInner {
+        padding: 48px 0;
+        @include min-992 {
+            border-bottom: 1px solid $borderLight;
+        }
+    }
+}
+.storeProfileTheme {
+    .storeProfileThemeInner {
+        border-bottom: 1px solid $borderLight;
+        padding: 48px 0 24px;
+    }
+    .storeProfileThemeList {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        .storeProfileThemeItemOuter {
+            position: relative;
+            text-align: center;
+            margin-bottom: 24px;
+            .customCheckBox {
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 10px 0 0;
+                .customCheckBoxCheck {
+                    background-image: url(../images/unCheckDark.png);
+                }
+                input:checked + .customCheckBoxCheck {
+                    background-image: url(../images/check.png);
+                }
+            }
+            label {
+                margin: 0;
+            }
+            .form-group {
+                label {
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-weight: normal;
+                    font-size: 0.9375em;
+                    &:not(.customCheckBox) {
+                        margin-top: -0.1em;
+                    }
+                }
+            }
+        }
+        .storeProfileThemeItem {
+            width: 176px;
+            height: 113px;
+            border-radius: 10px;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            margin: 0 0 15px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            &:hover {
+                box-shadow: 0px 4px 10px rgba($black, 0.25);
+            }
+        }
+    }
+}
+.storeProfileThemeDesignPluginIntegration {
+    text-align: center;
+    background-color: $borderLight5;
+    padding: 80px 20px;
+    margin: 0 0 48px;
+    h2 {
+        color: $borderDark;
+        font-size: 4.5em;
+        line-height: 115%;
+        font-weight: bold;
+    }
+}
+.storeProfileThemeDesignPluginIntegrationBtn {
+    padding: 48px 0;
+    button {
+        &:not(:last-child) {
+            margin-right: 24px;
+        }
+    }
+}
+
+.storeProfileFooter {
+    padding: 110px 0;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: $bgDark;
+    color: $white;
+    h2 {
+        font-size: 3em;
+        line-height: 109%;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+    }
+    p {
+        font-size: 1.125em;
+        line-height: 1.5555555555555556em;
+        color: $bgGray2;
+        margin: 0 0 20px;
+    }
+}

@@ -4,9 +4,11 @@
  * See COPYING.txt for license details.
  */
 -->
-<div class="opc-block-summary" data-bind="blockLoader: isLoading">
+<div class="col-md-12">
+<div class="opc-block-summary cartDetailWrap checkoutWrap" data-bind="blockLoader: isLoading">
     <span data-bind="i18n: 'Order Summary'" class="title"></span>
     <!-- ko foreach: elems() -->
         <!-- ko template: getTemplate() --><!-- /ko -->
     <!-- /ko -->
+</div>
 </div>

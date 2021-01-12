@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610376112;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610432381;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -7489,6 +7489,278 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610376112;s:6:"expire";i:9999999999;s:4:"t
       </referenceBlock>
    </referenceContainer>
 </body>
+</handle><handle id="catalog_product_view"><body>
+   <referenceBlock name="product.info.addtocart">
+      <block class="StripeIntegration\Payments\Block\Button" name="product.info.stripe_payments_express" template="StripeIntegration_Payments::express/product_button.phtml" before="-" ifconfig="payment/stripe_payments_express/product_button"/>
+   </referenceBlock>
+   <referenceBlock name="product.info.addtocart.additional">
+      <block name="product.info.addtocart.stripe_payments_express.additional" class="StripeIntegration\Payments\Block\Button" template="StripeIntegration_Payments::express/product_button.phtml" ifconfig="payment/stripe_payments_express/product_button" before="-"/>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_cart_index"><body>
+   <referenceBlock name="checkout.cart.totals">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="block-totals" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="initial_fee" xsi:type="array">
+                        <item name="component" xsi:type="string">StripeIntegration_Payments/js/view/checkout/cart/totals/initial_fee</item>
+                        <item name="sortOrder" xsi:type="string">20</item>
+                        <item name="config" xsi:type="array">
+                           <item name="template" xsi:type="string">StripeIntegration_Payments/checkout/cart/totals/initial_fee</item>
+                           <item name="title" xsi:type="string">Initial Fee</item>
+                        </item>
+                     </item>
+                     <item name="trialing_subscriptions" xsi:type="array">
+                        <item name="component" xsi:type="string">StripeIntegration_Payments/js/view/checkout/trialing_subscriptions</item>
+                        <item name="sortOrder" xsi:type="string">100</item>
+                        <item name="config" xsi:type="array">
+                           <item name="template" xsi:type="string">StripeIntegration_Payments/checkout/trialing_subscriptions</item>
+                           <item name="title" xsi:type="string">Trial Subscription(s)</item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_index_index"><body>
+   <referenceBlock name="checkout.root">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="checkout" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="sidebar" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="summary" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="totals" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="initial_fee" xsi:type="array">
+                                          <item name="component" xsi:type="string">StripeIntegration_Payments/js/view/checkout/cart/totals/initial_fee</item>
+                                          <item name="sortOrder" xsi:type="string">20</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="template" xsi:type="string">StripeIntegration_Payments/checkout/cart/totals/initial_fee</item>
+                                             <item name="title" xsi:type="string">Initial Fee</item>
+                                          </item>
+                                       </item>
+                                       <item name="trialing_subscriptions" xsi:type="array">
+                                          <item name="component" xsi:type="string">StripeIntegration_Payments/js/view/checkout/trialing_subscriptions</item>
+                                          <item name="sortOrder" xsi:type="string">100</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="template" xsi:type="string">StripeIntegration_Payments/checkout/trialing_subscriptions</item>
+                                             <item name="title" xsi:type="string">Trial Subscription(s)</item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                                 <item name="cart_items" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="details" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="subtotal" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/item/details/subtotal</item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                     <item name="steps" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="billing-step" xsi:type="array">
+                              <item name="component" xsi:type="string">uiComponent</item>
+                              <item name="children" xsi:type="array">
+                                 <item name="payment" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="beforeMethods" xsi:type="array">
+                                          <item name="component" xsi:type="string">uiComponent</item>
+                                          <item name="displayArea" xsi:type="string">beforeMethods</item>
+                                          <item name="children" xsi:type="array">
+                                             <item name="stripe_payments_apple_pay" xsi:type="array">
+                                                <item name="component" xsi:type="string">StripeIntegration_Payments/js/view/payment/apple_pay</item>
+                                                <item name="config" xsi:type="array">
+                                                   <item name="template" xsi:type="string">StripeIntegration_Payments/payment/apple_pay_top</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                   <item name="agreementss" xsi:type="array">
+                                                      <item name="componentDisabled" xsi:type="boolean">false</item>
+                                                      <item name="component" xsi:type="string">Magento_CheckoutAgreements/js/view/checkout-agreements</item>
+                                                      <item name="sortOrder" xsi:type="string">100</item>
+                                                      <item name="displayArea" xsi:type="string">beforeMethods</item>
+                                                      <item name="dataScope" xsi:type="string">checkoutAgreements</item>
+                                                      <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                       <item name="renders" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="stripe_payments" xsi:type="array">
+                                                <item name="component" xsi:type="string">StripeIntegration_Payments/js/view/payment/stripe_payments</item>
+                                                <item name="methods" xsi:type="array">
+                                                   <item name="stripe_payments" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_bancontact" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_giropay" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_ideal" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_sepa" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_sepa_credit" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_sofort" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_multibanco" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_eps" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_p24" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_alipay" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_wechat" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_fpx" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_klarna" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_ach" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_oxxo" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="stripe_payments_checkout_card" xsi:type="array">
+                                                      <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_index_index"><head>
+   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
+   <css src="StripeIntegration_Payments::css/stripe_payments_elements.css"/>
+   <css src="StripeIntegration_Payments::css/paymentfont.min.css"/>
+</head>
+</handle><handle id="customer_account"><body>
+   <referenceBlock name="customer_account_navigation">
+      <block class="Magento\Framework\View\Element\Html\Link\Current" name="stripe-payments-customer-cards">
+         <arguments>
+            <argument name="path" xsi:type="string">stripe/customer/cards</argument>
+            <argument name="label" xsi:type="string">My Saved Cards</argument>
+            <argument name="sortOrder" xsi:type="number">150</argument>
+         </arguments>
+      </block>
+      <block class="Magento\Framework\View\Element\Html\Link\Current" name="stripe-payments-subscriptions">
+         <arguments>
+            <argument name="path" xsi:type="string">stripe/customer/subscriptions</argument>
+            <argument name="label" xsi:type="string">My Subscriptions</argument>
+            <argument name="sortOrder" xsi:type="number">160</argument>
+         </arguments>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="default"><head>
+   <link src="StripeIntegration_Payments::js/stripe_payments.js"/>
+   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
+</head>
+<body>
+   <referenceBlock name="order.success.additional.info">
+      <block class="StripeIntegration\Payments\Block\Success" name="custom_info.order.success" template="StripeIntegration_Payments::order/success.phtml" after="-">
+     </block>
+   </referenceBlock>
+</body>
+</handle><handle id="multishipping_checkout_billing"><head>
+   <css src="StripeIntegration_Payments::css/stripe_payments_base.css"/>
+   <css src="StripeIntegration_Payments::css/stripe_payments_elements.css"/>
+   <css src="StripeIntegration_Payments::css/paymentfont.min.css"/>
+</head>
+<body>
+   <block class="StripeIntegration\Payments\Block\Sepa" name="payment.method.stripe_payments_sepa" template="StripeIntegration_Payments::form/sepa.phtml" cacheable="false">
+        </block>
+</body>
+</handle><handle id="stripe_authorization_multishipping" layout="checkout" design_abstraction="custom"><body>
+   <referenceBlock name="page.main.title">
+      <action method="setPageTitle">
+         <argument translate="true" name="label" xsi:type="string">Payment Authorization</argument>
+      </action>
+   </referenceBlock>
+   <referenceContainer name="content">
+      <block class="StripeIntegration\Payments\Block\Authorization\Multishipping" name="stripe_authorization_multishipping" template="StripeIntegration_Payments::authorization/multishipping.phtml" cacheable="false"/>
+   </referenceContainer>
+</body>
+</handle><handle id="stripe_payments_ach_verification" layout="1column"><update handle="customer_account"/>
+<head>
+   <title>Bank Account Verification</title>
+   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="StripeIntegration\Payments\Block\Ach\Verification" name="ach_verification" template="verification/content.phtml" cacheable="false"/>
+   </referenceContainer>
+</body>
+</handle><handle id="stripe_payments_customer_cards" layout="2columns-left"><update handle="customer_account"/>
+<head>
+   <title>My Saved Cards</title>
+   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
+   <css src="StripeIntegration_Payments::css/stripe_payments_elements.css"/>
+   <css src="StripeIntegration_Payments::css/paymentfont.min.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="StripeIntegration\Payments\Block\Customer\Cards" name="customer_cards" template="customer/cards.phtml" cacheable="false"/>
+   </referenceContainer>
+</body>
+</handle><handle id="stripe_payments_customer_subscriptions" layout="2columns-left"><update handle="customer_account"/>
+<head>
+   <title>My Subscriptions</title>
+   <link src="StripeIntegration_Payments::js/stripe_payments.js"/>
+   <css src="StripeIntegration_Payments::css/stripe_payments_base.css"/>
+   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="StripeIntegration\Payments\Block\Customer\Subscriptions" name="customer_subscriptions" template="customer/subscriptions.phtml" cacheable="false"/>
+   </referenceContainer>
+</body>
 </handle><handle id="1client_client_index" layout="2columns-left"><head>
    <remove src="Magento_Theme::css/style.css"/>
    <remove src="css/styles.css"/>
@@ -7807,17 +8079,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610376112;s:6:"expire";i:9999999999;s:4:"t
                            <item name="sortOrder" xsi:type="string">0</item>
                            <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
                            <item name="displayArea" xsi:type="string">messages</item>
-                        </item>
-                        <item name="progressBar" xsi:type="array">
-                           <item name="sortOrder" xsi:type="string">0</item>
-                           <item name="component" xsi:type="string">Magento_Checkout/js/view/progress-bar</item>
-                           <item name="displayArea" xsi:type="string">progressBar</item>
-                           <item name="config" xsi:type="array">
-                              <item name="deps" xsi:type="array">
-                                 <item name="0" xsi:type="string">checkout.steps.shipping-step.shippingAddress</item>
-                                 <item name="1" xsi:type="string">checkout.steps.billing-step.payment</item>
-                              </item>
-                           </item>
                         </item>
                         <item name="steps" xsi:type="array">
                            <item name="component" xsi:type="string">uiComponent</item>

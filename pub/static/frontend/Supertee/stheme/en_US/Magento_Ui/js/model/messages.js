@@ -1,1 +1,1 @@
-/var/www/html/supertee/app/design/frontend/Supertee/stheme/Magento_Ui/web/js/model/messages.js
+/var/www/html/supertee/vendor/magento/module-ui/view/frontend/web/js/model/messages.js

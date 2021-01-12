@@ -474,6 +474,7 @@ return array(
     '3109cb1a231dcd04bee1f9f620d46975' => $vendorDir . '/paragonie/sodium_compat/autoload.php',
     '7adedf5aab7954091befcc50d50f5120' => $vendorDir . '/paypal/module-braintree-graph-ql/registration.php',
     'aa75ea0761a2f40c1f3b32ad314f86c4' => $vendorDir . '/phpseclib/mcrypt_compat/lib/mcrypt.php',
+    '6afbb3ece6b14bcedd88522ddc6978f5' => $vendorDir . '/stripe/module-payments/registration.php',
     '43a898c2b52882ecca1f7b0558d3af2c' => $vendorDir . '/magento/composer-root-update-plugin/registration.php',
     'eda65932675b68b5aee4503e0762d64d' => $vendorDir . '/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/_bootstrap.php',
     'b4cf39431a4b949eea8aa69ebb3d39da' => $baseDir . '/app/etc/NonComposerComponentRegistration.php',
