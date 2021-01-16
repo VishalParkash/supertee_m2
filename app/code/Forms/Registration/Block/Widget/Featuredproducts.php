@@ -23,12 +23,19 @@ class Featuredproducts extends \Magento\Framework\View\Element\Template implemen
     protected $categoryRepository;
     protected $_categoryCollectionFactory;
     protected $_storeManager;
+
+    protected $_productCollectionFactory;
+    protected $_productloader;
  
-    public function __construct(Context $context, StoreManagerInterface $storeManager, CollectionFactory $categoryCollectionFactory)
+    public function __construct(Context $context, StoreManagerInterface $storeManager, CollectionFactory $categoryCollectionFactory, \Magento\Catalog\Model\ProductFactory $_productloader,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory)
     {
  
         $this->_storeManager = $storeManager;
         $this->_categoryCollectionFactory = $categoryCollectionFactory;
+
+        $this->_productCollectionFactory = $productCollectionFactory;
+        $this->_productloader = $_productloader;
         parent::__construct($context);
     }
  
@@ -67,5 +74,25 @@ class Featuredproducts extends \Magento\Framework\View\Element\Template implemen
  
         $collection = $this->_categoryCollectionFactory->create()->addAttributeToFilter('entity_id', $condition)->addAttributeToSelect(['name', 'is_active', 'parent_id', 'image'])->setStoreId($this->_storeManager->getStore()->getId());
         return $collection;
+    }
+
+    public function getProductCollection()
+    {
+        $collection = $this->_productCollectionFactory->create();
+        $collection->addAttributeToSelect('*');
+        $collection->setPageSize(6); // fetching only 6 products
+        return $collection;
+    }
+
+    public function getLoadProduct($id)
+    {
+        return $this->_productloader->create()->load($id);
+    }
+
+    public function getAllProductImages($product_id){
+        $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
+        $productimages = array();
+        $product = $objectmanager ->create('Magento\Catalog\Model\Product')->load($product_id);
+        return $productimages = $product->getMediaGalleryImages();
     }
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceBlock name="product.info.price" remove="true"/>
+        <referenceBlock name="product.info.stock.sku" remove="true"/>
+        <referenceBlock name="product.info.sku" remove="true"/>
+        <referenceBlock name="product.info" remove="true"/>
+        <referenceBlock name="view.addto.compare" remove="true"/>
+        <referenceBlock name="skip_gallery_after.target" remove="true"/>
+        <referenceBlock name="view.addto.wishlist" remove="true"/>
+        <referenceBlock name="product.info.mailto" remove="true" />
+        <referenceBlock name="product.info.media" remove="true" />
+        <referenceBlock name="product.info.overview" remove="true" />
+        <referenceBlock name="product.info.options.wrapper.bottom" remove="true" />
+        <referenceBlock name="product.review.form" remove="true" />
+        <referenceBlock name="product.info.review" remove="true" />
+        <referenceBlock name="reviews.tab" remove="true" />
+        <referenceBlock name="product.info.details" remove="true" />
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceBlock name="product.attributes" remove="true" />
+
+
+        
+        <move element="catalog.topnav" destination="client_custom_header" />
+
+        <referenceContainer name="page.wrapper">
+            
+            <block class="Magento\Framework\View\Element\Template" name="client_custom_header" template="Magento_Theme::html/custom-header.phtml" before="main.content">
+            </block>
+        </referenceContainer>
+        <referenceContainer name="footer" remove="true" />
+        <referenceContainer name="footer-container">
+            <block class="Magento\Framework\View\Element\Template" name="client_custom_header" template="Magento_Theme::html/custom-footer.phtml">
+            </block>
+        </referenceContainer>
+        <referenceContainer name="product.info.main">
+            <block class="User\Frontend\Block\Product\Details" name="custom_product_details" template="Magento_Catalog::product/view/customdetails.phtml"/>
+        </referenceContainer>
+         
+        
+    </body>
+</page>
