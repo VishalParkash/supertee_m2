@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610790337;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610827296;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -8155,13 +8155,13 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610790337;s:6:"expire";i:9999999999;s:4:"t
    <referenceBlock name="multiple-wish-list-link" remove="true"/>
    <referenceBlock name="page.main.title" remove="true"/>
    <move element="catalog.topnav" destination="custom_header"/>
-   <referenceContainer name="page.wrapper">
-      <block class="Magento\Framework\View\Element\Template" name="custom_header" template="Magento_Theme::html/header.phtml" before="main.content">
+   <referenceContainer name="header.container">
+      <block class="Magento\Framework\View\Element\Template" name="custom_header" template="html/custom-header.phtml" before="-">
     		</block>
    </referenceContainer>
    <referenceContainer name="footer" remove="true"/>
    <referenceContainer name="footer-container">
-      <block class="Magento\Framework\View\Element\Template" name="custom_footer" template="Magento_Theme::html/footer.phtml">
+      <block class="Magento\Framework\View\Element\Template" name="custom_footer" template="html/custom-footer.phtml">
     		</block>
    </referenceContainer>
 </body>
@@ -8176,9 +8176,56 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1610790337;s:6:"expire";i:9999999999;s:4:"t
    <css src="css/custom.css"/>
    <link rel="stylesheet" type="text/css" src="https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;400;500;600;700;800;900&amp;family=Roboto:wght@300;400;500;700;800;900&amp;display=swap" src_type="url"/>
 </head>
-</handle><handle id="catalog_category_view" layout="1column"><body>
+</handle><handle id="11catalog_category_view" layout="2columns-left"><body>
+   <referenceContainer name="columns.top">
+      <container name="category.view.container" htmlTag="div" htmlClass="category-view" after="-">
+         <block class="Magento\Catalog\Block\Category\View" name="category.image" template="Magento_Catalog::category/image.phtml">
+            <arguments>
+               <argument name="image" xsi:type="object">Magento\Catalog\ViewModel\Category\Image</argument>
+               <argument name="output" xsi:type="object">Magento\Catalog\ViewModel\Category\Output</argument>
+            </arguments>
+         </block>
+         <block class="Magento\Catalog\Block\Category\View" name="category.description" template="Magento_Catalog::category/description.phtml"/>
+         <block class="Magento\Catalog\Block\Category\View" name="category.cms" template="Magento_Catalog::category/cms.phtml"/>
+      </container>
+   </referenceContainer>
    <referenceContainer name="content">
-      <block class="Forms\Registration\Block\Product\ListProduct" name="category.products.list" template="Forms_Registration::product/list.phtml" before="-"/>
+      <block class="Magento\Catalog\Block\Category\View" name="category.products" template="Magento_Catalog::category/products.phtml">
+         <block class="Magento\Catalog\Block\Product\ListProduct" name="category.products.list" as="product_list" template="Magento_Catalog::product/listo.phtml">
+            <container name="category.product.list.additional" as="additional"/>
+            <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+               <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
+            </block>
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="category.product.addto" as="addto">
+               <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare" name="category.product.addto.compare" as="compare" template="Magento_Catalog::product/list/addto/compare.phtml"/>
+            </block>
+            <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+               <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+            </block>
+            <action method="setToolbarBlockName">
+               <argument name="name" xsi:type="string">product_list_toolbar</argument>
+            </action>
+         </block>
+      </block>
+      <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+         <arguments>
+            <argument name="triggers" xsi:type="array">
+               <item name="compareProductLink" xsi:type="string">.action.tocompare</item>
+            </argument>
+         </arguments>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="page.main.title">
+      <arguments>
+         <argument name="id" xsi:type="string">page-title-heading</argument>
+         <argument name="add_base_attribute_aria" xsi:type="string">page-title-heading toolbar-amount</argument>
+      </arguments>
+      <block class="Magento\Catalog\Block\Category\Rss\Link" name="rss.link" template="Magento_Catalog::category/rss.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_category_view" layout="1column"><body>
+   <referenceContainer name="page.wrapper">
+      <block class="Forms\Registration\Block\Product\ListProduct" name="custom.category.products" template="Magento_Catalog::product/listing.phtml" before="-"/>
    </referenceContainer>
    <referenceContainer name="product.info.main" remove="true"/>
    <referenceContainer name="product.info.media" remove="true"/>
