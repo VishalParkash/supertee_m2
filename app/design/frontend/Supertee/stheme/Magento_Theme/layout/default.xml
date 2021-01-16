@@ -24,14 +24,15 @@
 
 	    <move element="catalog.topnav" destination="custom_header" />
 
-        <referenceContainer name="page.wrapper">
+        <!-- <referenceContainer name="page.wrapper"> -->
+        <referenceContainer name="header.container">
         	
-    		<block class="Magento\Framework\View\Element\Template" name="custom_header" template="Magento_Theme::html/header.phtml" before="main.content">
+    		<block class="Magento\Framework\View\Element\Template" name="custom_header" template="html/custom-header.phtml" before="-">
     		</block>
 		</referenceContainer>
 		<referenceContainer name="footer" remove="true" />
 		<referenceContainer name="footer-container">
-    		<block class="Magento\Framework\View\Element\Template" name="custom_footer" template="Magento_Theme::html/footer.phtml">
+    		<block class="Magento\Framework\View\Element\Template" name="custom_footer" template="html/custom-footer.phtml">
     		</block>
 		</referenceContainer>
     </body>

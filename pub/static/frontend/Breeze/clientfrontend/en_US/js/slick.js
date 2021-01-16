@@ -1,1 +1,0 @@
-/var/www/html/supertee/app/design/frontend/Breeze/clientfrontend/web/js/slick.js

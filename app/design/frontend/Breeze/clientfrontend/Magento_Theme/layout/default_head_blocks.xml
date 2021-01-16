@@ -4,7 +4,7 @@
   	<!-- Remove local resources -->
     <remove src="css/styles-m.css" />
     <remove src="my-js.js"/>
-    <remove src="Magento_Catalog::js/compare.js" />
+    <!-- <remove src="Magento_Catalog::js/compare.js" /> -->
     
     <css src="css/bootstrap.min.css" />
     <css src="css/slick.css" />
