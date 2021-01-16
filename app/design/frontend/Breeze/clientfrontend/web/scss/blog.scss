@@ -1,0 +1,434 @@
+.blog{
+    .banner{
+        background:transparent;
+        &:after{
+            content:none;
+        }
+        
+        .bannerContent {
+            border-radius: 10px;
+            @include max-767{
+                width:calc(100% + 50px);
+                margin-left:-25px;
+                border-radius:0;
+            }
+        }
+
+    .contentWrap{
+        padding:30px;
+        
+        @include min-768{
+            padding-top:80px;
+        }
+        
+        @include min-992{
+            padding-top:80px;
+            padding-left:70px;
+            padding-bottom:0px;
+            padding-right:0px;
+    
+        }
+        
+        @include min-1200{
+            padding-top:180px;
+        }
+
+        .blogType{
+            font-size:1.500em;
+            line-height: 150%;
+
+        }
+
+        h2{
+            font-weight:bold;
+            @include min-1200{
+                padding-right:50px;
+            }
+        }
+
+        p{
+            max-width:723px;
+            font-size:1.500em;
+            line-height: 150%;
+        }
+
+    }
+    
+    .highlightWrap{
+        padding:25px;
+        @include min-768{
+            padding:70px;
+            padding-top:0px;
+        }
+        @include min-1200{
+            padding-top:0px;
+        }
+
+        .row{
+            @include max-991{
+                flex-wrap:nowrap;
+                overflow-x:auto;
+            }
+
+            > div{
+                @include max-991{
+                    flex:0 0 80%;
+                    max-width:80%;
+                }
+            }
+        }
+
+
+        .highlightInsights{
+            max-width:400px;
+            padding-top:40px;
+            border-top:1px solid #fff;
+
+            span{
+                font-weight:bold;
+                font-size:1.125em;
+            }
+
+            h6{
+                font-size:1.500em;
+                line-height: 28px;
+
+            }
+        }
+    }
+
+    }
+}
+
+.blogWrap{
+    background: #F5F0EC;
+    position: relative;
+    padding:48px 0;
+    @include min-768{
+        padding-bottom:80px;
+    }
+
+    @include min-992{
+        padding-bottom:125px;
+    }
+&:before{
+    content:"";
+    background: #F5F0EC;
+    height:350px;
+    width:100%;
+    position: absolute;
+    top:-150px;
+    z-index: -1;
+    
+    @include min-992{
+        top:-350px;
+    }
+}
+
+.container{
+    @include min-992{
+        padding:0 60px;
+    }
+    @include min-1200{
+        padding:0 90px;
+    }
+    @include min-1400{
+        padding:0 125px;
+    }
+}
+
+.wrapHead{
+    @include min-768{
+        margin-bottom:50px;
+    }
+}
+
+h3{
+    font-weight: 900;
+    font-size: 2.250em;
+    // line-height: 200%;
+    font-family:$roboto;
+}
+
+.linkWrap{
+    font-size:1.500em;
+    @include max-767{
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        width: 100%;
+        overflow-x: auto;
+        padding: 25px 0;
+    }
+    a{
+        font-weight:bold;
+        color: #A8A8A8;
+    &:not(:last-child){
+        margin-right:45px;
+    }
+
+    &.active{
+        color:$textBlue3;
+    }
+
+    }
+}
+
+.allInsights{
+    
+    .col-md-6{
+        @include min-992{
+            padding:0 23px;
+        }
+    }
+}
+
+
+.insight_box{
+    background: #FDFDFF;
+    border-radius: 10px;
+    padding:25px;
+    font-size:1.125em;
+    line-height: 150%;
+    margin-bottom:45px;
+    transition: all 300ms;
+    
+    @include min-768{
+        padding:40px;
+    }
+    
+    @include min-1200{
+        padding:56px 67px 47px 67px;
+    }
+
+    h3{
+        margin-bottom:15px;
+    }
+
+    .type{
+        color:$darkOrange;
+        font-weight: bold;
+        margin-bottom:5px;
+        display:block;
+    }
+
+&:hover{
+    color:#fff;
+    background: $primaryColor;
+    transition: all 300ms;
+    .type{
+        color:#fff;
+    }
+
+    h3{
+        color: $blue;
+    }
+}
+
+}
+
+
+.authorWrap{
+    &:before{
+        content:"";
+        width: 39px;
+        height: 2px;
+        background: #A8A8A8;
+        border-radius: 1px;
+        display:block;
+        margin-top:35px;
+        margin-bottom:25px;
+    }
+
+    img{
+        margin-right:15px;
+        width: 59px;
+        height: 59px;
+        overflow:hidden;
+        border-radius:50%;
+    }
+
+    .info{
+        font-family:$roboto;
+        line-height:normal;
+        span{
+            font-family:inherit;
+        }
+        .name{
+            font-weight: bold;
+        }
+        .publish{
+            font-size:0.833em;
+        }
+    }
+
+    }
+
+.readMore{
+    margin-top:30px;
+}
+
+}
+
+
+
+// BlogDetail
+
+.singlePageHead{
+
+    .container{
+        @include min-992{
+            padding:0 60px;
+        }
+        @include min-1200{
+            padding:0 90px;
+        }
+        @include min-1400{
+            padding:0 125px;
+        }
+    }
+
+    .headWrap{
+        max-width:900px;
+        margin:0 auto;
+        margin-bottom:48px;
+
+        h2{
+            font-weight:900;
+            margin-bottom:15px;
+            
+            @include min-768{
+                text-align: center;
+            }
+        }
+
+        p{
+            max-width:670px;
+            color: $gray;
+            margin:0 auto;
+            
+            @include min-768{
+                font-size:1.125em;
+                line-height: 27px;
+                text-align: center;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .imgWrap{
+        border-radius:10px;
+        overflow: hidden;
+        img{
+            width:100%;
+
+            @include max-767{
+                height:230px;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+    }
+}
+
+.blogContent{
+    .authorWrap{
+        padding-bottom:35px;
+        border-bottom: 1px solid #A8A8A8;
+
+        &:before{
+            content:none;
+        }
+    }
+
+    .contentWrap{
+        padding:25px 0;
+        
+        @include min-768{
+            padding:60px 0;
+        }
+
+        > *{
+            margin-bottom:40px;
+        }
+        
+        // p,ul,ol{
+        //     font-size:1.125em;
+        //  }
+         
+
+        h3{
+            margin-bottom:15px;
+            padding-right: 60px;
+        }
+ 
+        .quotes{
+            border-radius: 3px;
+            border-left:6px solid $darkOrange;
+            padding:10px 40px;
+
+            
+            p{
+                line-height: 29px;
+                margin-bottom:0;
+                @include min-768{
+                    font-size:1.500em;
+                    padding-right: 100px;
+                }
+            }
+        }
+
+        ol{
+            padding-left:18px;
+            li{
+            &:not(:last-child){
+                margin-bottom:10px
+            }
+            }
+        }
+        
+        ul{
+            @extend ol;
+        }
+
+    }
+    
+    .coupenWrap{
+        position:sticky;
+        top:30px;
+
+        .coupen_box{
+            @include max-767{
+                width:unset;
+            }
+
+            img{
+                @include max-767{
+                    max-width:160px;
+                }
+            }
+        }
+    }
+
+    .relatedPosts{
+        border-top:1px solid #A8A8A8;
+        padding-top:90px;
+        padding-bottom:0;
+
+        @include max-991{
+            margin-top:50px;
+            padding-top:40px;
+        }
+        
+        h3{
+            margin-bottom:45px;
+        }
+
+        .authorWrap{
+            border:0;
+        }
+
+    }
+    
+}

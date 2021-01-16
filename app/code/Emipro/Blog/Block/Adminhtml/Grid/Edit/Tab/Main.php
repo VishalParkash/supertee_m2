@@ -42,7 +42,7 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
  
         $form->setHtmlIdPrefix('page_');
  
-        $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Blog Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Upload CSV File')]);
  
         if ($model->getId()) {
             $fieldset->addField('id', 'hidden', ['name' => 'id']);
@@ -54,62 +54,20 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             'file',
             [
                 'name' => 'name',
-                'label' => __('Name'),
-                'title' => __('Name'),
+                'label' => __('File'),
+                'title' => __('File'),
                 'required' => true,
-                'value' => $this->_adminSession->getUser()->getFirstname(),
+                // 'value' => $this->_adminSession->getUser()->getFirstname(),
                 'disabled' => $isElementDisabled
             ]
         );
 
-        $fieldset->addField(
-            'title',
-            'text',
-            [
-                'name' => 'title',
-                'label' => __('Blog Title'),
-                'title' => __('Blog Title'),
-                'required' => true,
-                'disabled' => $isElementDisabled
-            ]
-        );
-          
-
-       
- 
-        $contentField = $fieldset->addField(
-            'content',
-            'textarea',            
-            [
-                'name' => 'content',
-                 'label' => __('Content'),
-                 'title' => __('Content'),
-               // 'style' => 'height:36em;',
-                'required' => true,
-                'disabled' => $isElementDisabled
-                //'config' => $wysiwygConfig
-            ]
-        );
  
       
         $dateFormat = $this->_localeDate->getDateFormat(
             \IntlDateFormatter::SHORT
         );
  
-      
- 
-        $fieldset->addField(
-            'status',
-            'select',
-            [
-                'label' => __('Status'),
-                'title' => __('Status'),
-                'name' => 'status',
-                'required' => true,
-                'options' => $this->_status->getOptionArray(),
-                'disabled' => $isElementDisabled
-            ]
-        );
         if (!$model->getId()) {
             $model->setData('status', $isElementDisabled ? '0' : '1');
         }
@@ -124,13 +82,13 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
    
     public function getTabLabel()
     {
-        return __('Blog Information');
+        return __('Upload CSV File');
     }
  
    
     public function getTabTitle()
     {
-        return __('Blog Information');
+        return __('Upload CSV File');
     }
  
  

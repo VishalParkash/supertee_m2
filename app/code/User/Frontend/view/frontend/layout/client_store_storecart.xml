@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <remove src="Magento_Theme::css/style.css" />
+        <remove src="css/styles.css" />
+        <remove src="css/bootstrap.min.css" />
+        
+        <css src="User_Frontend::css/bootstrap.min.css"/>
+        <css src="User_Frontend::css/custom.css"/>
+    </head>
+     <body>
+        <referenceContainer name="header.container" remove="true"/>
+        <referenceBlock name="custom_header" remove="true" />  
+        <referenceBlock name="custom_footer" remove="true" />
+
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceContainer name="footer-container" remove="true"/>
+        <referenceContainer name="content">
+            
+            <block class="User\Frontend\Block\Client\StoreCart" name="frontend_index" template="frontend/storecart.phtml" cacheable="false">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

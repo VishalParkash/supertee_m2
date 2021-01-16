@@ -7,7 +7,7 @@
                                 <img src="assets/images/store_logo.png" alt="" class="img-fluid">
                                 <div class="powered-by d-flex flex-column text-center">
                                     <span>powered by</span>
-                                    <object data="assets/images/logo.svg" type=""></object>
+                                    <object data="<?php echo $block->getViewFileUrl('User_Frontend::images/logo.svg'); ?>" type=""></object>
                                 </div>
                             </div>
                         </div>
@@ -27,14 +27,14 @@
                         <div class="col-md-3">
                             <div class="policy">
                                 <div class="wrap d-flex align-items-center">
-                                    <img src="assets/images/orignal.png" alt="" class="img-fluid">
+                                    <img src="<?php echo $block->getViewFileUrl('User_Frontend::images/orignal.png'); ?>" alt="" class="img-fluid">
                                     <div class="content">
                                         <h6>100% original products</h6>
                                         <span>Supertee guarantee</span>
                                     </div>
                                 </div>
                                 <div class="wrap d-flex align-items-center">
-                                    <img src="assets/images/return.png" alt="" class="img-fluid">
+                                    <img src="<?php echo $block->getViewFileUrl('User_Frontend::images/return.png'); ?>" alt="" class="img-fluid">
                                     <div class="content">
                                         <h6>Return within 14days</h6>
                                         <span>Since order recieved</span>
@@ -64,15 +64,15 @@
                                     <div class="copyright d-flex align-items-center">
                                         <p class="mb-0"> <span class="textFade">copyrights</span> Supertee LLC. all
                                             rights reserved.</p>
-                                        <span class="d-flex align-items-center"> <img src="./assets/images/canada_flag.png" alt="" class="img-fluid">
+                                        <span class="d-flex align-items-center"> <img src="<?php echo $block->getViewFileUrl('User_Frontend::images/canada_flag.png'); ?>" alt="" class="img-fluid">
                                             Proudly
                                             Canadian</span>
                                     </div>
                                 </div>
                                 <div class="rightWrap ml-auto">
-                                    <a href="#;"><img src="assets/images/facebook.png" alt=""></a>
-                                    <a href="#;"><img src="assets/images/twitter.png" alt=""></a>
-                                    <a href="#;"><img src="assets/images/insta.png" alt=""></a>
+                                    <a href="#;"><img src="<?php echo $block->getViewFileUrl('User_Frontend::images/facebook.png'); ?>" alt=""></a>
+                                    <a href="#;"><img src="<?php echo $block->getViewFileUrl('User_Frontend::images/twitter.png'); ?>" alt=""></a>
+                                    <a href="#;"><img src="<?php echo $block->getViewFileUrl('User_Frontend::images/insta.png'); ?>" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -94,6 +94,9 @@
 
     // listing page
     // Filter
+    require([ 'jquery', 'bootstrap4', 'Magento_Ui/js/modal/modal'], function($, modal){ 
+        $(document).ready(function() {
+
     $('.filter_box .filterHead').on('click', function () {
         console.log('click');
         $(this).parents('.filter_box').toggleClass('filterOpen');
@@ -114,10 +117,12 @@
         $('.btnWrap .listView').removeClass('selected');
         $('.similarProduct').removeClass('list_view');
     });
+    });
+    });
 
 </script>
 <script>
-require([ 'jquery', 'js/slick'], function($){ 
+require([ 'jquery', 'slick'], function($){ 
 $(document).ready(function() {
 
 	     $(".bannerSlider ").slick({

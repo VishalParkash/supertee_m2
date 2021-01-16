@@ -17,7 +17,7 @@
         <referenceContainer name="footer-container" remove="true"/>
         <referenceContainer name="content">
             
-            <block class="User\Frontend\Block\Client\Index" name="frontend_index" template="frontend/index.phtml">
+            <block class="User\Frontend\Block\Client\Index" name="frontend_index" template="frontend/index.phtml" cacheable="false">
             </block>
         </referenceContainer>
     </body>

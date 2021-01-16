@@ -1,4 +1,4 @@
-require([ 'jquery', 'slick', 'bootstrap4'], function($,modal){ 
+require( [ 'jquery', 'slick', 'bootstrap4'], function($,modal){ 
 $(document).ready(function () {
 
     // AOS.init();

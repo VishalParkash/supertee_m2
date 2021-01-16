@@ -20,7 +20,9 @@
         <referenceBlock name="product.attributes" remove="true" />
 
 
-        
+        <referenceContainer name="product.info.main">
+            <block class="Forms\Registration\Block\Product\CustomBtn" name="custombtn_product_custombtn" template="Forms_Registration::product/custombtn.phtml"/>
+        </referenceContainer>
 
         <referenceContainer name="product.info.main">
             <block class="Forms\Registration\Block\Product\Details" name="custombtn_product_custombtn" template="Magento_Catalog::product/view/customdetails.phtml"/>

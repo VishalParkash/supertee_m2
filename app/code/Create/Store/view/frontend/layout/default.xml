@@ -1,0 +1,32 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+    	<referenceContainer name="header.panel" remove="true" />
+    	<referenceContainer name="custom_header" remove="true" />
+    	<referenceContainer name="header.container" remove="true" />
+    	<referenceContainer name="header.panel.wrapper" remove="true" />
+    	<referenceBlock name="authentication-popup" remove="true"/>
+
+    	<referenceContainer name="top.search" remove="true" />
+    	<referenceContainer name="minicart" remove="true" />
+    	<!-- <referenceBlock name="catalog.topnav" remove="true"/> -->
+    	<referenceBlock name="advanced-search-link" remove="true"/>
+
+    	<referenceBlock name="top.links">
+	    	<referenceBlock name="register-link" remove="true" />           <!--for Create Account Link-->
+		    <referenceBlock name="authorization-link" remove="true" />      <!--for Sign In Link  -->
+		    <referenceBlock name="wish-list-link" remove="true" />          <!--for WishList Link-->
+		    <referenceBlock name="my-account-link" remove="true" /> 
+		    <referenceBlock name="navigation.sections" remove="true" /> 
+		</referenceBlock>
+	    <referenceBlock name="catalog.compare.link" remove="true"/>
+		<referenceBlock name="catalog.compare.sidebar" remove="true"/>
+	    <!-- <referenceBlock name="block_name" remove="true"/> -->
+	    <referenceBlock name="multiple-wish-list-link" remove="true"/>
+	    <referenceBlock name="wishlist_sidebar" remove="true"/>
+	    <referenceBlock name="page.main.title" remove="true" />
+
+	    
+		<referenceContainer name="footer" remove="true" />
+		<referenceContainer name="custom_footer" remove="true" />
+    </body>
+</page>

@@ -1,4 +1,5 @@
 <?php 
+// die('sssii');
 // $productCollection = $block->getProductCollection(); 
     $categories = $block->getCategoryCollection(true, false, 'name', false);
     $brandAttributes = $block->getAllBrand();
@@ -49,11 +50,7 @@
                         <div class="col-md-12">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="<?php echo $block->getBaseUrl(); ?>">Home</a></li>
-<!--                                     <li class="breadcrumb-item"><a href="#">All categories</a></li>
- -->                                    
-<!--  <li class="breadcrumb-item"><a href="#">Men</a></li>
- -->                                    
+                                    <li class="breadcrumb-item"><a href="<?php echo $block->getBaseUrl(); ?>">Home</a></li>                                 
  <li class="breadcrumb-item active" aria-current="page"><?php echo $block->getCurrentCategory()->getName() ?></li>
                                 </ol>
                             </nav>

@@ -29,6 +29,14 @@
     $categories = $block->getCategoryCollection(true, false, 'name', false);
 
     $getCategoryByIdArr = $block->getCategoryById($getId);
+    $_outputhelper    = $this->helper('Magento\Catalog\Helper\Output');
+    // $_Datahelper    = $this->helper('Magento\Catalog\Helper\Data');
+
+    // $helper = $this->helper('\Magento\Catalog\Helper\Data');
+    // $values = $helper->getBreadcrumbPath();
+
+    // echo "<pre>"; print_r($values);
+    // die;
 
     // echo "<pre>";print_r($getCategoryByIdArr->getData());
     // die;
@@ -38,7 +46,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="headWrap d-flex align-items-center justify-content-between">
+                        <div class="headWrap inline-headwrap d-flex flex-column flex-md-row align-items-md-center justify-content-between">
                             <h2><?php echo $getCategoryByIdArr->getName();?></h2>
                             <p>
                                 <?php echo $getCategoryByIdArr->getDescription(); ?>
@@ -50,19 +58,29 @@
         </section>
 
         <section class="listingPageBanner d-none d-md-block">
-            <img src="<?php echo $getCategoryByIdArr->getImageUrl(); ?>" alt="" class="img-fluid" />
+            <?php 
+            $_imgHtml = '';
+            if ($_imgUrl = $getCategoryByIdArr->getImageUrl()) {
+                                $_imgHtml = '<img src="' . $_imgUrl . '" alt="" class="img-fluid"/>';
+                                $_imgHtml = $_outputhelper->categoryAttribute($getCategoryByIdArr, $_imgHtml, 'image');
+                                
+                            }
+            ?>
+            <?php echo $_imgHtml; ?>
             <!-- <img src="assets/images/shirt-page-banner.png" alt="" class="img-fluid" /> -->
         </section>
+
+        <!--  -->
 
         <section class="productListing">
             <div class="container">
                 <div class="row">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">All categories</a></li>
-                            <li class="breadcrumb-item"><a href="#">Men</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">T-Shirts</li>
+                            <li class="breadcrumb-item"><a href="<?php echo $block->getBaseUrl()?>">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="#"><?php echo $getCategoryByIdArr->getName();?></a></li>
+                            <!-- <li class="breadcrumb-item"><a href="#">Men</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">T-Shirts</li> -->
                         </ol>
                     </nav>
                 </div>
@@ -484,7 +502,7 @@
                                                             foreach($block->getAllProductImages($product->getId()) as $images){
                                                         ?>
                                                         <div class="productTopImg" style="background-image: url(<?php echo $images['url'];?>);">
-                                                            <img class="productFeaturedBatch" src="<?php echo $this->getViewFileUrl('images/productFeaturedBatch.png'); ?>" alt="productFeaturedBatch" />
+                                                             <!-- <img class="productFeaturedBatch" src="<?php //echo $this->getViewFileUrl('images/productFeaturedBatch.png'); ?>" alt="productFeaturedBatch" / > -->
                                                         </div>
 
                                                         <?php } ?>

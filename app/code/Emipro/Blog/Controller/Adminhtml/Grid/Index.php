@@ -26,8 +26,8 @@ class Index extends Action
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Emipro_Blog::grid');
         $resultPage->addBreadcrumb(__('CMS'), __('CMS'));
-        $resultPage->addBreadcrumb(__('Manage Grid View'), __('Manage Grid View'));
-        $resultPage->getConfig()->getTitle()->prepend(__('Manage  Blog'));
+        $resultPage->addBreadcrumb(__('Manage CSV View'), __('Manage Grid View'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Manage  CSV'));
  
         return $resultPage;
     }

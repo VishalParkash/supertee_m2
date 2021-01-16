@@ -1,4 +1,4 @@
-require([ 'jquery'], function($){ 
+require([ 'jquery', 'slick', 'bootstrap4'], function($,modal){ 
 $(document).ready(function () {
     // $('#notification').on('click', function () {
     //     $('.mainSite').toggleClass('showNotification');
