@@ -1,3 +1,9 @@
+<style type="text/css">
+    /*Custom CSS */
+.header.content{
+  display: none !important;
+}
+</style>
 <?php $categories = $block->getCategoryCollection(); ?>
 <div class="mainSite">
         <div class="sideBar">
@@ -39,9 +45,9 @@
         <div class="main">
             <div class="indexTab px50 pageContent">
                 <ul class="storeNav storeNav1 nav" role="tablist">
-                    <li class="nav-item pInfo" id="active_pInfo"><a  role="tab" data-toggle="tab" href="#firstsection" class="active">01 personal information</a></li>
-                    <li class="nav-item ssInfo" id="active_ssInfo"><a role="tab" data-toggle="tab" href="#secoundone">02 store information</a></li>
-                    <li class="nav-item confirmation" id="active_confirmation"><a role="tab" data-toggle="tab" href="#confirmationPage">03 confirmation</a></li>
+                    <li class="nav-item pInfo" id="active_pInfo"><a  role="tab" data-toggle="tab" href="javascript:void(0)" class="active">01 personal information</a></li>
+                    <li class="nav-item ssInfo" id="active_ssInfo"><a role="tab" data-toggle="tab" href="javascript:void(0)">02 store information</a></li>
+                    <li class="nav-item confirmation" id="active_confirmation"><a role="tab" data-toggle="tab" href="javascript:void(0)">03 confirmation</a></li>
                 </ul>
                 
 
@@ -452,18 +458,18 @@
                         showLoader: true,
                         cache: false,
                         success: function(response){
-                            if(response.output === false){
-                                $('#errorReporting').text('Some error occured. Please fill the form again');
-                            }else if(response.output === true){
-                                $('#errorReporting').text('Store created');
+                            if(response.output != false){
+                                $('#ccid').val(response.output);
+                                $('#firstsection').removeClass("active").attr('class', this.id);
+                                // $('#secoundone').removeClass("active").attr('class', this.id);
+                                $('#secoundone').addClass("active");
                             }else{
-                                $('#errorReporting').text(response.output);
+                                $('#errorReporting').text('Some error occured. Please fill the form again');
                             }
                             // console.log(response.output);
                             // jQuery(".result").show();
                             // jQuery(".result").text(response.output);
-                        }
-                    });
+                        }                    });
                     }
                     if(this.id == 'ssInfo'){
                         $("#newprevv").removeAttr( 'style' );
@@ -485,15 +491,18 @@
                         showLoader: true,
                         cache: false,
                         success: function(response){
-                            if(response.output != false){
-                                $('#ccid').val(response.output);
-                            }else{
+                            if(response.output === false){
                                 $('#errorReporting').text('Some error occured. Please fill the form again');
+                            }else if(response.output == true){
+                                $('#errorReporting').text('Store created');
+                            }else{
+                                $('#errorReporting').text(response.output);
                             }
                             // console.log(response.output);
                             // jQuery(".result").show();
                             // jQuery(".result").text(response.output);
                         }
+                        
                     });
                     }
                     if(linkId == this.id)

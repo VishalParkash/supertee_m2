@@ -43,6 +43,7 @@ class Information extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Cache\StateInterface $cacheState,
         \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+        \Forms\Registration\Model\Session $session,
         JsonFactory $resultJsonFactory
     ) {
         parent::__construct($context);
@@ -51,6 +52,7 @@ class Information extends \Magento\Framework\App\Action\Action
         $this->_cacheFrontendPool = $cacheFrontendPool;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->resultPageFactory = $resultPageFactory;
+        $this->session = $session;
     }
 	
     /**
@@ -73,6 +75,7 @@ class Information extends \Magento\Framework\App\Action\Action
             
         $sql = "INSERT INTO " . $themeTable . " (name, email, phone_number, address, zipcode, location, country, password) VALUES ('".$data['name']."', '".$data['email']."', '".$data['phone_number']."', '".$data['address']."', '".$data['zipcode']."', '".$data['location']."', '".$data['country']."', '".$data['password']."')";
         if($connection->query($sql)){
+            $this->session->setData("ClientPersonalData", $data);
             $result->setData(['output' => $connection->lastInsertId()]);
         }else{
             $result->setData(['output' => false]);
