@@ -11,7 +11,10 @@
         <css src="Create_Store::css/bootstrap-slider.min.css"/>
         <css src="Create_Store::css/custom.css"/>
     </head>
-     <body>		
+     <body>
+        <referenceContainer name="footer" remove="true" />
+        <referenceContainer name="custom_footer" remove="true" />
+        <referenceContainer name="custom_header" remove="true" />
         <referenceContainer name="content">			
 			<block class="Create\Store\Block\Store\Create" name="store_create" template="store/create.phtml">
 			</block>
