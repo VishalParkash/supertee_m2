@@ -483,7 +483,7 @@ form.password.forget{
                             loginButton.removeAttr('disabled');
                         } else {
                             if(data.result == 'client'){
-                                window.location.href = "<?php echo $this->getUrl()?>client/client/index";
+                                window.location.href = "<?php echo $this->getUrl()?>client/dashboard";
                             }else{
                                 location.reload();
                             }

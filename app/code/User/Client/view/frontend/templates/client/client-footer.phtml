@@ -1,6 +1,26 @@
 	</div>
 </div>
+<script src="<?php //echo $block->getViewFileUrl('User_Client::js/bootstrap.min.js'); ?>"></script>
+<script type="text/javascript">require(['bootstrap4']);</script>
+
 <script src="<?php echo $block->getViewFileUrl('User_Client::js/custom.js'); ?>"></script>
-<script src="<?php echo $block->getViewFileUrl('User_Client::js/bootstrap-datepicker.min.js'); ?>"></script>
-<script src="<?php echo $block->getViewFileUrl('User_Client::js/bootstrap-slider.min.js'); ?>"></script>
+<script src="<?php //echo $block->getViewFileUrl('User_Client::js/bootstrap-datepicker.min.js'); ?>"></script>
+<script src="<?php //echo $block->getViewFileUrl('User_Client::js/bootstrap-slider.min.js'); ?>"></script>
+
+    <script>
+        require([ 'jquery'], function($,modal){ 
+        $(document).ready(function(){
+        $('.sidebarNavLinks li a').on('click', function(){
+            if($(this).next('ul').hasClass('show')){
+                $(this).next('ul').removeClass('show');
+            }else{
+                $('.sidebarNavLinks ul.show').removeClass('show');
+
+                $(this).next('ul').addClass('show');
+            }
+        });
+        });
+        });
+
+    </script>
 

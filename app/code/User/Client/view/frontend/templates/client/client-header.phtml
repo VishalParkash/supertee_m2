@@ -1,3 +1,26 @@
+<style>
+        .sidebarNav .sidebarNavLinks > ul > li > ul{
+            max-height:0px;
+            overflow: hidden;
+            transition:all 0.3s;
+            display:block;
+            opacity:0;
+        }
+
+        .sidebarNav .sidebarNavLinks > ul > li > ul.show{
+            max-height:400px;
+            transition:all 0.3s;
+            padding-left:55px;
+            opacity:1;
+        }
+
+        .sidebarNav .sidebarNavLinks > ul > li > ul.show > li > a{
+            font-size: 0.9375em;
+        }
+
+
+
+    </style>
 <div class="mainContainer">
         <div class="sidebarNav">
             <div class="sidebarNavTop">
@@ -74,7 +97,7 @@
             <div class="sidebarNavLinks">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a href="<?php echo $block->getBaseUrl(); ?>client/dashboard" class="active">
                             <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -123,8 +146,8 @@
                             <span>Reports</span>
                         </a>
                         <ul>
-                            <li><a href="#">Transaction report</a></li>
-                            <li><a href="#">Sales report</a></li>
+                            <li><a href="<?php echo $block->getBaseUrl(); ?>/client/transactions">Transaction report</a></li>
+                            <li><a href="<?php echo $block->getBaseUrl(); ?>/client/sales">Sales report</a></li>
                         </ul>
                     </li>
                     <li>
@@ -234,7 +257,7 @@
             <div class="sidebarNavBottom">
                 <p><b>©2021</b> Supertee LLC. All Rights Reserved. <a href="#">Terms of Use</a></p>
                 <h5>
-                    <img src="./assets/images/canada_flag2.png" alt="canada_flag2" />
+                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/canada_flag2.png'); ?>" alt="canada_flag2" />
                     Proudly Canadian
                 </h5>
             </div>

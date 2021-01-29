@@ -3,11 +3,35 @@
     $currentUrl = $urlInterface->getCurrentUrl();
 
     $explodeUrl = explode("/", $currentUrl);
-    $getPageName = $explodeUrl[6];
-    if ($getPageName == 'index') {
+
+    if(end($explodeUrl) == ""){
+        // echo "<pre>";print_r(($explodeUrl));
+        $countElements = count($explodeUrl);
+        $arrayIndex  = ($countElements - 2);
+        $getPageName = ($explodeUrl[$arrayIndex]);
+    }else{
+        $getPageName = end($explodeUrl);
+    }
+    // echo "<pre>";print_r(($explodeUrl));die;
+    
+    if ($getPageName == 'dashboard') {
         $pageName = "Dashboard";
     }elseif ($getPageName == 'sales') {
         $pageName = "Sales Report";
+    }elseif ($getPageName == 'transactions') {
+        $pageName = "Transactions Report";
+    }elseif ($getPageName == 'promotions') {
+        $pageName = "Promotions";
+    }elseif ($getPageName == 'create') {
+        $pageName = "Create";
+    }
+
+
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+    if(($customerSession->isLoggedIn())){
+        $name = $customerSession->getCustomer()->getName(); 
     }
 
 ?>
@@ -33,13 +57,17 @@
                         <div class="btn-group dropdownUser">
                             <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                <img src="./assets/images/userImg.png" alt="userImg" />
-                                <b>Philip</b>
+                                <img src="<?php echo $block->getViewFileUrl('User_Client::images/userImg.png'); ?>" alt="userImg" />
+                                <?php if(!empty($name)){ ?>
+                                <b><?php echo ucwords($name); ?></b>
+                            <?php }else{ ?>
+                                   <b>Login</b> 
+                            <?php } ?>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#">Go to supertee website</a>
+                                <a href="<?php echo $block->getBaseUrl(); ?>">Go to supertee website</a>
                                 <a href="#">Manage account</a>
-                                <button>Logout</button>
+                                <a href="<?php echo $block->getBaseUrl(); ?>customer/account/logout"><button>Logout</button></a>
                             </div>
                         </div>
 

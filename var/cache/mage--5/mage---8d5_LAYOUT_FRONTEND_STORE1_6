@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611116500;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611898318;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -799,6 +799,14 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611116500;s:6:"expire";i:9999999999;s:4:"t
    </referenceBlock>
 </body>
 </handle><handle id="default"><body>
+   <block class="Magento\Framework\Pricing\Render" name="product.price.render.default">
+      <arguments>
+         <argument name="price_render_handle" xsi:type="string">catalog_product_prices</argument>
+         <argument name="use_link_for_as_low_as" xsi:type="boolean">true</argument>
+      </arguments>
+   </block>
+</body>
+</handle><handle id="default"><body>
    <referenceContainer name="before.body.end">
       <block class="Magento\Catalog\Block\FrontendStorageManager" name="frontend-storage-manager" before="-" template="Magento_Catalog::frontend_storage_manager.phtml">
          <arguments>
@@ -855,14 +863,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611116500;s:6:"expire";i:9999999999;s:4:"t
       <block class="Magento\Framework\View\Element\Js\Components" name="head.components" as="components" template="Magento_Catalog::js/components.phtml"/>
    </referenceContainer>
    <block class="Magento\Framework\View\Element\Template" name="head.additional" as="head.additional" template="Magento_Theme::html/container.phtml"/>
-</body>
-</handle><handle id="default"><body>
-   <block class="Magento\Framework\Pricing\Render" name="product.price.render.default">
-      <arguments>
-         <argument name="price_render_handle" xsi:type="string">catalog_product_prices</argument>
-         <argument name="use_link_for_as_low_as" xsi:type="boolean">true</argument>
-      </arguments>
-   </block>
 </body>
 </handle><handle id="empty"><body>
    <block class="Magento\Framework\Pricing\Render" name="product.price.render.default">
@@ -6559,6 +6559,997 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611116500;s:6:"expire";i:9999999999;s:4:"t
       <block class="Amazon\Payment\Block\Widget\ResetPassword" name="amazon.pay.password.reset" before="-" template="Amazon_Payment::widget/resetpassword.phtml" cacheable="false"/>
    </referenceContainer>
 </body>
+</handle><handle id="1checkout_index_index" layout="checkout"><body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Onepage" name="checkout.root" template="onepage.phtml" cacheable="false">
+         <arguments>
+            <argument name="jsLayout" xsi:type="array">
+               <item name="types" xsi:type="array">
+                  <item name="form.input" xsi:type="array">
+                     <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                     <item name="config" xsi:type="array">
+                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                        <item name="deps" xsi:type="array">
+                           <item name="0" xsi:type="string">checkoutProvider</item>
+                        </item>
+                        <item name="template" xsi:type="string">ui/form/field</item>
+                        <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                     </item>
+                  </item>
+               </item>
+               <item name="components" xsi:type="array">
+                  <item name="checkout" xsi:type="array">
+                     <item name="component" xsi:type="string">uiComponent</item>
+                     <item name="config" xsi:type="array">
+                        <item name="template" xsi:type="string">Magento_Checkout/onepage</item>
+                     </item>
+                     <item name="children" xsi:type="array">
+                        <item name="errors" xsi:type="array">
+                           <item name="sortOrder" xsi:type="string">0</item>
+                           <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
+                           <item name="displayArea" xsi:type="string">messages</item>
+                        </item>
+                        <item name="authentication" xsi:type="array">
+                           <item name="sortOrder" xsi:type="string">1</item>
+                           <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication</item>
+                           <item name="displayArea" xsi:type="string">authentication</item>
+                           <item name="children" xsi:type="array">
+                              <item name="errors" xsi:type="array">
+                                 <item name="sortOrder" xsi:type="string">0</item>
+                                 <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication-messages</item>
+                                 <item name="displayArea" xsi:type="string">messages</item>
+                              </item>
+                           </item>
+                        </item>
+                        <item name="progressBar" xsi:type="array">
+                           <item name="sortOrder" xsi:type="string">0</item>
+                           <item name="component" xsi:type="string">Magento_Checkout/js/view/progress-bar</item>
+                           <item name="displayArea" xsi:type="string">progressBar</item>
+                           <item name="config" xsi:type="array">
+                              <item name="deps" xsi:type="array">
+                                 <item name="0" xsi:type="string">checkout.steps.shipping-step.shippingAddress</item>
+                                 <item name="1" xsi:type="string">checkout.steps.billing-step.payment</item>
+                              </item>
+                           </item>
+                        </item>
+                        <item name="estimation" xsi:type="array">
+                           <item name="sortOrder" xsi:type="string">10</item>
+                           <item name="component" xsi:type="string">Magento_Checkout/js/view/estimation</item>
+                           <item name="displayArea" xsi:type="string">estimation</item>
+                           <item name="config" xsi:type="array">
+                              <item name="template" xsi:type="string">Magento_Checkout/estimation</item>
+                              <item name="deps" xsi:type="array">
+                                 <item name="0" xsi:type="string">checkout.sidebar</item>
+                              </item>
+                           </item>
+                        </item>
+                        <item name="steps" xsi:type="array">
+                           <item name="component" xsi:type="string">uiComponent</item>
+                           <item name="displayArea" xsi:type="string">steps</item>
+                           <item name="children" xsi:type="array">
+                              <item name="shipping-step" xsi:type="array">
+                                 <item name="component" xsi:type="string">uiComponent</item>
+                                 <item name="sortOrder" xsi:type="string">1</item>
+                                 <item name="children" xsi:type="array">
+                                    <item name="step-config" xsi:type="array">
+                                       <item name="component" xsi:type="string">uiComponent</item>
+                                       <item name="children" xsi:type="array">
+                                          <item name="shipping-rates-validation" xsi:type="array">
+                                             <item name="children" xsi:type="array">
+                                                                    
+                                                                </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                    <item name="shippingAddress" xsi:type="array">
+                                       <item name="config" xsi:type="array">
+                                          <item name="deps" xsi:type="array">
+                                             <item name="0" xsi:type="string">checkout.steps.shipping-step.step-config</item>
+                                             <item name="1" xsi:type="string">checkoutProvider</item>
+                                          </item>
+                                          <item name="popUpForm" xsi:type="array">
+                                             <item name="element" xsi:type="string">#opc-new-shipping-address</item>
+                                             <item name="options" xsi:type="array">
+                                                <item name="type" xsi:type="string">popup</item>
+                                                <item name="responsive" xsi:type="boolean">true</item>
+                                                <item name="innerScroll" xsi:type="boolean">true</item>
+                                                <item name="title" translate="true" xsi:type="string">Shipping Address</item>
+                                                <item name="trigger" xsi:type="string">opc-new-shipping-address</item>
+                                                <item name="buttons" xsi:type="array">
+                                                   <item name="save" xsi:type="array">
+                                                      <item name="text" translate="true" xsi:type="string">Save Address</item>
+                                                      <item name="class" xsi:type="string">action primary action-save-address</item>
+                                                   </item>
+                                                   <item name="cancel" xsi:type="array">
+                                                      <item name="text" translate="true" xsi:type="string">Cancel</item>
+                                                      <item name="class" xsi:type="string">action secondary action-hide-popup</item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                       <item name="component" xsi:type="string">Magento_Checkout/js/view/shipping</item>
+                                       <item name="provider" xsi:type="string">checkoutProvider</item>
+                                       <item name="sortOrder" xsi:type="string">1</item>
+                                       <item name="children" xsi:type="array">
+                                          <item name="customer-email" xsi:type="array">
+                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email</item>
+                                             <item name="displayArea" xsi:type="string">customer-email</item>
+                                             <item name="tooltip" xsi:type="array">
+                                                <item name="description" translate="true" xsi:type="string">We'll send your order confirmation here.</item>
+                                             </item>
+                                             <item name="children" xsi:type="array">
+                                                <item name="before-login-form" xsi:type="array">
+                                                   <item name="component" xsi:type="string">uiComponent</item>
+                                                   <item name="displayArea" xsi:type="string">before-login-form</item>
+                                                   <item name="children" xsi:type="array">
+                                                                            
+                                                                        </item>
+                                                </item>
+                                                <item name="additional-login-form-fields" xsi:type="array">
+                                                   <item name="component" xsi:type="string">uiComponent</item>
+                                                   <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
+                                                   <item name="children" xsi:type="array">
+                                                                            
+                                                                        </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                          <item name="before-form" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="displayArea" xsi:type="string">before-form</item>
+                                             <item name="children" xsi:type="array">
+                                                                    
+                                                                </item>
+                                          </item>
+                                          <item name="before-fields" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="displayArea" xsi:type="string">before-fields</item>
+                                             <item name="children" xsi:type="array">
+                                                                    
+                                                                </item>
+                                          </item>
+                                          <item name="address-list" xsi:type="array">
+                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/shipping-address/list</item>
+                                             <item name="displayArea" xsi:type="string">address-list</item>
+                                          </item>
+                                          <item name="address-list-additional-addresses" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="displayArea" xsi:type="string">address-list-additional-addresses</item>
+                                             <item name="children" xsi:type="array">
+                                                                    
+                                                                </item>
+                                          </item>
+                                          <item name="before-shipping-method-form" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="displayArea" xsi:type="string">before-shipping-method-form</item>
+                                             <item name="children" xsi:type="array">
+                                                                    
+                                                                </item>
+                                          </item>
+                                          <item name="shipping-address-fieldset" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="config" xsi:type="array">
+                                                <item name="deps" xsi:type="array">
+                                                   <item name="0" xsi:type="string">checkoutProvider</item>
+                                                </item>
+                                             </item>
+                                             <item name="displayArea" xsi:type="string">additional-fieldsets</item>
+                                             <item name="children" xsi:type="array">
+                                                <item name="region" xsi:type="array">
+                                                   <item name="visible" xsi:type="boolean">false</item>
+                                                </item>
+                                                <item name="region_id" xsi:type="array">
+                                                   <item name="component" xsi:type="string">Magento_Ui/js/form/element/region</item>
+                                                   <item name="config" xsi:type="array">
+                                                      <item name="template" xsi:type="string">ui/form/field</item>
+                                                      <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                                                      <item name="customEntry" xsi:type="string">shippingAddress.region</item>
+                                                   </item>
+                                                   <item name="validation" xsi:type="array">
+                                                      <item name="required-entry" xsi:type="boolean">true</item>
+                                                   </item>
+                                                   <item name="filterBy" xsi:type="array">
+                                                      <item name="target" xsi:type="string">${ $.provider }:${ $.parentScope }.country_id</item>
+                                                      <item name="field" xsi:type="string">country_id</item>
+                                                   </item>
+                                                </item>
+                                                <item name="postcode" xsi:type="array">
+                                                   <item name="component" xsi:type="string">Magento_Ui/js/form/element/post-code</item>
+                                                   <item name="validation" xsi:type="array">
+                                                      <item name="required-entry" xsi:type="string">true</item>
+                                                   </item>
+                                                </item>
+                                                <item name="company" xsi:type="array">
+                                                   <item name="validation" xsi:type="array">
+                                                      <item name="min_text_length" xsi:type="number">0</item>
+                                                   </item>
+                                                </item>
+                                                <item name="fax" xsi:type="array">
+                                                   <item name="validation" xsi:type="array">
+                                                      <item name="min_text_length" xsi:type="number">0</item>
+                                                   </item>
+                                                </item>
+                                                <item name="country_id" xsi:type="array">
+                                                   <item name="sortOrder" xsi:type="string">115</item>
+                                                </item>
+                                                <item name="telephone" xsi:type="array">
+                                                   <item name="config" xsi:type="array">
+                                                      <item name="tooltip" xsi:type="array">
+                                                         <item name="description" translate="true" xsi:type="string">For delivery questions.</item>
+                                                      </item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                              <item name="billing-step" xsi:type="array">
+                                 <item name="component" xsi:type="string">uiComponent</item>
+                                 <item name="sortOrder" xsi:type="string">2</item>
+                                 <item name="children" xsi:type="array">
+                                    <item name="payment" xsi:type="array">
+                                       <item name="component" xsi:type="string">Magento_Checkout/js/view/payment</item>
+                                       <item name="config" xsi:type="array">
+                                          <item name="title" translate="true" xsi:type="string">Payment</item>
+                                       </item>
+                                       <item name="children" xsi:type="array">
+                                          <item name="renders" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="children" xsi:type="array">
+                                                                    
+                                                                </item>
+                                          </item>
+                                          <item name="additional-payment-validators" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="children" xsi:type="array">
+                                                <item name="email-validator" xsi:type="array">
+                                                   <item name="component" xsi:type="string">Magento_Checkout/js/view/payment/email-validator</item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                          <item name="customer-email" xsi:type="array">
+                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email</item>
+                                             <item name="displayArea" xsi:type="string">customer-email</item>
+                                             <item name="tooltip" xsi:type="array">
+                                                <item name="description" translate="true" xsi:type="string">We'll send your order confirmation here.</item>
+                                             </item>
+                                             <item name="children" xsi:type="array">
+                                                <item name="before-login-form" xsi:type="array">
+                                                   <item name="component" xsi:type="string">uiComponent</item>
+                                                   <item name="displayArea" xsi:type="string">before-login-form</item>
+                                                   <item name="children" xsi:type="array">
+                                                                            
+                                                                        </item>
+                                                </item>
+                                                <item name="additional-login-form-fields" xsi:type="array">
+                                                   <item name="component" xsi:type="string">uiComponent</item>
+                                                   <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
+                                                   <item name="children" xsi:type="array">
+                                                                            
+                                                                        </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                          <item name="beforeMethods" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="displayArea" xsi:type="string">beforeMethods</item>
+                                             <item name="children" xsi:type="array">
+                                                                    
+                                                                </item>
+                                             <item name="validation" xsi:type="array">
+                                                <item name="validate-select" xsi:type="string">true</item>
+                                             </item>
+                                             <item name="filterBy" xsi:type="array">
+                                                <item name="target" xsi:type="string">${ $.provider }:${ $.parentScope }.country_id</item>
+                                                <item name="field" xsi:type="string">country_id</item>
+                                             </item>
+                                          </item>
+                                          <item name="payments-list" xsi:type="array">
+                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/payment/list</item>
+                                             <item name="displayArea" xsi:type="string">payment-methods-list</item>
+                                             <item name="config" xsi:type="array">
+                                                <item name="deps" xsi:type="array">
+                                                   <item name="0" xsi:type="string">checkout.steps.billing-step.payment.renders</item>
+                                                   <item name="1" xsi:type="string">checkout.steps.billing-step.payment.additional-payment-validators</item>
+                                                </item>
+                                             </item>
+                                             <item name="children" xsi:type="array">
+                                                <item name="before-place-order" xsi:type="array">
+                                                   <item name="component" xsi:type="string">uiComponent</item>
+                                                   <item name="displayArea" xsi:type="string">before-place-order</item>
+                                                   <item name="dataScope" xsi:type="string">before-place-order</item>
+                                                   <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                   <item name="config" xsi:type="array">
+                                                      <item name="template" xsi:type="string">Magento_Checkout/payment/before-place-order</item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                          <item name="afterMethods" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="displayArea" xsi:type="string">afterMethods</item>
+                                             <item name="children" xsi:type="array">
+                                                                    
+                                                                </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                        <item name="sidebar" xsi:type="array">
+                           <item name="sortOrder" xsi:type="string">50</item>
+                           <item name="component" xsi:type="string">Magento_Checkout/js/view/sidebar</item>
+                           <item name="displayArea" xsi:type="string">sidebar</item>
+                           <item name="config" xsi:type="array">
+                              <item name="template" xsi:type="string">Magento_Checkout/sidebar</item>
+                              <item name="deps" xsi:type="array">
+                                 <item name="0" xsi:type="string">checkout.steps</item>
+                              </item>
+                           </item>
+                           <item name="children" xsi:type="array">
+                              <item name="summary" xsi:type="array">
+                                 <item name="component" xsi:type="string">Magento_Checkout/js/view/summary</item>
+                                 <item name="displayArea" xsi:type="string">summary</item>
+                                 <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Magento_Checkout/summary</item>
+                                 </item>
+                                 <item name="children" xsi:type="array">
+                                    <item name="totals" xsi:type="array">
+                                       <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/totals</item>
+                                       <item name="displayArea" xsi:type="string">totals</item>
+                                       <item name="config" xsi:type="array">
+                                          <item name="template" xsi:type="string">Magento_Checkout/summary/totals</item>
+                                       </item>
+                                       <item name="children" xsi:type="array">
+                                          <item name="subtotal" xsi:type="array">
+                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/subtotal</item>
+                                             <item name="config" xsi:type="array">
+                                                <item name="title" translate="true" xsi:type="string">Cart Subtotal</item>
+                                             </item>
+                                          </item>
+                                          <item name="shipping" xsi:type="array">
+                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/shipping</item>
+                                             <item name="config" xsi:type="array">
+                                                <item name="title" translate="true" xsi:type="string">Shipping</item>
+                                                <item name="notCalculatedMessage" translate="true" xsi:type="string">Not yet calculated</item>
+                                             </item>
+                                          </item>
+                                          <item name="grand-total" xsi:type="array">
+                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/grand-total</item>
+                                             <item name="config" xsi:type="array">
+                                                <item name="title" translate="true" xsi:type="string">Order Total</item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                    <item name="itemsBefore" xsi:type="array">
+                                       <item name="component" xsi:type="string">uiComponent</item>
+                                       <item name="children" xsi:type="array">
+                                                            
+                                                        </item>
+                                    </item>
+                                    <item name="cart_items" xsi:type="array">
+                                       <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/cart-items</item>
+                                       <item name="children" xsi:type="array">
+                                          <item name="details" xsi:type="array">
+                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/item/details</item>
+                                             <item name="children" xsi:type="array">
+                                                <item name="thumbnail" xsi:type="array">
+                                                   <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/item/details/thumbnail</item>
+                                                   <item name="displayArea" xsi:type="string">before_details</item>
+                                                </item>
+                                                <item name="subtotal" xsi:type="array">
+                                                   <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/item/details/subtotal</item>
+                                                   <item name="displayArea" xsi:type="string">after_details</item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                    <item name="itemsAfter" xsi:type="array">
+                                       <item name="component" xsi:type="string">uiComponent</item>
+                                       <item name="children" xsi:type="array">
+                                                            
+                                                        </item>
+                                    </item>
+                                 </item>
+                              </item>
+                              <item name="shipping-information" xsi:type="array">
+                                 <item name="component" xsi:type="string">Magento_Checkout/js/view/shipping-information</item>
+                                 <item name="config" xsi:type="array">
+                                    <item name="deps" xsi:type="string">checkout.steps.shipping-step.shippingAddress</item>
+                                 </item>
+                                 <item name="displayArea" xsi:type="string">shipping-information</item>
+                                 <item name="children" xsi:type="array">
+                                    <item name="ship-to" xsi:type="array">
+                                       <item name="component" xsi:type="string">Magento_Checkout/js/view/shipping-information/list</item>
+                                       <item name="displayArea" xsi:type="string">ship-to</item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+                  <item name="checkoutProvider" xsi:type="array">
+                     <item name="component" xsi:type="string">uiComponent</item>
+                  </item>
+               </item>
+            </argument>
+         </arguments>
+      </block>
+   </referenceContainer>
+   <referenceContainer name="page.messages" remove="true"/>
+   <move element="logo" destination="checkout.header.wrapper"/>
+</body>
+</handle><handle id="catalog_category_view" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="columns.top">
+      <container name="category.view.container" htmlTag="div" htmlClass="category-view" after="-">
+         <block class="Magento\Catalog\Block\Category\View" name="category.image" template="Magento_Catalog::category/image.phtml"/>
+         <block class="Magento\Catalog\Block\Category\View" name="category.description" template="Magento_Catalog::category/description.phtml"/>
+         <block class="Magento\Catalog\Block\Category\View" name="category.cms" template="Magento_Catalog::category/cms.phtml"/>
+      </container>
+   </referenceContainer>
+   <referenceContainer name="content">
+      <block class="Magento\Catalog\Block\Category\View" name="category.products" template="Magento_Catalog::category/products.phtml">
+         <block class="Magento\Catalog\Block\Product\ListProduct" name="category.products.list" as="product_list" template="Magento_Catalog::product/list.phtml">
+            <container name="category.product.list.additional" as="additional"/>
+            <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+               <block class="Magento\Framework\View\Element\Template" as="default"/>
+            </block>
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="category.product.addto" as="addto">
+               <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare" name="category.product.addto.compare" as="compare" template="Magento_Catalog::product/list/addto/compare.phtml"/>
+            </block>
+            <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+               <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+            </block>
+            <action method="setToolbarBlockName">
+               <argument name="name" xsi:type="string">product_list_toolbar</argument>
+            </action>
+         </block>
+      </block>
+      <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+         <arguments>
+            <argument name="triggers" xsi:type="array">
+               <item name="compareProductLink" xsi:type="string">.action.tocompare</item>
+            </argument>
+         </arguments>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="page.main.title">
+      <arguments>
+         <argument name="id" xsi:type="string">page-title-heading</argument>
+         <argument name="add_base_attribute_aria" xsi:type="string">page-title-heading toolbar-amount</argument>
+      </arguments>
+      <block class="Magento\Catalog\Block\Category\Rss\Link" name="rss.link" template="Magento_Catalog::category/rss.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_product_view" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceBlock name="product.info.type">
+      <block class="Magento\Catalog\Block\Product\View" before="-" name="product.info.sellerlink" template="Apptha_Marketplace::seller/linkseller.phtml"/>
+   </referenceBlock>
+   <referenceContainer name="content">
+      <container name="product.info.compareprice" htmlTag="div" htmlClass="product compareprice" before="product.info.details">
+         <block class="Apptha\Marketplace\Block\Assignproduct\Manage" name="marketplace_assignproduct_compareprice" ifconfig="marketplace/general/enable_in_frontend" template="assignproduct/compareprice.phtml"/>
+      </container>
+   </referenceContainer>
+</body>
+</handle><handle id="checkout_cart_index" layout="1column"><update handle="checkout_cart_item_renderers"/>
+<body>
+   <referenceContainer name="page.messages">
+      <block class="Magento\Checkout\Block\Cart\ValidationMessages" name="checkout.cart.validationmessages"/>
+   </referenceContainer>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Cart" name="checkout.cart" template="cart.phtml" cacheable="false">
+         <container name="checkout.cart.items" as="with-items">
+            <container name="checkout.cart.container" htmlTag="div" htmlClass="cart-container" before="-">
+               <container name="checkout.cart.form.before" as="form_before" label="Shopping Cart Items Before" htmlTag="div" htmlClass="rewards"/>
+               <container name="cart.summary" label="Cart Summary Container" htmlTag="div" htmlClass="cart-summary" after="-">
+                  <block class="Magento\Framework\View\Element\Template" name="checkout.cart.summary.title" before="-" template="Magento_Theme::text.phtml">
+                     <arguments>
+                        <argument translate="true" name="text" xsi:type="string">Summary</argument>
+                        <argument name="tag" xsi:type="string">strong</argument>
+                        <argument name="css_class" xsi:type="string">summary title</argument>
+                     </arguments>
+                  </block>
+                  <block class="Magento\Checkout\Block\Cart\Shipping" name="checkout.cart.shipping" as="shipping" template="cart/shipping.phtml" after="checkout.cart.summary.title">
+                     <arguments>
+                        <argument name="jsLayout" xsi:type="array">
+                           <item name="types" xsi:type="array">
+                              <item name="form.input" xsi:type="array">
+                                 <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                 <item name="config" xsi:type="array">
+                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                    <item name="deps" xsi:type="array">
+                                       <item name="0" xsi:type="string">checkoutProvider</item>
+                                    </item>
+                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                    <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                 </item>
+                              </item>
+                           </item>
+                           <item name="components" xsi:type="array">
+                              <item name="summary-block-config" xsi:type="array">
+                                 <item name="component" xsi:type="string">uiComponent</item>
+                                 <item name="children" xsi:type="array">
+                                    <item name="shipping-rates-validation" xsi:type="array">
+                                       <item name="children" xsi:type="array">
+                                                            
+                                                        </item>
+                                    </item>
+                                 </item>
+                              </item>
+                              <item name="block-summary" xsi:type="array">
+                                 <item name="component" xsi:type="string">uiComponent</item>
+                                 <item name="deps" xsi:type="array">
+                                    <item name="0" xsi:type="string">summary-block-config</item>
+                                 </item>
+                                 <item name="children" xsi:type="array">
+                                    <item name="block-rates" xsi:type="array">
+                                       <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/shipping-rates</item>
+                                       <item name="sortOrder" xsi:type="string">2</item>
+                                    </item>
+                                    <item name="block-shipping" xsi:type="array">
+                                       <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/shipping-estimation</item>
+                                       <item name="provider" xsi:type="string">checkoutProvider</item>
+                                       <item name="sortOrder" xsi:type="string">1</item>
+                                       <item name="deps" xsi:type="array">
+                                          <item name="0" xsi:type="string">block-summary.block-shipping.address-fieldsets</item>
+                                       </item>
+                                       <item name="children" xsi:type="array">
+                                          <item name="address-fieldsets" xsi:type="array">
+                                             <item name="component" xsi:type="string">uiComponent</item>
+                                             <item name="config" xsi:type="array">
+                                                <item name="deps" xsi:type="array">
+                                                   <item name="0" xsi:type="string">checkoutProvider</item>
+                                                </item>
+                                             </item>
+                                             <item name="displayArea" xsi:type="string">address-fieldsets</item>
+                                             <item name="children" xsi:type="array">
+                                                <item name="city" xsi:type="array">
+                                                   <item name="sortOrder" xsi:type="string">115</item>
+                                                   <item name="dataScope" xsi:type="string">shippingAddress.city</item>
+                                                   <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                </item>
+                                                <item name="country_id" xsi:type="array">
+                                                   <item name="sortOrder" xsi:type="string">110</item>
+                                                   <item name="dataScope" xsi:type="string">shippingAddress.country_id</item>
+                                                   <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                </item>
+                                                <item name="region_id" xsi:type="array">
+                                                   <item name="component" xsi:type="string">Magento_Ui/js/form/element/region</item>
+                                                   <item name="sortOrder" xsi:type="string">112</item>
+                                                   <item name="config" xsi:type="array">
+                                                      <item name="template" xsi:type="string">ui/form/field</item>
+                                                      <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                                                      <item name="customEntry" xsi:type="string">shippingAddress.region</item>
+                                                   </item>
+                                                   <item name="filterBy" xsi:type="array">
+                                                      <item name="target" xsi:type="string">${ $.provider }:${ $.parentScope }.country_id</item>
+                                                      <item name="field" xsi:type="string">country_id</item>
+                                                   </item>
+                                                </item>
+                                                <item name="region" xsi:type="array">
+                                                   <item name="visible" xsi:type="boolean">false</item>
+                                                   <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                   <item name="sortOrder" xsi:type="string">111</item>
+                                                   <item name="dataScope" xsi:type="string">shippingAddress.region</item>
+                                                </item>
+                                                <item name="postcode" xsi:type="array">
+                                                   <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                   <item name="dataScope" xsi:type="string">shippingAddress.postcode</item>
+                                                   <item name="sortOrder" xsi:type="string">114</item>
+                                                   <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                              <item name="checkoutProvider" xsi:type="array">
+                                 <item name="component" xsi:type="string">uiComponent</item>
+                              </item>
+                           </item>
+                        </argument>
+                     </arguments>
+                  </block>
+                  <container name="checkout.cart.totals.container" as="totals" label="Shopping Cart Totals">
+                     <block class="Magento\Checkout\Block\Cart\Totals" name="checkout.cart.totals" template="cart/totals.phtml">
+                        <arguments>
+                           <argument name="jsLayout" xsi:type="array">
+                              <item name="components" xsi:type="array">
+                                 <item name="block-totals" xsi:type="array">
+                                    <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/totals</item>
+                                    <item name="displayArea" xsi:type="string">totals</item>
+                                    <item name="config" xsi:type="array">
+                                       <item name="template" xsi:type="string">Magento_Checkout/cart/totals</item>
+                                    </item>
+                                    <item name="children" xsi:type="array">
+                                       <item name="subtotal" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/subtotal</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="title" translate="true" xsi:type="string">Subtotal</item>
+                                             <item name="template" xsi:type="string">Magento_Checkout/cart/totals/subtotal</item>
+                                          </item>
+                                       </item>
+                                       <item name="shipping" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/totals/shipping</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="title" translate="true" xsi:type="string">Shipping</item>
+                                             <item name="template" xsi:type="string">Magento_Checkout/cart/totals/shipping</item>
+                                          </item>
+                                       </item>
+                                       <item name="grand-total" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/grand-total</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="title" translate="true" xsi:type="string">Order Total</item>
+                                             <item name="template" xsi:type="string">Magento_Checkout/cart/totals/grand-total</item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </argument>
+                        </arguments>
+                     </block>
+                  </container>
+                  <block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.coupon" as="coupon" template="cart/coupon.phtml"/>
+                  <block class="Magento\Checkout\Block\Cart" name="checkout.cart.methods.bottom" template="cart/methods.phtml">
+                     <container name="checkout.cart.methods" as="methods" label="Payment Methods After Checkout Button">
+                        <block class="Magento\Checkout\Block\Onepage\Link" name="checkout.cart.methods.onepage.bottom" template="onepage/link.phtml"/>
+                        <block class="Magento\Checkout\Block\QuoteShortcutButtons" name="checkout.cart.shortcut.buttons"/>
+                     </container>
+                  </block>
+               </container>
+               <block class="Magento\Checkout\Block\Cart\Grid" name="checkout.cart.form" as="cart-items" template="cart/form.phtml" after="cart.summary">
+                  <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+                  <block class="Magento\Framework\View\Element\Text\ListText" name="checkout.cart.order.actions"/>
+               </block>
+               <container name="checkout.cart.widget" as="checkout_cart_widget" label="Shopping Cart Items After"/>
+            </container>
+            <block class="Magento\Checkout\Block\Cart\Crosssell" name="checkout.cart.crosssell" template="Magento_Catalog::product/list/items.phtml" after="-">
+               <arguments>
+                  <argument name="type" xsi:type="string">crosssell</argument>
+               </arguments>
+               <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="crosssell.product.addto" as="addto">
+                  <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare" name="crosssell.product.addto.compare" as="compare" template="Magento_Catalog::product/list/addto/compare.phtml"/>
+               </block>
+            </block>
+         </container>
+         <container name="checkout.cart.noitems" as="no-items">
+            <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="cart/noItems.phtml">
+               <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>
+            </block>
+         </container>
+      </block>
+   </referenceContainer>
+   <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="cart/additional/info.phtml"/>
+</body>
+</handle><handle id="default" layout="2columns-left"><body>
+   <referenceBlock name="header.links">
+      <block class="Apptha\Marketplace\Block\Seller\Link" name="sellerlink" after="-"/>
+      <block class="Apptha\Marketplace\Block\Seller\Managesellers" name="manaage-sellers" after="-"/>
+   </referenceBlock>
+   <referenceBlock name="customer_account_navigation">
+      <block class="Magento\Framework\View\Element\Html\Links" ifconfig="marketplace/general/enable_in_frontend" name="seller_account" before="customer_account_navigation" template="Apptha_Marketplace::account/navigation.phtml" cacheable="false">
+            </block>
+   </referenceBlock>
+   <move element="seller_account" destination="sidebar.main" before="-"/>
+</body>
+</handle><handle id="marketplace_assignproduct_add" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Assignproduct\Add" name="marketplace_assignproduct_add" ifconfig="marketplace/general/enable_in_frontend" template="assignproduct/add.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_assignproduct_edit" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Assignproduct\Add" name="marketplace_assignproduct_edit" ifconfig="marketplace/general/enable_in_frontend" template="assignproduct/edit.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_assignproduct_manage" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Assignproduct\Manage" name="marketplace_assignproduct_manage" ifconfig="marketplace/general/enable_in_frontend" template="assignproduct/manage.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_assignproduct_search" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Assignproduct\Search" name="marketplace_assignproduct_search" ifconfig="marketplace/general/enable_in_frontend" template="assignproduct/search.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_contact_form" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Contact\Form" name="marketplace_contact_form" ifconfig="marketplace/general/enable_in_frontend" template="contact/form.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_general_changebuyer" layout="2columns-left"><update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Changebuyer" ifconfig="marketplace/general/enable_in_frontend" name="change_buyer" template="Apptha_Marketplace::seller/changebuyer.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_order_items" label="Seller Order Items" design_abstraction="custom"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <block class="Apptha\Marketplace\Block\Order\Seller\Item" name="seller_items" template="order/seller/items.phtml" cacheable="false">
+		</block>
+</body>
+</handle><handle id="marketplace_order_items_request" label="Order Items Request" design_abstraction="custom"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <block class="Apptha\Marketplace\Block\Order\Item\Request" name="request" template="order/items/request.phtml" cacheable="false">
+		</block>
+</body>
+</handle><handle id="marketplace_order_manage" layout="2columns-left"><update handle="customer_account"/>
+<head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Order\Manage" name="order_manage" template="Apptha_Marketplace::order/manage.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_order_mange" layout="2columns-left"><update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Order\Manage" ifconfig="marketplace/general/enable_in_frontend" name="order_manage" template="Apptha_Marketplace::order/manage.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_order_vieworder" layout="2columns-left"><update handle="customer_account"/>
+<head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Order\Vieworder" name="order_view" template="Apptha_Marketplace::order/vieworder.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_product_add" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+   <script src="Apptha_Marketplace::js/configurable.js"/>
+   <script src="Apptha_Marketplace::js/downloadable.js"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Product\Add" name="marketplace_product_add" template="product/form.phtml" before="-">
+         <block class="Apptha\Marketplace\Block\Product\Add" name="marketplace_product_customoptions_js" as="marketplace_product_customoptions_js" template="product/customoptions.phtml"/>
+         <block class="Apptha\Marketplace\Block\Product\Add" name="marketplace_product_downloadable" as="marketplace_product_downloadable" template="product/downloadable.phtml"/>
+         <block class="Apptha\Marketplace\Block\Product\Add" name="marketplace_product_downloadable_edit" as="marketplace_product_downloadable_edit" template="product/edit_downloadable.phtml"/>
+         <block class="Apptha\Marketplace\Block\Product\Add" name="marketplace_product_downloadable_additional" as="marketplace_product_downloadable_additional" template="product/downloadable_additional.phtml"/>
+         <block class="Apptha\Marketplace\Block\Product\Image" name="marketplace_product_video_add" as="marketplace_product_video_add" template="product/video.phtml"/>
+      </block>
+      <block class="Apptha\Marketplace\Block\Product\Configurable" name="marketplace_product_configurable" template="product/configurable.phtml"/>
+      <block class="Apptha\Marketplace\Block\Product\Add" name="marketplace_product_submit" template="product/submit.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_product_manage" layout="2columns-left"><head>
+   <css src="Forms_Registration::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Product\Manage" name="marketplace_product_manage" ifconfig="marketplace/general/enable_in_frontend" template="product/manage.phtml" cacheable="false"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_product_preview" layout="1column"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Product\Preview" name="marketplace_product_preview" ifconfig="marketplace/general/enable_in_frontend" template="product/preview.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_allseller" layout="1column"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Allseller" template="seller/allseller.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_create" layout="1column"><body>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="customer_account_create_head_components" template="Magento_Customer::js/components.phtml"/>
+   </referenceBlock>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Register" name="seller_form_register" template="Apptha_Marketplace::account/register.phtml">
+         <container name="form.additional.info" as="form_additional_info"/>
+         <container name="customer.form.register.fields.before" as="form_fields_before" label="Form Fields Before" htmlTag="div" htmlClass="customer-form-before"/>
+      </block>
+      <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+         <arguments>
+            <argument name="triggers" xsi:type="array">
+               <item name="registerSubmitButton" xsi:type="string">.action.submit</item>
+            </argument>
+         </arguments>
+      </block>
+   </referenceContainer>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Framework\View\Element\Template" name="form_additional_info_customer" template="Magento_Customer::additionalinfocustomer.phtml"/>
+      <block class="Magento\Captcha\Block\Captcha" name="captchasellercreate" after="-">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">seller_create</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">230</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">100</argument>
+         </action>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="marketplace_seller_dashboard" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Dashboard" ifconfig="marketplace/general/enable_in_frontend" name="seller_dashboard" template="Apptha_Marketplace::seller/dashboard.phtml">
+         <block class="Apptha\Marketplace\Block\Seller\Orders" ifconfig="marketplace/general/enable_in_frontend" name="seller_orders" as="seller_orders" template="Apptha_Marketplace::seller/orders.phtml"/>
+         <block class="Apptha\Marketplace\Block\Seller\Mostviewed" ifconfig="marketplace/general/enable_in_frontend" name="seller_mostviewed" as="seller_mostviewed" template="Apptha_Marketplace::seller/mostviewed.phtml"/>
+      </block>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_displayseller" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceBlock name="seller_account" remove="true"/>
+   <referenceBlock name="customer_account_navigation" remove="true"/>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Displayseller" name="seller_content" template="seller/displayseller.phtml"/>
+      <block class="Apptha\Marketplace\Block\Seller\Sellerproducts" name="marketplace.allproducts" template="seller/allproducts.phtml" after="-"/>
+   </referenceContainer>
+   <referenceContainer name="sidebar.main">
+      <block class="Apptha\Marketplace\Block\Seller\Displayseller" name="seller_location" template="seller/map.phtml"/>
+      <block class="Apptha\Marketplace\Block\Seller\Displayseller" name="seller_ratings" template="seller/feedback.phtml"/>
+      <block class="Apptha\Marketplace\Block\Seller\Displayseller" name="seller_contact" template="seller/contact.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_login" layout="1column"><body>
+   <referenceContainer name="content">
+      <container name="seller.login.container" label="Seller Login Container" htmlTag="div" htmlClass="login-container">
+         <block class="Apptha\Marketplace\Block\Seller\Login" name="marketplace_seller_login" template="Apptha_Marketplace::seller/login.phtml">
+            <container name="form.additional.info" as="form_additional_info"/>
+         </block>
+         <block class="Magento\Customer\Block\Form\Login\Info" name="seller.new" template="Apptha_Marketplace::seller/newcustomer.phtml"/>
+      </container>
+      <block class="Magento\Cookie\Block\RequireCookie" name="require-cookife" template="Magento_Cookie::require_cookie.phtml">
+         <arguments>
+            <argument name="triggers" xsi:type="array">
+               <item name="loginButton" xsi:type="string">.action.login</item>
+            </argument>
+         </arguments>
+      </block>
+   </referenceContainer>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Framework\View\Element\Template" name="form_additional_info_customer" template="Magento_Customer::additionalinfocustomer.phtml"/>
+      <block class="Magento\Captcha\Block\Captcha" name="captchasellerlogin" after="-">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">seller_login</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">230</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">100</argument>
+         </action>
+      </block>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_paypal" layout="empty"><update handle="customer_account"/>
+<head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Subscriptionplans" name="seller_paypal" ifconfig="marketplace/general/enable_in_frontend" template="seller/paypal.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_profile" layout="2columns-left"><update handle="customer_account"/>
+<head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Profile" name="seller_profile" ifconfig="marketplace/general/enable_in_frontend" template="seller/profile.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_review" layout="2columns-left"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Review" template="seller/review.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_subscriptionplans" layout="2columns-left"><update handle="customer_account"/>
+<head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Subscriptionplans" name="seller_subscriptionplans" ifconfig="marketplace/general/enable_in_frontend" template="seller/subscriptionplans.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="marketplace_seller_transactions" layout="2columns-left"><update handle="customer_account"/>
+<head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Marketplace\Block\Seller\Transactions" name="seller_transactions" ifconfig="marketplace/general/enable_in_frontend" template="seller/transactions.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="sales_order_item_renderers"><head>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceBlock name="sales.order.items.renderers">
+      <block class="Apptha\Marketplace\Block\Order\Item\Renderer\DefaultRenderer" as="default" template="order/items/renderer/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="default" layout="2columns-left"><body>
+   <referenceBlock name="customer_account_navigation">
+      <block class="Magento\Framework\View\Element\Html\Links" name="vacation_mode" template="Apptha_Vacationmode::account/navigation.phtml" cacheable="false">
+            </block>
+   </referenceBlock>
+   <move element="vacation_mode" destination="sidebar.main" after="seller_account"/>
+</body>
+</handle><handle id="vacationmode_seller_vacationmode" layout="2columns-left"><update handle="customer_account"/>
+<head>
+   <title>Vacation Mode</title>
+   <css src="Apptha_Marketplace::css/style.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Apptha\Vacationmode\Block\Index\Index" name="vacationmode_seller_vacationmode" template="Apptha_Vacationmode::vacationmode.phtml"/>
+   </referenceContainer>
+</body>
 </handle><handle id="1default"><body>
    <referenceContainer name="header.panel" remove="true"/>
    <referenceContainer name="custom_header" remove="true"/>
@@ -7804,7 +8795,8 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611116500;s:6:"expire";i:9999999999;s:4:"t
 			</block>
    </referenceContainer>
 </body>
-</handle><handle id="client_client_index" layout="2columns-left"><head>
+</handle><handle id="client_dashboard_index" layout="2columns-left"><head>
+   <title>Client Backend : Dashboard</title>
    <remove src="Magento_Theme::css/style.css"/>
    <remove src="css/styles.css"/>
    <remove src="css/bootstrap.min.css"/>
@@ -7815,12 +8807,16 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611116500;s:6:"expire";i:9999999999;s:4:"t
    <referenceContainer name="header.container" remove="true"/>
    <referenceBlock name="catalog.topnav" remove="true"/>
    <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
    <referenceContainer name="content">
       <block class="User\Client\Block\Client\Index" name="client_index" template="client/index.phtml">
 			</block>
    </referenceContainer>
 </body>
-</handle><handle id="client_client_sales" layout="2columns-left"><head>
+</handle><handle id="client_promotions_create" layout="2columns-left"><head>
+   <title>Client backend : Sales</title>
    <remove src="Magento_Theme::css/style.css"/>
    <remove src="css/styles.css"/>
    <remove src="css/bootstrap.min.css"/>
@@ -7831,8 +8827,71 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611116500;s:6:"expire";i:9999999999;s:4:"t
    <referenceContainer name="header.container" remove="true"/>
    <referenceBlock name="catalog.topnav" remove="true"/>
    <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
    <referenceContainer name="content">
-      <block class="User\Client\Block\Client\Index" name="client_index" template="client/sales.phtml">
+      <block class="User\Client\Block\Client\Index" name="client_promotions_create" template="client/create-promotions.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_promotions_index" layout="2columns-left"><head>
+   <title>Client backend : Sales</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_promotions_index" template="client/promotions.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_sales_index" layout="2columns-left"><head>
+   <title>Client backend : Sales</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_index_sales" template="client/sales.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_transactions_index" layout="2columns-left"><head>
+   <title>Client Backend : Transactions</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_index_transactions" template="client/transactions.phtml">
 			</block>
    </referenceContainer>
 </body>

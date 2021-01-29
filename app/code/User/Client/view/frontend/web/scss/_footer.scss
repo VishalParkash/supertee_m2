@@ -119,5 +119,121 @@ footer{
         }
     }
 
+&.store-footer{
+    background:#00263E;
+
+    .top-footer{
+        padding:80px 0;
+        font-size:0.9375rem;
+        
+        h6{
+            margin-bottom:15px;
+            font-size:1.125rem;
+        }
+
+        .links{
+            li{
+                padding:4px 0;
+            }
+        }
+
+        .footer-logo-wrap{
+            max-width:140px;
+            img{
+                margin-bottom:35px;
+            }
+
+            .powered-by{
+                width:100%
+                span{
+                    font-size:0.8125rem;
+                }
+            }
+        }
+
+        .policy{
+            .wrap{
+                img{
+                    height:48px;
+                    width:48px;
+                    flex:0 0 48px;
+                }
+                h6{
+                    margin-bottom:0px;
+                }
+
+                .content{
+                    padding-left:23px;
+                }
+            &:not(:last-child){
+                margin-bottom:25px;
+            }
+            }
+        }
+
+        .newsletter{
+            p{
+                font-size:0.8125rem;
+                margin-bottom:14px;
+            }
+
+            input{
+                border: 1px solid #1D455C;
+                width:100%;
+                padding:10px 14px;
+                background:transparent;
+                color:#fff;
+                margin-bottom:14px;
+                &::placeholder{
+                    color: #1D455C;
+                }
+            }
+
+            .btn{
+                border-radius:0;
+                width:100%;
+            &:active,&:focus{
+                color:#fff;
+            }
+            }
+        }
+    }
+
+    .bottom-footer{
+        border-top:1px solid rgba(255,255,255,0.1);
+        font-size:0.6875rem;
+        padding:24px 0;
+
+        .leftWrap{
+            & > span{
+                font-weight: 900;
+                font-size: 1.125rem;
+                line-height: 117.9%;
+                opacity: 0.5;
+                margin-right:7px;
+            }
+
+            .copyright{
+                p{
+                    margin-right:5px;
+                }
+
+                img{
+                    margin-right:5px;
+                }
+            }
+        }
+
+        .rightWrap{
+            a{
+            &:not(:last-child){
+                margin-right:13px;
+            }
+            }
+        }
+    }
+
+}
+
      
 }

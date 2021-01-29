@@ -1,5 +1,3 @@
-require(['jquery'],function($) {
-
 $(document).ready(function () {
     $('#notification').on('click', function () {
         $('.mainSite').toggleClass('showNotification');
@@ -34,5 +32,14 @@ $(document).ready(function () {
         $(this).toggleClass("active");
         // $(this).toggleClass("active");
     });
+    $(".dropdownLevelItem .dropdownBtn").on("click", function () {
+        $(this).toggleClass("active");
+        $(this).next(".dropdownLevel").toggleClass("d-none");
+    });
+
+    // $('#storeProfilePreviewModal').modal("show");
 });
-});
+
+
+
+

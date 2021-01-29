@@ -4,7 +4,12 @@
   display: none !important;
 }
 </style>
-<?php $categories = $block->getCategoryCollection(); ?>
+
+<?php 
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+$categories = $block->getCategoryCollection(); ?>
 <div class="mainSite">
         <div class="sideBar">
             <div class="sideBarInner">
@@ -66,12 +71,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="phone number" id="phone_number" name="phone_number" />
+                                        <input type="text" class="form-control" placeholder="phone number" id="phone_number" name="phone_number" maxlength="10" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="e-mail" id="email" name="email" />
+                                        <input type="email" class="form-control" placeholder="e-mail" id="email" name="email" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -448,7 +453,7 @@
                         }
                         $('.pageContent section').removeClass("active");
                     $('.pageContent section.'+this.id).next().addClass("active");
-                        var formData = $("#personalInfoData").serialize()
+                        var formData = $("#personalInfoData").serialize();
                       // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
                       var url = "<?php echo $block->getBaseUrl().'store/personal/information/' ?>";
                         jQuery.ajax({
@@ -458,51 +463,64 @@
                         showLoader: true,
                         cache: false,
                         success: function(response){
+                            console.log(response);
                             if(response.output != false){
                                 $('#ccid').val(response.output);
                                 $('#firstsection').removeClass("active").attr('class', this.id);
                                 // $('#secoundone').removeClass("active").attr('class', this.id);
-                                $('#secoundone').addClass("active");
+                                $('#secoundone').addClass("active show");
                             }else{
                                 $('#errorReporting').text('Some error occured. Please fill the form again');
                             }
-                            // console.log(response.output);
-                            // jQuery(".result").show();
-                            // jQuery(".result").text(response.output);
-                        }                    });
+                        }
+                    });
                     }
                     if(this.id == 'ssInfo'){
                         $("#newprevv").removeAttr( 'style' );
-
-
-
                         console.log('store tab here');
                         $('#secoundone').removeClass("active").attr('class', this.id);
                         $('#confirmation').addClass("active");
-
-
-                          var formData = $("#StoreInfoData").serialize()
+                        var formData = $("#StoreInfoData").serialize()
                       // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
-                      var url = "<?php echo $block->getBaseUrl().'store/store/save/' ?>";
-                        jQuery.ajax({
+                        var url = "<?php echo $block->getBaseUrl().'store/store/save/' ?>";
+                        $.ajax({
                         url: url,
                         type: "POST",
                         data: formData,
                         showLoader: true,
-                        cache: false,
-                        success: function(response){
-                            if(response.output === false){
+                        // cache: false,
+                        // dataType: 'json',
+                        success: function(result){
+                            console.log(result);
+                            console.log(result.output);
+                            if(result.output == 0){
+                                console.log('false');
                                 $('#errorReporting').text('Some error occured. Please fill the form again');
-                            }else if(response.output == true){
+                                return false;
+                            }else if(result.output == true){
+                                console.log('true');
                                 $('#errorReporting').text('Store created');
+                                $('#secoundone').css("display", 'none');
+                                $('#secoundone').removeClass("active");
+                                $('#secoundone').removeClass("show");
+                                // $('#secoundone').removeClass("active").attr('class', this.id);
+                                $('#confirmationPage').addClass("active show");
+                                return false;
                             }else{
-                                $('#errorReporting').text(response.output);
+                                console.log('something else');
+                                $('#errorReporting').text(result.output);
+                                return false;
                             }
-                            // console.log(response.output);
-                            // jQuery(".result").show();
-                            // jQuery(".result").text(response.output);
-                        }
-                        
+                        },
+                        error: function(xhr, status, error) {
+                          var err = (xhr);
+                          console.log(err);
+                          console.log(error);
+                          // alert(err.output);
+                          return false;
+
+                        }  
+                                    
                     });
                     }
                     if(linkId == this.id)
@@ -515,27 +533,7 @@
         
                     
         });
-        // $('.next').click(function() {
-        //     console.log($('sInfo_pInfo').serialize());
-        //     // $.ajax({
-        //     //             url:"<?php //echo $this->getFormAction(); ?>",
-        //     //             type:'POST',
-        //     //             showLoader: true,
-        //     //             dataType:'json',
-        //     //             data: {id:id},                                      
-        //     //             success:function(response){
-        //     //                 alert(response);
-        //     //             },
-        //     //             error:function(response){
-        //     //                 alert(response);
-        //     //             }
-        //     //         });
-        // });
         $('.prev').click(function() {
-                
-                
-                
-                
                 if(this.id == 'pressInfo'){
                     $('#secoundone').removeClass("active");
                     $('#firstsection').addClass("active");
@@ -552,38 +550,6 @@
                 // $('.pageContent section.'+this.id).prev().addClass("active");
          
             });
-        
-            // function next(id){
-            //          console.log(id);
-            //         var linkId = $('.storeNav li#'+id).attr('id');
-            //         console.log(linkId);
-            //         if(linkId == id)
-            //         {
-            //             $('.storeNav li a').removeClass("active");
-            //             $('.storeNav li#'+id).next().find('a').addClass("active");
-        
-            //         } 
-        
-            //         $('.pageContent section').removeClass("active");
-            //         $('.pageContent section#'+id).next().addClass("active");
-         
-            // }
-        
-            // function prev(id){
-            //     console.log(id);
-            //     var linkId = $('.storeNav li#'+id).attr('id');
-            //     console.log(linkId);
-            //     if(linkId == id)
-            //     {
-            //         $('.storeNav li a').removeClass("active");
-            //         $('.storeNav li#'+id).prev().find('a').addClass("active");
-        
-            //     } 
-        
-            //     $('.pageContent section').removeClass("active");
-            //     $('.pageContent section#'+id).prev().addClass("active");
-         
-            // }
         
          });
         });

@@ -211,19 +211,19 @@ h6 {
 }
 
 h2{
-  font-size:4.500em;
+  font-size:4.500rem;
   font-weight:900;
   // font-size:72px;
   
   @include max-767{
-    font-size:2.800em;
+    font-size:2.800rem;
     // font-size:44px;
   }
 
 }
 
 h3{
-  font-size:2.250em;
+  font-size:2.250rem;
 }
  
 
@@ -525,6 +525,15 @@ a{
   &:active {
     background-image: url(../images/arrowSelectDown.png) !important;
   }
+  &.btn-select-white {
+    background-color: $white;
+    border-color: $blueDark;
+  }
+  &.btn-select-light {
+    background-color: $white;
+    border-color: $arrow;
+    color: $arrow;
+  }
 }
 .dropdown {
   &.show {
@@ -759,6 +768,33 @@ a{
           &.active {
             color: $blue;
             font-weight: normal;
+          }
+        }
+      }
+    }
+    &.dropdown-menu-border {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .dropdown-item {
+        padding: 15px 0;
+        margin: 0;
+        color: $primaryColor;
+        display: block;
+        &:not(:last-child) {
+          border-bottom: 1px solid $borderLight;
+        }
+        &:active, &:focus, &.active {
+          background-color: transparent !important;
+        }
+        &.active {
+          font-weight: bold;
+        }
+        .customCheckBox {
+          .customCheckBoxCheck {
+            margin: 0 15px 0 0;
+          }
+          input:checked ~ span:not(.customCheckBoxCheck) {
+            font-weight: bold;
           }
         }
       }
@@ -1625,6 +1661,23 @@ input[type=number]::-webkit-outer-spin-button {
     }
   }
 }
+.droopdownProducts {
+  .dropdown-menu {
+    min-width: 240px !important;
+    padding: 10px 24px;
+    .dropdown-item {
+      padding: 15px 0;
+      color: $primaryColor;
+      // font-size: 0.8125em;
+      &:not(:last-child) {
+        border-bottom: 1px solid $borderLight;
+      }
+      &:active, &:focus {
+        background-color: transparent !important;
+      }
+    }
+  }
+}
 
 .status {
   padding: 5px 15px;
@@ -1811,6 +1864,9 @@ select.form-control {
     color: $arrow;
   }
 }
+.border-dark {
+  border-color: $blueDark;
+}
 .paginationDiv {
   background-color: $white;
   display: -webkit-box;
@@ -1957,7 +2013,8 @@ select.form-control {
           }
       }
       input[type="checkbox"]:checked + span {
-          background-color: $blue;
+          // background-color: $blue;
+          background-color: $green;
           &:before {
               -webkit-transform: translateX(22px);
               -ms-transform: translateX(22px);
@@ -2198,7 +2255,6 @@ select.form-control {
       margin-right: 45px;
       font-size: 0.9375em;
       line-height: 1.2em;
-      font-weight: bold;
       color: $primaryColor;
       h4 {
         display: inline-block;
@@ -2324,9 +2380,6 @@ select.form-control {
   }
 }
 
-.modal-backdrop.show {
-  opacity: .8;
-}
 .modalConfirm {
   .modal-dialog {
     width: 545px;
@@ -2416,13 +2469,13 @@ select.form-control {
   .modalImportTop {
     padding: 0 0 43px;
     h4 {
-      font-size: 1.125em;
+      font-size: 1.3125rem;
       line-height: 140%;
       margin: 0;
     }
     .btnText  {
-      font-size: 0.8125em;
-      line-height: 1.2em;
+      font-size: 0.9375rem;
+      line-height: 1.125rem;
       color: $borderLight2;
       font-family: $roboto;
       span {
@@ -2444,8 +2497,9 @@ select.form-control {
     margin: 0 0 20px;
   }
   .modalImportOr {
-    padding: 55px 0 24px 0;
+    padding: 24px 0;
     text-align: center;
+    color: $primaryColor;
   }
   .modalImportBtn {}
   .modalImportUploading {
@@ -2493,6 +2547,9 @@ select.form-control {
             display: block;
           }
         }
+      }
+      p {
+        color: $btnBlue;
       }
     }
   }
@@ -2797,7 +2854,7 @@ input[type="range"] {
 
 .tableCustomRowBar {
   tr {
-    td {
+    &>td {
       &:nth-child(1) {
         padding-left: 20px;
         position: relative;
@@ -2805,21 +2862,21 @@ input[type="range"] {
       }
     }
     &.rowWarning {
-      td {
+      &>td {
         &:nth-child(1) {
           border-color: $yellow2;
         }
       }
     }
     &.rowError {
-      td {
+      &>td {
         &:nth-child(1) {
           border-color: $red3;
         }
       }
     }
     &.rowSuccess {
-      td {
+      &>td {
         &:nth-child(1) {
           border-color: $green;
         }
@@ -2856,5 +2913,60 @@ input[type="range"] {
   }
   .dropdownFilterItem {
     margin-bottom: 14px;
+  }
+}
+
+.slide-nav {
+  span{
+    display: inline-block;
+    width: 71px;
+    height: 71px;
+    background: #F5F0EC;
+    text-align: center;
+    border-radius: 71px;
+    line-height: 71px;
+    margin-right: 15px;
+    cursor: pointer;
+  &:hover{
+    background: #000000;
+
+    svg{
+      path{
+        fill: #FFFFFF;
+      }
+    }
+  }
+  }
+
+  .slick-disabled{
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+.input-group-prepend {
+  .input-group-text {
+    // border: 1px solid #000;
+    border-radius: 10px 0 0 10px;
+    border-color: $arrow;
+    background-color: transparent;
+    min-width: 52px;
+    text-align: center;
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
+.modal  {
+  cursor: url(../images/cusrolClose.png), auto ;
+  .modal-dialog {
+    cursor: default;
+  }
+}
+.modal-backdrop {
+  &.show {
+    opacity: 0.7;
   }
 }

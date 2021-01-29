@@ -4,6 +4,9 @@
  * Copyright © 2015 Createcommerce. All rights reserved.
  */
 namespace Create\Store\Controller\Store;
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
 use Magento\Framework\Controller\Result\JsonFactory;
 
 use Magento\Store\Model\GroupFactory;
@@ -13,6 +16,9 @@ use Magento\Store\Model\ResourceModel\Website;
 use Magento\Store\Model\StoreFactory;
 use Magento\Store\Model\WebsiteFactory;
 use Magento\Framework\Event\ManagerInterface;
+use Magento\Framework\Controller\ResultFactory;
+
+
 
 
 class Save extends \Magento\Framework\App\Action\Action
@@ -46,6 +52,13 @@ class Save extends \Magento\Framework\App\Action\Action
     protected $categoryFactory;
 
     protected $storeRepository;
+
+    protected $addressDataFactory;
+
+/**
+ * @var \Magento\Customer\Api\AddressRepositoryInterface
+ */
+protected $addressRepository;
 
     // private $groupFactory;
     /**
@@ -93,6 +106,9 @@ class Save extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\Config\Importer\Processor\Create $storeCreateProcessor,
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         \Magento\Store\Api\StoreRepositoryInterface $storeRepository,
+        \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
+        \Magento\Customer\Api\Data\AddressInterfaceFactory $addressDataFactory,
+
 
         Group $groupResourceModel,
         GroupFactory $groupFactory,
@@ -114,6 +130,7 @@ class Save extends \Magento\Framework\App\Action\Action
         $this->resultPageFactory = $resultPageFactory;
         $this->session = $session;
         $this->categoryFactory = $categoryFactory;
+        $this->addressDataFactory = $addressDataFactory;
 
         $this->storeRepository= $storeRepository;
 
@@ -139,6 +156,8 @@ class Save extends \Magento\Framework\App\Action\Action
     public function execute()
     {   
         $result = $this->resultJsonFactory->create();
+        // $result = $this->resultJsonFactory->create(ResultFactory::TYPE_JSON);
+
         $data = $this->getRequest()->getPostValue();
 
         $storename = $data['storename'];
@@ -155,23 +174,13 @@ class Save extends \Magento\Framework\App\Action\Action
             $validateStoreName = "SELECT storename FROM " . $themeTable . " WHERE storename = '".$data['storename']."'  ORDER BY id DESC";
             $response = $connection->fetchAll($validateStoreName);
 
-            // if(!empty($response)){
-            //    return $result->setData(['output' => "Store name not available"]);
-            // }
+            if(!empty($response)){
+               return $result->setData(['output' => "Store name not available"]);
+            }
             
-            $sql = "UPDATE " . $themeTable . " SET 
-                    storename = '".$data['storename']."', 
-                    storetype = '".$data['storetype']."', 
-                    storecategory = '".$data['storecategory']."', 
-                    iswebsiteavailable = '".$data['iswebsiteavailable']."', 
-                    storedomain = '".$data['storedomain']."', 
-                    issellingexperienced = '".$data['issellingexperienced']."', 
-                    monthlyvolume = '".$data['monthlyvolume']."', 
-                    mediumtocontact = 'google' 
-                    WHERE id= ".$clientId;
-            $connection->query($sql);
+            
 
-            if($connection->query($sql)){
+            // if($connection->query($sql)){
                 $attribute = [
                 'website_code' => 'base',
                 'website_name' => 'Main Website',
@@ -221,7 +230,7 @@ class Save extends \Magento\Framework\App\Action\Action
                         $this->eventManager->dispatch('store_add', ['store' => $store]);
                         $store = $this->storeFactory->create();
 
-                        $getStore = $this->storeRepository->get('store_code');
+                        $getStore = $this->storeRepository->get($storeCode);
                         $storeId = $getStore->getId(); // this is the store ID
 
 
@@ -246,18 +255,18 @@ class Save extends \Magento\Framework\App\Action\Action
 
                         $category->save();
 
-                        $this->session->setData("ClientStoreData", $store);
+                        // $this->session->setData("ClientStoreData", $store);
 
-                        $ClientStoreData = $this->session->getData("ClientStoreData");
+                        // $ClientStoreData = $this->session->getData("ClientStoreData");
                         $ClientPersonalData = $this->session->getData("ClientPersonalData");
 
-                        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
-                        $storeId = $storeManager->getStore()->getId();
+                        // $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+                        // $storeId = $storeManager->getStore()->getId();
 
                         // echo "store id is ".$storeId;
                          
-                        $websiteId = $storeManager->getStore($storeId)->getWebsiteId();
-                        // $websiteId = $website->getWebsiteId();
+                        // $websiteId = $storeManager->getStore($storeId)->getWebsiteId();
+                        $websiteId = $website->getWebsiteId();
                          
                         try {
                             $customer = $objectManager->get('\Magento\Customer\Api\Data\CustomerInterfaceFactory')->create();
@@ -266,32 +275,70 @@ class Save extends \Magento\Framework\App\Action\Action
                             $customer->setEmail($email);
                             $customer->setFirstname($ClientPersonalData['name']);
                             $customer->setLastname($ClientPersonalData['name']);
+                            $customer->setGroupId(3);
+                            $customer->setStoreId($storeId);
                             $hashedPassword = $objectManager->get('\Magento\Framework\Encryption\EncryptorInterface')->getHash($ClientPersonalData['password'], true);
                          
                             $objectManager->get('\Magento\Customer\Api\CustomerRepositoryInterface')->save($customer, $hashedPassword);
                          
                             $customer = $objectManager->get('\Magento\Customer\Model\CustomerFactory')->create();
                             $customer->setWebsiteId($websiteId)->loadByEmail($email);
-                            $result->setData(['output' => true]);
+
+                            $addresss = $objectManager->get('\Magento\Customer\Model\AddressFactory');
+                            $address = $addresss->create();
+
+                            $getAddress = $ClientPersonalData['address'];
+                            if(strpos($getAddress, " ")) {
+                                $getAddress = $getAddress;
+                            }else{
+                                $getAddress = "#".$getAddress." ";
+                            }
+                            $addressArr = explode(" ", $getAddress, 2);
+
+
+                            $address->setFirstname($ClientPersonalData['name'])
+                                    ->setLastname($ClientPersonalData['name'])
+                                    ->setCountryId($ClientPersonalData['country'])
+                                    ->setCity($ClientPersonalData['city'])
+                                    ->setPostcode($ClientPersonalData['zipcode'])
+                                    ->setCustomerId($customer->getId())
+                                    ->setStreet($addressArr)
+                                    ->setIsDefaultBilling('1')
+                                    ->setIsDefaultShipping('1')
+                                    ->setSaveInAddressBook('1')
+                                    ->setTelephone($ClientPersonalData['phone_number']);
+                                    $address->save();
+
+                                    $sql = "UPDATE " . $themeTable . " SET 
+                                        storename = '".$data['storename']."', 
+                                        storetype = '".$data['storetype']."', 
+                                        storecategory = '".$data['storecategory']."', 
+                                        iswebsiteavailable = '".$data['iswebsiteavailable']."', 
+                                        storedomain = '".$data['storedomain']."', 
+                                        issellingexperienced = '".$data['issellingexperienced']."', 
+                                        monthlyvolume = '".$data['monthlyvolume']."', 
+                                        mediumtocontact = 'google' 
+                                        WHERE id= ".$clientId;
+                                    $connection->query($sql);
+
+                                if($connection->query($sql)){
+                                    $getMyStore = $this->session->setData("getMyStore", $storeCode);
+                                        $result->setData(['output' => true]);
+                                }else{
+                                    $result->setData(['output' => false]);
+                                }
                         } catch (Exception $e) {
-                            $result->setData(['output' => $e->getMessage()]);
-                            // echo $e->getMessage();
+                            $result->setData(['output' => "Error Occured"]);
                         }
-
-                        // die;
-
-                        
+                    }else{
+                        $result->setData(['output' => "Store name not available"]);
                     }
                 }catch (Exception $e) {
                     $result->setData(['output' => "Error while creating store"]);
                 }
-            }else{
-                $result->setData(['output' => "error occured while executing query"]);
-            }
         }else{
             $result->setData(['output' => "Client id is missing"]);
         }
-
         return $result;
 
   //       $this->resultPage = $this->resultPageFactory->create();  
@@ -299,94 +346,82 @@ class Save extends \Magento\Framework\App\Action\Action
         
     }
 
-    //  private function updateStore($code, $groupId, $websiteId): void
+    // public function getWebsite()
     // {
-    //     try {
-    //         $store = $this->storeRepository->get($code);
-    //         $store->setStoreGroupId($groupId);
-    //         $store->setWebsiteId($websiteId);
-    //         $this->storeResourceModel->save($store);
-    //     } catch (Exception $e) {
-    //         $this->logger->error(__FILE__ . ' : ' . $e->getMessage());
+    //     $group = $this->groupFactory->create();
+
+    //     if($this->getGroupId())
+    //     {
+    //         $group->load($this->getGroupId());
+
+    //         if($group->getId() && $group->getWebsiteId())
+    //         {
+    //             $website = $this->websiteFactory->create();
+    //             $website->load($group->getWebsiteId());
+    //             return $website;
+    //         }
     //     }
+
+    //     return null;
     // }
 
-    public function getWebsite()
-    {
-        $group = $this->groupFactory->create();
+    // private function createOrUpdateGroup($groupId, $websiteId, $storeName, $storeCode)
+    // {
+    //     $group = $this->groupFactory->create();
+    //     if($groupId)
+    //         $group->load($groupId);
 
-        if($this->getGroupId())
-        {
-            $group->load($this->getGroupId());
+    //     $group->setWebsiteId($websiteId);
+    //     $group->setName($storeName);
+    //     $group->setCode($storeCode);
+    //     $group->save();
 
-            if($group->getId() && $group->getWebsiteId())
-            {
-                $website = $this->websiteFactory->create();
-                $website->load($group->getWebsiteId());
-                return $website;
-            }
-        }
+    //     return $group;
+    // }
 
-        return null;
-    }
+    // private function createOrUpdateRootCategory($data, $categoryId = 0)
+    // {
+    //     $rootCategoryName = $data['name'];
 
-    private function createOrUpdateGroup($groupId, $websiteId, $storeName, $storeCode)
-    {
-        $group = $this->groupFactory->create();
-        if($groupId)
-            $group->load($groupId);
+    //     $category = $this->categoryFactory->create();
 
-        $group->setWebsiteId($websiteId);
-        $group->setName($storeName);
-        $group->setCode($storeCode);
-        $group->save();
+    //     if($categoryId != 0)
+    //         $category->load($categoryId);
 
-        return $group;
-    }
+    //     $category->setName($rootCategoryName . ' - Default Category');
+    //     $category->setIsActive($data['is_active']);
+    //     $category->setStoreId(0);
 
-    private function createOrUpdateRootCategory($data, $categoryId = 0)
-    {
-        $rootCategoryName = $data['name'];
+    //     if($categoryId == 0)
+    //     {
+    //         $parentCategory = $this->categoryFactory->create();
+    //         $parentCategory->load(\Magento\Catalog\Model\Category::TREE_ROOT_ID);
 
-        $category = $this->categoryFactory->create();
+    //         $category->setDisplayMode(\Magento\Catalog\Model\Category::DM_PRODUCT);
+    //         $category->setPath($parentCategory->getPath());
+    //     }
 
-        if($categoryId != 0)
-            $category->load($categoryId);
+    //     $category->save();
 
-        $category->setName($rootCategoryName . ' - Default Category');
-        $category->setIsActive($data['is_active']);
-        $category->setStoreId(0);
+    //     return $category->getId();
+    // }
 
-        if($categoryId == 0)
-        {
-            $parentCategory = $this->categoryFactory->create();
-            $parentCategory->load(\Magento\Catalog\Model\Category::TREE_ROOT_ID);
+    // private function createOrUpdateStore($group, $websiteId, $storeViewName, $storeViewCode, $data)
+    // {
+    //     $store = $this->storeFactory->create();
+    //     if($group->getId() && $group->getDefaultStoreId())
+    //         $store->load($group->getDefaultStoreId());
 
-            $category->setDisplayMode(\Magento\Catalog\Model\Category::DM_PRODUCT);
-            $category->setPath($parentCategory->getPath());
-        }
+    //     $store->setName($storeViewName . ' - Store View');
+    //     $store->setCode($storeViewCode);
+    //     $store->setWebsiteId($websiteId);
+    //     $store->setGroupId($group->getId());
+    //     $store->setSortOrder($data['sort_order']);
+    //     $store->setIsActive($data['is_active']);
+    //     $store->save();
 
-        $category->save();
-
-        return $category->getId();
-    }
-
-    private function createOrUpdateStore($group, $websiteId, $storeViewName, $storeViewCode, $data)
-    {
-        $store = $this->storeFactory->create();
-        if($group->getId() && $group->getDefaultStoreId())
-            $store->load($group->getDefaultStoreId());
-
-        $store->setName($storeViewName . ' - Store View');
-        $store->setCode($storeViewCode);
-        $store->setWebsiteId($websiteId);
-        $store->setGroupId($group->getId());
-        $store->setSortOrder($data['sort_order']);
-        $store->setIsActive($data['is_active']);
-        $store->save();
-
-        return $store;
-    }
+    //     return $store;
+    // }
 
     public function setWebID($website, $attribute)
     {
@@ -399,4 +434,6 @@ class Save extends \Magento\Framework\App\Action\Action
         return $website;
 
     }
+
+
 }

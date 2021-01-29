@@ -5,6 +5,7 @@
  */
 namespace Create\Store\Controller\Personal;
 use Magento\Framework\Controller\Result\JsonFactory;
+// use Magento\Framework\Exception\InputException;
 
 class Information extends \Magento\Framework\App\Action\Action
 {
@@ -67,11 +68,7 @@ class Information extends \Magento\Framework\App\Action\Action
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
         $connection = $resource->getConnection();
-
         $themeTable = $connection->getTableName('store_clientpersonalinfo');
-
-        // $checkReferral = "SELECT * FROM " . $themeTable . " WHERE tokenCode ='$referid'";
-        //             $result = $connection->fetchAll($checkReferral);
             
         $sql = "INSERT INTO " . $themeTable . " (name, email, phone_number, address, zipcode, location, country, password) VALUES ('".$data['name']."', '".$data['email']."', '".$data['phone_number']."', '".$data['address']."', '".$data['zipcode']."', '".$data['location']."', '".$data['country']."', '".$data['password']."')";
         if($connection->query($sql)){
@@ -80,12 +77,12 @@ class Information extends \Magento\Framework\App\Action\Action
         }else{
             $result->setData(['output' => false]);
         }
-
-
-                return $result;
-
-        $this->resultPage = $this->resultPageFactory->create();  
-		return $this->resultPage;
+        return $result;
         
     }
+    // public function checkPasswordConfirmation($password, $confirmation) {
+    //     if ($password != $confirmation) {
+    //         throw new InputException ( __ ( 'Please make sure your passwords match.' ) );
+    //     }
+    // }
 }

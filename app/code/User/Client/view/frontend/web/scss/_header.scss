@@ -323,3 +323,24 @@ header{
     }
 
 }
+
+.store-nav{
+    .store-logo{
+        font-weight:bold;
+        img{
+            max-width:80px;
+            height:auto;
+            margin-right:14px;
+        }
+    }
+
+    .navbar-nav{
+        padding:0 15px;
+        .nav-item{
+        &:not(:last-child){
+            margin-right:40px;
+        }
+        }
+    }
+
+}
