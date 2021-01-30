@@ -81,4 +81,20 @@ class Index extends Template
     public function calculateCommissionAmt($commission, $amount){
         return $total = ($amount*($commission/100));
     }
+
+    public function getStores($userId){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+        $connection = $resource->getConnection();
+
+        if(!empty($clientId)) {
+
+            $themeTable = $connection->getTableName('store_clientpersonalinfo');
+            $getStores = "SELECT * FROM " . $themeTable . " WHERE customer_id ='$userId'";
+            return $result = $connection->fetchAll($getStores);
+
+        }else{
+            return false;
+        }
+    }
 }

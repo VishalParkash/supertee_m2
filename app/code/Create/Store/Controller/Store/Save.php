@@ -317,7 +317,9 @@ protected $addressRepository;
                                         storedomain = '".$data['storedomain']."', 
                                         issellingexperienced = '".$data['issellingexperienced']."', 
                                         monthlyvolume = '".$data['monthlyvolume']."', 
-                                        mediumtocontact = 'google' 
+                                        mediumtocontact = 'google', 
+                                        storeCode = '".$storeCode."', 
+                                        customer_id = '".$customer->getId()."'
                                         WHERE id= ".$clientId;
                                     $connection->query($sql);
 

@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+
 	<head>
+        <title>Create Store</title>
         <remove src="Magento_Theme::css/style.css" />
         <remove src="Magento_Theme::scss/blog.scss" />
 

@@ -5,7 +5,9 @@
     $customerSession = $objectManager->create('Magento\Customer\Model\Session');
     $customerFactory = $objectManager->get('\Magento\Customer\Model\CustomerFactory')->create();
 
-    $client_id = $block->getLoggedinCustomerId();
+    // $store_id = '1';
+    $client_id = '6';
+    // $client_id = $block->getLoggedinCustomerId();
     $customer = $customerFactory->load($client_id);
     // $client_id =  $customerSession->getId();
     

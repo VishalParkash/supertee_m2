@@ -4,7 +4,9 @@
  * Copyright © 2015 Usercommerce. All rights reserved.
  */
 namespace User\Client\Controller\Promotions;
-
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
 class Create extends \Magento\Framework\App\Action\Action
 {
 

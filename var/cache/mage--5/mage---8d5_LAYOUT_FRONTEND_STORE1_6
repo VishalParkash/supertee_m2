@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611898318;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1612022024;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -7575,6 +7575,7 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611898318;s:6:"expire";i:9999999999;s:4:"t
    <referenceContainer name="custom_footer" remove="true"/>
 </body>
 </handle><handle id="store_store_create" layout="2columns-left"><head>
+   <title>Create Store</title>
    <remove src="Magento_Theme::css/style.css"/>
    <remove src="Magento_Theme::scss/blog.scss"/>
    <link rel="stylesheet" type="text/css" src="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&amp;display=swap" src_type="url"/>
@@ -8815,8 +8816,8 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611898318;s:6:"expire";i:9999999999;s:4:"t
 			</block>
    </referenceContainer>
 </body>
-</handle><handle id="client_promotions_create" layout="2columns-left"><head>
-   <title>Client backend : Sales</title>
+</handle><handle id="client_promotions_add" layout="2columns-left"><head>
+   <title>Client backend : Promotions</title>
    <remove src="Magento_Theme::css/style.css"/>
    <remove src="css/styles.css"/>
    <remove src="css/bootstrap.min.css"/>
@@ -8831,7 +8832,27 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611898318;s:6:"expire";i:9999999999;s:4:"t
    <referenceBlock name="sidebar.main" remove="true"/>
    <referenceBlock name="sidebar.additional" remove="true"/>
    <referenceContainer name="content">
-      <block class="User\Client\Block\Client\Index" name="client_promotions_create" template="client/create-promotions.phtml">
+      <block class="User\Client\Block\Promotions\Index" name="client_promotions_add" template="client/add-promotions.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_promotions_create" layout="2columns-left"><head>
+   <title>Client backend : Promotions</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Promotions\Index" name="client_promotions_create" template="client/create-promotions.phtml">
 			</block>
    </referenceContainer>
 </body>
@@ -8872,6 +8893,66 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611898318;s:6:"expire";i:9999999999;s:4:"t
    <referenceBlock name="sidebar.additional" remove="true"/>
    <referenceContainer name="content">
       <block class="User\Client\Block\Client\Index" name="client_index_sales" template="client/sales.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_stores_index" layout="2columns-left"><head>
+   <title>Client Backend : Stores</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Stores\Index" name="client_stores_index" template="client/stores.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_stores_profile" layout="2columns-left"><head>
+   <title>Client Backend : Stores</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Stores\Index" name="client_store_profile" template="client/store-profile.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_stores_view" layout="2columns-left"><head>
+   <title>Client Backend : Stores</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Stores\Index" name="client_store_view" template="client/store-view.phtml">
 			</block>
    </referenceContainer>
 </body>

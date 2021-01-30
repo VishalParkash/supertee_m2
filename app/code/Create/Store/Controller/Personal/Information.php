@@ -4,6 +4,9 @@
  * Copyright © 2015 Createcommerce. All rights reserved.
  */
 namespace Create\Store\Controller\Personal;
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
 use Magento\Framework\Controller\Result\JsonFactory;
 // use Magento\Framework\Exception\InputException;
 

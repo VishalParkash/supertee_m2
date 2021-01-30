@@ -3,7 +3,11 @@
 .header.content{
   display: none !important;
 }
+.column {
+    max-width:unset;
+}
 </style>
+
 
 <?php 
 ini_set('display_startup_errors', 1);
@@ -60,89 +64,89 @@ $categories = $block->getCategoryCollection(); ?>
                 <!-- <section class="active flex1 overflowY pInfo" id="firstsection"> -->
                 <div class="tab-pane fade show active pInfo" id="firstsection" role="tabpanel">
                     <span id="errorReporting"></span>
-                    <form method="post" id="personalInfoData">
-                    <div class=" mb15">
-                            <h1>tell us about<br /> yourself</h1>
-                            <div class="row row20">
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" id="name" placeholder="name" name="name" />
+                    <form method="post" id="personalInfoData" class="d-flex">
+                        <div class=" overflowY mb15 flex1">
+                                <h1>tell us about<br /> yourself</h1>
+                                <div class="row row20">
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" id="name" placeholder="name" name="name" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="phone number" id="phone_number" name="phone_number" maxlength="10" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="email" class="form-control" placeholder="e-mail" id="email" name="email" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control"
+                                                placeholder="address (house no, building, street, area)*" id="address" name="address" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="zip code" id="zip" name="zipcode" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="location/town" id="town" name="location" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="city/district" id="city" name="city" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="country" id="country" name="country" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="password" class="form-control" placeholder="password" id="password" name="password" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="password" class="form-control" placeholder="confirm password" id="cpassword" name="confirmPassword" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="phone number" id="phone_number" name="phone_number" maxlength="10" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="email" class="form-control" placeholder="e-mail" id="email" name="email" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control"
-                                            placeholder="address (house no, building, street, area)*" id="address" name="address" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="zip code" id="zip" name="zipcode" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="location/town" id="town" name="location" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="city/district" id="city" name="city" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="country" id="country" name="country" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="password" class="form-control" placeholder="password" id="password" name="password" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="password" class="form-control" placeholder="confirm password" id="cpassword" name="confirmPassword" />
-                                    </div>
+                                <div class="mt15 mb15 d-flex formActionLink">
+                                    <p class="colorBlack m-0">already a user? </p>
+                                    <a href="#" class="btn btn-link btn-success font-weight-bold">sign in</a>
                                 </div>
                             </div>
-                            <div class="mt15 mb15 d-flex formActionLink">
-                                <p class="colorBlack m-0">already a user? </p>
-                                <a href="#" class="btn btn-link btn-success font-weight-bold">sign in</a>
-                            </div>
-                        </div>
 
-                <div class="text-right formBtn">
-                        <button class="btn btn-secondary btn-link" id="cancelBtn">
-                            <b>cancel</b>
-                        </button>
-                        <button class="btn btn-secondary next" id="pInfo" type="button">
-                            <b>next</b>
-                            <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path class="fillHover"
-                                    d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
-                                    fill="white" />
-                            </svg>
-                        </button>
-                    </div>
-                </form>
+                        <div class="text-right formBtn">
+                            <button class="btn btn-secondary btn-link" id="cancelBtn">
+                                <b>cancel</b>
+                            </button>
+                            <button class="btn btn-secondary next" id="pInfo" type="button">
+                                <b>next</b>
+                                <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="fillHover"
+                                        d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
+                                        fill="white" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <!-- <section class="flex1 overflowY ssInfo" id="secoundone"> -->
-                <div class="tab-pane fade ssInfo" id="secoundone" role="tabpanel">
-                    <form method="post" id="StoreInfoData">
+                <!-- <section class="flex1 overflowY ssInfoss" id="secoundone"> -->
+                <div class="tab-pane fade ssInfo fullView" id="secoundone" role="tabpanel">
+                    <form method="post" id="StoreInfoData" class="d-flex">
                         <input type="hidden" name="ccid" value="" id="ccid">
-                        <div class="  mb15">
+                        <div class="  overflowY mb15 flex1">
                             <div class="storeInfo">
                                     <h1>
                                         a bit about what you have in mind for your store
@@ -311,31 +315,29 @@ $categories = $block->getCategoryCollection(); ?>
                                             </ul>
                                             <input type="range" class="rangeSlider" data-slider-id='ex1Slider' type="text"
                                                     data-slider-min="0" data-slider-max="100" data-slider-step="1"
-                                                    data-slider-value="14" / name="monthlyvolume">
+                                                    data-slider-value="14"  name="monthlyvolume">
                                         </div>
                                     </div>
                             
                                     <div class="box_wrap">
-                                        <div class="box_head">
-                                            how did you hear about us
-                                        </div>
-                                        <div class="dropdown select">
-                                            
-                                            <div class="dropdown-menu dropdown_two" aria-labelledby="dropdownMenuButton">
-                                                <select name="mediumtocontact" class="btn btn-secondary dropdown-toggle">
-                                                    <option class="dropdown-item" value="">Please select</option>
-                                                    <option class="dropdown-item" value="website">website</option>
-                                                    <option class="dropdown-item" value="google">google</option>
-                                                    <option class="dropdown-item" value="social media">social media</option>
-                                                    <option class="dropdown-item" value="friend">friend</option>
-                                                </select>
-                                            </div>
-                                          </div>
-                                    </div>
+                            <div class="box_head">
+                                how did you hear about us
+                            </div>
+                            <div class="dropdown select">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    website
+                                </button>
+                                <div class="dropdown-menu dropdown_two" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="#">website</a>
+                                  <a class="dropdown-item" href="#">google</a>
+                                  <a class="dropdown-item" href="#">social media</a>
+                                  <a class="dropdown-item" href="#">friend</a>
                                 </div>
-                    </div>
-
-                    <div class="text-right formBtn">
+                              </div>
+                        </div>
+                                </div>
+                        </div>
+                        <div class="text-right formBtn">
                             <button class="btn btn-secondary btn-link prev" id="pressInfo">
                                 <b>cancel</b>
                             </button>
@@ -351,7 +353,7 @@ $categories = $block->getCategoryCollection(); ?>
 
                 <!-- <section id="confirmation" class="flex1 overflowY confirmationPage"> -->
                 <div class="tab-pane fade confirmationPage" id="confirmationPage" role="tabpanel">
-                    <div class="  mb15">
+                    <div class="overflowY mb15 flex1">
                         <h1>
                                 Do you want to build your store?
                         </h1>
@@ -381,6 +383,7 @@ $categories = $block->getCategoryCollection(); ?>
             </div>
         </div>
     </div>
+    <script type="text/javascript">require(['bootstrapSlider']);</script>
     <script src="<?php echo $block->getViewFileUrl('Create_Store::js/custom.js'); ?>"></script>
     <script>
 
