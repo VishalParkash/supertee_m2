@@ -111,7 +111,7 @@ $categories = $block->getCategoryCollection(); ?>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb15">
-                                            <input type="password" class="form-control" placeholder="password" id="password" name="password" />
+                                            <input type="password" class="form-control" placeholder="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -280,6 +280,7 @@ $categories = $block->getCategoryCollection(); ?>
                             
                                             <div class="form-group">
                                                  <input type="text" class="form-control" placeholder="www.supertree.com / yourstorename" id="storeURL" name="storedomain">
+                                                 <p>The store code may contain only letters (a-z), numbers (0-9) or underscore (_), and the first character must be a letter.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -383,7 +384,7 @@ $categories = $block->getCategoryCollection(); ?>
             </div>
         </div>
     </div>
-    <script type="text/javascript">require(['bootstrapSlider']);</script>
+    <script src="<?php //echo $block->getViewFileUrl('Create_Store::js/bootstrap-slider.min.js'); ?>"></script>
     <script src="<?php echo $block->getViewFileUrl('Create_Store::js/custom.js'); ?>"></script>
     <script>
 
@@ -453,6 +454,13 @@ $categories = $block->getCategoryCollection(); ?>
                             return false;
                         }else{
                             $("#password").removeClass('alert alert-danger');
+                        }if($('#password').val() != $('#cpassword').val()){
+                            $("#password").addClass('alert alert-danger');
+                            $("#cpassword").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#password").removeClass('alert alert-danger');
+                            $("#cpassword").removeClass('alert alert-danger');
                         }
                         $('.pageContent section').removeClass("active");
                     $('.pageContent section.'+this.id).next().addClass("active");
@@ -467,13 +475,18 @@ $categories = $block->getCategoryCollection(); ?>
                         cache: false,
                         success: function(response){
                             console.log(response);
-                            if(response.output != false){
+                            if(response.output == 'passwordError'){
+                                $('#errorReporting').text("Password and Confirm Password should have same values.");
+                                return false;
+                            }else if(response.output == false){
+                                $('#errorReporting').text('Some error occured. Please fill the form again');
+                                return false;
+                            }else{
                                 $('#ccid').val(response.output);
                                 $('#firstsection').removeClass("active").attr('class', this.id);
                                 // $('#secoundone').removeClass("active").attr('class', this.id);
                                 $('#secoundone').addClass("active show");
-                            }else{
-                                $('#errorReporting').text('Some error occured. Please fill the form again');
+                                return false;
                             }
                         }
                     });

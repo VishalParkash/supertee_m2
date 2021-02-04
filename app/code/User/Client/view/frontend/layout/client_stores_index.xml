@@ -17,7 +17,7 @@
         <referenceBlock name="sidebar.main" remove="true"/>
         <referenceBlock name="sidebar.additional" remove="true"/>
         <referenceContainer name="content">			
-			<block class="User\Client\Block\Stores\Index" name="client_stores_index" template="client/stores.phtml">
+			<block class="User\Client\Block\Stores\Index" name="client_stores_index" template="client/stores/stores.phtml">
 			</block>
         </referenceContainer>
     </body>

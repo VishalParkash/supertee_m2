@@ -301,8 +301,6 @@ return [
         'Amazon_Core' => 1,
         'Amazon_Login' => 1,
         'Amazon_Payment' => 1,
-        'Apptha_Marketplace' => 1,
-        'Apptha_Vacationmode' => 1,
         'Cadence_UrlDedup' => 1,
         'CommerceExtensions_ProductImportExport' => 1,
         'Create_Store' => 1,

@@ -4,13 +4,20 @@ use Magento\Backend\Block\Template\Context;
 use Stripe;
 class Page extends \Magento\Framework\View\Element\Template
 {
-	public function __construct(Context $context,array $data = [])
+	public function __construct(Context $context,
+    \Forms\Registration\Model\Session $session,
+      array $data = [])
     {
+        $this->session = $session;
         parent::__construct($context, $data);
     }
     public function getFormAction()
         {
         return $this->getUrl('postvendor/submit/submit', ['_secure' => true]);  
+    }
+
+    public function getSessionData(){
+        return $this->session->getData();
     }
 
     public function getstripeUrl()

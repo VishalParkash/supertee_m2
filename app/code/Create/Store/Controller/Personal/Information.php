@@ -72,6 +72,12 @@ class Information extends \Magento\Framework\App\Action\Action
         $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
         $connection = $resource->getConnection();
         $themeTable = $connection->getTableName('store_clientpersonalinfo');
+
+
+        if($data['password'] != $data['confirmPassword']){
+            $error = "Password and Confirm Password should have same values.";
+            return $result->setData(['output' => "passwordError"]);
+        }
             
         $sql = "INSERT INTO " . $themeTable . " (name, email, phone_number, address, zipcode, location, country, password) VALUES ('".$data['name']."', '".$data['email']."', '".$data['phone_number']."', '".$data['address']."', '".$data['zipcode']."', '".$data['location']."', '".$data['country']."', '".$data['password']."')";
         if($connection->query($sql)){

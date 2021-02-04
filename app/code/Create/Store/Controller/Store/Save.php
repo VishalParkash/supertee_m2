@@ -108,6 +108,8 @@ protected $addressRepository;
         \Magento\Store\Api\StoreRepositoryInterface $storeRepository,
         \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
         \Magento\Customer\Api\Data\AddressInterfaceFactory $addressDataFactory,
+        \Magento\Config\Model\ResourceModel\Config $_resourceConfig,
+
 
 
         Group $groupResourceModel,
@@ -134,6 +136,8 @@ protected $addressRepository;
 
         $this->storeRepository= $storeRepository;
 
+        $this->_resourceConfig = $_resourceConfig;
+
         // $this->storeFactory = $storeFactory;
         // $this->groupFactory = $groupFactory;
         $this->website = $website;
@@ -156,11 +160,10 @@ protected $addressRepository;
     public function execute()
     {   
         $result = $this->resultJsonFactory->create();
-        // $result = $this->resultJsonFactory->create(ResultFactory::TYPE_JSON);
-
         $data = $this->getRequest()->getPostValue();
 
-        $storename = $data['storename'];
+        // $storename = $data['storename'];
+        $storename = $data['storedomain'];
         $storeCode =  str_replace(" ", "_", $storename);
 
         if(!empty($data['ccid']) && ($data['ccid'] != 0)){
@@ -171,14 +174,12 @@ protected $addressRepository;
 
             $themeTable = $connection->getTableName('store_clientpersonalinfo');
 
-            $validateStoreName = "SELECT storename FROM " . $themeTable . " WHERE storename = '".$data['storename']."'  ORDER BY id DESC";
+            $validateStoreName = "SELECT storedomain FROM " . $themeTable . " WHERE storedomain = '".$data['storedomain']."'  ORDER BY id DESC";
             $response = $connection->fetchAll($validateStoreName);
 
             if(!empty($response)){
                return $result->setData(['output' => "Store name not available"]);
             }
-            
-            
 
             // if($connection->query($sql)){
                 $attribute = [
@@ -232,6 +233,8 @@ protected $addressRepository;
 
                         $getStore = $this->storeRepository->get($storeCode);
                         $storeId = $getStore->getId(); // this is the store ID
+
+                        $this->_resourceConfig->saveConfig('web/default/cms_home_page', 'CustomHome', 'default', 0);
 
 
                         $category = $this->categoryFactory->create();
@@ -325,6 +328,8 @@ protected $addressRepository;
 
                                 if($connection->query($sql)){
                                     $getMyStore = $this->session->setData("getMyStore", $storeCode);
+                                    $getMyCustomId = $this->session->setData("getMyCustomId", $clientId);
+                                    $getMyClientId = $this->session->setData("getMyClientId", $customer->getId());
                                         $result->setData(['output' => true]);
                                 }else{
                                     $result->setData(['output' => false]);

@@ -18,7 +18,7 @@
         <referenceContainer name="custom_footer" remove="true" />
         <referenceContainer name="custom_header" remove="true" />
         <referenceContainer name="content">			
-			<block class="Create\Store\Block\Store\Create" name="store_create" template="store/create.phtml">
+			<block class="Create\Store\Block\Store\Create" name="store_create" template="Create_Store::store/create.phtml">
 			</block>
         </referenceContainer>      
     </body>

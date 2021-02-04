@@ -11,7 +11,7 @@ var config = {
             deps: ['jquery','jquery/ui','Magento_Ui/js/modal/modal']
         },
         bootstrapSlider: {
-            deps: ['jquery','jquery/ui','Magento_Ui/js/modal/modal']
-        },
+            deps: ['jquery']
+        }
     }
 };

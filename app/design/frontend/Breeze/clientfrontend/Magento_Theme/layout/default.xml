@@ -18,10 +18,10 @@
     	
 
 
-		<move element="catalog.topnav" destination="custom_header" />
+		<!-- <move element="catalog.topnav" destination="custom_header" /> -->
 
 	    <referenceContainer name="header.container">
-    		<block class="Magento\Framework\View\Element\Template" name="custom_header" template="Magento_Theme::html/custom-header.phtml" before="-">
+    		<block class="Magento\Framework\View\Element\Template" name="custom_header" template="Magento_Theme::html/custom-header.phtml">
     		</block>
 		</referenceContainer>
 		<referenceContainer name="footer" remove="true" />

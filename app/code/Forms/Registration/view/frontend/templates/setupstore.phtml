@@ -1,4 +1,39 @@
 <?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customSession = $objectManager->create('Forms\Registration\Model\Session');
+
+$baseUrl = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue("web/unsecure/base_url");
+
+
+// ($customSession->getData('getMyStore'));
+// $getSessionData =  $block->getSessionData();
+// echo "<pre>";print_r($customSession->getData());
+
+$storeManager = $objectManager->create("\Magento\Store\Model\StoreManagerInterface");
+
+$storecode = '';
+$clientId = '';
+// $storecode = 'de'; //storecode here
+if(!empty($customSession->getData()['getMyStore'])){
+    $storecode = $customSession->getData()['getMyStore']; //storecode here    
+}if(!empty($customSession->getData()['getMyClientId'])){
+    $clientId = $customSession->getData()['getMyClientId']; //clientId here
+}
+
+if(empty($storecode) && (empty($clientId))){
+    echo "You are not authorised to access this page."; 
+    die;
+}
+
+
+    // get array of stores with storecode as key
+    $stores = $storeManager->getStores(true, true);
+    // check stores array for this storecode 
+    if(isset($stores[$storecode])) {
+        $store_id = $stores[$storecode]->getId();
+    }
+// echo "string";die;
+
 //  $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 //                                 $categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category');
 //                                 $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');
@@ -37,8 +72,8 @@
 //                                     echo $sub_avg_price.'....'.$sub_total_product_price.'....'.$sub_product_count;
 //                                       //echo $avg_price;
 //                                       die();
-                             ?> 
-
+                              
+?>
 <div class="mainSite">
         <div class="sideBar">
             <div class="sideBarInner">
@@ -88,6 +123,12 @@
 
                 <div class="flex1 overflowY mb15">
                     <!-- selectProd -->
+                    <form method="post" id="firstSelectProducts">
+                        <input type="hidden" name="productsCollected" id="productsCollected" />
+                        <input type="hidden" name="categoriesCollected" id="categoriesCollected" />
+                        <input type="hidden" name="tempSID" id="tempSID" value="<?php echo $store_id?>" />
+                        <input type="hidden" name="productsData" value="true" />
+                        
                     <section class="selectProductsContent selectProd active" id="selectProd">
                         <h1 class="mb15">select the products you want to add to your store</h1>
                         <p class="f18 colorGray mb48 fontSecondary">
@@ -96,7 +137,7 @@
                         </p>
                         <div>
                             <label class="customCheckBox">
-                                <input type="radio" name="selectProducts" checked />
+                                <input type="radio" name="firstSelectProducts" class="selectProductsId" value="allProducts" />
                                 <div class="customCheckBoxDiv">
                                     <span class="checkBoxItem"></span>
                                     <h4 class="mb15 fontSecondary">add all products from supertee website</h4>
@@ -106,7 +147,8 @@
                                 </div>
                             </label>
                             <label class="customCheckBox">
-                                <input type="radio" name="selectProducts" />
+                                <input type="radio" name="firstSelectProducts" class="selectProductsId" value="specificProduct" />
+                                
                                 <div class="customCheckBoxDiv">
                                     <span class="checkBoxItem"></span>
                                     <h4 class="mb15 fontSecondary">select specific product</h4>
@@ -116,7 +158,7 @@
                                     </p>
                                     <div class="customCheckBoxHide">
                                         <button class="btn btn-secondary openModal" data-toggle="modal"
-                                            data-target="#selectProductsModal">
+                                            data-target="#selectProductsModal" type="button">
                                             <b>select products</b>
                                             <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -140,8 +182,12 @@
                             </label>
                         </div>
                     </section>
+                </form>
 
                     <!-- Markup -->
+                    <form method="post" id="SetMarkUp">
+                        <input type="hidden" name="TempSSID" id="TempSSID">
+                        <input type="hidden" name="markUpSetting" id="markUpSetting" value="true">
                     <section class="selectProductsContent markup" id="markup">
                         <h1 class="mb15">set markup for the products on your store</h1>
                         <p class="f18 colorGray mb48 fontSecondary">
@@ -150,7 +196,7 @@
                         </p>
                         <div>
                             <label class="customCheckBox">
-                                <input type="radio" name="selectProducts" checked />
+                                <input type="radio" name="setMarkUp" checked value="allProducts" />
                                 <div class="customCheckBoxDiv">
                                     <span class="checkBoxItem"></span>
                                     <h4 class="mb15 fontSecondary">apply same markup across store</h4>
@@ -159,12 +205,12 @@
                                         categories across store
                                     </p>
                                     <div class="customCheckBoxHide">
-                                        <input type="text" class="form-control" placeholder="enter markup percentage" />
+                                        <input type="text" name="singleMarkUpAmt" class="form-control" placeholder="enter markup percentage" />
                                     </div>
                                 </div>
                             </label>
                             <label class="customCheckBox">
-                                <input type="radio" name="selectProducts" />
+                                <input type="radio" name="setMarkUp" value="specificProduct" />
                                 <div class="customCheckBoxDiv">
                                     <span class="checkBoxItem"></span>
                                     <h4 class="mb15 fontSecondary">apply specific markup for each product</h4>
@@ -174,7 +220,7 @@
                                     </p>
                                     <div class="customCheckBoxHide">
                                         <button class="btn btn-secondary openModal" data-toggle="modal"
-                                            data-target="#markupModal">
+                                            data-target="#markupModal" type="button">
                                             <b>select markup</b>
                                             <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -188,6 +234,7 @@
                             </label>
                         </div>
                     </section>
+                </form>
 
                     <!-- Theme&logo -->
                     <section class="selectTheme theme themeWrap" id="theme">
@@ -404,7 +451,7 @@
                     <button class="btn btn-link btn-secondary">
                         <b>skip</b>
                     </button>
-                    <button class="btn btn-secondary nextSection" id="markup">
+                    <button class="btn btn-secondary nextSection" id="selectProd">
                         <b>next</b>
                         <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path class="fillHover"
@@ -435,7 +482,7 @@
                                     <h1>yay! your store has been set up</h1>
                                     <div class="d-flex align-items-center storeCreatedCode">
                                         <p class="f18 colorGray m-0">
-                                            www.demostore.com/supertee/39487898988
+                                            <?php echo $baseUrl.$storecode; ?>
                                         </p>
                                         <span class="divider"></span>
                                         <button class="btn btn-link btn-secondary"><b>copy</b></button>
@@ -540,7 +587,7 @@
                                                 <div class="selectProductsModalSelectCategoryItem accordionCustomItem">
                                                     <div class="d-flex align-items-center">
                                                         <label class="checkBoxCustom flex1">
-                                                            <input type="checkbox" name="selectCategory" id="cat_id_<?php echo $category->getId();?>" class="category_select" value="<?php echo $category->getId();?>"/>
+                                                            <input type="checkbox" name="selectTheCategory" id="cat_id_<?php echo $category->getId();?>" class="category_select" value="<?php echo $category->getId();?>"/>
                                                             <span class="checkBoxCustomCheck"></span>
                                                             <h5><?php echo $category->getName();?></h5>
                                                         </label>
@@ -555,7 +602,7 @@
                                                         if ($subcat->getIsActive()) { ?>
                                                         <div class="d-flex align-items-center accordionCustomItemDataContentItem">
                                                             <label class="checkBoxCustom flex1">
-                                                                <input type="checkbox" name="selectCategory" class="subcategory_select cat_id_<?php echo $category->getId();?>"  value="<?php echo $subcat->getId();?>"/>
+                                                                <input type="checkbox" name="selectTheSubCategory" class="subcategory_select cat_id_<?php echo $category->getId();?>"  value="<?php echo $subcat->getId();?>"/>
                                                                 <span class="checkBoxCustomCheck"></span>
                                                                 <p><?php echo $subcat->getName(); ?></p>
                                                             </label>
@@ -570,6 +617,7 @@
 
                                         </div>
                                     </div>
+
                                     <div class="selectProductsModalProducts">
                                         <h4>selected products</h4>
                                         <div class="selectProductsModalProductsList">
@@ -604,7 +652,8 @@
                                                <div class="selectProductsModalProductsItem align-items-center d-none <?php echo"subcat_".$categoryId;?> <?php echo"cat_".$categoryy->getId(); ?>" >
                                                     <div class="selectProductsModalProductsItemCheck">
                                                         <label class="checkBoxCustom">
-                                                            <input type="checkbox" name="selectCategory" class="product_select" value="<?php echo($product->getData()['url_key']); ?>">
+                                                            <!-- <input type="checkbox" name="[]" class="product_select" value="<?php //echo($product->getData()['entity_id']); ?>"> -->
+                                                            <input type="checkbox" name="selectTheProduct" class="product_select" value="<?php echo($product->getData()['entity_id']); ?>">
                                                             <span class="checkBoxCustomCheck"></span>
                                                         </label>
                                                     </div>
@@ -634,17 +683,17 @@
                                         $category = $categoryFactory->create()->load($categoryId);
                                         $categoryProducts = $category->getProductCollection()->addAttributeToSelect('*');
                                         foreach ($categoryProducts as $product) {
-
-                                                                if(!empty($product->getData()['special_price'])){
-                                                                    $price = $product->getData()['special_price'];
-                                                                }else{
-                                                                    $price  = $product->getData()['price'];
-                                                                }
+                                            if(!empty($product->getData()['special_price'])){
+                                                $price = $product->getData()['special_price'];
+                                            }else{
+                                                $price  = $product->getData()['price'];
+                                            }
                                         ?>
                                         <div class="selectProductsModalProductsItem align-items-center d-none <?php echo"subcat_".$categoryId;?> <?php echo"cat_".$categoryy->getId(); ?>" >
                                                     <div class="selectProductsModalProductsItemCheck">
                                                         <label class="checkBoxCustom">
-                                                            <input type="checkbox" name="selectCategory" class="product_select" value="<?php echo($product->getData()['url_key']); ?>">
+                                                            <!-- <input type="checkbox" name="getSelectedProducts" class="product_select" value="<?php //echo($product->getData()['entity_id']); ?>"> -->
+                                                            <input type="checkbox" name="selectTheProduct" class="product_select" value="<?php echo($product->getData()['entity_id']); ?>">
                                                             <span class="checkBoxCustomCheck"></span>
                                                         </label>
                                                     </div>
@@ -670,7 +719,7 @@
                                 }
                                 }   ////foreach loop for category ending here
 
-?>
+                                ?>
                                             
                                            
                                             
@@ -744,7 +793,7 @@
                                                                         <div class="accordionCustomItemDataContentSub">
                                                                         <?php   
                                                                             foreach ($categoryProducts as $product) { ?>
-                                                                            <div class="mt15 d-none" id="<?php echo $product->getData()['url_key']; ?>"><?php echo($product->getData()['name']); ?></div>
+                                                                            <div class="mt15 d-none" id="<?php echo $product->getData()['entity_id']; ?>"><?php echo($product->getData()['name']); ?></div>
                                                     
                                                 
                                                                             <?php
@@ -782,7 +831,7 @@
                                                                         <div class="accordionCustomItemDataContentSub">
                                                                         <?php   
                                                                             foreach ($categoryProducts as $product) { ?>
-                                                                            <div class="mt15 d-none" id="<?php echo $product->getData()['url_key']; ?>"><?php echo($product->getData()['name']); ?></div>
+                                                                            <div class="mt15 d-none" id="<?php echo $product->getData()['entity_id']; ?>"><?php echo($product->getData()['name']); ?></div>
                                                     
                                                 
                                                                             <?php
@@ -817,7 +866,8 @@
 
 
                                     <div class="text-right">
-                                        <button class="btn btn-secondary" id="closemodal">
+                                        <!-- <button class="btn btn-secondary" id="closemodal"> -->
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
                                             <b>done</b>
                                             <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -894,35 +944,31 @@
                                 $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');
                                 $categories = $categoryHelper->getStoreCategories();
                                 $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
-                                foreach ($categories as $categoryy) { 
+                                foreach ($categories as $categoryy){ 
                                     $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryy->getId());  
                                 
-                                    ///
                                     $product_count = 0;
                                     $total_product_price =0;
-                                        $subcats = $subcategory->getChildrenCategories();
-                                        foreach ($subcats as $subcat) {
+                                    $subcats = $subcategory->getChildrenCategories();
+                                    foreach ($subcats as $subcat) {
+                                        
+                                        if ($subcat->getIsActive()) { 
+                                         
+                                            $categoryId = $subcat->getId(); // YOUR CATEGORY ID
+                                            $category = $categoryFactory->create()->load($categoryId);
                                             
-                                            if ($subcat->getIsActive()) { 
-                                             
-                                                $categoryId = $subcat->getId(); // YOUR CATEGORY ID
-                                                $category = $categoryFactory->create()->load($categoryId);
+                                            $categoryProducts = $category->getProductCollection()
+                                                ->addAttributeToSelect('*');
                                                 
-                                                $categoryProducts = $category->getProductCollection()
-                                                    ->addAttributeToSelect('*');
-                                                    
-                                                    
-                                                    foreach ($categoryProducts as $product) {
-                                                        $product_count+=1;
-                                                        $total_product_price +=$product->getData()['price'];
-                                                    }
-                                                $avg_price =$total_product_price/$product_count;
+                                                foreach ($categoryProducts as $product) {
+                                                    $product_count+=1;
+                                                    $total_product_price +=$product->getData()['price'];
+                                                }
+                                            $avg_price =$total_product_price/$product_count;
 
-                                            }
                                         }
-                                
-                                    
-                             ?> 
+                                    }
+                            ?> 
                              <div class="accordionCustom">
                                 <div class="accordionCustomItem borderBottom">
                                     <div class="divTableRow py24 d-none" id="markup_div_<?php echo($categoryy->getId()); ?>">
@@ -936,7 +982,7 @@
                                             <p class="text-muted"><?php //echo $avg_price; ?></p>
                                         </div>
                                         <div class="divTableCol">
-                                            <input type="text" class="form-control" />
+                                            <input type="text" class="form-control" name="markupValue" />
                                         </div>
                                         <div class="divTableCol text-center">
                                             <p>-</p>
@@ -954,10 +1000,8 @@
                                                     $sub_product_count = 0;
                                                  $sub_total_product_price =0;
                                                 foreach ($categoryProducts as $product) {
-                                                   
                                                     $sub_product_count +=1;
                                                     $sub_total_product_price +=$product->getData()['price'];
-                                                    
                                                 }
                                                 $sub_avg_price =$sub_total_product_price/$sub_product_count;
                                     ?>
@@ -988,21 +1032,21 @@
                                                        
                                                         ?>
                                                     
-                                                        <div class="divTableRow d-none" id="product_id_<?php echo($product->getData()['url_key']); ?>">
+                                                        <div class="divTableRow d-none" id="product_id_<?php echo($product->getData()['entity_id']); ?>">
                                                             <div class="divTableCol">
                                                                 <div class="d-flex align-items-center">
                                                                     <p><?php echo($product->getData()['name']); ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="divTableCol">
-                                                                <p id="amount_<?php echo($product->getData()['url_key']); ?>"><?php echo($product->getData()['price']); ?></p>
+                                                                <p id="amount_<?php echo($product->getData()['entity_id']); ?>"><?php echo($product->getData()['price']); ?></p>
                                                             </div>
                                                             <div class="divTableCol">
-                                                                <input type="text" class="form-control myTextBox" id="<?php echo($product->getData()['url_key']); ?>"/>
+                                                                <input type="text" class="form-control myTextBox" id="<?php echo($product->getData()['entity_id']); ?>"/>
                                                             </div>
                                                             <div class="divTableCol text-center">
                                                                 <input type="text" class="form-control myTexttoprecentage"
-                                                                     id="comission_<?php echo($product->getData()['url_key']); ?>"/>
+                                                                     id="comission_<?php echo($product->getData()['entity_id']); ?>"/>
                                                             </div>
                                                         </div>
                                                     <?php } ?>
@@ -1016,20 +1060,7 @@
                                 </div>
                             </div>
 
-                            <?php    } 
-
-                             ?>                                                    
-
-                            
-
-
-
-
-
-                            
-
-
-
+                            <?php } ?>
                         </div>
                         <div class="text-right">
                                 <button class="btn btn-secondary">
@@ -1071,18 +1102,153 @@
 
 <script type="text/javascript">
 
-require([ 'jquery', 'jquery/ui', 'slick'], function($){ 
+    function removeVal(arr, val){
+            for(var i = 0; i < arr.length; i++){
+                if (arr[i] == val){
+                    arr.splice(i, 1);
+                    return false;
+                }
+                
+            }
+        }
+
+    require([ 'jquery', 'jquery/ui', 'slick', 'Magento_Ui/js/modal/modal'], function($, modal){ 
 
             $( document ).ready(function() {
-                
                 console.log('loaded');  
+                var productsArr = new Array();
+                var categoryArr = [];
+                var subCategoriesArr = new Array();
+                $("input[name*='selectTheProduct']").click(function() {
+                    if ($(this).attr('checked')){
+                        productsArr.push($(this).val());
+                    }else{
+                        removeVal(productsArr, $(this).val());
+                    }
+                    $('#productsCollected').val(productsArr);
+                    console.log("arrat "+productsArr);
+                });
+                
+                $("input[name*='selectTheCategory']").click(function() {
+                    
+                    if ($(this).attr('checked')){
+                        categoryArr.push($(this).val());
+                    }else{
+                        removeVal(categoryArr, $(this).val());
+                    }
+                    $('#categoriesCollected').val(categoryArr);
+                    console.log("categoryArr "+categoryArr);
+                });
+
+                $("input[name*='selectTheSubCategory']").click(function() {
+                    
+                    if ($(this).attr('checked')){
+                        subCategoriesArr.push($(this).val());
+                    }else{
+                        removeVal(subCategoriesArr, $(this).val());
+                    }
+                    $('#categoriesCollected').val(subCategoriesArr);
+                    console.log("subCategoriesArr "+subCategoriesArr);
+                });
+
 
                 // NextButton
                 $('.nextSection').on('click', function() {
                     var linkId = $('.storeNav li.'+this.id).attr('class');
                     console.log('NextId'+this.id);
 
+                    if(this.id == 'selectProd'){
+                        alert('we are ready here');
+                        // console.log('ssinfoId');
 
+                        if (!$("input[name='firstSelectProducts']").is(':checked')) {
+                                alert('Please select products for your store');
+                                return false;
+                            }
+                            if ($("input[name='firstSelectProducts']").is(':checked') && ($("input[name='firstSelectProducts']") == 'specificProduct'))  {
+                                if($('#categoriesCollected').val() == ''){
+                                    alert('Please select category for your store');
+                                    return false;
+                                }
+                            }
+                            
+                            // return false;
+                            var formData = $("#firstSelectProducts").serialize();
+                      // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
+                            var url = "<?php echo $block->getBaseUrl().'setupstore/setup/store/' ?>";
+                            jQuery.ajax({
+                                url: url,
+                                type: "POST",
+                                data: formData,
+                                showLoader: true,
+                                cache: false,
+                                success: function(response){
+                                    console.log(response);
+                                    if(response.output == false){
+                                        alert("error occured");
+                                        return false;
+                                    }else{
+                                        $('#TempSSID').val(response.output);
+                                        // $('#firstsection').removeClass("active").attr('class', this.id);
+                                        // // $('#secoundone').removeClass("active").attr('class', this.id);
+                                        // $('#secoundone').addClass("active show");
+                                        return false;
+                                    }
+                                }
+                            });
+                        $(this).attr("id", "markup");
+                        $(".sideBar .newprevv").attr("id", "markup");
+                     } else if(this.id == 'markup'){
+                        // alert('firstAjax will run here');
+                            var formData = $("#SetMarkUp").serialize();
+                      // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
+                            var url = "<?php echo $block->getBaseUrl().'setupstore/setup/store/' ?>";
+                            jQuery.ajax({
+                                url: url,
+                                type: "POST",
+                                data: formData,
+                                showLoader: true,
+                                cache: false,
+                                success: function(response){
+                                    console.log(response);
+                                    if(response.output == false){
+                                        alert("error occured");
+                                        return false;
+                                    }else{
+                                        $('#TempSSID').val(response.output);
+                                        // $('#firstsection').removeClass("active").attr('class', this.id);
+                                        // // $('#secoundone').removeClass("active").attr('class', this.id);
+                                        // $('#secoundone').addClass("active show");
+                                        return false;
+                                    }
+                                }
+                            });
+                           
+
+                            // return false;
+                        // console.log('ssinfoId');
+                        $(this).attr("id", "theme");
+                        $(".sideBar .newprevv").attr("id", "selectProd");
+                     }else if(this.id == 'theme'){
+                        // console.log('ssinfoId');
+                        $(this).attr("id", "customize");
+                        $(".sideBar .newprevv").attr("id", "markup");
+                    }else if(this.id == 'customize'){
+                        // console.log('ssinfoId');
+                        $(this).attr("id", "setting");                        
+                        $(".sideBar .newprevv").attr("id", "theme");
+                    }
+                    else if(this.id == 'setting'){
+                        
+                        $(this).attr("id", "storeCreated");   
+                        $(".sideBar .newprevv").attr("id", "customize");
+                    } else if(this.id == 'storeCreated'){
+                        $('.storeCreated').addClass('d-flex');
+                        $('.main .selectProducts').addClass('d-none');
+                         $(".sideBar .newprevv").attr("id", "setting"); 
+                    }
+
+                    
                     $('.pageContent section').removeClass("active");
                     $('.pageContent section.'+this.id).addClass("active");
 
@@ -1116,32 +1282,7 @@ require([ 'jquery', 'jquery/ui', 'slick'], function($){
         
                     }
 
-                    if(this.id == 'selectProd'){
-                        // console.log('ssinfoId');
-                        $(this).attr("id", "markup");
-                        $(".sideBar .newprevv").attr("id", "markup");
-                     } else if(this.id == 'markup'){
-                        // console.log('ssinfoId');
-                        $(this).attr("id", "theme");
-                        $(".sideBar .newprevv").attr("id", "selectProd");
-                     }else if(this.id == 'theme'){
-                        // console.log('ssinfoId');
-                        $(this).attr("id", "customize");
-                        $(".sideBar .newprevv").attr("id", "markup");
-                    }else if(this.id == 'customize'){
-                        // console.log('ssinfoId');
-                        $(this).attr("id", "setting");                        
-                        $(".sideBar .newprevv").attr("id", "theme");
-                    }
-                    else if(this.id == 'setting'){
-                        
-                        $(this).attr("id", "storeCreated");   
-                        $(".sideBar .newprevv").attr("id", "customize");
-                    } else if(this.id == 'storeCreated'){
-                        $('.storeCreated').addClass('d-flex');
-                        $('.main .selectProducts').addClass('d-none');
-                         $(".sideBar .newprevv").attr("id", "setting"); 
-                    } 
+
                     
                 }); 
 
@@ -1174,6 +1315,7 @@ require([ 'jquery', 'jquery/ui', 'slick'], function($){
                         $(".sideBar .newprevv").attr("id", "customize");
                         $(".formBtn .nextSection").attr("id", "storeCreated");
                     }else if(this.id == 'selectProd'){
+
                          $(".formBtn .nextSection").attr("id", "markup");
                     }else if(this.id == 'customize'){
                         $(".sideBar .newprevv").attr("id", "theme");
@@ -1268,10 +1410,12 @@ require([ 'jquery', 'jquery/ui', 'slick'], function($){
                     $('#product_id_'+$(this).val()).removeClass('d-flex').addClass('d-none');
                     
                 }else{
+                    var productsArr = new Array();
                   count += 1;
                     $('.product_selected').text(count);
                     $('#'+$(this).val()).removeClass('d-none').addClass('d-flex');
                     $('#product_id_'+$(this).val()).removeClass('d-none').addClass('d-flex');
+                    // productsArr.push($(this).val());
 
                 }
                 
@@ -1297,6 +1441,7 @@ require([ 'jquery', 'jquery/ui', 'slick'], function($){
                     
                 }else{
                   //  alert('checkd ' + $(this).val());
+                  var categoriesArr  = new Array();
                     cat_count += 1;
                     $('.category_selected').text(cat_count);
                     $('#markup_div_'+$(this).val()).addClass('d-flex').removeClass('d-none');
@@ -1306,10 +1451,14 @@ require([ 'jquery', 'jquery/ui', 'slick'], function($){
                     $('.subcat_'+$(this).val()).addClass('d-flex').removeClass('d-none');
                     $('.cat_'+$(this).val()).addClass('d-flex').removeClass('d-none');
 
+                    categoriesArr.push($(this).val());
+                    console.log("new array"+ categoriesArr);
+
                 }
                 
             });
             $(".subcategory_select").change(function() {
+                var subCategoriesArr= new Array();
                 var ischecked= $(this).is(':checked');
                 var sub_cat_id = $(this).attr('class').split(" ")[1];
                 var ret = sub_cat_id.replace('cat_id','');
@@ -1329,12 +1478,8 @@ require([ 'jquery', 'jquery/ui', 'slick'], function($){
                    $('.subcat_'+$(this).val()).removeClass('d-flex').addClass('d-none');
                    $('#subcategory_'+$(this).val()).removeClass('d-flex').addClass('d-none');
                    $('.category'+ret).removeClass('d-flex').addClass('d-none');
-                   $('#markup_sub_div_'+$(this).val()).removeClass('d-flex').addClass('d-none');
-                   
-                   
-                    console.log($(this).val());
-                    
-                    
+                   $('#markup_sub_div_'+$(this).val()).removeClass('d-flex').addClass('d-none');                   
+                    console.log("subcat "+$(this).val());
                 }else{
                   $('.subcat_'+$(this).val()).addClass('d-flex').removeClass('d-none');
                   $('#subcategory_'+$(this).val()).addClass('d-flex').removeClass('d-none');
@@ -1342,6 +1487,8 @@ require([ 'jquery', 'jquery/ui', 'slick'], function($){
                   $('#markup_sub_div_'+$(this).val()).removeClass('d-flex').addClass('d-none');
                   cat_count += 1;
                     $('.category_selected').text(cat_count);
+                    subCategoriesArr.push($(this).val());
+                    console.log("new subarray"+ subCategoriesArr);
 
                 }
                 
@@ -1378,11 +1525,11 @@ require([ 'jquery', 'jquery/ui', 'slick'], function($){
            //close product modal
            $('#closemodal').click(function() {
                // $('#selectProductsModal').modal('hide');
-                $('#selectProductsModal').modal('toggle');
+               // console.log(productsArr);
+                $('#selectProductsModal').modal('closeModal');
 
             });  
            
         });
 
 </script>
-

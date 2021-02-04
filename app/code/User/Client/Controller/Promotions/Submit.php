@@ -181,7 +181,7 @@ class Submit extends \Magento\Framework\App\Action\Action
             ->setIsRss(1)
             ->setUsesPerCoupon(0)
             ->setDiscountStep(0)
-            ->setCouponType(RuleInterface::COUPON_TYPE_SPECIFIC_COUPON)
+            ->setCouponType($data['couponType'])
             ->setSimpleAction(RuleInterface::DISCOUNT_ACTION_FIXED_AMOUNT_FOR_CART)
             ->setDiscountAmount(20)
             ->setIsActive(true);
