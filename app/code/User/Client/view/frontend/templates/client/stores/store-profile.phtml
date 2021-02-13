@@ -1,13 +1,79 @@
 <?php include __DIR__ . "/../client-header.phtml"; ?>
+<?php 
+
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+    $mediaUrl = $mediaUrl."storesLogo";
+
+    // echo "<pre>";
+    $urlInterface = $objectManager->get('Magento\Framework\UrlInterface');
+    $getURL = $urlInterface->getCurrentUrl();
+    $splitUrl =  explode("/", $getURL);
+    $storeCode = end($splitUrl);
+
+    if(!($block->getStoreProfile($storeCode))){
+        echo "Invalid access.<br>";
+        echo '<a href="'.$block->getBaseUrl().'client/stores/">Go back</a>';
+        return;
+    }
+
+    $storeArr = array();
+    foreach($block->getStoreProfile($storeCode) as $store){
+        $storeArr = $store;   
+    }
+
+
+    if(!empty($storeArr['storetype'])){ 
+        if($storeArr['storetype'] == 'retailStore'){
+            $storetype = 'Retail Store';
+        }elseif($storeArr['storetype'] == 'privateStore'){
+            $storetype = 'Private Store';
+        }elseif($storeArr['storetype'] == 'dualPurposeStore'){
+            $storetype = 'Dual Purpose Store';
+        }elseif($storeArr['storetype'] == 'popupStore'){
+            $storetype = 'Pop-up Store';
+        }
+    }else{ $storetype = ''; } 
+
+    // echo $storeArr['id'];
+    // die;
+    $StoreThemeData = $block->getStoreSetupData($storeArr['storeId']);
+    // echo "<pre>";print_r($storeArr);
+    // die;
+    $themeArr = array();
+    if(!empty($StoreThemeData)){
+        foreach($StoreThemeData as $themeStore){
+            $themeArr = $themeStore;   
+        }
+        if(!empty($themeArr)){
+            $getLogo = $mediaUrl."/".$themeArr['storeLogo'];
+            $getTheme = $themeArr['theme_id'];
+        }else{
+            $getLogo = '';
+            $getTheme = '';
+        }
+    }else{
+        $getLogo = '';
+        $getTheme = '';
+    }
+?>
 	<div class="pageContainer">
+        <form method="post" action="<?php echo $block->getBaseUrl(); ?>client/stores/save" enctype="multipart/form-data" >
+            <input type="hidden" name="pid" value="<?php echo $storeArr['id']?>">
+            <input type="hidden" name="cid" value="<?php echo $storeArr['customer_id']?>">
+            <input type="hidden" name="sid" value="<?php echo $storeArr['storeId']?>">
+            <input type="hidden" name="scode" value="<?php echo $storeArr['storeCode']?>">
+            <input type="hidden" name="themeSetup" value="<?php echo $themeArr['id']?>">
                 <section class="storeProfile sectionPage">
                     <div class="createNew d-flex flex-column flex1">
                         <div class="storeProfileTop">
                             <div class="storeProfileTopLeft">
                                 <div class="storeProfileTopLeftLogo">
-                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileTopImg.png" alt="storeProfileTopImg" />
+                                    <img src="<?php echo $getLogo; ?>" alt="storeProfileTopImg" />
                                 </div>
-                                <h5>Deal genie</h5>
+                                <h5><?php echo $storeArr['storename'] ?></h5>
                             </div>
                             <div class="storeProfileTopRight">
                                 <h6>Preview</h6>
@@ -26,7 +92,7 @@
                                         </div>
                                     </div>
                                     <button class="" data-toggle="collapse" data-target="#storeProfileItem1"
-                                        aria-expanded="true">
+                                        aria-expanded="true" type="button">
                                         <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -40,13 +106,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Store name</label>
-                                                <input type="text" class="form-control border-dark" />
+
+                                                <input type="text" class="form-control border-dark" value ="<?php if(!empty($storeArr['storename'])){ echo $storeArr['storename']; }else{ echo ''; } ?>" />
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Store type</label>
-                                                <input type="text" class="form-control border-dark" />
+                                                <input type="text" disabled class="form-control border-dark" name="storetype" value ="<?php if(!empty($storetype)) { echo $storetype; }else{ echo ''; } ?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -67,7 +135,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Website URL</label>
-                                                <input type="text" class="form-control border-dark" />
+                                                <input type="text" class="form-control border-dark" name="storedomain" value ="<?php if(!empty($storeArr['storedomain'])){ echo $block->getBaseUrl().$storeArr['storedomain']; }else{ echo ''; } ?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -75,12 +143,12 @@
                                                 <label>Select your logo</label>
                                                 <div class="form-control border-dark selectYourLogoDiv">
                                                     <div class="selectYourLogoDivImg">
-                                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/selectYourLogo.png"
+                                                        <img src="<?php echo $getLogo; ?>"
                                                             alt="selectYourLogo" />
                                                     </div>
-                                                    <div class="selectYourLogoDivText">Image/23232323</div>
+                                                    <div class="selectYourLogoDivText"></div>
                                                     <label>
-                                                        <input type="file" class="d-none" />
+                                                        <input type="file" class="d-none" id="storeLogo" name="storeLogo" />
                                                         <span class="textBtnBlue">Upload image</span>
                                                     </label>
                                                 </div>
@@ -102,7 +170,7 @@
                                         </div>
                                     </div>
                                     <button class="collapsed" data-toggle="collapse" data-target="#storeProfileItem5"
-                                        aria-expanded="false">
+                                        aria-expanded="false" type="button">
                                         <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -158,7 +226,7 @@
                                         </div>
                                     </div>
                                     <button class="collapsed" data-toggle="collapse" data-target="#storeProfileItem2"
-                                        aria-expanded="false">
+                                        aria-expanded="false" type="button">
                                         <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -183,7 +251,8 @@
                                             </div>
                                             <div class="storeProfileThemeGridItem">
                                                 <label>
-                                                    <input type="radio" name="themes" class="d-none" />
+                                                    <!-- <input type="radio" name="themes" class="d-none" /> -->
+                                                    <input type="radio" id="theme2" name="getTheme" value="7" class="d-none" >
                                                     <div class="storeProfileThemeItem">
                                                         <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileTheme2.png"
                                                             alt="storeProfileTheme2" />
@@ -201,7 +270,8 @@
                                             </div>
                                             <div class="storeProfileThemeGridItem">
                                                 <label>
-                                                    <input type="radio" name="themes" class="d-none" />
+                                                    <!-- <input type="radio" name="themes" class="d-none" /> -->
+                                                    <input type="radio" id="theme2" name="getTheme" value="8" class="d-none" >
                                                     <div class="storeProfileThemeItem">
                                                         <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileTheme3.png"
                                                             alt="storeProfileTheme3" />
@@ -219,7 +289,8 @@
                                             </div>
                                             <div class="storeProfileThemeGridItem">
                                                 <label>
-                                                    <input type="radio" name="themes" class="d-none" />
+                                                    <!-- <input type="radio" name="themes" class="d-none" /> -->
+                                                    <input type="radio" id="theme3" name="getTheme" value="9" class="d-none" >
                                                     <div class="storeProfileThemeItem">
                                                         <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileTheme4.png"
                                                             alt="storeProfileTheme4" />
@@ -247,7 +318,7 @@
                                         </div>
                                         <div class="storeProfileThemeDragBannerImg">
                                             <label>
-                                                <input type="file" class="d-none" />
+                                                <input type="file" class="d-none" id="bannerImages" name="bannerImages[]" multiple="multiple"/>
                                                 <div class="storeProfileThemeDragBannerImgInner">
                                                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -269,99 +340,12 @@
                                                 </p>
                                             </div>
                                         </div>
+
                                         <div class="storeProfileThemeBanners">
                                             <div class="row">
                                                 <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="storeProfileThemeBannersItem">
-                                                                <div class="storeProfileThemeBannersItemImg">
-                                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileThemeBannersItemImg1.png"
-                                                                        alt="storeProfileThemeBannersItemImg1" />
-                                                                    <button>
-                                                                        <svg width="10" height="10" viewBox="0 0 10 10"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                fill="#A8A8A8" />
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="storeProfileThemeBannersItemText">
-                                                                    <p>tshirt stores offer..jpeg</p>
-                                                                    <span>158.7kb</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="storeProfileThemeBannersItem">
-                                                                <div class="storeProfileThemeBannersItemImg">
-                                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileThemeBannersItemImg2.png"
-                                                                        alt="storeProfileThemeBannersItemImg2" />
-                                                                    <button>
-                                                                        <svg width="10" height="10" viewBox="0 0 10 10"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                fill="#A8A8A8" />
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="storeProfileThemeBannersItemText">
-                                                                    <p>offer & coupon...png</p>
-                                                                    <span>234.6kb</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="storeProfileThemeBannersItem">
-                                                                <div class="storeProfileThemeBannersItemImg">
-                                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileThemeBannersItemImg3.png"
-                                                                        alt="storeProfileThemeBannersItemImg3" />
-                                                                    <button>
-                                                                        <svg width="10" height="10" viewBox="0 0 10 10"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                fill="#A8A8A8" />
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="storeProfileThemeBannersItemText">
-                                                                    <p>corprate t-shirt.jpeg</p>
-                                                                    <span>122.6kb</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="storeProfileThemeBannersItem">
-                                                                <div class="storeProfileThemeBannersItemImg">
-                                                                    <div class="storeProfileThemeBannersItemUpload">
-                                                                        <span>191.2kb</span>
-                                                                        <div
-                                                                            class="storeProfileThemeBannersItemUploadProgress">
-                                                                            <span style="width: 50%;"></span>
-                                                                        </div>
-                                                                        <b>50%</b>
-                                                                    </div>
-                                                                    <button>
-                                                                        <svg width="10" height="10" viewBox="0 0 10 10"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                fill="#A8A8A8" />
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="storeProfileThemeBannersItemText">
-                                                                    <p>Mugs customize.jpeg</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="row displayImages">
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -459,7 +443,8 @@
                                                         <h5 class="font-weight-normal">Upload images</h5>
                                                         <p>Upload images for about your store</p>
                                                         <div class="storeProfileThemeUploadImagesLeftBtn">
-                                                            <button class="btn btn-outline-dark">
+                                                            <button class="btn btn-outline-dark" type="button">
+                                                                <input type="file" name="galleryImages[]" id="galleryImages" multiple="multiple">
                                                                 <span>Upload image</span>
                                                             </button>
                                                             <p>Max file size 5MB</p>
@@ -470,122 +455,7 @@
                                                     <div class="storeProfileThemeUploadImagesRight">
                                                         <div class="row">
                                                             <div class="col-md-10 offset-md-2">
-                                                                <div class="row">
-                                                                    <div class="col-md-3">
-                                                                        <div class="storeProfileThemeUploadImagesItem">
-                                                                            <div
-                                                                                class="storeProfileThemeBannersItemUpload">
-                                                                                <span>215kb</span>
-                                                                                <div
-                                                                                    class="storeProfileThemeBannersItemUploadProgress">
-                                                                                    <span style="width: 50%;"></span>
-                                                                                </div>
-                                                                                <b>50%</b>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="storeProfileThemeUploadImagesItem">
-                                                                            <div
-                                                                                class="storeProfileThemeBannersItemUpload">
-                                                                                <span>215kb</span>
-                                                                                <div
-                                                                                    class="storeProfileThemeBannersItemUploadProgress">
-                                                                                    <span style="width: 70%;"></span>
-                                                                                </div>
-                                                                                <b>70%</b>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="storeProfileThemeUploadImagesItem">
-                                                                            <div
-                                                                                class="storeProfileThemeBannersItemUpload">
-                                                                                <span>215kb</span>
-                                                                                <div
-                                                                                    class="storeProfileThemeBannersItemUploadProgress">
-                                                                                    <span style="width: 90%;"></span>
-                                                                                </div>
-                                                                                <b>90%</b>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="storeProfileThemeUploadImagesItem">
-                                                                            <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileThemeUploadImagesItem1.png"
-                                                                                alt="storeProfileThemeUploadImagesItem1" />
-                                                                            <button>
-                                                                                <svg width="10" height="10"
-                                                                                    viewBox="0 0 10 10" fill="none"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <path
-                                                                                        d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                        fill="#A8A8A8"></path>
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="storeProfileThemeUploadImagesItem">
-                                                                            <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileThemeUploadImagesItem2.png"
-                                                                                alt="storeProfileThemeUploadImagesItem2" />
-                                                                            <button>
-                                                                                <svg width="10" height="10"
-                                                                                    viewBox="0 0 10 10" fill="none"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <path
-                                                                                        d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                        fill="#A8A8A8"></path>
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="storeProfileThemeUploadImagesItem">
-                                                                            <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileThemeUploadImagesItem1.png"
-                                                                                alt="storeProfileThemeUploadImagesItem1" />
-                                                                            <button>
-                                                                                <svg width="10" height="10"
-                                                                                    viewBox="0 0 10 10" fill="none"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <path
-                                                                                        d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                        fill="#A8A8A8"></path>
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="storeProfileThemeUploadImagesItem">
-                                                                            <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileThemeUploadImagesItem3.png"
-                                                                                alt="storeProfileThemeUploadImagesItem3" />
-                                                                            <button>
-                                                                                <svg width="10" height="10"
-                                                                                    viewBox="0 0 10 10" fill="none"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <path
-                                                                                        d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                        fill="#A8A8A8"></path>
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="storeProfileThemeUploadImagesItem">
-                                                                            <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileThemeUploadImagesItem4.png"
-                                                                                alt="storeProfileThemeUploadImagesItem4" />
-                                                                            <button>
-                                                                                <svg width="10" height="10"
-                                                                                    viewBox="0 0 10 10" fill="none"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <path
-                                                                                        d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z"
-                                                                                        fill="#A8A8A8"></path>
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <div class="row displayGalleryImages">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -607,7 +477,7 @@
                                         </div>
                                     </div>
                                     <button class="collapsed" data-toggle="collapse" data-target="#storeProfileItem3"
-                                        aria-expanded="false">
+                                        aria-expanded="false" type="button">
                                         <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -879,7 +749,7 @@
                                                             <div class="storeProfileCustomizeDesignFormBox"><b>0 </b>
                                                                 Templates Selected</div>
                                                             <button class="btn btn-outline-dark" type="button"
-                                                                data-toggle="modal" data-target="#selectTemplatesModal">
+                                                                data-toggle="modal" data-target="#selectTemplatesModal" >
                                                                 <span>Select templates</span>
                                                             </button>
                                                         </div>
@@ -924,7 +794,7 @@
                                         </div>
                                     </div>
                                     <button class="collapsed" data-toggle="collapse" data-target="#storeProfileItem4"
-                                        aria-expanded="false">
+                                        aria-expanded="false" type="button">
                                         <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -944,8 +814,8 @@
                                                     <!-- <button class="btn btn-outline-dark">
                                                         <span>Link account</span>
                                                     </button> -->
-                                                    <button class="btn btn-dark">
-                                                        <span>Change account</span>
+                                                    <button class="btn btn-dark" type="button">
+                                                        <a href="<?php echo $block->getstripeUrl(); ?>" target="_blank"><span>Change account</span></a>
                                                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -986,12 +856,12 @@
                                                     </div>
                                                     <div class="btnSwitch lg">
                                                         <label>
-                                                            <input type="checkbox" />
+                                                            <input type="checkbox" name="updatesNotification" <?php //if($storeArr['updatesNotification']) echo "checked";?>/>
                                                             <span></span>
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div class="storeProfileGeneralSettingsItem">
+                                                <!-- <div class="storeProfileGeneralSettingsItem">
                                                     <div class="storeProfileGeneralSettingsItemLeft">
                                                         <h5>Enable e-mail notifications</h5>
                                                         <p>
@@ -1001,11 +871,11 @@
                                                     </div>
                                                     <div class="btnSwitch lg">
                                                         <label>
-                                                            <input type="checkbox" />
+                                                            <input type="checkbox" name="updatesNotification"  />
                                                             <span></span>
                                                         </label>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="storeProfileGeneralSettingsItem">
                                                     <div class="storeProfileGeneralSettingsItemLeft">
                                                         <h5>Enable desktop notifications</h5>
@@ -1015,7 +885,7 @@
                                                     </div>
                                                     <div class="btnSwitch lg">
                                                         <label>
-                                                            <input type="checkbox" />
+                                                            <input type="checkbox" name="desktopNotification" <?php //if($storeArr['desktopNotification']) echo "checked";?>/>
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -1030,7 +900,7 @@
                                                     </div>
                                                     <div class="btnSwitch lg">
                                                         <label>
-                                                            <input type="checkbox" />
+                                                            <input type="checkbox" name="pushNotification" <?php //if($storeArr['pushNotification']) echo "checked";?>/>
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -1043,9 +913,9 @@
 
                         </div>
                         <div class="storeProfileItem border-0">
-                            <h4>Discard changes</h4>
+                            <a href="<?php echo $getURL; ?>"><h4>Discard changes</h4></a>
                             <div class="createNewBtn mt-4">
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" type="submit" name="SavePublish" value="SavePublish">
                                     <span>Save & publish</span>
                                     <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -1054,11 +924,12 @@
                                             fill="white"></path>
                                     </svg>
                                 </button>
-                                <button class="btn btn-outline-dark">
+                                <button class="btn btn-outline-dark" name="save" type="submit" value="SaveSubmit">
                                     <span>Save</span>
                                 </button>
                             </div>
                         </div>
+
                         <div class="storeProfileBanner">
                             <div class="storeProfileBannerText">
                                 <h3>Share your store</h3>
@@ -1110,15 +981,10 @@
                         </div>
                     </div>
                 </section>
+                </form>
             </div>
         </div>
     </div>
-    <script src="./assets/js/jquery.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
-    <script src="./assets/js/bootstrap-datepicker.min.js"></script>
-    <script src="./assets/js/bootstrap-slider.min.js"></script>
-    <script src="./assets/js/custom.js"></script>
 
     <!-- selectTemplatesModal -->
     <div class="modal fade storeProfileModal" id="selectTemplatesModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -2758,4 +2624,132 @@
                     </div>
                 </div>
             </div>
+
+            <style>  
+            
+           .file_drag_over{  
+                color:#000;  
+                border-color:#000;  
+           }  
+           </style>
+
+           <!-- <div class="container" style="width:700px;" align="center">  
+                <h3 class="text-center">Drag and drop file upload using JQuery Ajax and PHP</h3><br />  
+                <div class="file_drag_area">  
+                     Drop Files Here  
+                </div>  
+                <div id="uploaded_file"></div>  
+           </div>  
+           <br />  --> 
 <?php include __DIR__ . "/../client-footer.phtml"; ?>
+
+<script type="text/javascript">
+    require([ 'jquery', 'jquery/ui', 'bootstrap4'], function($){ 
+        $( document ).ready(function() {
+            // $('.file_drag_area').on('drop', function(e){
+            //     e.preventDefault();
+            //     var formData = new FormData();
+            //     var list_files = e.originalEvent.dataTransfer.files;
+            //     console.log(list_files);
+
+            // })
+            $('.storeProfileThemeDragBannerImg').on('dragover', function(){  
+                $(this).addClass('file_drag_over');  
+                return false;  
+            });  
+            $('.storeProfileThemeDragBannerImg').on('dragleave', function(){  
+                $(this).removeClass('file_drag_over');  
+                return false;  
+            }); 
+            $('.storeProfileThemeDragBannerImg').on('drop', function(e){  
+                e.preventDefault();  
+                $(this).removeClass('file_drag_over');  
+                var files_list = e.originalEvent.dataTransfer.files;  
+                previewBannerImages(files_list);  
+            }); 
+
+            $('#bannerImages').change(function(){
+                console.log(this.files);
+                previewBannerImages(this.files);
+                return false;
+            });
+
+            
+
+            $('#galleryImages').change(function(){
+                console.log(this.files);
+                previewUploadedImages(this.files);
+                return false;
+            });
+
+            function previewBannerImages(files_list){
+                
+                console.log(files_list); 
+                // var files = $(this)[0].files; 
+                // console.log(files_list[0].name);
+                if($('.storeProfileThemeBannersItem').length > 0){
+                    var initiator = (($('.storeProfileThemeBannersItem').length)+1);
+                }else{
+                    var initiator = 1;
+                }
+                console.log("initiator"+ initiator)
+                filesLength = files_list.length;
+                for(var i=0; i<filesLength; i++){  
+                // console.log(files_list[i].files);
+                // if($('.storeProfileThemeBannersItem').length == 0){
+                    console.log('all new');
+                  $(".displayImages").append('<div class="col-md-3" id="divId_'+initiator+'"><div class="storeProfileThemeBannersItem"><div class="storeProfileThemeBannersItemImg"><img src="'+window.URL.createObjectURL(files_list[i])+'" alt="storeProfileThemeBannersItemImg1" /><button type="button" id="close_'+initiator+'" class="closeButtnClass"><svg width="10" height="10" viewBox="0 0 10 10" fill="none xmlns="http://www.w3.org/2000/svg"><path d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z" fill="#A8A8A8" /></svg></button></div><div class="storeProfileThemeBannersItemText"><p>'+files_list[i].name+'</p></div></div></div>');
+                    initiator++;
+                }
+            }
+
+            function previewUploadedImages(files_list){
+                
+                console.log(files_list); 
+                // var files = $(this)[0].files; 
+                // console.log(files_list[0].name);
+                if($('.storeProfileThemeUploadImagesItem').length > 0){
+                    var initiator = (($('.storeProfileThemeUploadImagesItem').length)+1);
+                }else{
+                    var initiator = 1;
+                }
+                console.log("initiator"+ initiator)
+                filesLength = files_list.length;
+                for(var i=0; i<filesLength; i++){  
+                // console.log(files_list[i].files);
+                // if($('.storeProfileThemeBannersItem').length == 0){
+                    console.log('all new');
+                  $(".displayGalleryImages").append('<div class="col-md-3" id="divId_'+initiator+'"><div class="storeProfileThemeUploadImagesItem"><img src="'+window.URL.createObjectURL(files_list[i])+'" alt="storeProfileThemeBannersItemImg1" /><button type="button" id="close_'+initiator+'" class="closeButtnClass"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1.35325 0.193191L4.6874 3.53534L8.02155 0.203319C8.0872 0.136364 8.16599 0.0837913 8.25294 0.048926C8.3399 0.0140607 8.43312 -0.00233894 8.52672 0.000764127C8.71039 0.0126788 8.88346 0.0911957 9.01361 0.221654C9.14375 0.352113 9.22208 0.525594 9.23397 0.709705C9.23488 0.800229 9.21744 0.889995 9.18271 0.97356C9.14797 1.05712 9.09667 1.13275 9.0319 1.19584L5.68764 4.55824L9.0319 7.92065C9.16324 8.04825 9.23599 8.22448 9.23397 8.40678C9.22208 8.59089 9.14375 8.76437 9.01361 8.89483C8.88346 9.02529 8.71039 9.1038 8.52672 9.11572C8.43312 9.11882 8.3399 9.10242 8.25294 9.06756C8.16599 9.03269 8.0872 8.98012 8.02155 8.91316L4.6874 5.58114L1.36335 8.91316C1.29771 8.98012 1.21892 9.03269 1.13196 9.06756C1.04501 9.10242 0.951781 9.11882 0.858179 9.11572C0.671083 9.10596 0.494227 9.02706 0.36175 8.89427C0.229274 8.76148 0.15057 8.5842 0.140832 8.39665C0.139918 8.30613 0.157357 8.21636 0.192092 8.1328C0.226828 8.04923 0.278135 7.97361 0.342902 7.91052L3.68716 4.55824L0.332798 1.19584C0.269855 1.13189 0.220415 1.05589 0.187432 0.972365C0.154449 0.88884 0.1386 0.799508 0.140832 0.709705C0.152718 0.525594 0.231047 0.352113 0.361193 0.221654C0.491339 0.0911957 0.664405 0.0126788 0.848076 0.000764127C0.940949 -0.0036576 1.03374 0.0111463 1.12065 0.0442531C1.20756 0.0773598 1.28674 0.12806 1.35325 0.193191Z" fill="#A8A8A8"></path></svg></button></div></div>');
+                    initiator++;
+                }
+            }
+
+            $('.closeButtnClass').live("click", function () {
+                var btnId = this.id;
+                var res = btnId.split("_");
+                var getBtnId = res[1];
+                $('#divId_'+getBtnId).css('display', 'none');
+                return false;
+            });
+        });
+    });
+ //console.log(formData);  
+           // $.ajax({  
+           //      url:"upload.php",  
+           //      method:"POST",  
+           //      data:formData,  
+           //      contentType:false,  
+           //      cache: false,  
+           //      processData: false,  
+           //      success:function(data){  
+           //           $('#uploaded_file').html(data);  
+           //      }  
+           // }) 
+</script>
+
+
+
+
+
+
+

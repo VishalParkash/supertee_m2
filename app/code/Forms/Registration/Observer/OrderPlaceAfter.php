@@ -36,7 +36,10 @@ class OrderPlaceAfter implements ObserverInterface {
         $currencyCode = $order->getData()['base_currency_code'];
         $grandTotal = $order->getData()['base_grand_total'];
 
-        $message = $firstName.$lastName." has placed and order of ".$currencyCode.$grandTotal;
+        $currency = $objectManager->create('Magento\Directory\Model\CurrencyFactory')->create()->load($currencyCode);
+        $currencySymbol = $currency->getCurrencySymbol();
+
+        $message = $firstName." ".$lastName." has placed and order of ".$currencySymbol.number_format($grandTotal, 2);
         
         $customer = $this->customer;
         $storeActivitiesTbl = $this->connection->getTableName('storeActivities');
@@ -76,7 +79,7 @@ class OrderPlaceAfter implements ObserverInterface {
         }
 
 
-        $sql = "INSERT INTO " . $storeActivitiesTbl . "(store_id, custom_event, message, magento_event) VALUES (".$storeId.", 'orderPlaced', '".$message."' ,  'checkout_onepage_controller_success_action')";
+        $sql = "INSERT INTO " . $storeActivitiesTbl . "(order_id, store_id, custom_event, message, magento_event) VALUES ('".$order->getId()."' , ".$storeId.", 'orderPlaced', '".$message."' ,  'checkout_onepage_controller_success_action')";
                 $this->connection->query($sql);
 
 

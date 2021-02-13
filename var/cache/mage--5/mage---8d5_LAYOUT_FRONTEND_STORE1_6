@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1612386075;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1613212775;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -7535,11 +7535,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1612386075;s:6:"expire";i:9999999999;s:4:"t
       </arguments>
    </referenceBlock>
 </body>
-</handle><handle id="checkout_index_index"><head>
-   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
-   <css src="StripeIntegration_Payments::css/stripe_payments_elements.css"/>
-   <css src="StripeIntegration_Payments::css/paymentfont.min.css"/>
-</head>
 </handle><handle id="checkout_index_index"><body>
    <referenceBlock name="checkout.root">
       <arguments>
@@ -7688,6 +7683,11 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1612386075;s:6:"expire";i:9999999999;s:4:"t
       </arguments>
    </referenceBlock>
 </body>
+</handle><handle id="checkout_index_index"><head>
+   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
+   <css src="StripeIntegration_Payments::css/stripe_payments_elements.css"/>
+   <css src="StripeIntegration_Payments::css/paymentfont.min.css"/>
+</head>
 </handle><handle id="customer_account"><body>
    <referenceBlock name="customer_account_navigation">
       <block class="Magento\Framework\View\Element\Html\Link\Current" name="stripe-payments-customer-cards">
@@ -7822,6 +7822,69 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1612386075;s:6:"expire";i:9999999999;s:4:"t
    <referenceBlock name="sidebar.additional" remove="true"/>
    <referenceContainer name="content">
       <block class="User\Client\Block\Client\Index" name="client_index" template="client/index.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_marketing_index" layout="2columns-left"><head>
+   <title>Client backend : Sales</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="page.messages">
+      <block class="User\Client\Block\Marketing\Index" name="addMessages" as="addMessages" template="User_Client::client/messages.phtml"/>
+   </referenceContainer>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Marketing\Index" name="client_marketing_index" template="client/marketing.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_notifications_index" layout="2columns-left"><head>
+   <title>Client backend : Sales</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_notifications_index" template="client/notifications.phtml">
+			</block>
+   </referenceContainer>
+</body>
+</handle><handle id="client_order_details" layout="2columns-left"><head>
+   <title>Client backend : Sales</title>
+   <remove src="Magento_Theme::css/style.css"/>
+   <remove src="css/styles.css"/>
+   <remove src="css/bootstrap.min.css"/>
+   <css src="User_Client::css/bootstrap.min.css"/>
+   <css src="User_Client::css/custom.css"/>
+</head>
+<body>
+   <referenceContainer name="header.container" remove="true"/>
+   <referenceBlock name="catalog.topnav" remove="true"/>
+   <referenceContainer name="footer-container" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sidebar.additional" remove="true"/>
+   <referenceContainer name="content">
+      <block class="User\Client\Block\Client\Index" name="client_order_details" template="client/order-details.phtml">
 			</block>
    </referenceContainer>
 </body>

@@ -12,6 +12,8 @@ use Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory as Be
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Catalog\Model\Product\Visibility;
+use Stripe;
+
 
 
 class Index extends Template
@@ -68,6 +70,46 @@ class Index extends Template
         return;
 
     }
+
+    public function getStoreProfile($store_id){
+        $storeProfileTbl = $this->connection->getTableName('store_clientpersonalinfo');
+        $getActivities = "SELECT * FROM " . $storeProfileTbl . " WHERE storeCode ='".$store_id."'";
+        $result = $this->connection->fetchAll($getActivities);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+
+    }
+
+    public function getStores($client_id){
+        $storeProfileTbl = $this->connection->getTableName('store_clientpersonalinfo');
+        $getStores = "SELECT * FROM " . $storeProfileTbl . " WHERE customer_id ='".$client_id."'";
+        $result = $this->connection->fetchAll($getStores);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+
+    }
+
+
+
+    public function getStoreSetupData($store_id){
+        $storeProfileTbl = $this->connection->getTableName('storeSetup_theme');
+        $getActivities = "SELECT * FROM " . $storeProfileTbl . " WHERE store_id ='".$store_id."' ORDER BY id DESC LIMIT 1";
+        $result = $this->connection->fetchAll($getActivities);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+
+    }
+
+
     public function getOrderListLimit($store_id)
     {
 
@@ -202,5 +244,24 @@ class Index extends Template
             ->addAttributeToSelect('*')
             ->addStoreFilter($this->getStoreId())->setPageSize($this->getProductsCount());
         return $collection;
+    }
+
+    public function getstripeUrl(){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+        $baseUrl = $storeManager->getStore()->getBaseUrl();
+
+        \Stripe\Stripe::setApiKey('sk_test_51HIGV6Jy1OZGyp65YiZU9LgNo89qrU2tmtM7N1ghE3VNzuRA8EBQnubPpngp972bhiwJ7u4zc7b3FwSeK3bFbsp0005qZjjNJa');
+        $account = \Stripe\Account::create([
+           'type' => 'express'
+        ]);
+        $account_links = \Stripe\AccountLink::create([
+          'account' => $account->id,
+          'refresh_url' => $baseUrl.'reauth/index/issue',
+          'return_url' => $baseUrl.'return/index/success',
+          'type' => 'account_onboarding'
+        ]);
+        return $this->getUrl($account_links->url);  
+        //return 'Hello';  
     }
 }

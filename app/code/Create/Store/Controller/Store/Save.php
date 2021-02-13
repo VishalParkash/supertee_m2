@@ -321,6 +321,7 @@ protected $addressRepository;
                                         issellingexperienced = '".$data['issellingexperienced']."', 
                                         monthlyvolume = '".$data['monthlyvolume']."', 
                                         mediumtocontact = 'google', 
+                                        storeId = '".$storeId."', 
                                         storeCode = '".$storeCode."', 
                                         customer_id = '".$customer->getId()."'
                                         WHERE id= ".$clientId;
@@ -328,6 +329,7 @@ protected $addressRepository;
 
                                 if($connection->query($sql)){
                                     $getMyStore = $this->session->setData("getMyStore", $storeCode);
+                                    $getMyStore = $this->session->setData("getMyStoreId", $storeId);
                                     $getMyCustomId = $this->session->setData("getMyCustomId", $clientId);
                                     $getMyClientId = $this->session->setData("getMyClientId", $customer->getId());
                                         $result->setData(['output' => true]);

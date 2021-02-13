@@ -1,60 +1,79 @@
 <?php
-    namespace Vendor\Module\Setup;
-    
-    use Magento\Eav\Setup\EavSetup;
-    use Magento\Eav\Setup\EavSetupFactory;
-    use Magento\Framework\Setup\InstallDataInterface;
-    use Magento\Framework\Setup\ModuleContextInterface;
-    use Magento\Framework\Setup\ModuleDataSetupInterface;
-    use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
-    
-    /**
-     * @codeCoverageIgnore
-     */
-    class InstallData implements InstallDataInterface
+
+namespace Forms\Registration\Setup;
+
+use Magento\Eav\Setup\EavSetup;
+use Magento\Eav\Setup\EavSetupFactory;
+use Magento\Framework\Setup\InstallDataInterface;
+use Magento\Framework\Setup\ModuleContextInterface;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
+
+class InstallData implements InstallDataInterface
+{
+    private $eavSetupFactory;
+    public function __construct(
+        EavSetupFactory $eavSetupFactory
+    )
     {
-        /**
-         * EAV setup factory.
-         *
-         * @var EavSetupFactory
-         */
-        private $_eavSetupFactory;
-        protected $categorySetupFactory;
-    
-        /**
-         * Init.
-         *
-         * @param EavSetupFactory $eavSetupFactory
-         */
-        public function __construct(EavSetupFactory $eavSetupFactory, \Magento\Catalog\Setup\CategorySetupFactory $categorySetupFactory)
-        {
-            $this->_eavSetupFactory = $eavSetupFactory;
-            $this->categorySetupFactory = $categorySetupFactory;
-        }
-    
-        /**
-         * {@inheritdoc}
-         *
-         * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
-         */
-        public function install(
-            ModuleDataSetupInterface $setup,
-            ModuleContextInterface $context
-        ) {
-            /** @var EavSetup $eavSetup */
-            $eavSetup = $this->_eavSetupFactory->create(['setup' => $setup]);
-            $setup = $this->categorySetupFactory->create(['setup' => $setup]);         
-            $setup->addAttribute(
-                \Magento\Catalog\Model\Category::ENTITY, 'custom_catimg', [
-                    'type' => 'varchar',
-                    'label' => 'Custom category image',
-                    'input' => 'image',
-                    'backend' => 'Magento\Catalog\Model\Category\Attribute\Backend\Image',
-                    'required' => false,
-                    'sort_order' => 9,
-                    'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
-                    'group' => 'General Information',
-                ]
-            );
-        }
+        $this->eavSetupFactory = $eavSetupFactory;
     }
+
+    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    {
+        $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+        $eavSetup->addAttribute(
+          \Magento\Catalog\Model\Product::ENTITY,
+          "typeofstore",
+          [
+          'group' => "",
+          'label' => "Store Type",
+          'is_html_allowed_on_front' => true,
+          'default' => '1',
+          'note' => '',
+          'global' => \Magento\Catalog\Model\ResourceModel\Eav\Attribute::SCOPE_STORE,
+          'visible' => true,
+          'required' => false,
+          'user_defined' => false,
+          'searchable' => false,
+          'filterable' => false,
+          'comparable' => false,
+          'visible_on_front' => true,
+          'visible_in_advanced_search' => false,
+          'unique' => false,
+          "frontend_class" => "",
+          "used_in_product_listing" => true,
+          "input" => "select",
+          "type" => "varchar",
+          "source" => "Forms\Registration\Model\Config\Source\TimeSetup",
+          'backend' => 'Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend'
+          ]
+      );
+        $eavSetup->addAttribute(
+          \Magento\Catalog\Model\Product::ENTITY,
+          "industry",
+          [
+          'group' => "",
+          'label' => "Industries",
+          'is_html_allowed_on_front' => true,
+          'default' => '1',
+          'note' => '',
+          'global' => \Magento\Catalog\Model\ResourceModel\Eav\Attribute::SCOPE_STORE,
+          'visible' => true,
+          'required' => false,
+          'user_defined' => false,
+          'searchable' => false,
+          'filterable' => false,
+          'comparable' => false,
+          'visible_on_front' => true,
+          'visible_in_advanced_search' => false,
+          'unique' => false,
+          "frontend_class" => "",
+          "used_in_product_listing" => true,
+          "input" => "select",
+          "type" => "varchar",
+          "source" => "Forms\Registration\Model\Config\Source\TimeSetup",
+          'backend' => 'Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend'
+          ]
+      );
+    }
+}

@@ -28,8 +28,8 @@ class Page extends \Magento\Framework\View\Element\Template
             ]);
             $account_links = \Stripe\AccountLink::create([
               'account' => $account->id,
-              'refresh_url' => 'https://dev.evantiv.com/magento/reauth/index/issue',
-              'return_url' => 'https://dev.evantiv.com/magento/return/index/success',
+              'refresh_url' => $this->getUrl('reauth/index/issue'),
+              'return_url' => $this->getUrl('return/index/success'),
               'type' => 'account_onboarding'
             ]);
             return $this->getUrl($account_links->url);  

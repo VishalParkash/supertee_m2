@@ -1,21 +1,35 @@
 <?php 
 	include('client-header.phtml');
 
+
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->create('Magento\Customer\Model\Session');
     $customerFactory = $objectManager->get('\Magento\Customer\Model\CustomerFactory')->create();
-    $client_id = $block->getLoggedinCustomerId();
+    // $client_id = $block->getLoggedinCustomerId();
     $customer = $customerFactory->load($client_id);
-
+    $getStoresByClient = $block->getStoresByClient($client_id);
+    if(!empty($getStoresByClient)){
+        $getStoresList = array();
+        foreach($getStoresByClient as $stores){
+            $getStoresList[] = $stores['storeId'];
+        }
+    }
+    // echo "<pre>";print_r($getStoresList);die;
 	// $cust_id = $block->getLoggedinCustomerId();
 	// $order_data = $block->getOrderList($cust_id);
 
-    $store_id = '1';
+    // $store_id = '1';
     
 // print_r($customer->getData()['store_id']);die;
     // $cust_id = $block->getLoggedinCustomerId();
-    $order_data = $block->getOrderListAll($store_id);
-    $transaction_data = $block->getTransactionList($store_id);
+    if(!empty($getStoresList)){
+        $order_data = array();
+        foreach($getStoresList as $storeList){
+            $order_data[] = $block->getOrderListAll($storeList);
+        }
+    }
+    // echo "<pre>";print_r($order_data->getData());die;
+    
 
     $getCommission = $block->getCommission($client_id);
 
@@ -214,9 +228,10 @@
                             </thead>
                             <tbody>
                             	<?php 
-						                        	foreach ($order_data as $order_key => $order_value) {
+						                        	foreach ($order_data as $getOrder) {
+                                                    foreach ($getOrder as $order_value) {
 
-                                                        
+                                                        // echo "<pre>";print_r($order_value->getStatus());
                                                         // echo "<br>";
 						                        		if($order_value->getStatus() == 'pending'){
                                                             $tdClass = 'unpaid';
@@ -254,6 +269,7 @@
 													    
 													    echo "</tr>";
 													}
+                                                }
 						                        	?>
                                 
                             </tbody>

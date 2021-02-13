@@ -21,6 +21,7 @@ class Index extends Template
     protected $_customerSession;
     protected $redirect;
     protected $_bestSellersCollectionFactory;
+    protected $_productRepositoryFactory;
 
 
     public function __construct(
@@ -37,6 +38,7 @@ class Index extends Template
         \Magento\Reports\Model\ResourceModel\Report\Collection\Factory $resourceFactory,
         \Magento\Reports\Model\Grouped\CollectionFactory $collectionFactory,
         \Magento\Reports\Helper\Data $reportsData,
+        \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
         DateTime $dateTime,
 
         array $data = []
@@ -52,20 +54,25 @@ class Index extends Template
         $this->_resourceFactory = $resourceFactory;
         $this->_collectionFactory = $collectionFactory;
         $this->_reportsData = $reportsData;
+        $this->_productRepositoryFactory = $productRepositoryFactory;
         parent::__construct($context, $data);
     }
 
     public function getLoggedinCustomerId() 
     {
-        // echo "string";
-        // echo "custo id".$this->_customerSession->getId();die;
+        // if($customerSession->getData('customer_id'))
+        // {
+        //     $customer = $this->_customerRepositoryInterface->getById($customerSession->getData('customer_id'));
+        //     return $customer->getFirstname();
+        // }
 
-        if ($this->_customerSession->isLoggedIn()) {
-            return $this->_customerSession->getId();
-        }
-        $CustomRedirectionUrl = $this->_url->getUrl();
-        $this->redirect->setRedirect($CustomRedirectionUrl);
-        return;
+        // if ($this->_customerSession->isLoggedIn()) {
+        //     die('sssee');
+        //     return $this->_customerSession->getId();
+        // }
+        // $CustomRedirectionUrl = $this->_url->getUrl();
+        // $this->redirect->setRedirect($CustomRedirectionUrl);
+        // return;
 
     }
     public function getOrderListLimit($store_id)
@@ -158,10 +165,30 @@ class Index extends Template
         return $total = ($amount*($commission/100));
     }
 
+    public function getTodayActivities($store_id){
+        $storeActivitiesTbl = $this->connection->getTableName('storeActivities');
+        $getActivities = "SELECT * FROM " . $storeActivitiesTbl . " WHERE store_id ='".$store_id."' AND (createAt >= CURDATE() AND createAt < CURDATE() + INTERVAL 1 DAY)";
+        return $result = $this->connection->fetchAll($getActivities);
+    }
+    public function getYesterdayActivities($store_id){
+        $storeActivitiesTbl = $this->connection->getTableName('storeActivities');
+        $getActivities = "SELECT * FROM " . $storeActivitiesTbl . " WHERE store_id ='".$store_id."' AND (createAt BETWEEN CURDATE() - INTERVAL 1 DAY AND CURDATE())";
+        return $result = $this->connection->fetchAll($getActivities);
+    }
+    public function getRestActivities($store_id){
+        $storeActivitiesTbl = $this->connection->getTableName('storeActivities');
+        $getActivities = "SELECT * FROM " . $storeActivitiesTbl . " WHERE store_id ='".$store_id."' AND (createAt < CURDATE() - INTERVAL 1 DAY AND CURDATE())";
+        return $result = $this->connection->fetchAll($getActivities);
+    }
+
     public function getActivities($store_id){
         $storeActivitiesTbl = $this->connection->getTableName('storeActivities');
+        $getActivities = "SELECT * FROM " . $storeActivitiesTbl . " WHERE store_id ='".$store_id."' order by id DESC";
+        return $result = $this->connection->fetchAll($getActivities);
+    }
 
-
+    public function getNotifications($client_id){
+        $storeActivitiesTbl = $this->connection->getTableName('storeActivities');
         $getActivities = "SELECT * FROM " . $storeActivitiesTbl . " WHERE store_id ='".$store_id."'";
         return $result = $this->connection->fetchAll($getActivities);
 
@@ -202,5 +229,52 @@ class Index extends Template
             ->addAttributeToSelect('*')
             ->addStoreFilter($this->getStoreId())->setPageSize($this->getProductsCount());
         return $collection;
+    }
+
+
+    public function getOrderDetails($orderId){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        return $order = $objectManager->create('\Magento\Sales\Model\OrderRepository')->get($orderId);
+    }
+
+    public function getProductImage($product_id){
+        $product = $this->_productRepositoryFactory->create()
+    ->getById($product_id);
+
+        $objectManager =\Magento\Framework\App\ObjectManager::getInstance();
+        $helperImport = $objectManager->get('\Magento\Catalog\Helper\Image');
+
+        $imageUrl = $helperImport->init($product, 'product_page_image_small')
+                        ->setImageFile($product->getSmallImage()) // image,small_image,thumbnail
+                        ->getUrl();
+        return $imageUrl;
+    }
+
+    public function getStoresByClient($client_id){
+        $StoreTable = $this->connection->getTableName('store_clientpersonalinfo');
+        $getActivities = "SELECT * FROM " . $StoreTable . " WHERE customer_id ='".$client_id."'";
+        $result = $this->connection->fetchAll($getActivities);
+
+        if(!empty($result)){
+            $stores = array();
+            foreach($result as $store){
+                $stores[] = $store;
+            }
+        }else{
+            $stores = array();
+        }
+        return $stores;
+    }
+
+    public function getStores($client_id){
+        $storeProfileTbl = $this->connection->getTableName('store_clientpersonalinfo');
+        $getStores = "SELECT * FROM " . $storeProfileTbl . " WHERE customer_id ='".$client_id."'";
+        $result = $this->connection->fetchAll($getStores);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+
     }
 }

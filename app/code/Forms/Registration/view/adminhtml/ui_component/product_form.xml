@@ -16,4 +16,30 @@
         </settings>
         <block name="custom.block" class="Forms\Registration\Block\Adminhtml\Product\Custom" template="Forms_Registration::product/custom.phtml"/>
     </htmlContent>
+
+    <!-- <htmlContent name="typeofstore" sortOrder="2">
+        <argument name="data" xsi:type="array">
+            <item name="wrapper" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Type Of store</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <settings>
+            <wrapper>
+                <canShow>true</canShow>
+                <componentType>fieldset</componentType>
+            </wrapper>
+        </settings>
+        <block name="typeofstore" class="Forms\Registration\Block\Adminhtml\Product\Store" template="Forms_Registration::product/typeofstore.phtml"/>
+    </htmlContent> -->
+
+    <!-- <fieldset name="custom_checkbox" class="Forms\Registration\Ui\Component\Form\CustomCheckbox">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string">Custom Checkboxes</item>
+        </item>
+    </argument>
+</fieldset> -->
+
 </form>

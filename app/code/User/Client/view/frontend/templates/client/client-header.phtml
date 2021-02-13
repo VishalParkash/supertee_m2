@@ -21,6 +21,77 @@
 
 
     </style>
+    <?php 
+    // echo $client_id = $block->getLoggedinCustomerId();die;
+    // $order_data = $block->getOrderListLimit(22);
+    // echo "<pre>";print_r($order_data->getData());
+    $urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+    $currentUrl = $urlInterface->getCurrentUrl();
+
+    $explodeUrl = explode("/", $currentUrl);
+
+    if(end($explodeUrl) == ""){
+        // echo "<pre>";print_r(($explodeUrl));
+        $countElements = count($explodeUrl);
+        $arrayIndex  = ($countElements - 2);
+        $getPageName = ($explodeUrl[$arrayIndex]);
+    }else{
+        $getPageName = end($explodeUrl);
+    }
+    // echo "<pre>";print_r(($explodeUrl));die;
+    $classActive = '';
+    if ($getPageName == 'dashboard') {
+        $pageName = "Dashboard";
+    }elseif ($getPageName == 'sales') {
+        // $classActive = "active";
+        $pageName = "Sales Report";
+    }elseif ($getPageName == 'transactions') {
+        $pageName = "Transactions Report";
+    }elseif ($getPageName == 'promotions') {
+        $pageName = "Promotions";
+    }elseif ($getPageName == 'create') {
+        $pageName = "Create";
+    }elseif ($getPageName == 'stores') {
+        $pageName = "Stores";
+    }elseif ($getPageName == 'profile') {
+        $pageName = "Stores";
+        // $classActive = "active";
+    }elseif ($getPageName == 'add') {
+        $pageName = "Create";
+        // $classActive = "active";
+    }elseif ($getPageName == 'view') {
+        $pageName = "View";
+        // $classActive = "active";
+    }elseif ($getPageName == 'customers') {
+        $pageName = "Customers";
+        // $classActive = "active";
+    }elseif ($getPageName == 'notifications') {
+        $pageName = "Notifications";
+        // $classActive = "active";
+    }elseif ($getPageName == 'marketing') {
+        $pageName = "Marketing";
+        // $classActive = "active";
+    }else{
+        $pageName = "Client Backend";
+        // $classActive = "";
+    }
+
+
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+    if(($customerSession->isLoggedIn())){
+        $client_id =  $customerSession->getId();
+        $name = $customerSession->getCustomer()->getName();
+    }else{
+        $redirect = $objectManager->get('\Magento\Framework\App\Response\Http');
+        $redirect->setRedirect($this->getUrl());
+    }
+
+?>
+    <?php 
+    $getStoresByClient = $block->getStoresByClient($client_id);
+    ?>
 <div class="mainContainer">
         <div class="sidebarNav">
             <div class="sidebarNavTop">
@@ -97,7 +168,7 @@
             <div class="sidebarNavLinks">
                 <ul>
                     <li>
-                        <a href="<?php echo $block->getBaseUrl(); ?>client/dashboard" class="active">
+                        <a href="<?php echo $block->getBaseUrl(); ?>client/dashboard" class="<?php if($getPageName == 'dashboard'){echo "active";}?>">
                             <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -133,7 +204,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" class="sidebarNavLinksChild">
+                        <a href="javascript:void(0)" class="sidebarNavLinksChild" class="<?php echo $classActive?>">
                             <svg width="13" height="16" viewBox="0 0 13 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.85742 9.14288H7.42885V10.2857H2.85742V9.14288Z" fill="white" />
@@ -151,7 +222,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="<?php echo $block->getBaseUrl(); ?>client/promotions/">
+                        <a href="<?php echo $block->getBaseUrl(); ?>client/promotions/" class="<?php echo $classActive?>">
                             <svg width="18" height="15" viewBox="0 0 18 15" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="path-1-outside-1" maskUnits="userSpaceOnUse" x="0" y="0" width="18"
@@ -171,8 +242,8 @@
                         </a>
                     </li>
                     <li>
-                        <!-- <a href="javascript:void(0)" class="sidebarNavLinksChild"> -->
-                            <a href="<?php echo $block->getBaseUrl(); ?>client/stores/" class="sidebarNavLinksChild">
+                        <a href="javascript:void(0)" class="sidebarNavLinksChild" class="<?php echo $classActive?>">
+                            <!-- <a href="<?php //echo $block->getBaseUrl(); ?>client/stores/" class="sidebarNavLinksChild"> -->
                             <svg width="18" height="17" viewBox="0 0 18 17" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -191,53 +262,42 @@
                             <span>My stores</span>
                         </a>
                         <ul>
+                            <?php if($getStoresByClient){?>
+                            <?php foreach($getStoresByClient as $getStores){?>
                             <li>
-                                <a href="javascript:void(0)" class="sidebarNavLinksChild">Falcon crest</a>
-                                <ul>
+                                <a href="<?php echo $block->getBaseUrl(); ?>client/stores/profile/<?php echo $getStores['storeCode']?>" class="sidebarNavLinksChild"><?php echo $getStores['storename']?></a>
+                                <!-- <ul>
                                     <li><a href="#">View online store</a></li>
                                     <li><a href="#">Manage inventory</a></li>
                                     <li><a href="#">Manage customer</a></li>
-                                </ul>
+                                </ul> -->
                             </li>
-                            <li>
-                                <a href="javascript:void(0)" class="sidebarNavLinksChild">Layer studio</a>
-                                <ul>
-                                    <li><a href="#">View online store</a></li>
-                                    <li><a href="#">Manage inventory</a></li>
-                                    <li><a href="#">Manage customer</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="sidebarNavLinksChild">Cmyk house</a>
-                                <ul>
-                                    <li><a href="#">View online store</a></li>
-                                    <li><a href="#">Manage inventory</a></li>
-                                    <li><a href="#">Manage customer</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="sidebarNavLinksChild">Castle print</a>
-                                <ul>
-                                    <li><a href="#">View online store</a></li>
-                                    <li><a href="#">Manage inventory</a></li>
-                                    <li><a href="#">Manage customer</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="sidebarNavLinksChild">Atlas print zone</a>
-                                <ul>
-                                    <li><a href="#">View online store</a></li>
-                                    <li><a href="#">Manage inventory</a></li>
-                                    <li><a href="#">Manage customer</a></li>
-                                </ul>
-                            </li>
+                        <?php } ?>
+                        <?php } ?>
+                            
+                            
+                            
+                            
                             <li>
                                 <a href="#" class="sidebarNavLinksBig">+ Add another store</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">
+                            <a href="<?php echo $block->getBaseUrl(); ?>client/marketing/" class="<?php echo $classActive?>">
+                                <svg width="22" height="15" viewBox="0 0 22 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.28375 12.9123L3.28376 12.9124C3.35604 13.2978 3.69336 13.5894 4.0839 13.5894H5.50888C5.74596 13.5894 5.99148 13.4947 6.14185 13.2942C6.28332 13.1056 6.35775 12.8647 6.30889 12.6196C6.30885 12.6194 6.30882 12.6193 6.30879 12.6191L5.80583 9.96345C6.86411 10.2206 7.79796 10.6885 8.75173 11.4765C8.81864 12.1677 9.40542 12.7174 10.1241 12.7174C10.9024 12.7174 11.5215 12.0984 11.5215 11.3201V9.23199C12.4445 9.01854 13.1161 8.1461 13.1166 7.15255C13.1377 6.13551 12.4449 5.28403 11.5427 5.07136V2.98291C11.5427 2.20456 10.9237 1.58555 10.1454 1.58555C9.42677 1.58555 8.84003 2.13522 8.77301 2.82629C7.21014 4.10827 5.74977 4.58438 3.57346 4.58438H2.29737C1.51795 4.58438 0.9 5.22573 0.9 5.98174V8.29999C0.9 9.0794 1.54135 9.69735 2.29737 9.69735H2.68224L3.28375 12.9123ZM1.82312 8.29999V6.00301C1.82312 5.73921 2.03357 5.52877 2.29737 5.52877H3.57346C5.66644 5.52877 7.2267 5.08726 8.748 4.00831V10.2947C7.2267 9.21573 5.66644 8.77423 3.57346 8.77423H2.29737C2.03357 8.77423 1.82312 8.56378 1.82312 8.29999ZM4.85016 9.77451L5.38838 12.6451H4.18803L3.63039 9.69754C4.06392 9.70047 4.46447 9.7363 4.85016 9.77451ZM10.5983 11.3201C10.5983 11.5814 10.3904 11.7731 10.1454 11.7731C9.90284 11.7731 9.69239 11.5626 9.69239 11.3201V2.98291C9.69239 2.72161 9.90031 2.52994 10.1454 2.52994C10.3879 2.52994 10.5983 2.74039 10.5983 2.98291V11.3201ZM12.1935 7.1515C12.1935 7.64975 11.9222 8.06361 11.5427 8.25544V6.04755C11.9222 6.23938 12.1935 6.65324 12.1935 7.1515Z" fill="white" stroke="white" stroke-width="0.2"/>
+                                    <path d="M19.5449 5.41367C18.7602 5.41367 18.0806 5.93993 17.8725 6.6685H14.717C14.4453 6.6685 14.2555 6.88731 14.2555 7.13006C14.2555 7.40178 14.4743 7.59162 14.717 7.59162H17.8937C18.1003 8.31951 18.7602 8.84645 19.5662 8.84645C20.5138 8.84645 21.3039 8.0794 21.3039 7.10879C21.3039 6.13396 20.5095 5.41367 19.5449 5.41367ZM19.5449 7.9446C19.111 7.9446 18.7517 7.58527 18.7517 7.15133C18.7517 6.71739 19.111 6.35806 19.5449 6.35806C19.9789 6.35806 20.3382 6.71739 20.3382 7.15133C20.3382 7.58684 19.9986 7.9446 19.5449 7.9446Z" fill="white" stroke="white" stroke-width="0.2"/>
+                                    <path d="M19.5183 12.3615L19.5182 12.3591C19.4956 11.4113 18.7066 10.6451 17.7593 10.6451C17.3797 10.6451 17.0224 10.782 16.7403 10.9811L14.2495 9.02998C14.056 8.8659 13.757 8.89621 13.5958 9.11123C13.5183 9.21461 13.4828 9.33557 13.4967 9.45409C13.5107 9.5729 13.5735 9.68179 13.6787 9.76101L16.1678 11.7108C16.0785 11.9193 16.0429 12.1421 16.0429 12.3615C16.0429 13.3091 16.81 14.0991 17.7806 14.0991C18.7503 14.0991 19.5182 13.3312 19.5183 12.3615ZM17.7593 13.176C17.3254 13.176 16.966 12.8167 16.966 12.3827C16.966 11.9488 17.3254 11.5895 17.7593 11.5895C18.1932 11.5895 18.5526 11.9488 18.5526 12.3827C18.5526 12.8167 18.1932 13.176 17.7593 13.176Z" fill="white" stroke="white" stroke-width="0.2"/>
+                                    <path d="M14.246 5.27444L14.246 5.27446L14.2477 5.27316L16.7373 3.32295C17.021 3.54103 17.3794 3.67805 17.7591 3.67805C18.7067 3.67805 19.4967 2.911 19.4967 1.94039C19.4967 0.970628 18.7288 0.202734 17.7591 0.202734C16.7893 0.202734 16.0214 0.970628 16.0214 1.94039C16.0214 2.16523 16.0761 2.38674 16.1504 2.58786L13.6572 4.54087C13.4433 4.70209 13.4131 5.00001 13.5763 5.19323C13.6573 5.29965 13.7912 5.37951 13.9521 5.37951C14.0617 5.37951 14.1461 5.34938 14.246 5.27444ZM17.7591 1.12586C18.193 1.12586 18.5523 1.48518 18.5523 1.91912C18.5523 2.35307 18.193 2.71239 17.7591 2.71239C17.3251 2.71239 16.9658 2.35307 16.9658 1.91912C16.9658 1.48518 17.3251 1.12586 17.7591 1.12586Z" fill="white" stroke="white" stroke-width="0.2"/>
+                                </svg>                                    
+                                <span>Marketing </span>
+                            </a>
+                        </li>
+
+                    <li>
+
+                        <a href="<?php echo $block->getBaseUrl(); ?>client/notifications/" class="<?php echo $classActive?>">
                             <!-- <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

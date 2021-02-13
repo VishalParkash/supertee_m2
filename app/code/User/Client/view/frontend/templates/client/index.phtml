@@ -6,18 +6,45 @@
     $customerFactory = $objectManager->get('\Magento\Customer\Model\CustomerFactory')->create();
 
     // $store_id = '1';
-    $client_id = '6';
+    // $client_id = '6';
     // $client_id = $block->getLoggedinCustomerId();
     $customer = $customerFactory->load($client_id);
     // $client_id =  $customerSession->getId();
+    $getStoresByClient = $block->getStoresByClient($client_id);
+    if(!empty($getStoresByClient)){
+        $getStoresList = array();
+        foreach($getStoresByClient as $stores){
+            $getStoresList[] = $stores['storeId'];
+        }
+    }
+
+    // echo "<pre>";print_r($getStoresList);
+    if(!empty($getStoresList)){
+        $order_data = array();
+        $transaction_data = array();
+        foreach($getStoresList as $storeList){
+            $order_data[] = $block->getOrderListAll($storeList);
+            $transaction_data = $block->getTransactionListLimit($client_id);
+        }
+    }
+
+    // echo "<pre>";print_r($transaction_data);die;
     
-    // $store_id = $customer->getData()['store_id'];
-    $store_id = 1;
-    $getActivities = $block->getActivities($store_id);
+    if(!empty($getStoresByClient)){
+        $getActivities = array();
+        foreach($getStoresByClient as $storeActivity){
+            $getActivities = $block->getActivities($storeActivity['storeId']);
+            // $getTodayActivities = $block->getTodayActivities($storeActivity['storeId']);
+            // $getYesterdayActivities = $block->getYesterdayActivities($storeActivity['storeId']);
+            // $getRestActivities = $block->getRestActivities($storeActivity['storeId']);
+        }
+    }
+    // echo "<pre>";print_r($getActivities);die;
+
     // $store_id = '1';
     // $client_id = '6';
-	$order_data = $block->getOrderListLimit($store_id);
-    $transaction_data = $block->getTransactionListLimit($client_id);
+	// $order_data = $block->getOrderListLimit($store_id);
+ //    $transaction_data = $block->getTransactionListLimit($client_id);
     $getCommission = $block->getCommission($client_id);
 
     foreach($getCommission as $commission){
@@ -39,9 +66,11 @@
     }
     
     if(!empty($order_data)){
-        foreach ($order_data as $order_key => $order_value) {
-            if($order_value->getStatus() == 'complete'){
-                $SalesGrandTotal += $order_value->getGrandTotal();
+        foreach ($order_data as $getOrder) {
+            foreach ($getOrder as $order_value) {
+                if($order_value->getStatus() == 'complete'){
+                    $SalesGrandTotal += $order_value->getGrandTotal();
+                }
             }
         }
     }
@@ -247,7 +276,8 @@
                                                 <tbody>
 
                                                     
-                                                <?php foreach($transaction_data as $transaction){ ?>
+                                                <?php 
+                                                foreach($transaction_data as $transaction){ ?>
                                                     <?php 
                                                         
                                                          
@@ -356,7 +386,8 @@
 
                                                     <?php 
                                                 
-                                                    foreach ($order_data as $order_key => $order_value) {
+                                                    foreach ($order_data as $getOrder) {
+                                                        foreach ($getOrder as $order_value) {
 
                                                         // $getCommission
 
@@ -395,6 +426,7 @@
                                                         
                                                         echo "</tr>";
                                                     }
+                                                }
                                                 ?>
 
                                                     
@@ -418,12 +450,14 @@
                                     </div>
                                     <div class="dashboardItemContent">
                                         <div class="dashboardStoreActivity">
+                                            <?php if(!empty($getActivities)){?>
                                             <?php foreach($getActivities as $activity){?>
                                             <div class="dashboardStoreActivityItem">
                                                 <div class="dashboardStoreActivityText">
                                                     <?php echo $activity['message']?>
                                                 </div>
                                             </div>
+                                        <?php } ?>
                                         <?php } ?>
                                         </div>
                                     </div>

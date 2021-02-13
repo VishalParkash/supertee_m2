@@ -2,6 +2,10 @@
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customSession = $objectManager->create('Forms\Registration\Model\Session');
 
+$mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
 $baseUrl = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue("web/unsecure/base_url");
 
 
@@ -20,10 +24,12 @@ if(!empty($customSession->getData()['getMyStore'])){
     $clientId = $customSession->getData()['getMyClientId']; //clientId here
 }
 
+/*Uncomment after*/
 if(empty($storecode) && (empty($clientId))){
     echo "You are not authorised to access this page."; 
     die;
 }
+/*Uncomment after*/
 
 
     // get array of stores with storecode as key
@@ -187,6 +193,7 @@ if(empty($storecode) && (empty($clientId))){
                     <!-- Markup -->
                     <form method="post" id="SetMarkUp">
                         <input type="hidden" name="TempSSID" id="TempSSID">
+                        <input type="hidden" name="tempSID" id="tempSID" value="<?php echo $store_id?>" />
                         <input type="hidden" name="markUpSetting" id="markUpSetting" value="true">
                     <section class="selectProductsContent markup" id="markup">
                         <h1 class="mb15">set markup for the products on your store</h1>
@@ -237,6 +244,10 @@ if(empty($storecode) && (empty($clientId))){
                 </form>
 
                     <!-- Theme&logo -->
+                    <form method="post" id="themeSelection" enctype="multipart/form-data">
+                        <input type="hidden" name="tempSID" id="tempSID" value="<?php echo $store_id?>" />
+                        <input type="hidden" name="SSID" id="ThemeSSID">
+                        <input type="hidden" name="selectTheTheme" id="selectTheTheme" value="true">
                     <section class="selectTheme theme themeWrap" id="theme">
                         <div class="selectTheme">
                             <div class="topWrap d-flex align-items-center justify-content-between">
@@ -260,7 +271,7 @@ if(empty($storecode) && (empty($clientId))){
 
                             <div class="themes themeSlider">
                                 <div class="theme_box">
-                                    <input type="radio" id="theme1" name="theme" checked>
+                                    <input type="radio" id="theme1" name="getTheme" value="5" checked>
                                     <label for="theme1" class="d-flex flex-column align-items-center justify-content-center">
                                         <div class="storeTheme bgYellowLight2"></div>
                                         <div class="nameWrap d-flex align-items-center">
@@ -272,7 +283,7 @@ if(empty($storecode) && (empty($clientId))){
                                     </label>
                                 </div>
                                 <div class="theme_box">
-                                    <input type="radio" id="theme2" name="theme" >
+                                    <input type="radio" id="theme2" name="getTheme" value="7" >
                                     <label for="theme2" class="d-flex flex-column align-items-center justify-content-center">
                                         <div class="storeTheme" style="background: url('<?php echo $this->getViewFileUrl('Forms_Registration::images/storeProfileTheme2.jpg'); ?>') no-repeat; background-size: cover;"></div>
                                         <div class="nameWrap d-flex align-items-center">
@@ -284,7 +295,7 @@ if(empty($storecode) && (empty($clientId))){
                                     </label>
                                 </div>
                                 <div class="theme_box">
-                                    <input type="radio" id="theme3" name="theme" >
+                                    <input type="radio" id="theme3" name="theme" value="8">
                                     <label for="theme3" class="d-flex flex-column align-items-center justify-content-center">
                                         <div class="storeTheme" style="background: url('<?php echo $this->getViewFileUrl('Forms_Registration::images/storeProfileTheme3.jpg'); ?>') no-repeat; background-size: cover;"></div>
                                         <div class="nameWrap d-flex align-items-center">
@@ -296,20 +307,8 @@ if(empty($storecode) && (empty($clientId))){
                                     </label>
                                 </div>
                                 <div class="theme_box">
-                                    <input type="radio" id="theme4" name="theme" >
+                                    <input type="radio" id="theme4" name="theme" value="9">
                                     <label for="theme4" class="d-flex flex-column align-items-center justify-content-center">
-                                        <div class="storeTheme" style="background: url('<?php echo $this->getViewFileUrl('Forms_Registration::images/storeProfileTheme4.jpg'); ?>') no-repeat; background-size: cover;"></div>
-                                        <div class="nameWrap d-flex align-items-center">
-                                            <svg class="mr-2" width="20" height="19" viewBox="0 0 20 19" fill="#A8A8A8" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.54584 19C14.8259 19 19.0917 14.7196 19.0917 9.5C19.0917 4.24529 14.8259 0 9.54584 0C4.26578 0 0 4.24529 0 9.5C0 14.7198 4.26578 19 9.54584 19ZM5.59462 8.76872L8.04206 11.2044L13.4971 5.77561L14.7555 7.02804L14.651 7.13211L8.04206 13.676L4.33593 9.98696L5.59462 8.76872Z" />
-                                            </svg>
-                                            <span>grand</span>
-                                        </div> 
-                                    </label>
-                                </div>
-                                <div class="theme_box">
-                                    <input type="radio" id="theme5" name="theme" >
-                                    <label for="theme5" class="d-flex flex-column align-items-center justify-content-center">
                                         <div class="storeTheme" style="background: url('<?php echo $this->getViewFileUrl('Forms_Registration::images/storeProfileTheme4.jpg'); ?>') no-repeat; background-size: cover;"></div>
                                         <div class="nameWrap d-flex align-items-center">
                                             <svg class="mr-2" width="20" height="19" viewBox="0 0 20 19" fill="#A8A8A8" xmlns="http://www.w3.org/2000/svg">
@@ -331,7 +330,7 @@ if(empty($storecode) && (empty($clientId))){
         
                                 <div class="btnWrap">
                                     <button type="button" class="btn btn-secondary position-relative">
-                                        <input type="file">
+                                        <input type="file" id="storeLogo" name="storeLogo">
                                         <b>upload logo</b>
                                     </button>
                                 </div>
@@ -340,7 +339,7 @@ if(empty($storecode) && (empty($clientId))){
                             <div class="divider"></div>
 
                             <div class="rightWrap">
-                                <img src="<?php echo $this->getViewFileUrl('Forms_Registration::images/storeProfileBannerInner.png'); ?>" alt="" class="img-fluid">
+                                <img src="" alt="" class="img-fluid" id="StorelogoImg">
                             </div>
                              
                         </div>
@@ -351,6 +350,7 @@ if(empty($storecode) && (empty($clientId))){
                             </p>
                         </div>
                     </section>
+                </form>
 
                     <!-- customize -->
                     <section class="customize" id="customize">
@@ -360,6 +360,12 @@ if(empty($storecode) && (empty($clientId))){
                     </section>
 
                     <!-- General Setting -->
+                    <form method="post" id="generalSetting">
+                        <input type="hidden" name="setGeneralSetting" id="setGeneralSettingId" value="true">
+                        <input type="hidden" name="tempSID" id="tempSID" value="<?php echo $store_id?>" />
+                        <input type="hidden" name="SSID" id="SettingSSID">
+
+
                     <section class="setting gsetting" id="setting">
                         <h1>general settings</h1>
                         <ul class="list-unstyled settingWrap">
@@ -394,7 +400,7 @@ if(empty($storecode) && (empty($clientId))){
                                     </div>
                                     <div class="btnWrap">
                                         <div class="tg-list-item toggleSwitch">
-                                             <input class="tgl tgl-ios" id="setting1" type="checkbox"/>
+                                             <input class="tgl tgl-ios" id="setting1" type="checkbox" name="updatesNotification" />
                                             <label class="tgl-btn mb-0 mx-2" for="setting1"></label>
                                          </div>
                                     </div>
@@ -408,7 +414,7 @@ if(empty($storecode) && (empty($clientId))){
                                     </div>
                                     <div class="btnWrap">
                                         <div class="tg-list-item toggleSwitch">
-                                             <input class="tgl tgl-ios" id="setting2" type="checkbox"/>
+                                             <input class="tgl tgl-ios" id="setting2" type="checkbox" name="stripeNotification" />
                                             <label class="tgl-btn mb-0 mx-2" for="setting2"></label>
                                          </div>
                                     </div>
@@ -422,7 +428,7 @@ if(empty($storecode) && (empty($clientId))){
                                     </div>
                                     <div class="btnWrap">
                                         <div class="tg-list-item toggleSwitch">
-                                             <input class="tgl tgl-ios" id="setting3" type="checkbox"/>
+                                             <input class="tgl tgl-ios" id="setting3" type="checkbox" name="desktopNotification" />
                                             <label class="tgl-btn mb-0 mx-2" for="setting3"></label>
                                          </div>
                                     </div>
@@ -436,7 +442,7 @@ if(empty($storecode) && (empty($clientId))){
                                     </div>
                                     <div class="btnWrap">
                                         <div class="tg-list-item toggleSwitch">
-                                             <input class="tgl tgl-ios" id="setting4" type="checkbox"/>
+                                             <input class="tgl tgl-ios" id="setting4" type="checkbox" name="pushNotification" />
                                             <label class="tgl-btn mb-0 mx-2" for="setting4"></label>
                                          </div>
                                     </div>
@@ -444,12 +450,12 @@ if(empty($storecode) && (empty($clientId))){
                             </li>
                         </ul>
                     </section>
-
+                </form>
                 </div>
 
                 <div class="text-right formBtn">
                     <button class="btn btn-link btn-secondary">
-                        <b>skip</b>
+                        <a href="<?php echo $block->getBaseUrl().'client/dashboard/' ?>"><b>cancel</b></a>
                     </button>
                     <button class="btn btn-secondary nextSection" id="selectProd">
                         <b>next</b>
@@ -532,7 +538,7 @@ if(empty($storecode) && (empty($clientId))){
                         <b>maybe, later</b>
                     </button> -->
                     <button class="btn btn-secondary viewDash" id="viewDash">
-                        <b>view dashboard</b>
+                        <a href="<?php echo $block->getBaseUrl().'client/dashboard/' ?>"><b>view dashboard</b></a>
                         <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path class="fillHover"
                                 d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
@@ -686,7 +692,8 @@ if(empty($storecode) && (empty($clientId))){
                                             if(!empty($product->getData()['special_price'])){
                                                 $price = $product->getData()['special_price'];
                                             }else{
-                                                $price  = $product->getData()['price'];
+                                                $price  = "190.00";
+                                                // $price  = $product->getData()['price'];
                                             }
                                         ?>
                                         <div class="selectProductsModalProductsItem align-items-center d-none <?php echo"subcat_".$categoryId;?> <?php echo"cat_".$categoryy->getId(); ?>" >
@@ -950,24 +957,25 @@ if(empty($storecode) && (empty($clientId))){
                                     $product_count = 0;
                                     $total_product_price =0;
                                     $subcats = $subcategory->getChildrenCategories();
-                                    foreach ($subcats as $subcat) {
-                                        
-                                        if ($subcat->getIsActive()) { 
-                                         
-                                            $categoryId = $subcat->getId(); // YOUR CATEGORY ID
-                                            $category = $categoryFactory->create()->load($categoryId);
-                                            
-                                            $categoryProducts = $category->getProductCollection()
-                                                ->addAttributeToSelect('*');
-                                                
-                                                foreach ($categoryProducts as $product) {
-                                                    $product_count+=1;
-                                                    $total_product_price +=$product->getData()['price'];
-                                                }
-                                            $avg_price =$total_product_price/$product_count;
 
-                                        }
-                                    }
+                                    // foreach ($subcats as $subcat) {
+                                        
+                                    //     if ($subcat->getIsActive()) { 
+                                         
+                                    //         $categoryId = $subcat->getId(); // YOUR CATEGORY ID
+                                    //         $category = $categoryFactory->create()->load($categoryId);
+                                            
+                                    //         $categoryProducts = $category->getProductCollection()
+                                    //             ->addAttributeToSelect('*');
+                                                
+                                    //             foreach ($categoryProducts as $product) {
+                                    //                 $product_count+=1;
+                                    //                 $total_product_price +=$product->getData()['price'];
+                                    //             }
+                                    //         $avg_price =$total_product_price/$product_count;
+
+                                    //     }
+                                    // }
                             ?> 
                              <div class="accordionCustom">
                                 <div class="accordionCustomItem borderBottom">
@@ -989,8 +997,11 @@ if(empty($storecode) && (empty($clientId))){
                                         </div>
                                     </div>
                                     <?php
-                                        $subcats = $subcategory->getChildrenCategories();
-                                        foreach ($subcats as $subcat) {
+                                        // $subcats = $subcategory->getChildrenCategories();
+                                        // echo "<pre>";print_r($subcats->getData());
+                                        if(!empty($subcats)){ 
+                                            // echo "subcats";
+                                            foreach ($subcats as $subcat) {
                                             if ($subcat->getIsActive()) { 
                                                 $categoryId = $subcat->getId(); // YOUR CATEGORY ID
                                                 $category = $categoryFactory->create()->load($categoryId);
@@ -1028,9 +1039,7 @@ if(empty($storecode) && (empty($clientId))){
                                                     </div>
                                                     <div class="accordionCustomItemDataSub">
                                                     <?php 
-                                                    foreach ($categoryProducts as $product) {
-                                                       
-                                                        ?>
+                                                    foreach ($categoryProducts as $product) { ?>
                                                     
                                                         <div class="divTableRow d-none" id="product_id_<?php echo($product->getData()['entity_id']); ?>">
                                                             <div class="divTableCol">
@@ -1056,7 +1065,35 @@ if(empty($storecode) && (empty($clientId))){
                                             </div>
                                         </div>
                                     </div>
-                                    <?php } } ?>
+                                    <?php } } }else{ //echo "sssooo";?>
+                                        <?php 
+                                                    $category = $categoryFactory->create()->load($categoryy->getId());
+                                                    $categoryProducts = $category->getProductCollection()
+                                                    ->addAttributeToSelect('*');
+                                                    foreach ($categoryProducts as $product) { ?>
+                                                    
+                                                        <div class="divTableRow d-none" id="product_id_<?php echo($product->getData()['entity_id']); ?>">
+                                                            <div class="divTableCol">
+                                                                <div class="d-flex align-items-center">
+                                                                    <p><?php echo($product->getData()['name']); ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="divTableCol">
+                                                                <p id="amount_<?php echo($product->getData()['entity_id']); ?>"><?php echo($product->getData()['price']); ?></p>
+                                                            </div>
+                                                            <div class="divTableCol">
+                                                                <input type="text" class="form-control myTextBox" id="<?php echo($product->getData()['entity_id']); ?>"/>
+                                                            </div>
+                                                            <div class="divTableCol text-center">
+                                                                <input type="text" class="form-control myTexttoprecentage"
+                                                                     id="comission_<?php echo($product->getData()['entity_id']); ?>"/>
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
+                                                <?php } ?>
+
+
+
                                 </div>
                             </div>
 
@@ -1158,19 +1195,19 @@ if(empty($storecode) && (empty($clientId))){
                     console.log('NextId'+this.id);
 
                     if(this.id == 'selectProd'){
-                        alert('we are ready here');
+                        // alert('we are ready here');
                         // console.log('ssinfoId');
 
-                        if (!$("input[name='firstSelectProducts']").is(':checked')) {
-                                alert('Please select products for your store');
-                                return false;
-                            }
-                            if ($("input[name='firstSelectProducts']").is(':checked') && ($("input[name='firstSelectProducts']") == 'specificProduct'))  {
-                                if($('#categoriesCollected').val() == ''){
-                                    alert('Please select category for your store');
-                                    return false;
-                                }
-                            }
+                        // if (!$("input[name='firstSelectProducts']").is(':checked')) {
+                        //         alert('Please select products for your store');
+                        //         return false;
+                        //     }
+                        //     if ($("input[name='firstSelectProducts']").is(':checked') && ($("input[name='firstSelectProducts']") == 'specificProduct'))  {
+                        //         if($('#categoriesCollected').val() == ''){
+                        //             alert('Please select category for your store');
+                        //             return false;
+                        //         }
+                        //     }
                             
                             // return false;
                             var formData = $("#firstSelectProducts").serialize();
@@ -1189,6 +1226,8 @@ if(empty($storecode) && (empty($clientId))){
                                         return false;
                                     }else{
                                         $('#TempSSID').val(response.output);
+                                        $('#ThemeSSID').val(response.output);
+                                        $('#SettingSSID').val(response.output);
                                         // $('#firstsection').removeClass("active").attr('class', this.id);
                                         // // $('#secoundone').removeClass("active").attr('class', this.id);
                                         // $('#secoundone').addClass("active show");
@@ -1209,17 +1248,19 @@ if(empty($storecode) && (empty($clientId))){
                                 data: formData,
                                 showLoader: true,
                                 cache: false,
+
                                 success: function(response){
                                     console.log(response);
                                     if(response.output == false){
-                                        alert("error occured");
                                         return false;
                                     }else{
-                                        $('#TempSSID').val(response.output);
-                                        // $('#firstsection').removeClass("active").attr('class', this.id);
-                                        // // $('#secoundone').removeClass("active").attr('class', this.id);
-                                        // $('#secoundone').addClass("active show");
+                                        console.log("ksks");
                                         return false;
+                                        // $('#TempSSID').val(response.output);
+                                        // // $('#firstsection').removeClass("active").attr('class', this.id);
+                                        // // // $('#secoundone').removeClass("active").attr('class', this.id);
+                                        // // $('#secoundone').addClass("active show");
+                                        // return false;
                                     }
                                 }
                             });
@@ -1231,6 +1272,35 @@ if(empty($storecode) && (empty($clientId))){
                         $(".sideBar .newprevv").attr("id", "selectProd");
                      }else if(this.id == 'theme'){
                         // console.log('ssinfoId');
+                        var mediaUrl = "<?php echo $mediaUrl; ?>storesLogo";
+                        var form = $('#themeSelection')[0];
+                        var file_data = $('#storeLogo').prop('files')[0];
+                        // var formData = $("#themeSelection").serialize();
+                        var formData = new FormData(form);
+                        // formData.append('file', file_data);
+                      // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
+                            var url = "<?php echo $block->getBaseUrl().'setupstore/setup/store/' ?>";
+                            jQuery.ajax({
+                                url: url,
+                                type: "POST",
+                                data: formData,
+                                showLoader: true,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function(response){
+                                    console.log(response);
+                                    if(response.output == false){
+                                        return false;
+                                    }else{
+                                        $('#StorelogoImg').attr('src', mediaUrl+response.output);
+                                        console.log('we are indone');
+                                        return false;
+                                    }
+                                }
+                            });
+
+                            // return false;
                         $(this).attr("id", "customize");
                         $(".sideBar .newprevv").attr("id", "markup");
                     }else if(this.id == 'customize'){
@@ -1239,7 +1309,34 @@ if(empty($storecode) && (empty($clientId))){
                         $(".sideBar .newprevv").attr("id", "theme");
                     }
                     else if(this.id == 'setting'){
-                        
+                            
+                            var formData = $("#generalSetting").serialize();
+                        // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
+                            var url = "<?php echo $block->getBaseUrl().'setupstore/setup/store/' ?>";
+                            jQuery.ajax({
+                                url: url,
+                                type: "POST",
+                                data: formData,
+                                showLoader: true,
+                                cache: false,
+
+                                success: function(response){
+                                    console.log(response);
+                                    if(response.output == false){
+                                        return false;
+                                    }else{
+                                        console.log("ksks");
+                                        return false;
+                                        // $('#TempSSID').val(response.output);
+                                        // // $('#firstsection').removeClass("active").attr('class', this.id);
+                                        // // // $('#secoundone').removeClass("active").attr('class', this.id);
+                                        // // $('#secoundone').addClass("active show");
+                                        // return false;
+                                    }
+                                }
+                            });
+
+
                         $(this).attr("id", "storeCreated");   
                         $(".sideBar .newprevv").attr("id", "customize");
                     } else if(this.id == 'storeCreated'){

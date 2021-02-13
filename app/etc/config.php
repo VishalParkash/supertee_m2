@@ -301,6 +301,7 @@ return [
         'Amazon_Core' => 1,
         'Amazon_Login' => 1,
         'Amazon_Payment' => 1,
+        'Bss_CustomProductAttributeExport' => 1,
         'Cadence_UrlDedup' => 1,
         'CommerceExtensions_ProductImportExport' => 1,
         'Create_Store' => 1,

@@ -8,10 +8,10 @@ class Interceptor extends \Forms\Registration\Controller\Setup\Store implements 
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\App\Config\ConfigResource\ConfigInterface $configInterface, \Magento\Framework\View\Result\PageFactory $pageFactory, \Forms\Registration\Model\Session $session, \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory)
+    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\App\Config\ConfigResource\ConfigInterface $configInterface, \Magento\Framework\View\Result\PageFactory $pageFactory, \Forms\Registration\Model\Session $session, \Magento\Framework\Filesystem $filesystem, \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory, \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory)
     {
         $this->___init();
-        parent::__construct($context, $configInterface, $pageFactory, $session, $resultJsonFactory);
+        parent::__construct($context, $configInterface, $pageFactory, $session, $filesystem, $fileUploaderFactory, $resultJsonFactory);
     }
 
     /**

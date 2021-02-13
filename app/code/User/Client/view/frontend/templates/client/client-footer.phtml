@@ -8,33 +8,33 @@
 <script src="<?php //echo $block->getViewFileUrl('User_Client::js/bootstrap-slider.min.js'); ?>"></script>
 
     <script>
-        require([ 'jquery'], function($,modal){ 
-        $(document).ready(function(){
-              $('.sidebarNavLinks ul > li a').on('click', function(){
-             if($(this).next('ul').hasClass('show')){
-             $(this).next('ul').removeClass('show');
-             $(this).parents('li').removeClass('active');
+        // require([ 'jquery'], function($,modal){ 
+        // $(document).ready(function(){
+        //       $('.sidebarNavLinks ul > li a').on('click', function(){
+        //      if($(this).next('ul').hasClass('show')){
+        //      $(this).next('ul').removeClass('show');
+        //      $(this).parents('li').removeClass('active');
              
-             }else{
-             $('.sidebarNavLinks ul > li ul.show').removeClass('show');
-             $('.sidebarNavLinks ul li').removeClass('active');
-             $(this).next('ul').addClass('show');
-             $(this).parent('li').addClass('active');
-             }
-             });
+        //      }else{
+        //      $('.sidebarNavLinks ul > li ul.show').removeClass('show');
+        //      $('.sidebarNavLinks ul li').removeClass('active');
+        //      $(this).next('ul').addClass('show');
+        //      $(this).parent('li').addClass('active');
+        //      }
+        //      });
              
-             $('.sidebarNavLinks ul > li > ul li').on('click', function(e){
-             e.stopPropagation;
-             console.log('nested');
-             $(this).parent('ul').addClass('show');
+        //      $('.sidebarNavLinks ul > li > ul li').on('click', function(e){
+        //      e.stopPropagation;
+        //      console.log('nested');
+        //      $(this).parent('ul').addClass('show');
              
-             if($(this).find('ul').hasClass('show')){
-             $(this).addClass('active');
-             }
+        //      if($(this).find('ul').hasClass('show')){
+        //      $(this).addClass('active');
+        //      }
              
-             });
-        });
-        });
+        //      });
+        // });
+        // });
 
     </script>
     
