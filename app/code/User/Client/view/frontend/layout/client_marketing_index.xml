@@ -19,11 +19,11 @@
         
         <referenceContainer name="page.messages">            
     
-    <block class="User\Client\Block\Marketing\Index" name="addMessages" as="addMessages" template="User_Client::client/messages.phtml"/>
+    <block class="User\Client\Block\Client\Index" name="addMessages" as="addMessages" template="User_Client::client/messages.phtml"/>
 </referenceContainer>
 
         <referenceContainer name="content">			
-			<block class="User\Client\Block\Marketing\Index" name="client_marketing_index" template="client/marketing.phtml">
+			<block class="User\Client\Block\Client\Index" name="client_marketing_index" template="client/marketing.phtml">
 			</block>
         </referenceContainer>
     </body>

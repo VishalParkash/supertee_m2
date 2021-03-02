@@ -2555,6 +2555,27 @@
         'instance' => 'Amazon\\Payment\\Plugin\\WebapiErrorProcessor',
       ),
     ),
+    'Magento\\Framework\\App\\Request\\CsrfValidator' => 
+    array (
+      'csrf_validator_skip' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Auctane\\Api\\Plugin\\CsrfValidatorSkip',
+      ),
+      'stripe_payments_csrf_validator_skip' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\CsrfValidatorSkip',
+      ),
+    ),
+    'Auctane\\Api\\Controller\\Auctane\\Index' => 
+    array (
+      'auctane_index' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Auctane\\Api\\Plugin\\Controller\\Auctane\\IndexPlugin',
+      ),
+    ),
     'Magento\\Newsletter\\Controller\\Subscriber\\NewAction' => 
     array (
       'ddg_newsletter_email_capture' => 
@@ -2733,14 +2754,6 @@
       array (
         'sortOrder' => 30,
         'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\LoadInitialFeeOnCollection',
-      ),
-    ),
-    'Magento\\Framework\\App\\Request\\CsrfValidator' => 
-    array (
-      'stripe_payments_csrf_validator_skip' => 
-      array (
-        'sortOrder' => 30,
-        'instance' => 'StripeIntegration\\Payments\\Plugin\\CsrfValidatorSkip',
       ),
     ),
     'Magento\\Multishipping\\Block\\Checkout\\Billing' => 
@@ -6898,6 +6911,54 @@
         'instance' => 'Amazon\\Payment\\Plugin\\WebapiErrorProcessor',
       ),
     ),
+    'Magento\\Framework\\App\\Request\\ValidatorInterface' => NULL,
+    'Magento\\Framework\\App\\Request\\CsrfValidator' => 
+    array (
+      'csrf_validator_skip' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Auctane\\Api\\Plugin\\CsrfValidatorSkip',
+      ),
+      'stripe_payments_csrf_validator_skip' => 
+      array (
+        'sortOrder' => 30,
+        'instance' => 'StripeIntegration\\Payments\\Plugin\\CsrfValidatorSkip',
+      ),
+    ),
+    'Magento\\Framework\\App\\CsrfAwareActionInterface' => NULL,
+    'Auctane\\Api\\Controller\\Auctane\\Index' => 
+    array (
+      'storeCheck' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Store\\App\\Action\\Plugin\\StoreCheck',
+      ),
+      'eventDispatch' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Framework\\App\\Action\\Plugin\\EventDispatchPlugin',
+      ),
+      'actionFlagNoDispatch' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Framework\\App\\Action\\Plugin\\ActionFlagNoDispatchPlugin',
+      ),
+      'designLoader' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Theme\\Plugin\\LoadDesignPlugin',
+      ),
+      'customerNotification' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Magento\\Customer\\Model\\Plugin\\CustomerNotification',
+      ),
+      'auctane_index' => 
+      array (
+        'sortOrder' => 0,
+        'instance' => 'Auctane\\Api\\Plugin\\Controller\\Auctane\\IndexPlugin',
+      ),
+    ),
     'Magento\\Newsletter\\Controller\\Subscriber' => 
     array (
       'storeCheck' => 
@@ -7313,15 +7374,6 @@
       array (
         'sortOrder' => 30,
         'instance' => 'StripeIntegration\\Payments\\Plugin\\Order\\LoadInitialFeeOnCollection',
-      ),
-    ),
-    'Magento\\Framework\\App\\Request\\ValidatorInterface' => NULL,
-    'Magento\\Framework\\App\\Request\\CsrfValidator' => 
-    array (
-      'stripe_payments_csrf_validator_skip' => 
-      array (
-        'sortOrder' => 30,
-        'instance' => 'StripeIntegration\\Payments\\Plugin\\CsrfValidatorSkip',
       ),
     ),
     'Magento\\Payment\\Block\\Form\\Container' => NULL,
@@ -10957,6 +11009,39 @@
         0 => 'amazon_payment_webapi_error_processor',
       ),
     ),
+    'Magento\\Framework\\App\\Request\\CsrfValidator_validate___self' => 
+    array (
+      2 => 'csrf_validator_skip',
+    ),
+    'Magento\\Framework\\App\\Request\\CsrfValidator_validate_csrf_validator_skip' => 
+    array (
+      2 => 'stripe_payments_csrf_validator_skip',
+    ),
+    'Auctane\\Api\\Controller\\Auctane\\Index_execute___self' => 
+    array (
+      1 => 
+      array (
+        0 => 'storeCheck',
+        1 => 'eventDispatch',
+      ),
+      4 => 
+      array (
+        0 => 'eventDispatch',
+      ),
+      2 => 'actionFlagNoDispatch',
+    ),
+    'Auctane\\Api\\Controller\\Auctane\\Index_execute_actionFlagNoDispatch' => 
+    array (
+      1 => 
+      array (
+        0 => 'designLoader',
+        1 => 'customerNotification',
+      ),
+      4 => 
+      array (
+        0 => 'auctane_index',
+      ),
+    ),
     'Magento\\Newsletter\\Controller\\Subscriber_execute___self' => 
     array (
       1 => 
@@ -11303,10 +11388,6 @@
       array (
         0 => 'setInitialFeeExtensionAfterLoad',
       ),
-    ),
-    'Magento\\Framework\\App\\Request\\CsrfValidator_validate___self' => 
-    array (
-      2 => 'stripe_payments_csrf_validator_skip',
     ),
     'Magento\\Multishipping\\Block\\Checkout\\Billing_getPostActionUrl___self' => 
     array (

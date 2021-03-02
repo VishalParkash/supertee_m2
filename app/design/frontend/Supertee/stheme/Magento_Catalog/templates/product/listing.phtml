@@ -19,22 +19,6 @@
     foreach ($sizeAttributes as $value) {
         $sizeAttr[$value->getValue()] = $value->getLabel();
     }
-
-    // echo "<pre>";print_r($sizeAttr);
-
-
-// die;
-    // $sizeAttributes = $block->getAllSizes();
-    // array_shift($sizeAttributes);
-
-    // getAllColors
-    // echo "<pre>";print_r($sizeAttributes) ;die;
-// echo $block->getCurrentCategory()->getName();
-// // foreach($block->getCurrentCategory() as $cats){
-// //     echo "<pre>";print_r($cats->getName());die;    
-// // }
-// die;
-
 ?>
 
 <main class="main">
@@ -67,7 +51,7 @@
             <div class="outerContainer">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-5 col-lg-3 d-none d-md-block">
+                        <div class="col-md-4 col-lg-3  d-none d-md-block">
                             <div class="filterWrap">
                                 <div class="topHead">
                                     <h6>Filter</h6>
@@ -89,7 +73,7 @@
                                             <?php foreach ($categories as $category) { ?>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" class="brandsAttr" id="<?php echo $category->getId(); ?>" value="<?php echo $category->getId(); ?>" name="categories">
+                                                    <input type="checkbox" class="brandsAttr" id="<?php echo $category->getId(); ?>" value="<?php echo $category->getId(); ?>" name="categories">
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText" id="filters_<?php echo $category->getId(); ?>"><?php echo $category->getName();?></span>
                                                 </label>
@@ -131,7 +115,7 @@
                                         ?>
                                         <div class="form-group">
                                             <label class="checkUnCheck">
-                                                    <input type="radio" class="brandsAttr" name="brand" id="<?php echo $key ?>" value="<?php echo $key; ?>" />
+                                                    <input type="checkbox" class="brandsAttr" name="brand" id="<?php echo $key ?>" value="<?php echo $key; ?>" />
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText" id="filters_<?php echo $key; ?>"><?php echo $attributes; ?></span>
                                                 </label>
@@ -167,7 +151,7 @@
                                         ?>
                                         <div class="form-group">
                                             <label class="checkUnCheck">
-                                                    <input type="radio" class="brandsAttr" name="size" id="<?php echo $key ?>" value="<?php echo $key; ?>" />
+                                                    <input type="checkbox" class="brandsAttr" name="size" id="<?php echo $key ?>" value="<?php echo $key; ?>" />
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText" id="filters_<?php echo $key; ?>"><?php echo $attributes; ?></span>
                                                 </label>
@@ -193,35 +177,35 @@
                                         <div class="wrap">
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="1_20" />
+                                                    <input type="checkbox" name="priceRange" class="brandsAttr" value="1_20" />
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText">$10 - $20</span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="21_50" />
+                                                    <input type="checkbox" name="priceRange" class="brandsAttr" value="21_50" />
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText">$21 - $50</span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="51_100"/>
+                                                    <input type="checkbox" name="priceRange" class="brandsAttr" value="51_100"/>
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText">$51 - $100</span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="101_500"/>
+                                                    <input type="checkbox" name="priceRange" class="brandsAttr" value="101_500"/>
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText">$101 - $500</span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="500"/>
+                                                    <input type="checkbox" name="priceRange" class="brandsAttr" value="500"/>
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText">$501 & above</span>
                                                 </label>
@@ -417,11 +401,11 @@
                             </div>
                         </div>
 
-                        <div class="col-md-7 col-lg-9">
+                        <div class="col-md-8 col-lg-9">
                             <div class="filteredProduct">
                                 <div class="d-none topWrap d-md-flex align-items-center justify-content-between">
                                     <a href="" id="clearAll" style="display: none">Clear all</a>
-                                    <div class="btnWrap d-flex align-items-center">
+                                    <div class="btnWrap d-flex align-items-center ml-auto">
                                         <div class="listView">
                                             <svg width="22" height="21" viewBox="0 0 22 21" fill="none" stroke="#151515"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -488,27 +472,25 @@
                                     <div class="productWrap">
                                         <div class="row" id="ajaxresponse">
 
-                                <?php 
+                                    <?php
                                         $category_id_array = $block->getAllChildren(true,$block->getCurrentCategory()->getEntity_id());
                                         foreach ($block->getProductCollection($category_id_array) as $product){
+                                    ?>
 
-            ?>
 
-
-                                            <div class="col-sm-6 col-md-4">
+                                            <div class="col-sm-6 col-lg-4">
                                                 <div class="product">
                                                     <div class="productTop">
                                                         <div class="productImgSlider">
-
+                                                            <a href="<?php echo $product->getProductUrl(); ?>">
                                                             <?php 
                                 
-                                foreach($block->getAllProductImages($product->getId()) as $images){
-                                    ?>
+                                foreach($block->getAllProductImages($product->getId()) as $images){ ?>
                                     <div class="productTopImg" style="background-image: url(<?php echo $images['url'];?>);">
                                         <img class="productFeaturedBatch" src="<?php echo $this->getViewFileUrl('images/productFeaturedBatch.png'); ?>" alt="productFeaturedBatch" />
                                     </div>
-
                                 <?php } ?>
+                            </a>
                                                         </div>
                                                         <div class="productTopOver">
                                                             <h6>available sizes</h6>
@@ -659,16 +641,49 @@
    <script>
         require([ 'jquery'], function($){ 
 $(document).ready(function() {
-    $(".brandsAttr").click(function(){
+    // $(".brandsAttr").on('click',function(){
+    //     id = this.id;
+    //     var text = $('#filters_'+id).text();
+
+    //     var filterDiv = '<span id="'+id+'">'+text+'<svg class="remove" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z" fill="#BDBDBD" /></svg></span>';
+
+    //     $('#clearAll').css('display', 'block');
+    //     $('#filtersName').append(filterDiv);                
+
+    //     // if($(this).is(':checked')){
+    //     //     $('#filtersName').append(filterDiv);                
+    //     // }else{
+    //     //     $('#filtersName span#'+id).remove();
+    //     // }
+
+        
+    //     // alert(id);
+    //     jQuery.ajax({
+    //     url: "<?php echo $this->getUrl().'layered/product/filter'?>",
+    //     type: "POST",
+    //     // data: {id:id},
+    //     data: $('#productFilters').serialize(),
+    //     success: function(response){
+    //         $('#ajaxresponse').html(response.output);
+    //         console.log(response);
+    //     }
+    // });
+    // });
+
+    $(".brandsAttr").on('click',function(){
         id = this.id;
         var text = $('#filters_'+id).text();
-
-        var filterDiv = '<span>'+text+'<svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z" fill="#BDBDBD" /></svg></span>';
-
+        var filterDiv = '<span id="'+id+'">'+text+'<svg class="remove" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z" fill="#BDBDBD" /></svg></span>';
         $('#clearAll').css('display', 'block');
-        $('#filtersName').append(filterDiv);
-        
-        // alert(id);
+
+        if($(this).prop("checked") == true){
+            // console.log("Checkbox is checked.");
+            $('#filtersName').append(filterDiv);
+        }else{
+            // console.log('unchecked');
+             $('#filtersName span#'+id).remove();
+        }
+
         jQuery.ajax({
         url: "<?php echo $this->getUrl().'layered/product/filter'?>",
         type: "POST",
@@ -679,6 +694,15 @@ $(document).ready(function() {
             console.log(response);
         }
     });
+
+    });
+
+
+    $(document).on('click','.remove',function(){
+        var filterId = $(this).parent('span').attr('id');
+        console.log(filterId);
+        $('#filtersName span#'+filterId).remove();
+        $(".brandsAttr#"+filterId).prop('checked', false);
     });
 });
 });

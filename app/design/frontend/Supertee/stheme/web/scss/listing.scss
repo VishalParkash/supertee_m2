@@ -80,7 +80,7 @@
     
     .dropdown{
         button{
-            color: inherit;
+            color: inherit !important;
             background-color: transparent !important;
             border-color: transparent !important;
             font-size:inherit;
@@ -294,6 +294,13 @@
     .similarProduct{
     &.list_view{
         .col-sm-6.col-lg-4{
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .col-sm-6.col-md-4{
             -webkit-box-flex: 0;
             -ms-flex: 0 0 100%;
             flex: 0 0 100%;

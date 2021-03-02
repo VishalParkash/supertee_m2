@@ -2,7 +2,7 @@
 	
 	include('client-header.phtml');
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+    // $customerSession = $objectManager->create('Magento\Customer\Model\Session');
     $customerFactory = $objectManager->get('\Magento\Customer\Model\CustomerFactory')->create();
 
     // $store_id = '1';

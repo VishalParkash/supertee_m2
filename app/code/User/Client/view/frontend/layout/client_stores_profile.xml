@@ -17,7 +17,7 @@
         <referenceBlock name="sidebar.main" remove="true"/>
         <referenceBlock name="sidebar.additional" remove="true"/>
         <referenceContainer name="content">			
-			<block class="User\Client\Block\Stores\Index" name="client_store_profile" template="client/stores/store-profile.phtml">
+			<block class="User\Client\Block\Stores\Index" name="client_store_profile" template="client/stores/store-profile.phtml" cacheable="false">
 			</block>
         </referenceContainer>
     </body>

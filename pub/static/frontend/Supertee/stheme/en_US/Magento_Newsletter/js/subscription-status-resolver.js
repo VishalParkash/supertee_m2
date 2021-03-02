@@ -1,0 +1,1 @@
+/var/www/html/supertee/vendor/magento/module-newsletter/view/frontend/web/js/subscription-status-resolver.js

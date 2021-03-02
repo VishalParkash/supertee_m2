@@ -125,6 +125,7 @@
                         background-position-x: calc(100% - 45px);
                         &.active {
                             background-image: url(../images/arrowUpWhite.png);
+                            color:$btnBlue;
                         }
                     }
                     span {
@@ -141,6 +142,7 @@
                             transform: translateY(-50%);
                             left: 100%;
                             margin-left: 10px;
+                            color:$white;
                         }
                     }
                 }
@@ -173,6 +175,7 @@
                         margin-right: 14px;
                         display: inline-block;
                         vertical-align: middle;
+                        min-width:23px;
                     }
                     span {
                         display: inline-block;
@@ -181,6 +184,7 @@
                     &.active {
                         background-color: $borderDark2;
                         font-weight: bold;
+                        color:$btnBlue ;
                         &:after {
                             width: 5px;
                             background-color: $btnBlue;
@@ -192,15 +196,18 @@
                     -webkit-transition: all 0.3s;
                     transition: all 0.3s;
                     overflow: hidden;
+                    display:block;
+                    opacity:0;
+
                     &>li {
-                        padding: 10px 0 10px 75px;
+                        padding: 10px 0 10px 20px;
                         &>ul {
                             max-height: 0;
                             -webkit-transition: all 0.3s;
                             transition: all 0.3s;
                             overflow: hidden;
                             &>li {
-                                padding: 10px 0 10px 10px;
+                                padding: 10px 0 10px 20px;
                             }
                         }
                         &.active {
@@ -211,6 +218,18 @@
                                 padding-bottom: 10px;
                                 max-height: 400px;
                                 overflow: auto;
+                            }
+                        }
+                    }
+                    &.show{
+                        max-height:400px;
+                        transition:all 0.3s;
+                        padding-left:55px;
+                        opacity:1;
+
+                        li{
+                            a{
+                                font-size: 0.9375em;
                             }
                         }
                     }
@@ -253,6 +272,9 @@
                 margin: -2px 5px 0 0;
             }
         }
+    }
+    .fade{
+        display:none !important;
     }
 }
 .sidebarNavSearchList {

@@ -23,6 +23,10 @@ class Index extends Template
     protected $_customerSession;
     protected $redirect;
     protected $_bestSellersCollectionFactory;
+    protected $_coreRegistry;
+
+    protected $_productloader;
+    protected $_storeManager;
 
 
     public function __construct(
@@ -40,6 +44,9 @@ class Index extends Template
         \Magento\Reports\Model\Grouped\CollectionFactory $collectionFactory,
         \Magento\Reports\Helper\Data $reportsData,
         DateTime $dateTime,
+        \Magento\Framework\Registry $_coreRegistry,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productrepository,
+        \Magento\Store\Model\StoreManagerInterface $storemanager,
 
         array $data = []
     ) {
@@ -54,26 +61,35 @@ class Index extends Template
         $this->_resourceFactory = $resourceFactory;
         $this->_collectionFactory = $collectionFactory;
         $this->_reportsData = $reportsData;
+        $this->_coreRegistry = $_coreRegistry;
+
+        $this->productrepository = $productrepository;
+        $this->_storeManager =  $storemanager;
         parent::__construct($context, $data);
     }
 
-    public function getLoggedinCustomerId() 
-    {
-        // echo "string";
-        // echo "custo id".$this->_customerSession->getId();die;
+    // public function getLoggedinCustomerId() 
+    // {
+    //     // echo "string";
+    //     // echo "custo id".$this->_customerSession->getId();die;
 
-        if ($this->_customerSession->isLoggedIn()) {
-            return $this->_customerSession->getId();
-        }
-        $CustomRedirectionUrl = $this->_url->getUrl();
-        $this->redirect->setRedirect($CustomRedirectionUrl);
-        return;
+    //     if ($this->_customerSession->isLoggedIn()) {
+    //         return $this->_customerSession->getId();
+    //     }
+    //     $CustomRedirectionUrl = $this->_url->getUrl();
+    //     $this->redirect->setRedirect($CustomRedirectionUrl);
+    //     return;
 
+    // }
+
+
+    public function getFlashMessage(){
+        return $this->_coreRegistry->registry('storeProfileResponse');die;
     }
 
     public function getStoreProfile($store_id){
         $storeProfileTbl = $this->connection->getTableName('store_clientpersonalinfo');
-        $getActivities = "SELECT * FROM " . $storeProfileTbl . " WHERE storeCode ='".$store_id."'";
+        $getActivities = "SELECT * FROM " . $storeProfileTbl . " WHERE storeId ='".$store_id."'";
         $result = $this->connection->fetchAll($getActivities);
 
         if(!empty($result)){
@@ -81,6 +97,94 @@ class Index extends Template
         }
         return false;
 
+    }
+
+    public function getStoreSetupInfo($store_id){
+        $storeProfileTbl = $this->connection->getTableName('storeSetup_info');
+        $getActivities = "SELECT * FROM " . $storeProfileTbl . " WHERE store_id ='".$store_id."' AND status='Published'";
+        $result = $this->connection->fetchAll($getActivities);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+    }
+
+    public function getStoreSetupMiscInfo($store_id){
+        $storeSetup_miscInfo = $this->connection->getTableName('storeSetup_miscInfo');
+        $getStoreSetupMiscInfo = "SELECT * FROM " . $storeSetup_miscInfo . " WHERE store_id ='".$store_id."' AND status='Published'";
+        $result = $this->connection->fetchAll($getStoreSetupMiscInfo);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+    }
+
+    public function getCurrentThemeName($theme_id){
+        $theme_table = $this->connection->getTableName('theme');   
+        $theme_data = $this->connection->fetchAll("SELECT * FROM ".$theme_table." WHERE theme_id=".$theme_id);
+
+        if(!empty($theme_data)){
+            foreach($theme_data as $theme){
+                return $themeName = str_replace("/clientfrontend", "", $theme['theme_path']);
+            }
+        }
+    }
+
+    public function getThemesName($theme_id){
+        $theme_table = $this->connection->getTableName('theme');   
+        $theme_data = $this->connection->fetchAll("SELECT * FROM ".$theme_table." WHERE theme_id !=".$theme_id." AND theme_title = 'Client Frontend'");
+
+        return $theme_data;
+        // if(!empty($theme_data)){
+        //     foreach($theme_data as $theme){
+        //         return $themeName = str_replace("/clientfrontend", "", $theme['theme_path']);
+        //     }
+        // }
+    }
+
+    public function getOrderNumberByEmail($customerEmail, $store_id){
+
+        $OrderCustomer_table = $this->connection->getTableName('OrderCustomer_table');
+        $getCustomers = "SELECT count(customer_email)  FROM " . $OrderCustomer_table . " WHERE store_id ='".$store_id."' AND customer_email = '".$customerEmail."'";
+        $result = $this->connection->fetchAll($getCustomers);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+
+
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $order_collection = $objectManager->create('Magento\Sales\Model\Order')->getCollection()->addAttributeToFilter('customer_email', $customerEmail);
+
+        return ($order_collection->getData());
+        // foreach ($order_collection as $order){ 
+        //     echo "Order Id: ".$order->getEntityId(); 
+        //     echo "Customer Id: ".$order->getCustomerId(); 
+        // } 
+    }
+
+    public function getCustomers($store_id){
+        $OrderCustomer_table = $this->connection->getTableName('OrderCustomer_table');
+        // $getCustomers = "SELECT DISTINCT customer_email FROM " . $OrderCustomer_table . " WHERE store_id ='".$store_id."' ORDER BY id ASC";
+        $getCustomers = "SELECT * FROM " . $OrderCustomer_table . " WHERE store_id ='".$store_id."' GROUP BY customer_email ORDER BY id ASC";
+        $result = $this->connection->fetchAll($getCustomers);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+        
+    }
+
+    public function getOrders(){
+
+        if (!$this->orders) {
+            $this->orders = $this->_orderCollectionFactory->create()->addFieldToSelect('*')->addFieldToFilter('customer_id',$customerId)->setOrder('created_at','desc');
+        }
+        return $this->orders;
     }
 
     public function getStores($client_id){
@@ -92,9 +196,14 @@ class Index extends Template
             return $result;
         }
         return false;
-
     }
 
+    public function getStoreUrl($storeId)
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+        return $storeManager->getStore($storeId)->getBaseUrl();
+    }
 
 
     public function getStoreSetupData($store_id){
@@ -263,5 +372,38 @@ class Index extends Template
         ]);
         return $this->getUrl($account_links->url);  
         //return 'Hello';  
+    }
+
+
+    public function getProductImgById($productId){
+        $store = $this->_storeManager->getStore();
+        // $productId = $productId;
+        $product = $this->productrepository->getById($productId);
+ 
+        $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' .$product->getImage();
+         $productUrl = $product->getProductUrl();
+        return $productImageUrl;
+    }
+
+    public function getSVGcollection(){
+        $supertee_svgCollections = $this->connection->getTableName('supertee_svgCollections');
+        $getSVGcollection = "SELECT * FROM " . $supertee_svgCollections . " ORDER BY id DESC";
+        $result = $this->connection->fetchAll($getSVGcollection);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+    }
+
+    public function gtSVGbyId($svgId){
+        $supertee_svgCollections = $this->connection->getTableName('supertee_svgCollections');
+        $getSVGcollection = "SELECT * FROM " . $supertee_svgCollections . " WHERE id= ".$svgId;
+        $result = $this->connection->fetchAll($getSVGcollection);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
     }
 }

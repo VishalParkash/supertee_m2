@@ -281,6 +281,11 @@ a{
     font-size: 0.9375rem;
     line-height: 1.125rem;
   }
+  &:disabled{
+    background:$blue;
+    border-color:$blue;
+    opacity:0.5;
+  }
 }
 .btn-secondary {
   @extend .btn-dark;
@@ -291,6 +296,7 @@ a{
       box-shadow:none !important;
       background:$blue !important;
       border-color:$blue !important;
+      color:$white !important;
   }
   &.btn-sm {
     font-size: 0.9375rem;
@@ -1563,4 +1569,8 @@ input[type=number]::-webkit-outer-spin-button {
     }
   }
 
+}
+
+p:empty{
+  display:none;
 }

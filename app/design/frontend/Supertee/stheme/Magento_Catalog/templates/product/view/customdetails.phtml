@@ -28,7 +28,25 @@ $repository = $obj->create('Magento\Catalog\Model\ProductRepository');
 
 $product = $block->getLoadProduct();
 
+
+// $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');//get current product
+
+// $productTypeInstance = $product->getTypeInstance();
+
+// $usedProducts = $productTypeInstance->getUsedProducts($product);
+
+// echo $product->getId(); //Main configurable product ID
+// echo $product->getName(); //Main Configurable Name
+
+// foreach ($usedProducts  as $child) {
+//     echo $child->getId()."</br>"; //Child Product Id  
+//     echo $child->getName()."</br>"; //Child Product Name
+// }
+
+// die;
+
 // echo $product->getShortDescription();
+// echo $product->getProductType();die;
 $size_array = array();
 // if($product->getTypeId() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE){
 if($block->getProductType() == 'configurable'){
@@ -42,7 +60,7 @@ foreach($data as $attr){
    
   }
 }
-//print_r($size_array);
+// print_r($options);die;
     if(!empty($options)){
         foreach($options as $sku =>$d){
 

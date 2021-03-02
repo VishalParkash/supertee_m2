@@ -8,10 +8,10 @@ class Interceptor extends \User\Client\Controller\Stores\Save implements \Magent
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList, \Magento\Framework\App\Cache\StateInterface $cacheState, \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool, \Forms\Registration\Model\Session $session, \Magento\Framework\Filesystem $filesystem, \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory, \Magento\Framework\App\ResourceConnection $resource, \Magento\Framework\View\Result\PageFactory $resultPageFactory)
+    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList, \Magento\Framework\App\Cache\StateInterface $cacheState, \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool, \Forms\Registration\Model\Session $session, \Magento\Framework\Filesystem $filesystem, \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory, \Magento\Framework\App\ResourceConnection $resource, \Magento\Framework\View\Result\PageFactory $resultPageFactory, \Magento\Framework\Registry $_coreRegistry)
     {
         $this->___init();
-        parent::__construct($context, $cacheTypeList, $cacheState, $cacheFrontendPool, $session, $filesystem, $fileUploaderFactory, $resource, $resultPageFactory);
+        parent::__construct($context, $cacheTypeList, $cacheState, $cacheFrontendPool, $session, $filesystem, $fileUploaderFactory, $resource, $resultPageFactory, $_coreRegistry);
     }
 
     /**

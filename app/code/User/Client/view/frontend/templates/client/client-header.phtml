@@ -29,6 +29,7 @@
     $currentUrl = $urlInterface->getCurrentUrl();
 
     $explodeUrl = explode("/", $currentUrl);
+    // echo "<pre>";print_r($explodeUrl);die;
 
     if(end($explodeUrl) == ""){
         // echo "<pre>";print_r(($explodeUrl));
@@ -83,14 +84,15 @@
     if(($customerSession->isLoggedIn())){
         $client_id =  $customerSession->getId();
         $name = $customerSession->getCustomer()->getName();
-    }else{
+    }
+    else{
         $redirect = $objectManager->get('\Magento\Framework\App\Response\Http');
         $redirect->setRedirect($this->getUrl());
     }
 
 ?>
     <?php 
-    $getStoresByClient = $block->getStoresByClient($client_id);
+        $getStoresByClient = $block->getStoresByClient($client_id);
     ?>
 <div class="mainContainer">
         <div class="sidebarNav">
@@ -262,10 +264,10 @@
                             <span>My stores</span>
                         </a>
                         <ul>
-                            <?php if($getStoresByClient){?>
+                            <?php if($getStoresByClient){ ?>
                             <?php foreach($getStoresByClient as $getStores){?>
                             <li>
-                                <a href="<?php echo $block->getBaseUrl(); ?>client/stores/profile/<?php echo $getStores['storeCode']?>" class="sidebarNavLinksChild"><?php echo $getStores['storename']?></a>
+                                <a href="<?php echo $block->getBaseUrl(); ?>client/stores/profile/key/<?php echo $getStores['storeId']?>/" class="sidebarNavLinksChild"><?php echo $getStores['storename']?></a>
                                 <!-- <ul>
                                     <li><a href="#">View online store</a></li>
                                     <li><a href="#">Manage inventory</a></li>

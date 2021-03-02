@@ -9,6 +9,7 @@
         <referenceContainer name="product.info.media" remove="true"></referenceContainer>
         <referenceContainer name="product.info.details" remove="true"></referenceContainer>
         <referenceBlock name="page.main.title" remove="true" />
+        <referenceBlock name="category.description" remove="true"/>
         <referenceBlock name="category.image" remove="true"/>
         <referenceBlock name="wishlist_sidebar" remove="true"/>
         <referenceBlock name="catalog.compare.sidebar" remove="true"/> <!-- Remove sidebar -->

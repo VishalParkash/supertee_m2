@@ -161,10 +161,10 @@ form.password.forget{
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">login</a>
+                  <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">register</a>
+                  <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
                 </li> 
             </ul>
 
@@ -176,7 +176,7 @@ form.password.forget{
                         class="rightWrap text-center d-flex flex-column align-items-center justify-content-center h-100 ">
                         <div class="loginContent my-auto">
                             <div class="topHeadWrap">
-                                <h1>login to your account</h1>
+                                <h1>Login to your account</h1>
                              </div>
                             <form class="login-form" method="POST" action="">
                                 <div class="form-group">
@@ -215,7 +215,7 @@ form.password.forget{
                                 </button>
                             </form>
 
-                            <!-- <div class="socialLogin">
+                            <div class="socialLogin">
                                 <h6>Or use your social accounts</h6>
                                 <div class="socialLink d-flex align-items-center justify-content-center">
                                     <a href="#;">
@@ -234,7 +234,7 @@ form.password.forget{
                                         </svg>
                                     </a>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -243,21 +243,21 @@ form.password.forget{
                         class="rightWrap text-center d-flex flex-column align-items-center justify-content-center h-100 ">
                         <div class="loginContent my-auto">
                             <div class="topHeadWrap">
-                                <h1>create new account</h1>
-                                <p>enter your details below</p>
+                                <h1>Create new account</h1>
+                                <p>Enter your details below</p>
                              </div>
                             <form class="register-form" method="POST" action="">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username" name="firstname" required>
+                                    <input type="text" class="form-control" placeholder="Username" id="firstname" name="firstname" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="email" name="email" required>
+                                    <input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-control" placeholder="contact number" name="contact" required>
+                                    <input type="number" class="form-control" placeholder="Contact number" id="contact" name="contact" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" id="passInput" name="password" required>
+                                    <input type="password" class="form-control" placeholder="Password" id="setPassword" name="password" required>
                                     <svg class="icon passHide" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13.6202 0.748155C13.7572 0.508396 13.6739 0.202969 13.4341 0.065964C13.1944 -0.071041 12.8889 0.0122574 12.7519 0.252016L12.1114 1.37299C11.1679 1.01323 10.2163 0.817895 9.27273 0.817895C7.10426 0.817895 4.89291 1.84971 2.83653 3.53793C1.3451 4.76245 0 6.32852 0 6.81789C0 7.30727 1.34521 8.87328 2.83653 10.0979C3.85819 10.9366 4.91805 11.6134 5.99192 12.082L5.24807 13.3838C5.11106 13.6235 5.19436 13.929 5.43412 14.066C5.67388 14.203 5.97931 14.1197 6.11631 13.8799L6.93945 12.4394C7.71663 12.686 8.4974 12.8179 9.27273 12.8179C11.4412 12.8179 13.6525 11.7861 15.7089 10.0979C17.2004 8.87334 18.5455 7.30727 18.5455 6.81789C18.5455 6.32852 17.2003 4.76251 15.7089 3.53793C14.8395 2.82408 13.9423 2.22761 13.0323 1.77688L13.6202 0.748155ZM11.6806 2.12681C10.8715 1.83316 10.0638 1.67522 9.27273 1.67522C7.32944 1.67522 5.28642 2.62821 3.366 4.20478C2.64444 4.79778 1.98454 5.44625 1.46688 6.04888C1.25428 6.29636 1.07804 6.52216 0.957135 6.69975C0.943809 6.71927 0.931215 6.73856 0.919597 6.75635C0.903664 6.78076 0.889566 6.80235 0.877928 6.81787C0.889566 6.83339 0.903665 6.85498 0.919598 6.87939C0.931216 6.89718 0.943809 6.91647 0.957135 6.93599C1.07805 7.11357 1.2543 7.33936 1.46688 7.58686C1.98454 8.18951 2.64444 8.83796 3.366 9.43096C4.36124 10.248 5.38938 10.8975 6.4195 11.3338L7.37883 9.65494C6.48663 9.03793 5.90046 7.99731 5.90046 6.81789C5.90046 4.92475 7.41074 3.38921 9.27273 3.38921C9.80611 3.38921 10.3106 3.51521 10.7591 3.73953L11.6806 2.12681ZM11.5803 4.31794L12.607 2.52116C13.4756 2.94461 14.3392 3.51502 15.1795 4.20478C15.901 4.79778 16.5609 5.44623 17.0786 6.04888C17.2912 6.29638 17.4674 6.52217 17.5883 6.69975C17.6016 6.71927 17.6142 6.73855 17.6259 6.75635C17.6418 6.78076 17.6559 6.80235 17.6675 6.81787C17.6559 6.83339 17.6418 6.85498 17.6259 6.87939C17.6142 6.89719 17.6016 6.91647 17.5883 6.93599C17.4674 7.11357 17.2912 7.33938 17.0786 7.58686C16.5609 8.18949 15.901 8.83796 15.1795 9.43096C13.259 11.0075 11.2161 11.9605 9.27273 11.9605C8.64819 11.9605 8.01336 11.8621 7.3756 11.6762L8.27901 10.0952C8.59316 10.1936 8.92688 10.2466 9.27273 10.2466C11.1347 10.2466 12.645 8.71104 12.645 6.81789C12.645 5.83222 12.2356 4.94349 11.5803 4.31794ZM10.334 4.48336C10.0113 4.33139 9.65172 4.24658 9.27273 4.24658C7.87626 4.24658 6.74373 5.39806 6.74373 6.81789C6.74373 7.68088 7.16212 8.44473 7.80386 8.91114L10.334 4.48336ZM8.71792 9.32711L11.1416 5.08568C11.5516 5.54273 11.8017 6.15068 11.8017 6.81789C11.8017 8.23773 10.6692 9.3892 9.27273 9.3892C9.08214 9.3892 8.89647 9.36776 8.71792 9.32711Z" fill="#A8A8A8"/>
                                     </svg>
@@ -269,10 +269,13 @@ form.password.forget{
                                     <svg class="info" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M8 0C3.58217 0 0 3.58182 0 7.99965C0 12.4178 3.58217 16 8 16C12.4178 16 16 12.4178 16 7.99965C16 3.58182 12.4182 0 8 0ZM9.22293 12.3679C9.22293 13.0387 8.67362 13.5824 8.00349 13.5824C7.33301 13.5824 6.78406 13.0387 6.78406 12.3679V7.05435C6.78406 6.38387 7.33301 5.84015 8.00349 5.84015C8.67362 5.84015 9.22293 6.38352 9.22293 7.05435V12.3679ZM8 4.83688C7.26003 4.83688 6.66009 4.23694 6.66009 3.49732C6.66009 2.757 7.26003 2.15775 8 2.15775C8.73962 2.15775 9.33991 2.757 9.33991 3.49732C9.33991 4.23694 8.73962 4.83688 8 4.83688Z" fill="#A8A8A8"/>
                                     </svg>
+                                    <div class="icon-detail">
+                                        Password must be 8 charcter long with alphanumric.
+                                    </div>
                                         
                                 </div> 
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="confirm password" name="password_confirmation" required>
+                                    <input type="password" class="form-control" placeholder="Confirm password" name="password_confirmation" id="password_confirmation" required>
                                 </div> 
 
                                 <button type="submit" class="btn btn-primary submitBtn">
@@ -285,7 +288,7 @@ form.password.forget{
                                 </button>
                             </form>
 
-                            <!-- <div class="socialLogin">
+                            <div class="socialLogin">
                                 <h6>Or use your social accounts</h6>
                                 <div class="socialLink d-flex align-items-center justify-content-center">
                                     <a href="#;">
@@ -304,7 +307,7 @@ form.password.forget{
                                         </svg>
                                     </a>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -347,14 +350,14 @@ form.password.forget{
 
 
                     <div class="bottomText">
-                        <p class="mb-0">back to <a href="#;" id="modalOpen" data-target="#signin"> <strong>login</strong> </a> </p>
+                        <p class="mb-0">Back to <a href="#;" id="modalOpen" data-target="#signin"> <strong>login</strong> </a> </p>
                     </div>
                 </div>
                 <a href="#;" class="backbutton d-flex align-items-center" id="modalOpen" data-target="#signin">
                     <svg class="mr-3" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.274963 5.14888C0.275244 5.1486 0.275478 5.14827 0.275806 5.14799L5.17443 0.272997C5.54142 -0.0922061 6.135 -0.090847 6.50029 0.276184C6.86554 0.643168 6.86414 1.23675 6.49715 1.60199L3.20821 4.87499L23.0625 4.87499C23.5803 4.87499 24 5.29471 24 5.81249C24 6.33027 23.5803 6.74999 23.0625 6.74999L3.20826 6.74999L6.49711 10.023C6.86409 10.3882 6.8655 10.9818 6.50025 11.3488C6.13495 11.7159 5.54132 11.7171 5.17439 11.352L0.275761 6.47699C0.27548 6.47671 0.275244 6.47638 0.274916 6.4761C-0.0922565 6.10963 -0.0910835 5.51413 0.274963 5.14888Z" fill="#151515"/>
                     </svg>
-                    <span>back</span>
+                    <span>Back</span>
                 </a>
             </div> 
             </div>
@@ -383,8 +386,8 @@ form.password.forget{
                                     <path d="M59.3648 57.2097C58.5896 57.2097 57.8184 56.9093 57.237 56.3144L47.4818 46.348C46.3326 45.1736 46.352 43.29 47.5283 42.1389C48.6968 40.9878 50.5882 41.0091 51.7373 42.1854L59.5682 50.1849L75.482 36.8912C76.7494 35.835 78.6213 36.0094 79.6755 37.2671C80.7297 38.5287 80.5611 40.4065 79.2996 41.4607L61.2736 56.5179C60.7174 56.981 60.0411 57.2097 59.3648 57.2097Z" fill="#151515"/>
                                     </svg>
 
-                                <h1>password reset link sent</h1>
-                                <p>a magic link has been sent on your registered email  </p>
+                                <h1>Password reset link sent</h1>
+                                <p>A magic link has been sent on your registered email  </p>
                             </div>
                         </div>
 
@@ -466,6 +469,8 @@ form.password.forget{
                 registerBox.show();
             });
 
+            
+
             $('.login-form').submit(function(){
                 loginButton.text(loggingText);
                 loginButton.attr("disabled", "disabled");
@@ -483,7 +488,7 @@ form.password.forget{
                             loginButton.removeAttr('disabled');
                         } else {
                             if(data.result == 'client'){
-                                window.location.href = "<?php echo $this->getUrl()?>client/dashboard";
+                                window.location.href = "<?php echo $this->getUrl()?>client/dashboard/";
                             }else{
                                 location.reload();
                             }
@@ -495,6 +500,28 @@ form.password.forget{
             });
 
             $('.register-form').submit(function(){
+
+                // if($('#firstname').val() == ""){
+                //   $('.response-msg').html("<div class='notify error'><h6>Please enter the username.</h6></div>");
+                //   return false;
+                // }if($('#email').val() == ""){
+                //   $('.response-msg').html("<div class='notify error'><h6>Please enter your email.</h6></div>");
+                //   return false;
+                // }if($('#contact').val() == ""){
+                //   $('.response-msg').html("<div class='notify error'><h6>Please enter the contact number.</h6></div>");
+                //   return false;
+                // }if($('#setPassword').val() == ""){
+                //   $('.response-msg').html("<div class='notify error'><h6>Please enter the password.</h6></div>");
+                //   return false;
+                // }if($('#password_confirmation').val() == ""){
+                //   $('.response-msg').html("<div class='notify error'><h6>Please enter the confirm password.</h6></div>");
+                //   return false;
+                // }
+                if(($('#setPassword').val()) != ($('#password_confirmation').val())) {
+                  $('.response-msg').html("<div class='notify error'><h6>Password and confirm password should be same.</h6></div>");
+                return false;
+            }
+
                 registerButton.text(registeringText);
                 registerButton.attr("disabled", "disabled");
                 var formData = getFormData($(this));
@@ -577,6 +604,7 @@ form.password.forget{
                 $('#resetLink').addClass('show d-block');
              }
             
+              
             
 
 
@@ -662,9 +690,10 @@ form.password.forget{
 
 
         //hide it when clicking anywhere else except the popup and the trigger
-        $(document).on('click touch', function(event) {
+        $('.modal').on('click touch', function(event) {
             console.log('outsideclick');
-            $(this).find('.modal').removeClass('show d-block');
+            $(this).removeClass('show d-block');
+            $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
             $('.btn-widget').addClass('d-block user_logged_in');
 
@@ -678,6 +707,7 @@ form.password.forget{
         $(document).on('keydown',function(event){
             if (event.keyCode == 27){
                 $('.modal').removeClass('show d-block');
+                $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 $('.btn-widget').addClass('d-block user_logged_in');
             }
@@ -700,6 +730,7 @@ form.password.forget{
 
         $(this).addClass('active');
         $(navId).addClass('show active');
+        console.log($(navId).offset())
 
         });
 

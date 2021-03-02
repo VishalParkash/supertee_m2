@@ -70,7 +70,7 @@ class Store extends \Magento\Framework\App\Action\Action
                return $result->setData(['output' => false]);
             }
 
-			$sql = "INSERT INTO ".$SetupStoreTable."(client_id, customClient_id, store_id, storeCode, CategoriesSelect, productsSelected) VALUES ('".$getMyClientId."', '".$getMyCustomId."', '".$storeId."', '".$getMyStore."', '".$categoriesCollected."', '".$productsCollected."')";
+			$sql = "INSERT INTO ".$SetupStoreTable."(client_id, customStore_id, store_id, storeCode, CategoriesSelect, productsSelected) VALUES ('".$getMyClientId."', '".$getMyCustomId."', '".$storeId."', '".$getMyStore."', '".$categoriesCollected."', '".$productsCollected."')";
 
 	        if($connection->query($sql)){
 	            // $this->session->setData("ClientPersonalData", $data);

@@ -1,8 +1,19 @@
 <?php
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->create('Magento\Customer\Model\Session');
-$getFirstName = explode(" ", $customerSession->getCustomer()->getName());
-$firstName = $getFirstName[0];
+
+
+
+if(($customerSession->isLoggedIn())){
+    $customerId =  $customerSession->getId();
+    $getFirstName = explode(" ", $customerSession->getCustomer()->getName());
+    $firstName = $getFirstName[0];
+    $name = $customerSession->getCustomer()->getName();
+
+    $wishlist = $objectManager->get('\Magento\Wishlist\Model\Wishlist');
+    $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer()->getId(), true)->getItemCollection();
+
+}
 // if($customerSession->isLoggedIn()){
 //    die('ksks');
 // }
@@ -54,14 +65,6 @@ if(!empty($_REQUEST['referred']) && ($_REQUEST['referred'] =='1')){
 <?php 
 $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
 <?php $_menu = $block->getHtml('nav-item', 'menu', $columnsLimit) ?>
- 
-<?php 
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$wishlist = $objectManager->get('\Magento\Wishlist\Model\Wishlist');
-$customerSession = $objectManager->get('Magento\Customer\Model\Session');
-$wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer()->getId(), true)->getItemCollection();
-?>
-
 <div class="topHeader">
         <div class="outerContainer">
             <div class="container">
@@ -156,7 +159,8 @@ $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer
                                             <label class="switchToggle" for="switch">Toggle</label>
                                             <span>On</span>
                                         </div>
-                                        <a class="dropdown-item" href="#">Logout</a>
+                                        <a class="dropdown-item" href="<?php echo $block->getBaseUrl(); ?>customer/account/logout">Logout</a>
+                                        
                                     </div>
                                 </div>
                               <?php } ?>
@@ -187,15 +191,76 @@ $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer
 
 
                                 <div class="iconWrap my-2 my-lg-0 d-flex align-items-center order-xl-3">
-                                    <div class="search">
-                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M31.7162 30.3681L23.9397 22.5916C26.0257 20.1933 27.2887 17.0643 27.2887 13.6443C27.2887 6.11619 21.1654 0 13.6444 0C6.11619 0 0 6.12328 0 13.6443C0 21.1654 6.12329 27.2887 13.6444 27.2887C17.0643 27.2887 20.1934 26.0257 22.5916 23.9397L30.3681 31.7162C30.5526 31.9007 30.8009 32 31.0422 32C31.2834 32 31.5317 31.9078 31.7162 31.7162C32.0852 31.3472 32.0852 30.737 31.7162 30.3681ZM1.90865 13.6443C1.90865 7.17339 7.1734 1.91574 13.6373 1.91574C20.1082 1.91574 25.3659 7.18049 25.3659 13.6443C25.3659 20.1082 20.1082 25.38 13.6373 25.38C7.1734 25.38 1.90865 20.1153 1.90865 13.6443Z"
-                                                fill="#151515" />
-                                        </svg>
-                                    </div>
+                                     <div class="search" >
+                                    <svg class="showSearch pointer" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M31.7162 30.3681L23.9397 22.5916C26.0257 20.1933 27.2887 17.0643 27.2887 13.6443C27.2887 6.11619 21.1654 0 13.6444 0C6.11619 0 0 6.12328 0 13.6443C0 21.1654 6.12329 27.2887 13.6444 27.2887C17.0643 27.2887 20.1934 26.0257 22.5916 23.9397L30.3681 31.7162C30.5526 31.9007 30.8009 32 31.0422 32C31.2834 32 31.5317 31.9078 31.7162 31.7162C32.0852 31.3472 32.0852 30.737 31.7162 30.3681ZM1.90865 13.6443C1.90865 7.17339 7.1734 1.91574 13.6373 1.91574C20.1082 1.91574 25.3659 7.18049 25.3659 13.6443C25.3659 20.1082 20.1082 25.38 13.6373 25.38C7.1734 25.38 1.90865 20.1153 1.90865 13.6443Z"
+                                            fill="#151515" />
+                                    </svg>
 
+                                    <div class="search_box flex-column ">
+                                        <div class="input_box d-flex align-items-center">
+                                            <input type="text" placeholder="search here" />
+                                            <svg class="icon position-absolute" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M31.7162 30.3681L23.9397 22.5916C26.0257 20.1933 27.2887 17.0643 27.2887 13.6443C27.2887 6.11619 21.1654 0 13.6444 0C6.11619 0 0 6.12328 0 13.6443C0 21.1654 6.12329 27.2887 13.6444 27.2887C17.0643 27.2887 20.1934 26.0257 22.5916 23.9397L30.3681 31.7162C30.5526 31.9007 30.8009 32 31.0422 32C31.2834 32 31.5317 31.9078 31.7162 31.7162C32.0852 31.3472 32.0852 30.737 31.7162 30.3681ZM1.90865 13.6443C1.90865 7.17339 7.1734 1.91574 13.6373 1.91574C20.1082 1.91574 25.3659 7.18049 25.3659 13.6443C25.3659 20.1082 20.1082 25.38 13.6373 25.38C7.1734 25.38 1.90865 20.1153 1.90865 13.6443Z"
+                                                    fill="#151515" />
+                                            </svg>
+                                            <svg class="close" width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.467137 30.5329C0.777394 30.8455 1.18575 31.0008 1.59411 31.0008C2.00207 31.0008 2.41043 30.8435 2.72302 30.5329L15.5006 17.7553L28.2793 30.5329C28.59 30.8455 28.9979 31.0008 29.4063 31.0008C29.8123 31.0008 30.2203 30.8435 30.5329 30.5329C31.1557 29.91 31.1557 28.9002 30.5329 28.2774L17.7558 15.5001L30.5329 2.72302C31.1557 2.09978 31.1557 1.08999 30.5329 0.467137C29.91 -0.155712 28.9002 -0.155712 28.2774 0.467137L15.5001 13.2444L2.72302 0.467137C2.09978 -0.155712 1.08999 -0.155712 0.467137 0.467137C-0.155712 1.08999 -0.155712 2.09978 0.467137 2.72302L13.2448 15.4997L0.467137 28.2774C-0.155712 28.9002 -0.155712 29.91 0.467137 30.5329Z" fill="#151515"/>
+                                            </svg>
+                                                
+                                        </div>
+                                        <div class="search_result">
+                                            <ul class="list-unstyled">
+                                                <li> <a href="#;"> t-shirts </a> </li>
+                                                <li> <a href="#;"> basic t-shirts </a> </li>
+                                                <li> <a href="#;"> men t-shirts </a> </li>
+                                                <li> <a href="#;"> women t-shirts </a> </li>
+                                            </ul>
+
+                                            <div class="search_thumb row">
+                                                <div class="col-md-4">
+                                                    <div class="search_thumb_box">
+                                                        <img src="images/search_thumb.png" class="img-fluid" alt="" />
+                                                        <h6>fido dido</h6>
+                                                        <p>fido dido</p>
+                                                        <span>$23.89</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="search_thumb_box">
+                                                        <img src="images/search_thumb.png" class="img-fluid" alt="" />
+                                                        <h6>fido dido</h6>
+                                                        <p>fido dido</p>
+                                                        <span>$23.89</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="search_thumb_box">
+                                                        <img src="images/search_thumb.png" class="img-fluid" alt="" />
+                                                        <h6>fido dido</h6>
+                                                        <p>fido dido</p>
+                                                        <span>$23.89</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    
+                                    <?php 
+                                    if((!$customerSession->isLoggedIn())) { 
+                                        $redirectUrl = $block->getBaseUrl()."customer/account/login";
+                                    }else{
+                                        $redirectUrl = "javascript(0);";
+                                    }
+
+                                    ?>
+                                        <a href="<?php echo $redirectUrl;?>/">
                                     <div class="notification position-relative" id="notification">
                                         <svg width="30" height="32" viewBox="0 0 30 32" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -206,8 +271,11 @@ $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer
                                                 d="M25.3816 12.1385C27.8192 12.1385 29.7954 10.1624 29.7954 7.72474C29.7954 5.28707 27.8192 3.31094 25.3816 3.31094C22.9439 3.31094 20.9678 5.28707 20.9678 7.72474C20.9678 10.1624 22.9439 12.1385 25.3816 12.1385Z"
                                                 fill="#FF7255" />
                                         </svg>
-
-                                        <span class="notifyDot position-absolute"></span>
+                                            <span class="notifyDot position-absolute"></span>
+                                        </a>
+                                        
+                                        
+                                        
                                     </div>
 
                                     <div class="wishlist position-relative" dataSidebarRight="wishlistBar">
@@ -215,19 +283,13 @@ $wishlist_collection = $wishlist->loadByCustomerId($customerSession->getCustomer
                                         <svg width="31" height="27" viewBox="0 0 31 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M24.7877 16.7959C22.5255 19.4195 19.1212 22.2997 16.4379 24.2056C16.058 24.4744 15.5604 24.4842 15.171 24.2299C12.4136 22.4359 8.90106 19.698 6.54365 17.1717C4.52974 15.0116 1.86883 11.7422 2.00529 8.28666C2.1194 5.34443 4.32623 2.36692 8.32112 2.36692C8.39876 2.36692 8.47522 2.36814 8.55286 2.37057C11.5443 2.45693 13.7794 5.58161 13.7959 5.60593L14.4817 6.59844C14.9687 7.30268 15.9886 7.282 16.4485 6.5583L17.0955 5.53782C17.1167 5.5062 19.2306 2.29638 22.2091 2.08717C22.3914 2.07501 22.5726 2.06893 22.7502 2.06893C26.551 2.06893 28.7602 4.91751 28.9802 7.73203C29.2484 11.1802 26.7157 14.5567 24.7877 16.7959ZM30.9741 7.5654C30.6588 3.53579 27.458 0 22.7502 0C22.5279 0 22.302 0.00851411 22.0727 0.0255423C18.7942 0.254207 16.4673 2.97994 15.6992 4.01136C15.5545 4.20476 15.2839 4.21084 15.1322 4.02231C14.324 3.02373 11.896 0.398947 8.60932 0.301643C8.51286 0.29921 8.4164 0.29921 8.32112 0.29921C3.39809 0.29921 0.169008 4.05028 0.00667155 8.20395C-0.158018 12.3832 2.75933 16.0929 5.1038 18.6058C8.2223 21.9482 12.8665 25.3185 15.6721 26.9508C15.7909 27.0189 15.9239 27.0165 16.0403 26.9423C18.7836 25.1969 23.2925 21.638 26.2816 18.1715C28.5261 15.5626 31.2976 11.7385 30.9741 7.5654Z" fill="black"/>
                                             </svg>
+                                            <?php if(($customerSession->isLoggedIn())) { ?>
                                             <?php 
-                               if($wishlist_collection->count() > 0 ){
-
-                                ?>
+                               if($wishlist_collection->count() > 0 ){ ?>
                                <div class="badges position-absolute">
-
-                                <?php echo $wishlist_collection->count();
-                            
-                               
-                               ?>
-                                   
-
+                                    <?php echo $wishlist_collection->count();?>                                   
                                </div>
+                           <?php } ?>
                            <?php } ?>
                                     </div>
 

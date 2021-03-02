@@ -1,54 +1,46 @@
 <?php 
-    $urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
-    $currentUrl = $urlInterface->getCurrentUrl();
+    // $urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+    // $currentUrl = $urlInterface->getCurrentUrl();
 
-    $explodeUrl = explode("/", $currentUrl);
+    // $explodeUrl = explode("/", $currentUrl);
 
-    if(end($explodeUrl) == ""){
-        // echo "<pre>";print_r(($explodeUrl));
-        $countElements = count($explodeUrl);
-        $arrayIndex  = ($countElements - 2);
-        $getPageName = ($explodeUrl[$arrayIndex]);
-    }else{
-        $getPageName = end($explodeUrl);
-    }
-    // echo "<pre>";print_r(($explodeUrl));die;
+    // if(end($explodeUrl) == ""){
+    //     // echo "<pre>";print_r(($explodeUrl));
+    //     $countElements = count($explodeUrl);
+    //     $arrayIndex  = ($countElements - 2);
+    //     $getPageName = ($explodeUrl[$arrayIndex]);
+    // }else{
+    //     $getPageName = end($explodeUrl);
+    // }
+    // // echo "<pre>";print_r(($explodeUrl));die;
     
-    if ($getPageName == 'dashboard') {
-        $pageName = "Dashboard";
-    }elseif ($getPageName == 'sales') {
-        $pageName = "Sales Report";
-    }elseif ($getPageName == 'transactions') {
-        $pageName = "Transactions Report";
-    }elseif ($getPageName == 'promotions') {
-        $pageName = "Promotions";
-    }elseif ($getPageName == 'create') {
-        $pageName = "Create";
-    }elseif ($getPageName == 'stores') {
-        $pageName = "Stores";
-    }elseif ($getPageName == 'profile') {
-        $pageName = "Stores";
-    }elseif ($getPageName == 'add') {
-        $pageName = "Create";
-    }elseif ($getPageName == 'view') {
-        $pageName = "View";
-    }elseif ($getPageName == 'customers') {
-        $pageName = "Customers";
-    }elseif ($getPageName == 'notifications') {
-        $pageName = "Notifications";
-    }elseif ($getPageName == 'marketing') {
-        $pageName = "Marketing";
-    }else{
-        $pageName = "Client Backend";
-    }
-
-
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
-
-    if(($customerSession->isLoggedIn())){
-        $name = $customerSession->getCustomer()->getName(); 
-    }
+    // if ($getPageName == 'dashboard') {
+    //     $pageName = "Dashboard";
+    // }elseif ($getPageName == 'sales') {
+    //     $pageName = "Sales Report";
+    // }elseif ($getPageName == 'transactions') {
+    //     $pageName = "Transactions Report";
+    // }elseif ($getPageName == 'promotions') {
+    //     $pageName = "Promotions";
+    // }elseif ($getPageName == 'create') {
+    //     $pageName = "Create";
+    // }elseif ($getPageName == 'stores') {
+    //     $pageName = "Stores";
+    // }elseif ($getPageName == 'profile') {
+    //     $pageName = "Stores";
+    // }elseif ($getPageName == 'add') {
+    //     $pageName = "Create";
+    // }elseif ($getPageName == 'view') {
+    //     $pageName = "View";
+    // }elseif ($getPageName == 'customers') {
+    //     $pageName = "Customers";
+    // }elseif ($getPageName == 'notifications') {
+    //     $pageName = "Notifications";
+    // }elseif ($getPageName == 'marketing') {
+    //     $pageName = "Marketing";
+    // }else{
+    //     $pageName = "Client Backend";
+    // }
 
 ?>
 

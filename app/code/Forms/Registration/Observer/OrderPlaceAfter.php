@@ -29,13 +29,24 @@ class OrderPlaceAfter implements ObserverInterface {
     public function execute(Observer $observer) {
 
         $order 	= $observer->getEvent()->getOrder();
-        // echo "<pre>";print_r($order->getData());
+        // echo "<pre>";print_r($order->getData());die;
         $storeId = $order->getData()['store_id'];
         $firstName = $order->getData()['customer_firstname'];
         $lastName = $order->getData()['customer_lastname'];
+        $customer_email = $order->getData()['customer_email'];
         $currencyCode = $order->getData()['base_currency_code'];
         $grandTotal = $order->getData()['base_grand_total'];
 
+        // echo $customer_location = $order->getShippingAddress()->getData("region");
+        // echo $customer_city = $order->getShippingAddress()->getData("city");
+        // $billingaddress = $orderDetails->();
+        $customer_location = ($order->getBillingAddress()->getData()['region']);
+        $customer_address = ($order->getBillingAddress()->getData()['street']);
+        $customer_city = ($order->getBillingAddress()->getData()['city']);
+        $customer_postcode = ($order->getBillingAddress()->getData()['postcode']);
+        $customer_telephone = ($order->getBillingAddress()->getData()['telephone']);
+        // echo "<pre>";print_r($order->getShippingAddress()->getData());die;
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $currency = $objectManager->create('Magento\Directory\Model\CurrencyFactory')->create()->load($currencyCode);
         $currencySymbol = $currency->getCurrencySymbol();
 
@@ -43,6 +54,14 @@ class OrderPlaceAfter implements ObserverInterface {
         
         $customer = $this->customer;
         $storeActivitiesTbl = $this->connection->getTableName('storeActivities');
+
+
+        //"INSERT INTO ".$storeSetup_info."(client_id, customStore_id, store_id, storeCode, theme_id, updatesNotification, desktopNotification, pushNotification, status) VALUES ('".$getMyClientId."', '".$parent_id."', '".$storeId."', '".$storeCode."', '".$getTheme."', '".$post['updatesNotification']."', '".$post['desktopNotification']."', '".$post['pushNotification']."', '".$changeStatus."')";
+                // $this->connection->query($InsertOrderCustomer_table);
+                // $lastInsertedId = $this->connection->lastInsertId();
+
+        $InsertOrderCustomer_table = "INSERT INTO OrderCustomer_table(customer_email, customer_firstname, customer_lastname, store_id, customer_phone, customer_location, customer_address, customer_city, customer_postcode, customer_registration_date) VALUES ('".$customer_email."', '".$firstName."', '".$lastName."', '".$storeId."', '".$customer_telephone."', '".$customer_location."', '".$customer_address."', '".$customer_city."', '".$customer_postcode."', NOW())";
+            $this->connection->query($InsertOrderCustomer_table);
 
         // echo "<pre>";print_r($customer->getData());die;
 
