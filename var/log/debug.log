@@ -1,0 +1,6 @@
+[2021-03-03 09:13:48] main.INFO: Broken reference: the 'blog' element cannot be added as child to 'header.links', because the latter doesn't exist [] []
+[2021-03-03 09:13:48] main.INFO: Broken reference: the 'blogajax' element cannot be added as child to 'header.links', because the latter doesn't exist [] []
+[2021-03-03 09:13:48] main.INFO: Broken reference: the 'custom_info.order.success' element cannot be added as child to 'order.success.additional.info', because the latter doesn't exist [] []
+[2021-03-03 09:13:48] main.INFO: Broken reference: the 'yotpo_bottomline' element cannot be added as child to 'product.info.main', because the latter doesn't exist [] []
+[2021-03-03 09:13:48] main.INFO: Broken reference: the 'custom_info.order.success' tries to reorder itself towards '', but their parents are different: 'order.success.additional.info' and '' respectively. [] []
+[2021-03-03 09:13:48] main.INFO: Broken reference: the 'yotpo_bottomline' tries to reorder itself towards 'product.info.addto', but their parents are different: 'product.info.main' and '' respectively. [] []
