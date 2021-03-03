@@ -47,6 +47,8 @@ class Index extends Template
         \Magento\Framework\Registry $_coreRegistry,
         \Magento\Catalog\Api\ProductRepositoryInterface $productrepository,
         \Magento\Store\Model\StoreManagerInterface $storemanager,
+        \Magento\Catalog\Model\ProductFactory $productFactory,
+
 
         array $data = []
     ) {
@@ -65,6 +67,9 @@ class Index extends Template
 
         $this->productrepository = $productrepository;
         $this->_storeManager =  $storemanager;
+
+        $this->productFactory = $productFactory;
+
         parent::__construct($context, $data);
     }
 
@@ -82,6 +87,26 @@ class Index extends Template
 
     // }
 
+    public function getProduct($storeId, $productId) {
+        $product = $this->productFactory->create()
+                            ->setStoreId($storeId)
+                            ->load($productId);
+        return $product;
+    }
+    public function getProductsCollection() {
+        $productCollection = $this->productFactory->create()
+                        ->getCollection()
+                        ->addAttributeToSelect('*');
+        return $productCollection;
+    }
+
+    public function getProductCollectionAsPerStore($storeId) {
+        $productCollection = $this->productFactory->create()
+                        ->setStoreId($storeId)
+                        ->getCollection()
+                        ->addAttributeToSelect('*');
+        return $productCollection;
+    }
 
     public function getFlashMessage(){
         return $this->_coreRegistry->registry('storeProfileResponse');die;

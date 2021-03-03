@@ -1481,6 +1481,7 @@
   'paypal\\braintree\\controller\\adminhtml\\configuration\\validate' => 'PayPal\\Braintree\\Controller\\Adminhtml\\Configuration\\Validate',
   'paypal\\braintree\\controller\\adminhtml\\report\\index' => 'PayPal\\Braintree\\Controller\\Adminhtml\\Report\\Index',
   'paypal\\braintree\\controller\\adminhtml\\payment\\getnonce' => 'PayPal\\Braintree\\Controller\\Adminhtml\\Payment\\GetNonce',
+  'sparsh\\searchautocomplete\\controller\\ajax\\index' => 'Sparsh\\SearchAutoComplete\\Controller\\Ajax\\Index',
   'stripeintegration\\payments\\controller\\multishipping\\overviewpost' => 'StripeIntegration\\Payments\\Controller\\Multishipping\\OverviewPost',
   'stripeintegration\\payments\\controller\\authorization\\confirm' => 'StripeIntegration\\Payments\\Controller\\Authorization\\Confirm',
   'stripeintegration\\payments\\controller\\authorization\\multishipping' => 'StripeIntegration\\Payments\\Controller\\Authorization\\Multishipping',

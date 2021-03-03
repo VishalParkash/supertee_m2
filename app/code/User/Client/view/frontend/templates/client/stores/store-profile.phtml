@@ -1098,7 +1098,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="d-flex align-items-start">
-                                                            <button class="btnText ml-2" data-toggle="collapse" href="#colorBox" element-color="firstph">
+                                                            <button class="btnText ml-2" data-toggle="collapse" href="#colorBox" element-color="firstph" id="FirstColorSelection">
                                                                 <svg width="44" height="44" viewBox="0 0 44 44" fill="none"
                                                                     xmlns="http://www.w3.org/2000/svg">
                                                                     <circle cx="22.3644" cy="21.7479" r="21.4169"
@@ -1235,7 +1235,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="d-flex align-items-start">
-                                                            <button class="btnText ml-2" data-toggle="collapse" href="#colorBox2" element-color="secondph">
+                                                            <button class="btnText ml-2" data-toggle="collapse" href="#colorBox2" element-color="secondph" id="secondColorSelection">
                                                                 <svg width="44" height="44" viewBox="0 0 44 44" fill="none"
                                                                     xmlns="http://www.w3.org/2000/svg">
                                                                     <circle cx="22.3644" cy="21.7313" r="21.4169"
@@ -1503,7 +1503,8 @@
                             </div>
                         </div>
                     </div>
-
+                    <input type="hidden" name="firstTempPhrase" id="firstTempPhrase">
+                    <input type="hidden" name="secondTempPhrase" id="secondTempPhrase">
                 </div>
                 <div class="modal-footer">
                     <div>
@@ -1878,73 +1879,134 @@
                                                     </button>
                                                 </div>
                                                 <div class="dropdownLevel">
-                                                    <div class="dropdownLevelItem">
-                                                        <label class="customCheckBox">
-                                                            <input type="checkbox">
-                                                            <span class="customCheckBoxCheck"></span>
-                                                            <span>Bags</span>
-                                                        </label>
-                                                        <button class="dropdownBtn">
-                                                        </button>
-                                                        <div class="dropdownLevel d-none">
-                                                            <div class="dropdownLevelItem">
-                                                                <label class="customCheckBox">
-                                                                    <input type="checkbox">
-                                                                    <span class="customCheckBoxCheck"></span>
-                                                                    <span>Bags</span>
-                                                                </label>
-                                                                <button class="dropdownBtn">
-                                                                </button>
-                                                                <div class="dropdownLevel d-none">
-                                                                    <div class="dropdownLevelItem pl-1">
-                                                                        <label class="customCheckBox">
-                                                                            <span>Bags</span>
-                                                                        </label>
-                                                                    </div>
+                                                                <?php
+
+                                        
+
+
+                                            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                            $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+                                            $categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category');
+                                            $categories = $categoryHelper->getStoreCategories();
+
+                                            foreach ($categories as $category){ 
+                                            ?>
+                                                                <div class="dropdownLevelItem">
+                                                                    <label class="customCheckBox">
+                                                                        <input type="checkbox" name="selectCategory" id="cat_id_<?php echo $category->getId();?>" class="category_select" value="<?php echo $category->getId();?>"/>
+                                                                        <span class="customCheckBoxCheck"></span>
+                                                                        <span><?php echo $category->getName();?></span>
+                                                                    </label>
+                                                                    <button class="dropdownBtn" type="button">
+                                                                    </button>
+                                                                    <?php
+                                                                $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($category->getId());
+
+                                                    $subcats = $subcategory->getChildrenCategories();
+                                                    // echo "<pre>";print_r($subcategory->getData());die;
+                                                    if(!empty($subcats)){
+                                                        foreach ($subcats as $subcat) {
+                                                            if ($subcat->getIsActive()) { ?>
+                                                                        <div class="dropdownLevel d-none">
+                                                                            <div class="dropdownLevelItem">
+                                                                                <label class="customCheckBox">
+                                                                                    <input type="checkbox" name="selectCategory" class="subcategory_select cat_id_<?php echo $category->getId();?>"  value="<?php echo $subcat->getId();?>"/>
+                                                                                    <span
+                                                                                        class="customCheckBoxCheck"></span>
+                                                                                    <span><?php echo $subcat->getName(); ?></span>
+                                                                                </label>
+                                                                                <button class="dropdownBtn" type="button">
+                                                                                </button>
+                                                                                <?php 
+                                                                                $categoryId = $subcat->getId(); // YOUR CATEGORY ID
+                                                                                $category = $categoryFactory->create()->load($categoryId);
+                                                        
+                                                                                $categoryProducts = $category->getProductCollection()
+                                                                                    ->addAttributeToSelect('*');
+                                                                                if(!empty($categoryProducts)){
+
+                                                                                foreach($categoryProducts as $product){
+                                                                                ?>
+                                                                                <div class="dropdownLevel d-none">
+                                                                                    <div class="dropdownLevelItem">
+                                                                                        <label class="customCheckBox">
+                                                                                            <input type="checkbox" name="selectCategory" class="product_select" id="changeDefaultImg_<?php echo ($product->getId()); ?>" value="<?php echo ($product->getId()); ?>" data-image = "<?php echo $block->getProductImgById($product->getId())?>">
+                                                                                            <span
+                                                                                                class="customCheckBoxCheck"></span>
+                                                                                            <span><?php echo($product->getData()['name']); ?></span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            <?php } ?>
+                                                                            <?php } ?>
+                                                                            </div>
+                                                                        </div>
+
+                                                                       
+
+
+
+                                                                    <?php } ?>
+                                                                    <?php } ?>
+                                                                    <?php } ?>
+
+                                                                     <?php 
+                                                                                $categoryId = $category->getId(); // YOUR CATEGORY ID
+                                                                                $productsCategory = $categoryFactory->create()->load($categoryId);
+                                                        
+                                                                                $categoryProducts = $productsCategory->getProductCollection()
+                                                                                    ->addAttributeToSelect('*');
+                                                                                if(!empty($categoryProducts)){
+
+                                                                                foreach($categoryProducts as $product){
+                                                                                ?>
+                                                                                <div class="dropdownLevel d-none">
+                                                                                    <div class="dropdownLevelItem">
+                                                                                        <label class="customCheckBox">
+                                                                                            <input type="radio" name="selectProduct" class="product_select" id="changeDefaultImg_<?php echo ($product->getId()); ?>" value="<?php echo ($product->getId()); ?>" data-image = "<?php echo $block->getProductImgById($product->getId())?>">
+                                                                                            <span
+                                                                                                class="customCheckBoxCheck"></span>
+                                                                                            <span><?php echo($product->getData()['name']); ?></span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            <?php } ?>
+                                                                            <?php } ?>
+                                                                
                                                                 </div>
+                                                            <?php } ?>
+
+
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="storeProfileModalTemplates">
-                                        <div class="storeProfileModalTemplatesItem storeProfileModalTemplatesItemFull">
+                                        <?php 
+                                            $inc =1;
+                                            foreach($block->getProductsCollection() as $products){
+                                                if($inc == 1){
+                                                    $extraClass = 'storeProfileModalTemplatesItemFull';
+                                                }else{
+                                                    $extraClass = '';
+                                                }
+                                            ?>
+                                            <?php //echo "<pre>";print_r($products->getData());?>
+                                            <?php $getData = $products->getData();
+                                                //echo "<pre>";print_r($getData);
+
+                                            ?>
+                                                <div class="storeProfileModalTemplatesItem <?php echo $extraClass?>">
                                             <label>
                                                 <div class="storeProfileModalTemplatesItemImg">
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsL1.png">
+                                                    <img src="<?php echo $block->getProductImgById($getData['entity_id'])?>">
                                                 </div>
                                             </label>
                                         </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <div class="storeProfileModalTemplatesItemImg"
-                                                    style="background-image: url(<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsL2.png);">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsL1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <div class="storeProfileModalTemplatesItemImg"
-                                                    style="background-image: url(<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsL2.png);">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <div class="storeProfileModalTemplatesItemImg"
-                                                    style="background-image: url(<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsL2.png);">
-                                                </div>
-                                            </label>
-                                        </div>
+                                            
+                                        <?php $inc++; } ?>
+                                        
+                                        
                                     </div>
                                 </div>
                                 <div class="storeProfileModalRight storeProfileModalProductsRight">
@@ -3056,7 +3118,38 @@
             $('.storeProfileCustomizeDesignRight input#firstph').keypress(function(e){
 
                 if(e.keyCode==13){
-                     console.log('Entered press');
+                    console.log("editTextCanvas "+editTextCanvas.getObjects());
+                    console.log('Entered press');
+                    var getfirstTempPhrase = $('#firstTempPhrase').val();
+                    var myfirstPhrase = $('#firstph').val();
+                    if(getfirstTempPhrase != ''){
+                        object = editTextCanvas.getActiveObject();
+                        if(!object){
+                            alert("Please select the text to change");
+                            return false;
+                        }
+                        // object.setText(myfirstPhrase);
+                        object.set('text',myfirstPhrase);
+
+                    }else{
+                        $('#firstTempPhrase').val(myfirstPhrase);
+                       const textOne = editTextCanvas.add(new fabric.IText(myfirstPhrase, { 
+                          left: 100, 
+                          top: 100 
+                        }));
+                    }
+                    
+                    // object = editTextCanvas.getActiveObject();
+                    // console.log(object);
+                    // if(!object){
+                    //     if(object.text == getfirstTempPhrase){
+                    //         object.selectAll();
+                    //         object.removeChars();
+                    //     }
+                    // }
+                     
+
+
                     // console.log($("#svgDoc")[0].width);
                     var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                     svg.setAttributeNS(null,"id","svgDoc");
@@ -3090,25 +3183,16 @@
                     var stringTitle = document.getElementById('firstph').value;
                     var theText = "Hello World! This is SVG Text created with JavaScript.";
                     var theMSG = document.createTextNode(stringTitle);
-                    txtElem.appendChild(theMSG);
-                    
+                    txtElem.appendChild(theMSG);                    
                     svgDoc.appendChild(txtElem);
-
-                    var stringTitle = document.getElementById('firstph').value;
-                        console.log("stringTitle_"+stringTitle);
+                    console.log("stringTitle_"+stringTitle);
                        //  let context = editTextCanvas.getContext('2d');
                        //  // context.fillStyle = color;
                        //  context.font = "bold 16px monospace";
                        //  context.textAlign = 'center';
                        // // draw image in canvas starting left-0 , top - 0  
                        // context.fillText(stringTitle, 150, 200);
-
-                       editTextCanvas.add(new fabric.Text(stringTitle, { 
-                          // fontFamily: 'Delicious_500', 
-                          left: 100, 
-                          top: 100 
-                        }));
-                    // svgDoc.removeChild(prevText);
+                       
                 }
             });
 
@@ -3116,6 +3200,37 @@
 
                 if(e.keyCode==13){
                     console.log('Entered press');
+                    // var getsecondTempPhrase = $('#secondTempPhrase').val();
+                    // object = editTextCanvas.getActiveObject();
+                    // if(!object){
+                    //     if(object.text == getsecondTempPhrase){
+                    //         object.selectAll();
+                    //         object.removeChars();
+                    //     }
+                    // }
+
+
+
+                    var getsecondTempPhrase = $('#secondTempPhrase').val();
+                    var mysecondPhrase = $('#secondph').val();
+                    if(getsecondTempPhrase != ''){
+                        object = editTextCanvas.getActiveObject();
+                        if(!object){
+                            alert("Please select the text to change");
+                            return false;
+                        }
+                        // object.setText(myfirstPhrase);
+                        object.set('text',mysecondPhrase);
+
+                    }else{
+                        $('#secondTempPhrase').val(mysecondPhrase);
+                       const textOne = editTextCanvas.add(new fabric.IText(mysecondPhrase, { 
+                          left: 100, 
+                          top: 100 
+                        }));
+                    }
+
+
                     var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                     svg.setAttributeNS(null,"id","svgDoc");
                     svg.setAttributeNS(null,"height","10");
@@ -3169,12 +3284,11 @@
                        //  oText.bringToFront();
                        //  editTextCanvas.setActiveObject(oText);
 
-
-                        editTextCanvas.add(new fabric.Text(stringTitle, { 
-                          // fontFamily: 'Delicious_500', 
-                          left: 100, 
-                          top: 100 
-                        }));
+                       // console.log('textTwo'+textOne);
+                        // var textTwo = editTextCanvas.add(new fabric.IText(stringTitle, { 
+                        //   left: 100, 
+                        //   top: 100 
+                        // }));
 
                     // svgDoc.removeChild(prevText);
                 }
@@ -3182,7 +3296,19 @@
 
             // live("click", function () {
                 // $('.storeProfileCustomizeDesignRight .storeProfileModalColors label').on('click', function(){
-                $('.storeProfileCustomizeDesignRight .storeProfileModalColors label').live('click', function(){
+                $('.storeProfileCustomizeDesignRight .storeProfileModalColors label').one('click', function(){
+
+                    console.log("editTextCanvas "+editTextCanvas.getObjects());
+                    object = editTextCanvas.getActiveObject();
+                    // console.log("getActiveObject"+object)
+                    // editTextCanvas.item(1).visible = false;
+                    // canvas.renderAll();
+
+                    if(!object){
+                        alert('Please select the item to color');
+                        return false;
+                    }
+
 		            var color = rgb2hex($( this ).find('span').css( "background-color" ));
 		            var elementId = $(this).parents('.form-group').find('.btnText').attr('element-color');
 		            console.log(color);
@@ -3197,9 +3323,61 @@
                         // $('.storeProfileCustomizeDesignLeft .img-wrap .template_pattern path[fill="black"]').css('fill',color);
                         var getDynamicSVGId = $('#dynamicSVGId').val();
                         console.log('getDynamicSVGId_'+getDynamicSVGId);
-                        console.log('#svgId_'+getDynamicSVGId+ 'path[fill="black"]');
                         $('#svgId_'+getDynamicSVGId+ ' path[fill="black"]').css('fill', color);
                          var serializedSVG = new XMLSerializer().serializeToString(document.getElementById('svgId_'+getDynamicSVGId));
+
+                    //     fabric.loadSVGFromString(serializedSVG,function(objects, options) {
+                    //     options.id = this.id;
+                    //     var obj = fabric.util.groupSVGElements(objects, options);
+                    //     editTextCanvas.add(obj);
+                    //     obj.scaleToHeight(127) // Scales it down to some small size
+                    //     .scaleToWidth(90)
+                    //     .center() // Centers it (no s**t, Sherlock)
+                    //     .setCoords();
+                    //     editTextCanvas.setActiveObject(obj).renderAll();
+                    // });
+                    var loadedObjects;
+                    var base64Data = window.btoa(serializedSVG);
+                    var blob = "data:image/svg+xml;base64," + base64Data;
+                    console.log("data:image/svg+xml;base64," + base64Data);
+                    object = editTextCanvas.getActiveObject();
+                    editTextCanvas.remove(object);
+                    // fabric.loadSVGFromURL(blob + "color="+color);
+
+                    fabric.loadSVGFromURL(blob,function(objects,options) {
+                        var loadedObjects = fabric.util.groupSVGElements(objects, options);
+
+                        // editTextCanvas.add(obj);
+                        // obj.scaleToHeight(127) // Scales it down to some small size
+                        // .scaleToWidth(90)
+                        // .center() // Centers it (no s**t, Sherlock)
+                        // .setCoords();
+                        // editTextCanvas.renderAll();
+                        loadedObjects.set({
+                                // width: 200,
+                                // height: 200,
+                                fill: color
+                        });
+                        
+                        editTextCanvas.add(loadedObjects);
+                        loadedObjects.scaleToHeight(127) // Scales it down to some small size
+                        .scaleToWidth(90)
+                        .center() // Centers it (no s**t, Sherlock)
+                        .setCoords();
+                        editTextCanvas.renderAll();
+                });
+
+
+                        //  var obj = this.editTextCanvas.blob;
+                        // // var color = color;
+
+                        // if (obj && obj._objects) {
+                        //   for (var i = 0; i < obj._objects.length; i++) {
+                        //     obj._objects[i].set({
+                        //       fill: color
+                        //     });
+                        //   }
+                        // }
 
                     //      fabric.loadSVGFromString(serializedSVG,function(objects, options) {
                     //     options.id = this.id;
@@ -3212,7 +3390,7 @@
                     //     editTextCanvas.setActiveObject(obj).renderAll();
                     // });
 
-                         
+
                     // var base64Data = window.btoa(serializedSVG);
                     // var blob = "data:image/svg+xml;base64," + base64Data;
                     // console.log("data:image/svg+xml;base64," + base64Data);
@@ -3228,18 +3406,48 @@
                     // };
                     // image.src = blob;   
 		            }else{
-		                $('.storeProfileCustomizeDesignLeft .img-wrap svg.'+elementId).css('fill',color);
-                        var stringTitle = document.getElementById('firstph').value;
-                        console.log("stringTitle_"+stringTitle);
-                        let context = editTextCanvas.getContext('2d');
-                        context.fillStyle = color;
-                        context.font = "bold 2em monospace";
-                        context.textAlign = 'center';
-                       // draw image in canvas starting left-0 , top - 0  
-                       context.fillText(stringTitle, 170, 200);
-		            }
 
-		            $(this).parents('.form-group').find('.btnText svg circle').css('fill',color);
+		                // $('.storeProfileCustomizeDesignLeft .img-wrap svg.'+elementId).css('fill',color);
+                        var firstph = document.getElementById('firstph').value;
+                        var secondph = document.getElementById('secondph').value;
+
+                        // object = editTextCanvas.getActiveObject();
+                        // editTextCanvas.remove(object);
+                        // console.log("stringTitle_"+stringTitle);
+                       //  let context = editTextCanvas.getContext('2d');
+                       //  context.fillStyle = color;
+                       //  context.font = "bold 2em monospace";
+                       //  context.textAlign = 'center';
+                       // // draw image in canvas starting left-0 , top - 0  
+                       // context.fillText(stringTitle, 170, 200);
+                       if(elementId == 'firstph'){
+                            // object.setText(fill:color);
+                            editTextCanvas.getActiveObject().set("fill", color);
+                        // if(object.text == firstph){
+
+                        //     // object.selectAll();
+                        //     // object.removeChars();
+                        // }
+
+
+                        console.log('here is go');
+                        // obj.setText(e.target.value);
+                            // editTextCanvas.add(new fabric.IText(firstph, {
+                            //   fill:  color,
+                            //   left: 100, 
+                            //   top: 100,
+                            //   // hasControls: false
+                            // }));
+                       }else if(elementId == 'secondph'){
+                        console.log('here is no');
+                        editTextCanvas.getActiveObject().set("fill", color);
+                        // editTextCanvas.add(new fabric.IText(secondph, {
+                        //   fill:  color,
+                        //   left: 100, 
+                        //   top: 100 
+                        // }));
+                       }   
+		            }
 		        });
 
 		         function rgb2hex(orig){
@@ -3356,7 +3564,9 @@
                         .scaleToWidth(90)
                         .center() // Centers it (no s**t, Sherlock)
                         .setCoords();
-                        editTextCanvas.setActiveObject(obj).renderAll();
+                        editTextCanvas.renderAll();
+                        // editTextCanvas.deactivateAll(obj).renderAll();
+                        // canvas.deactivateAll();
                     });
 
 

@@ -323,6 +323,7 @@ return [
         'OlegKoval_RegenerateUrlRewrites' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
+        'Sparsh_SearchAutoComplete' => 1,
         'StripeIntegration_Payments' => 1,
         'Temando_ShippingRemover' => 1,
         'User_Client' => 1,
