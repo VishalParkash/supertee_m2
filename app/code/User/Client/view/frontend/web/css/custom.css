@@ -5776,7 +5776,15 @@ footer.store-footer .bottom-footer .rightWrap a:not(:last-child) {
   top: 8px;
   right: 8px;
 }
+.storeProfileModalTemplates .storeProfileModalTemplatesItem label .storeProfileModalTemplatesItemImg svg:first-child {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
 .storeProfileModalTemplates .storeProfileModalTemplatesItem label input:checked ~ .storeProfileModalTemplatesItemImg .checkIcon path {
+  fill: #7BC46F;
+}
+.storeProfileModalTemplates .storeProfileModalTemplatesItem label input:checked ~ .storeProfileModalTemplatesItemImg svg:first-child path {
   fill: #7BC46F;
 }
 

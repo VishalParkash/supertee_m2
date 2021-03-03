@@ -896,6 +896,13 @@
                     top: 8px;
                     right: 8px;
                 }
+                svg{
+                    &:first-child{
+                        position: absolute;
+                        top: 8px;
+                        right: 8px;
+                    }
+                }
             }
             input {
                 &:checked ~ .storeProfileModalTemplatesItemImg {
@@ -903,6 +910,14 @@
                         path {
                             fill: $green;
                         }
+                    }
+                    svg{
+                        &:first-child{
+                        path {
+                            fill: $green;
+                        }
+                        
+                    }
                     }
                 }
             }
