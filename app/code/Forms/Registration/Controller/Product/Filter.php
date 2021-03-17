@@ -76,18 +76,30 @@ class Filter extends \Magento\Framework\App\Action\Action
                                 array('from' => $pricefrom, 'to' => $priceto),
                             ) );
     	}elseif((!empty($this->getRequest()->getParam ( 'categories' )))){
-    		$categoryId = $this->getRequest()->getParam ( 'categories' );
-    		$category = $categoryFactory->create()->load($categoryId);
+    		$categories = $this->getRequest()->getParam ( 'categories' );
+            // echo "<pre>";print_r($categories);die;
+            $categoriesStr = implode(",", $categories);
+            $collection = $this->productCollectionFactory->create();
+            $collection->addAttributeToSelect('*');
+            $collection->addCategoriesFilter(['in' => $categoriesStr]);
+
+    		// $category = $categoryFactory->create()->load($categoryId);
  
-		$productCollection = $category->getProductCollection()
-    ->addAttributeToSelect('*');
+		// $productCollection = $category->getProductCollection()
+    // ->addAttributeToSelect('*');
     	}
     	// echo $productCollection->getSelect();die;
-    	$productIds = array();
-    	foreach($productCollection as $products){
-	         	$data[] = $products->getId();
-	         	
-        	}
+    	// $productIds = array();
+        if(!empty($collection)){
+            $data = array();
+            foreach($collection as $products){
+                $data[] = $products->getId();
+                
+            }    
+        }else{
+            $data = array();
+        }
+    	
 
         	$block = $resultPage->getLayout()
                 ->createBlock('Forms\Registration\Block\Index\View')

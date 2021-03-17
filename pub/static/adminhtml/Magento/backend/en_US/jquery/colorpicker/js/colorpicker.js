@@ -1,0 +1,1 @@
+/var/www/html/supertee/lib/web/jquery/colorpicker/js/colorpicker.js

@@ -8,15 +8,19 @@ class View extends Template
 {
     protected $_productloader;  
     protected $_productCollectionFactory;
+    protected $_productRepository;
 
   public function __construct(
       Template\Context $context, 
-      \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory, 
-      ProductFactory $ProductFactory, 
+      \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+      \Magento\Catalog\Model\ProductRepository $productRepository, 
+      ProductFactory $ProductFactory,
+
       array $data = [])
     {
       $this->_productloader = $ProductFactory;
-             $this->_productCollectionFactory = $productCollectionFactory;    
+      $this->_productCollectionFactory = $productCollectionFactory;
+      $this->_productRepository = $productRepository;
 
         parent::__construct($context, $data);
     }
@@ -49,4 +53,34 @@ class View extends Template
     //   }
     // }
   }
+
+  public function getPriceById($id)
+{
+    //$id = '21'; //Product ID
+    $product = $this->_productloader->create();
+    $productPriceById = $product->load($id)->getPrice();
+    return $productPriceById;
+}
+
+public function getProductImgById($productId){
+        $store = $this->_storeManager->getStore();
+        // $productId = $productId;
+        $product = $this->_productRepository->getById($productId);
+ 
+        $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' .$product->getImage();
+         $productUrl = $product->getProductUrl();
+        return $productImageUrl;
+    }
+
+    public function getProductUrl($productId){
+        $store = $this->_storeManager->getStore();
+        // $productId = $productId;
+        return $product = $this->_productRepository->getById($productId)->getProductUrl();
+ 
+        $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' .$product->getImage();
+         $productUrl = $product->getProductUrl();
+        return $productImageUrl;
+    }
+
+
 }

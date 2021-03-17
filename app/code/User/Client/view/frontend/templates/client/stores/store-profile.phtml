@@ -727,7 +727,7 @@
                                                             <div class="pt-5">
                                                                 <p>You can customise products by selecting designs for each product</p>
                                                                 <button class="btn btn-outline-dark" data-toggle="modal"
-                                                                    data-target="#storeProfilePreviewModal" type="button">
+                                                                    data-target="#storeProfilePreviewModal" type="button"  id="customiseProductsStep">
                                                                     <span>Customise products</span>
                                                                 </button>
                                                             </div>
@@ -1511,7 +1511,7 @@
                         <p><b id="templatesCount">0</b> templates selected</p>
                     </div>
                     <div>
-                        <button class="btn btn-dark" data-toggle="modal" data-target="#selectTemplatesModal">
+                        <button class="btn btn-dark" data-toggle="modal" data-target="#selectTemplatesModal" id="setTemplateBtn">
                             <span>Next</span>
                             <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -1537,16 +1537,11 @@
                                 <h5 class="modal-title">Choose Clipart</h5>
                                 <div class="storeProfileModalFilters">
                                     <a href="#" class="storeProfileModalFiltersItem">All</a>
-                                    <a href="#" class="storeProfileModalFiltersItem active">Christmas</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">Thanksgiving</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">New Year</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">Black Friday</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">Happy Birthday</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">Quotes</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">Sports</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">Summer</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">Love</a>
-                                    <a href="#" class="storeProfileModalFiltersItem">Funny</a>
+                                    <?php foreach($block->getClipArtCategories() as $getClipArtCategories){?>
+                                        <a href="#" class="storeProfileModalFiltersItem active" class="getClipArtCategories" id="getClipArtCategoriesId_<?php echo $getClipArtCategories['id']?>"><?php echo $getClipArtCategories['category']?></a>
+                                    <?php } ?>
+                                    
+                                    
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -1583,7 +1578,7 @@
                         <div class="storeProfileModalTemplates">
                             <div class="storeProfileModalTemplatesItem">
                                 <label>
-                                    <input type="checkbox" class="d-none getclipArt">
+                                    <input type="checkbox" class="d-none getclipArt" name="getclipArt[]" id="getclipArt_1">
                                     <div class="storeProfileModalTemplatesItemImg">
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1591,13 +1586,13 @@
                                                 d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
                                                 fill="#A8A8A8"></path>
                                         </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
+                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png" id="clipArtImg_getclipArt_1">
                                     </div>
                                 </label>
                             </div>
                             <div class="storeProfileModalTemplatesItem">
                                 <label>
-                                    <input type="checkbox" class="d-none getclipArt">
+                                    <input type="checkbox" class="d-none getclipArt" name="getclipArt[]" id="getclipArt_2">
                                     <div class="storeProfileModalTemplatesItemImg">
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1605,13 +1600,13 @@
                                                 d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
                                                 fill="#A8A8A8"></path>
                                         </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
+                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png" id="clipArtImg_getclipArt_2">
                                     </div>
                                 </label>
                             </div>
                             <div class="storeProfileModalTemplatesItem">
                                 <label>
-                                    <input type="checkbox" class="d-none getclipArt">
+                                    <input type="checkbox" class="d-none getclipArt" name="getclipArt[]" id="getclipArt_3">
                                     <div class="storeProfileModalTemplatesItemImg">
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1619,13 +1614,13 @@
                                                 d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
                                                 fill="#A8A8A8"></path>
                                         </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
+                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png" id="clipArtImg_getclipArt_3">
                                     </div>
                                 </label>
                             </div>
                             <div class="storeProfileModalTemplatesItem">
                                 <label>
-                                    <input type="checkbox" class="d-none getclipArt">
+                                    <input type="checkbox" class="d-none getclipArt" name="getclipArt[]" id="getclipArt_4">
                                     <div class="storeProfileModalTemplatesItemImg">
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1633,13 +1628,13 @@
                                                 d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
                                                 fill="#A8A8A8"></path>
                                         </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
+                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png" id="clipArtImg_getclipArt_4">
                                     </div>
                                 </label>
                             </div>
                             <div class="storeProfileModalTemplatesItem">
                                 <label>
-                                    <input type="checkbox" class="d-none getclipArt">
+                                    <input type="checkbox" class="d-none getclipArt" name="getclipArt[]" id="getclipArt_5">
                                     <div class="storeProfileModalTemplatesItemImg">
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1647,164 +1642,11 @@
                                                 d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
                                                 fill="#A8A8A8"></path>
                                         </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
+                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png" id="clipArtImg_getclipArt_5">
                                     </div>
                                 </label>
                             </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="storeProfileModalTemplatesItem">
-                                <label>
-                                    <input type="checkbox" class="d-none getclipArt">
-                                    <div class="storeProfileModalTemplatesItemImg">
-                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                fill="#A8A8A8"></path>
-                                        </svg>
-                                        <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/chooseClipart1.png">
-                                    </div>
-                                </label>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -1833,11 +1675,11 @@
                             <a class="nav-link">Preview</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#products" role="tab"
+                            <a class="nav-link active" data-toggle="tab" id="productsTabSelected" href="#products" role="tab"
                                 aria-selected="false">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#artwork" role="tab"
+                            <a class="nav-link" data-toggle="tab" id="artworkSelected" href="#artwork" role="tab"
                                 aria-selected="false">Artwork</a>
                         </li>
                         <li class="nav-item">
@@ -1987,8 +1829,10 @@
                                             foreach($block->getProductsCollection() as $products){
                                                 if($inc == 1){
                                                     $extraClass = 'storeProfileModalTemplatesItemFull';
+                                                    $extraId = 'setMainProduct';
                                                 }else{
                                                     $extraClass = '';
+                                                    $extraId = '';
                                                 }
                                             ?>
                                             <?php //echo "<pre>";print_r($products->getData());?>
@@ -1996,10 +1840,10 @@
                                                 //echo "<pre>";print_r($getData);
 
                                             ?>
-                                                <div class="storeProfileModalTemplatesItem <?php echo $extraClass?>">
+                                                <div class="storeProfileModalTemplatesItem <?php echo $extraClass?>" id="<?php echo $extraId;?>">
                                             <label>
                                                 <div class="storeProfileModalTemplatesItemImg">
-                                                    <img src="<?php echo $block->getProductImgById($getData['entity_id'])?>">
+                                                    <img src="<?php echo $block->getProductImgById($getData['entity_id'])?>" id="getProductImg_<?php echo $getData['entity_id']; ?>" class="getProductImg">
                                                 </div>
                                             </label>
                                         </div>
@@ -2013,7 +1857,7 @@
                                     <div class="storeProfileModalArtworkRightTop">
                                         <div>
                                             <h5>Art applied to this product</h5>
-                                            <p>343 Artworks Applied</p>
+                                            <p id="totalArtWorks">343 Artworks Applied</p>
                                         </div>
                                         <div class="storeProfileModalSearch m-0">
                                             <input type="text" placeholder="Search ">
@@ -2026,8 +1870,8 @@
                                         </div>
                                         <div>
                                             <div class="storeProfileModalFilters">
-                                                <a href="#" class="storeProfileModalFiltersItem">Uploads</a>
-                                                <a href="#" class="storeProfileModalFiltersItem active">Templates</a>
+                                                <a href="#" class="storeProfileModalFiltersItem showElement" id="fetchUploads" element-id="showUploads" >Uploads</a>
+                                                <a href="#" class="storeProfileModalFiltersItem showElement active" id="fetchTemplates" element-id="showTemplates">Templates</a>
                                                 <div class="dropdown">
                                                     <button class="dropdown-toggle storeProfileModalFiltersItem"
                                                         data-toggle="dropdown" aria-haspopup="true"
@@ -2035,336 +1879,35 @@
                                                         Cliparts
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Cliparts</a>
+                                                        <a class="dropdown-item showElement" href="#" id="fetchClipArts" element-id="showClipArts">Cliparts</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="storeProfileModalTemplates">
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
+                                    <div class="storeProfileModalTemplates" id="showUploads" style="display: none">
+                                        
+                                    </div>
 
+                                    <div class="storeProfileModalTemplates" id="showTemplates" style="display: none">
+                                        
+                                    </div>
+
+                                    <div class="storeProfileModalTemplates" id="showClipArts" style="display: none">
+                                        <!-- <div class="storeProfileModalTemplatesItem">
+                                            <label>
+                                                <input type="checkbox" class="d-none">
+                                                <div class="storeProfileModalTemplatesItemImg">
+                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
+                                                            fill="#A8A8A8"></path>
+                                                    </svg>
+                                                    <img src="<?php //echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalProductsR1.png">
+                                                </div>
+                                            </label>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -2382,54 +1925,51 @@
                                         </svg>
                                     </div>
                                     <div class="storeProfileModalFilters">
-                                        <a href="#" class="storeProfileModalFiltersItem">Uploads</a>
-                                        <a href="#" class="storeProfileModalFiltersItem active">Templates</a>
-                                        <div class="dropdown">
+                                        <a href="#" class="storeProfileModalFiltersItem showElement" element-id="displayUploads" id="displaySelectedUploads">Uploads</a>
+                                        <a href="#" class="storeProfileModalFiltersItem showElement active" element-id="displayTemplates" id="displaySelectedTemplates">Templates</a>
+
+                                        <a href="#" class="storeProfileModalFiltersItem showElement" element-id="displayClipArts" id="displaySelectedClipArts">Cliparts</a>
+                                        <!-- <div class="dropdown">
                                             <button class="dropdown-toggle storeProfileModalFiltersItem"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Cliparts
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Cliparts</a>
+                                                <a class="dropdown-item" href="#" id="">Cliparts</a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
-                                    <div class="storeProfileModalTemplates">
-                                        <div class="storeProfileModalTemplatesItem storeProfileModalTemplatesItemFull">
+                                    <div class="storeProfileModalTemplates displayUploads" id="displayUploads" style="display: none">
+                                        <!-- <div class="storeProfileModalTemplatesItem storeProfileModalTemplatesItemFull">
                                             <label>
                                                 <div class="storeProfileModalTemplatesItemImg">
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkL1.png">
+                                                    <img src="<?php //echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkL1.png">
                                                 </div>
                                             </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
+                                        </div> -->
+                                        
+                                    </div>
+
+                                    <div class="storeProfileModalTemplates displayTemplates" id="displayTemplates" style="display: none">
+                                        <!-- <div class="storeProfileModalTemplatesItem storeProfileModalTemplatesItemFull">
                                             <label>
                                                 <div class="storeProfileModalTemplatesItemImg">
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkL2.png">
+                                                    <img src="<?php //echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkL1.png">
                                                 </div>
                                             </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
+                                        </div> -->
+                                        
+                                    </div>
+
+                                    <div class="storeProfileModalTemplates displayClipArts" id="displayClipArts" style="display: none">
+                                        <!-- <div class="storeProfileModalTemplatesItem storeProfileModalTemplatesItemFull">
                                             <label>
                                                 <div class="storeProfileModalTemplatesItemImg">
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkL3.png">
+                                                    <img src="<?php //echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkL1.png">
                                                 </div>
                                             </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkL4.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkL5.png">
-                                                </div>
-                                            </label>
-                                        </div>
+                                        </div> -->
+                                        
                                     </div>
                                 </div>
                                 <div class="storeProfileModalRight storeProfileModalArtworkRight">
@@ -2506,9 +2046,23 @@
                                         </label>
                                     </div>
                                     <div class="storeProfileModalTemplates">
-                                        <div class="storeProfileModalTemplatesItem">
+                                        <?php 
+                                            $inc =1;
+                                            foreach($block->getProductsCollection() as $products){
+                                                if($inc == 1){
+                                                    $extraClass = 'storeProfileModalTemplatesItemFull';
+                                                }else{
+                                                    $extraClass = '';
+                                                }
+                                            ?>
+                                            <?php //echo "<pre>";print_r($products->getData());?>
+                                            <?php $getData = $products->getData();
+                                                //echo "<pre>";print_r($getData);
+
+                                            ?>
+                                                <div class="storeProfileModalTemplatesItem <?php echo $extraClass?>">
                                             <label>
-                                                <input type="checkbox" class="d-none">
+                                                <input type="checkbox" class="d-none" id="product_<?php echo $getData['entity_id']?>">
                                                 <div class="storeProfileModalTemplatesItemImg">
                                                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -2516,94 +2070,23 @@
                                                             d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
                                                             fill="#A8A8A8"></path>
                                                     </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkR1.png">
+                                                    <img src="<?php echo $block->getProductImgById($getData['entity_id'])?>">
                                                 </div>
+                                                
                                             </label>
                                         </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="storeProfileModalTemplatesItem">
-                                            <label>
-                                                <input type="checkbox" class="d-none">
-                                                <div class="storeProfileModalTemplatesItemImg">
-                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z"
-                                                            fill="#A8A8A8"></path>
-                                                    </svg>
-                                                    <img src="<?php echo $block->getViewFileUrl('User_Client::images/')?>/storeProfileModalArtworkR1.png">
-                                                </div>
-                                            </label>
-                                        </div>
+                                            
+                                        <?php $inc++; } ?>
+
+
+
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                         <div class="storeProfileModalTemplatesItem">
                                             <label>
                                                 <input type="checkbox" class="d-none">
@@ -2723,7 +2206,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="storeProfileModalTemplates grid_view">
+                                    <div class="storeProfileModalTemplates grid_view finalProductsGrid" id="finalProductsGrid">
                                         <div class="storeProfileModalTemplatesItem">
                                             <input type="checkbox" id="product_edit_text" class="d-none">
                                             <label for="product_edit_text">
@@ -2868,7 +2351,7 @@
             $('#customiserImages').change(function(evt){
                 console.log("hero "+this.files);
 
-                var mediaUrl = "<?php echo $mediaUrl; ?>tempUpload";
+                var mediaUrl = "<?php echo $mediaPath; ?>tempUpload";
 
    // Read selected files
         var form_data = new FormData();
@@ -2891,6 +2374,8 @@
             console.log(response);
             console.log(response.result);
             previewCustomisationImages(response.result);
+            addUploads(response.result);
+
             return false;
         }
     });
@@ -2953,7 +2438,7 @@
                 for(var i=0; i<filesLength; i++){  
 
                     console.log('displayCustomisedImages');
-                  $(".displayCustomisedImages").append('<div class="col showSelectedImages" id="displayCustomisedImages_'+initiator+'"><img src="'+mediaPath+files_list[i]+'" id="uploadedImageUrl_'+initiator+'" class="uploadedImageUrl" data-file="'+files_list[i]+'"/><button type="button" id="close_'+initiator+'" class="btnText closeButtnaCustomiseImage"><svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.0714 0.154689L3.72761 2.83077L6.38381 0.162799C6.4361 0.109187 6.49888 0.0670923 6.56815 0.0391754C6.63742 0.0112585 6.71169 -0.00187281 6.78626 0.000611842C6.93259 0.010152 7.07046 0.0730211 7.17414 0.17748C7.27783 0.281939 7.34023 0.420847 7.3497 0.568266C7.35043 0.640749 7.33653 0.712625 7.30886 0.779536C7.28119 0.846447 7.24031 0.906997 7.18872 0.957514L4.52447 3.64982L7.18872 6.34212C7.29336 6.44429 7.35131 6.5854 7.3497 6.73137C7.34023 6.87878 7.27783 7.01769 7.17414 7.12215C7.07046 7.22661 6.93259 7.28948 6.78626 7.29902C6.71169 7.3015 6.63742 7.28837 6.56815 7.26046C6.49888 7.23254 6.4361 7.19044 6.38381 7.13683L3.72761 4.46886L1.07945 7.13683C1.02715 7.19044 0.964384 7.23254 0.89511 7.26046C0.825837 7.28837 0.751567 7.3015 0.676997 7.29902C0.527944 7.2912 0.387049 7.22803 0.28151 7.1217C0.17597 7.01538 0.11327 6.87343 0.105511 6.72326C0.104783 6.65077 0.118677 6.5789 0.146349 6.51199C0.174021 6.44508 0.214896 6.38453 0.266493 6.33401L2.93074 3.64982L0.258444 0.957514C0.2083 0.906315 0.168913 0.845458 0.142636 0.778579C0.11636 0.7117 0.103734 0.640171 0.105511 0.568266C0.114981 0.420847 0.177383 0.281939 0.281066 0.17748C0.384749 0.0730211 0.522624 0.010152 0.668948 0.000611842C0.742937 -0.00292867 0.816857 0.00892496 0.886099 0.0354338C0.955341 0.0619426 1.01842 0.102538 1.0714 0.154689Z" fill="#A8A8A8" /></svg></button></div>');
+                  $(".displayCustomisedImages").append('<div class="col showSelectedImages" id="displayCustomisedImages_'+initiator+'"><img src="'+mediaPath+files_list[i]+'" id="uploadedImageUrl_'+initiator+'" class="uploadedImageUrl" data-file="'+files_list[i]+'"/><button type="button" id="close_'+initiator+'" class="btnText closeButtnaCustomiseImage" data-filename = "'+files_list[i]+'"><svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.0714 0.154689L3.72761 2.83077L6.38381 0.162799C6.4361 0.109187 6.49888 0.0670923 6.56815 0.0391754C6.63742 0.0112585 6.71169 -0.00187281 6.78626 0.000611842C6.93259 0.010152 7.07046 0.0730211 7.17414 0.17748C7.27783 0.281939 7.34023 0.420847 7.3497 0.568266C7.35043 0.640749 7.33653 0.712625 7.30886 0.779536C7.28119 0.846447 7.24031 0.906997 7.18872 0.957514L4.52447 3.64982L7.18872 6.34212C7.29336 6.44429 7.35131 6.5854 7.3497 6.73137C7.34023 6.87878 7.27783 7.01769 7.17414 7.12215C7.07046 7.22661 6.93259 7.28948 6.78626 7.29902C6.71169 7.3015 6.63742 7.28837 6.56815 7.26046C6.49888 7.23254 6.4361 7.19044 6.38381 7.13683L3.72761 4.46886L1.07945 7.13683C1.02715 7.19044 0.964384 7.23254 0.89511 7.26046C0.825837 7.28837 0.751567 7.3015 0.676997 7.29902C0.527944 7.2912 0.387049 7.22803 0.28151 7.1217C0.17597 7.01538 0.11327 6.87343 0.105511 6.72326C0.104783 6.65077 0.118677 6.5789 0.146349 6.51199C0.174021 6.44508 0.214896 6.38453 0.266493 6.33401L2.93074 3.64982L0.258444 0.957514C0.2083 0.906315 0.168913 0.845458 0.142636 0.778579C0.11636 0.7117 0.103734 0.640171 0.105511 0.568266C0.114981 0.420847 0.177383 0.281939 0.281066 0.17748C0.384749 0.0730211 0.522624 0.010152 0.668948 0.000611842C0.742937 -0.00292867 0.816857 0.00892496 0.886099 0.0354338C0.955341 0.0619426 1.01842 0.102538 1.0714 0.154689Z" fill="#A8A8A8" /></svg></button></div>');
                     initiator++;
                 }
 
@@ -2961,8 +2446,37 @@
                 console.log("after delete"+filesLength);
                 $('#fileCount').html("<b>"+getFilesLength+"</b> files successfully uploaded");
                 return false;
+            }
 
-                // $('#fileCount').html("<b>"+filesLength+"</b> files successfully uploaded");
+            function addUploads(files_list){
+                
+                var mediaPath= '<?php echo $mediaPath.'tempUpload/'?>';
+                // console.log("mediaurl "+mediaPath);
+                // console.log("files length "+files_list.length);
+                // var files = $(this)[0].files; 
+                // console.log("jjj "+(this).files);
+                if($('.showUploadImages').length > 0){
+                    var initiator = (($('.showUploadImages').length)+1);
+                }else{
+                    var initiator = 1;
+                }
+                console.log("initiator"+ initiator)
+                filesLength = files_list.length;
+                for(var i=0; i<filesLength; i++){  
+
+                    console.log('showUploads');
+                  $("#showUploads").append('<div class="storeProfileModalTemplatesItem showUploadImages getUploadedImage" id="getUploadedImage"><label><input type="checkbox" class="d-none" id="showUploads_'+initiator+'"><div class="storeProfileModalTemplatesItemImg"><svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z" fill="#A8A8A8"></path></svg><img src="'+mediaPath+files_list[i]+'" id="uploadedImageUrl_'+initiator+'"></div></label></div>');
+
+                  $("#displayUploads").append('<div class="storeProfileModalTemplatesItem showUploadImages"><label><div class="storeProfileModalTemplatesItemImg"><img src="'+mediaPath+files_list[i]+'" id="uploadedImageUrl_'+initiator+'"></div></label></div>');
+
+
+
+                    initiator++;
+                }
+
+                // var getFilesLength = $('.showSelectedImages').length;
+                // console.log("after delete"+filesLength);
+                // return false;
             }
 
             $('.closeButtnClassGalleryImage').live("click", function () {
@@ -2986,6 +2500,27 @@
                 var res = btnId.split("_");
                 var getBtnId = res[1];
                 $('#displayCustomisedImages_'+getBtnId).remove();
+
+                var filename = ($(this).attr("data-filename"));
+                console.log(filename);
+
+                $.ajax({
+                    // console.log(filename);
+                url: "<?php echo $block->getBaseUrl().'client/stores/deletefile/' ?>", 
+                type: 'post',
+                data: ($(this).attr("data-filename")),
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    console.log(response.status);
+                    // previewCustomisationImages(response.result);
+                    return false;
+                }
+            });
+
+
                 console.log('oknow');
                 console.log($('#customiserImages').prop("files"));
 
@@ -3009,12 +2544,7 @@
             console.log("width "+orgWidth);
             console.log(orgHeight);
               var getDynPosition = getPositions(orgWidth, orgHeight);
-            // console.log(canvasWidth);
-            // console.log(canvasHeight);
-            // console.log(canvasAspect);
-            // console.log(imgAspect);
-            // console.log(top);
-            // console.log(left);
+            
             canvas.setBackgroundImage(productImage, canvas.renderAll.bind(canvas), {
                 top: getDynPosition.top,
                 left: getDynPosition.left,
@@ -3056,7 +2586,7 @@
 
     
     var getImgWidth= $("#bgImgWidth").val();
-    var getImgHeight= $("#bgImgWidth").val();
+    var getImgHeight= $("#bgImgHeight").val();
 
     console.log("getImgWidth "+getImgWidth);
     console.log("getImgHeight "+getImgHeight);
@@ -3134,8 +2664,15 @@
                     }else{
                         $('#firstTempPhrase').val(myfirstPhrase);
                        const textOne = editTextCanvas.add(new fabric.IText(myfirstPhrase, { 
-                          left: 100, 
-                          top: 100 
+                        left: 130, 
+                        top: 240,
+                        fontFamily: 'helvetica',
+                        fontSize:16,
+                        hasControls: false,
+                        lockMovementX: true,
+                        padding: 0,
+                        lockMovementY: true
+
                         }));
                     }
                     
@@ -3224,9 +2761,15 @@
 
                     }else{
                         $('#secondTempPhrase').val(mysecondPhrase);
-                       const textOne = editTextCanvas.add(new fabric.IText(mysecondPhrase, { 
-                          left: 100, 
-                          top: 100 
+                    const textOne = editTextCanvas.add(new fabric.IText(" "+mysecondPhrase, { 
+                        left: 140, 
+                        top: 240,
+                        fontFamily: 'helvetica',
+                        fontSize:16,
+                        hasControls: false,
+                        lockMovementX: true,
+                        padding: 0,
+                        lockMovementY: true
                         }));
                     }
 
@@ -3324,6 +2867,8 @@
                         var getDynamicSVGId = $('#dynamicSVGId').val();
                         console.log('getDynamicSVGId_'+getDynamicSVGId);
                         $('#svgId_'+getDynamicSVGId+ ' path[fill="black"]').css('fill', color);
+                        $('.dyanmicSvgClass path[fill="black"]').css('fill', color);
+                        
                          var serializedSVG = new XMLSerializer().serializeToString(document.getElementById('svgId_'+getDynamicSVGId));
 
                     //     fabric.loadSVGFromString(serializedSVG,function(objects, options) {
@@ -3520,28 +3065,49 @@
             var cat_count = 0;
             var getTemplatesArr  = new Array();
             var getSVGTemplatesArr  = new Array();
-            $('.getTemplates').click(function(){                
+            
+            $('.getTemplates').click(function(){  
+            
                 var isChecked= $(this).is(':checked');
                 var getSVGAttr = ($(this).attr("data-svg"));
                 if(isChecked){
                     cat_count += 1;
                     getTemplatesArr.push($(this).val());
                     getSVGTemplatesArr[this.id] = getSVGAttr;
-                    // getSVGTemplatesArr.push(getSVGAttr);
-                    
                 }else{
                     cat_count -= 1;
                     removeVal(getTemplatesArr, $(this).val());
-                    removeVal(getSVGTemplatesArr[this.id], getSVGAttr);
+                    removeValFromAssocArr(getSVGTemplatesArr,  this.id);
                 }
                 console.log(cat_count);
                 console.log(getTemplatesArr);
                 console.log(getSVGTemplatesArr);
+                console.log("getSVGTemplatesArr "+getSVGTemplatesArr);
 
                 // var svg = '';
 
                 // if(getSVGTemplatesArr !=''){
+                    // var arrayLength = getSVGTemplatesArr.length;
                 if(Object.keys(getSVGTemplatesArr).length != 0){
+
+                    // for (var i = 0; i < arrayLength; i++) {
+                        var counter = 0;
+                        $("#showTemplates").empty();
+                        $("#displayTemplates").empty();
+                    for (var key in getSVGTemplatesArr) {
+
+                        console.log("counter_"+counter);
+                        //Do something
+
+                        $("#showTemplates").append('<div class="storeProfileModalTemplatesItem showSelectedTemplates"><label><input type="checkbox" class="d-none getSelectedTemplates" name="getSelectedTemplates[]" id="selectedSvgId_'+key+'" value="'+key+'" /><div class="storeProfileModalTemplatesItemImg d-flex align-items-center justify-content-center h-100"><svg class="checkIcon" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z" fill="#A8A8A8" /></svg>'+getSVGTemplatesArr[key].replace("<svg", '<svg id="block_'+key+'" class="dyanmicSvgClass"')+'</div></label></div>');
+
+                        $("#displayTemplates").append('<div class="storeProfileModalTemplatesItem"><label><div class="storeProfileModalTemplatesItemImg d-flex align-items-center justify-content-center h-100">'+getSVGTemplatesArr[key].replace("<svg", '<svg id="block_'+key+'" class="dyanmicSvgClass"')+'</div></label></div>');
+
+
+                        counter++;
+                    }
+
+                    // getSVGTemplatesArr[key].replace("<svg", '<svg id="'+key+'"');
 
                     console.log('hereooo');
                     var firstElementofSVG = getSVGTemplatesArr[Object.keys(getSVGTemplatesArr)[0]];
@@ -3552,8 +3118,8 @@
                     var svgKeyId = res[1];
 
 
-                    console.log("firstElementofSVG "+firstElementofSVG);
-                    console.log("getSVGKey "+getSVGKey);
+                    // console.log("firstElementofSVG "+firstElementofSVG);
+                    // console.log("getSVGKey "+getSVGKey);
                     $('#dynamicSVGId').val(svgKeyId);
                     var serializedSVG = new XMLSerializer().serializeToString(document.getElementById('svgId_'+svgKeyId));
                     fabric.loadSVGFromString(serializedSVG,function(objects, options) {
@@ -3620,28 +3186,179 @@
             })
 
             var clipArtCount = 0;
+            var getclipArtArr = new Array();
             $('.getclipArt').click(function(){                
                 var isChecked= $(this).is(':checked');
                 if(isChecked){
                     clipArtCount += 1;
+                    var clipartInputId = this.id;
+                    var clipartImgId =  "clipArtImg_"+this.id;
+
+                    var imgAttr = $('#'+clipartImgId).attr('src');
+
+                    getclipArtArr.push(imgAttr);
+                    // getclipArtArr = imgAttr;
                 }else{
                     clipArtCount -= 1;
+                    removeVal(getclipArtArr, imgAttr);
+                    // removeValFromAssocArr(getSVGTemplatesArr,  this.id);
                 }
-                console.log(cat_count);
+                console.log("getclipArtArr");
+                console.log(getclipArtArr);
 
                 $('#clipArtCount').html(clipArtCount);
                 $('#getClipartCount').html(clipArtCount);
+
+                if($('.showUploadImages').length > 0){
+                    var initiator = (($('.showUploadImages').length)+1);
+                }else{
+                    var initiator = 1;
+                }
+
+                var arrayLength = getclipArtArr.length;
+                console.log("arrayLength "+arrayLength);
+                $("#showClipArts").empty();
+                $("#displayClipArts").empty();
+                    for (var i = 0; i < arrayLength; i++) {
+
+                    console.log('showClipArts');
+                    console.log('displayClipArts');
+                  $("#showClipArts").append('<div class="storeProfileModalTemplatesItem showSelectedClipArts"><label><input type="checkbox" class="d-none" id="showClipArts_'+initiator+'"><div class="storeProfileModalTemplatesItemImg"><svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.29877 0.388672C3.4009 0.388672 0.230209 3.55936 0.230209 7.45723C0.230209 11.3551 3.4009 14.5258 7.29877 14.5258C11.1966 14.5258 14.3673 11.3551 14.3673 7.45723C14.3673 3.55936 11.1966 0.388672 7.29877 0.388672ZM11.217 6.01723L6.70241 10.5312C6.5651 10.6685 6.37466 10.7473 6.18062 10.7473V11.053L6.17406 10.7473C5.97704 10.7455 5.786 10.6631 5.64929 10.5216L3.37176 8.16172C3.08877 7.86859 3.09713 7.40053 3.39026 7.11816C3.52877 6.98443 3.71086 6.91099 3.9025 6.91099C4.10488 6.91099 4.29354 6.99099 4.43384 7.13666L6.1896 8.9563L10.1728 4.97315C10.3119 4.83405 10.4975 4.75703 10.6945 4.75703C10.8916 4.75703 11.0772 4.83404 11.2163 4.97315C11.5047 5.2609 11.5047 5.72948 11.217 6.01723Z" fill="#A8A8A8"></path></svg><img src="'+getclipArtArr[i]+'" id="showClipArtsUrls_'+initiator+'"></div></label></div>');
+
+                  $("#displayClipArts").append('<div class="storeProfileModalTemplatesItem showClipArts"><label><div class="storeProfileModalTemplatesItemImg"><img src="'+getclipArtArr[i]+'" id="showClipArtsUrls_'+initiator+'"></div></label></div>');
+                    initiator++;
+                }
             })
 
             function removeVal(arr, val){
             for(var i = 0; i < arr.length; i++){
+
+                // console.log("arr[i]"+arr[i]);
+                // console.log("val[i]"+val);
                 if (arr[i] == val){
                     arr.splice(i, 1);
                     return false;
-                }
-                
+                }    
             }
         }
+
+        function removeValFromAssocArr(arr, key){
+            console.log("arr");
+            console.log("key"+key);
+            delete arr[key];
+            return false;
+        }
+
+
+        // $('.getSelectedTemplates').on('click', function(){
+        //     var newProduct = this.id;
+        //     // /$('#'+newProduct)
+
+        //     // var latestProduct = '';
+        // })
+
+        //---
+        var getCount = 0;
+            var selectedTemplatesArr  = new Array();
+            var selectedSVGTemplatesArr  = new Array();
+            
+            // $('.getSelectedTemplates').click(function(){  
+            $('.getSelectedTemplates').live("click", function(){  
+                console.log('getSelectedTemplates Clicked');
+            
+                var isChecked= $(this).is(':checked');
+                // var getSVGAttr = ($(this).attr("data-svg"));
+                if(isChecked){
+                    getCount += 1;
+                    selectedTemplatesArr.push($(this).val());
+                    // selectedSVGTemplatesArr[this.id] = getSVGAttr;
+                    selectedSVGTemplatesArr[this.id] = $(this).val();
+
+                    console.log('getSelectedTemplates Clicked2');
+                }else{
+                    getCount -= 1;
+                    removeVal(selectedTemplatesArr, $(this).val());
+                    removeValFromAssocArr(selectedSVGTemplatesArr,  this.id);
+                }
+                console.log("getCount "+getCount);
+                console.log(selectedTemplatesArr);
+                console.log(selectedSVGTemplatesArr);
+                // console.log("selectedSVGTemplatesArr "+selectedSVGTemplatesArr);
+
+                // var svg = '';
+
+                // if(selectedSVGTemplatesArr !=''){
+                    // var arrayLength = selectedSVGTemplatesArr.length;
+                if(Object.keys(selectedSVGTemplatesArr).length != 0){
+
+                    // for (var i = 0; i < arrayLength; i++) {
+                        var counter = 0;
+                        $("#finalProductsGrid").empty();
+                        // $("#displayTemplates").empty();
+                    for (var key in selectedSVGTemplatesArr) {
+
+                        console.log("counter_"+counter);
+                        //Do something
+
+                        $("#finalProductsGrid").append('<div class="storeProfileModalTemplatesItem"><input type="checkbox" id="product_edit_text" class="d-none" id="finalSvg_"><label for="product_edit_text"><div class="storeProfileModalTemplatesItemImg"><img src=""><input class="Editablename" type="text" placeholder="Add name here" /></div></label></div>');
+
+
+                        counter++;
+                    }
+                }
+                $('#templatesCount').html(cat_count);
+                $('#getTemplatesCount').html(cat_count);
+            })
+        //--
+
+        
+
+        $('.showElement').on('click',function(){
+            var elementId=$(this).attr('element-id');
+            console.log(elementId);
+            $('.showElement').removeClass('active');
+            $(this).addClass('active');
+            $('.storeProfileModalTemplates').removeClass('d-flex')      
+
+            $('.storeProfileModalTemplates#'+elementId).addClass('d-flex')
+        })
+
+        $('#setTemplateBtn').click(function(){
+            editTextCanvas.backgroundImage = null;
+            var image = editTextCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+            // window.location.href=image; // it will save locally
+
+        });
+
+        // $('#customiseProductsStep').click(function(){
+        $('#customiseProductsStep').live("click", function(){
+
+            var showSelectedTemplates =  $('.showSelectedTemplates').length;
+            var showClipArts = $('.showSelectedClipArts').length;
+            var showUploadImages = $('.getUploadedImage').length;
+
+            var totalArtWorkSelect = (showSelectedTemplates+showClipArts+showUploadImages);
+            $('#totalArtWorks').html(totalArtWorkSelect+" Artworks Applied");
+            console.log("totalArtWorkSelect"+totalArtWorkSelect);
+            $("#fetchTemplates").trigger("click");
+            // $("#displaySelectedTemplates").trigger("click");
+            // $("#displayTemplates").trigger("click");
+        })
+
+        $('#artworkSelected').click(function(){
+            $('#displaySelectedTemplates').trigger("click");
+        })
+        $('#productsTabSelected').click(function(){
+            $('#fetchTemplates').trigger("click");
+        });
+
+        $('.getProductImg').on("click", function(){
+            var getProductId = this.id;
+            // console.log("prdt_id"+getProductImg);
+
+            var getProductImgSrc = $('#'+this.id).attr('src');
+            $('#setMainProduct').attr(getProductImgSrc);
+        });
             
 
         });

@@ -1,6 +1,23 @@
 <?php 
 // die('sssii');
 // $productCollection = $block->getProductCollection(); 
+// echo "<pre>";print_r($_GET);die;
+
+if(!empty($_GET['product_list_order'])){
+    if($_GET['product_list_order'] == 'price'){
+        if($_GET['order_wise'] == 'desc'){
+            $sortingType= "Price high to low";
+        }if($_GET['order_wise'] == 'asc'){
+            $sortingType= "Price low to high";
+        }
+    }if($_GET['product_list_order'] == 'mostviewd'){
+        $sortingType= "Popularity";
+    }elseif($_GET['product_list_order'] == 'name'){
+        $sortingType= "Default";
+    }
+}else{
+    $sortingType = "Recomended";
+}
     $categories = $block->getCategoryCollection(true, false, 'name', false);
     $brandAttributes = $block->getAllBrand();
     array_shift($brandAttributes);
@@ -19,6 +36,23 @@
     foreach ($sizeAttributes as $value) {
         $sizeAttr[$value->getValue()] = $value->getLabel();
     }
+
+    // Shorting Products
+    $category_id_array = $block->getAllChildren(true,$block->getCurrentCategory()->getEntity_id());
+    $orderBy = (!empty($_GET['product_list_order']))?$_GET['product_list_order']:'';
+    $orderPostion = (!empty($_GET['order_wise']))?$_GET['order_wise']:'desc';
+    if(!empty($_GET['product_list_order']) && empty($_GET['product_list_order'])=='mostviewd') {
+        // echo 'if'; die;
+        $productlist = $block->getProductCollection($category_id_array)->getSelect()->
+         joinInner('report_event AS _table_views',
+             ' _table_views.object_id = e.entity_id',
+             'COUNT(_table_views.event_id) AS views')->
+         group('e.entity_id')->order('views DESC');
+     } else {
+        $productlist = $block->getProductCollection($category_id_array)->setOrder($orderBy, $orderPostion );
+
+     }
+    $currentUrl  = $block->getUrl('*/*/*', array('_use_rewrite' => true, '_forced_secure' => true));
 ?>
 
 <main class="main">
@@ -73,7 +107,8 @@
                                             <?php foreach ($categories as $category) { ?>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="checkbox" class="brandsAttr" id="<?php echo $category->getId(); ?>" value="<?php echo $category->getId(); ?>" name="categories">
+                                                    <input type="checkbox" class="brandsAttr" id="<?php echo $category->getId(); ?>" value="<?php echo $category->getId(); ?>" name="categories[]" <?php if($block->getCurrentCategory()->getName() == $category->getName()) echo "checked
+                                                    "; ?>>
                                                     <span class="checkUnCheckBox"></span>
                                                     <span class="checkUnCheckText" id="filters_<?php echo $category->getId(); ?>"><?php echo $category->getName();?></span>
                                                 </label>
@@ -430,16 +465,16 @@
                                             <button class="btn btn-secondary dropdown-toggle d-flex align-items-center"
                                                 type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
-                                                Sort by: <strong>Recomended</strong>
+                                                Sort by: <strong id="sortingActive"><?php echo $sortingType?></strong>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item active" href="#">Recomended</a>
-                                                <a class="dropdown-item" href="#">Default</a>
-                                                <a class="dropdown-item" href="#">Popularity</a>
-                                                <a class="dropdown-item" href="#">Average ratings</a>
-                                                <a class="dropdown-item" href="#">Price low to high</a>
-                                                <a class="dropdown-item" href="#">Price high to low</a>
-                                            </div>
+                                                <a class="dropdown-item sorting active" href="#" id="Recomended">Recomended</a>
+                                                <a class="dropdown-item" href="<?=$currentUrl.'?product_list_order=name'?>">Default</a>
+                                                <a class="dropdown-item sorting" href="<?=$currentUrl.'?product_list_order=mostviewd'?>" id="Popularity">Popularity</a>
+                                                <!--<a class="dropdown-item" href="#">Average ratings</a>-->
+                                                <a class="dropdown-item sorting" href="<?=$currentUrl.'?product_list_order=price&order_wise=asc'?>" id="Price low to high">Price low to high</a>
+                                                <a class="dropdown-item sorting" href="<?=$currentUrl.'?product_list_order=price&order_wise=desc'?>" id="Price high to low">Price high to low</a>
+                                            </div>                                          
                                         </div>
 
                                     </div>
@@ -473,8 +508,7 @@
                                         <div class="row" id="ajaxresponse">
 
                                     <?php
-                                        $category_id_array = $block->getAllChildren(true,$block->getCurrentCategory()->getEntity_id());
-                                        foreach ($block->getProductCollection($category_id_array) as $product){
+                                        foreach ( $productlist as $product){
                                     ?>
 
 
@@ -482,15 +516,17 @@
                                                 <div class="product">
                                                     <div class="productTop">
                                                         <div class="productImgSlider">
-                                                            <a href="<?php echo $product->getProductUrl(); ?>">
+                                                            
                                                             <?php 
                                 
                                 foreach($block->getAllProductImages($product->getId()) as $images){ ?>
-                                    <div class="productTopImg" style="background-image: url(<?php echo $images['url'];?>);">
-                                        <img class="productFeaturedBatch" src="<?php echo $this->getViewFileUrl('images/productFeaturedBatch.png'); ?>" alt="productFeaturedBatch" />
-                                    </div>
+                                    <a href="<?php echo $product->getProductUrl(); ?>">
+                                        <div class="productTopImg" style="background-image: url(<?php echo $images['url'];?>);">
+                                            <img class="productFeaturedBatch" src="<?php echo $this->getViewFileUrl('images/productFeaturedBatch.png'); ?>" alt="productFeaturedBatch" />
+                                        </div>
+                                    </a>
                                 <?php } ?>
-                            </a>
+                            
                                                         </div>
                                                         <div class="productTopOver">
                                                             <h6>available sizes</h6>
@@ -641,6 +677,8 @@
    <script>
         require([ 'jquery'], function($){ 
 $(document).ready(function() {
+
+
     // $(".brandsAttr").on('click',function(){
     //     id = this.id;
     //     var text = $('#filters_'+id).text();
@@ -670,6 +708,23 @@ $(document).ready(function() {
     // });
     // });
 
+
+    
+
+    // if($(".filterWrap .brandsAttr").is(':checked') == true){
+    //     console.log('checked');
+    //     var id = $(this).attr('id');
+    //     console.log(id);
+    //     var text = $('#filters_'+id).text();
+    //     var filterDiv = '<span id="'+id+'">'+text+'<svg class="remove" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z" fill="#BDBDBD" /></svg></span>';
+    //     $('#clearAll').css('display', 'block');
+    //     $('#filtersName').append(filterDiv);
+    // }else{
+    //     // console.log('unchecked');
+    //      $('#filtersName span#'+id).remove();
+    // }
+
+
     $(".brandsAttr").on('click',function(){
         id = this.id;
         var text = $('#filters_'+id).text();
@@ -692,17 +747,34 @@ $(document).ready(function() {
         success: function(response){
             $('#ajaxresponse').html(response.output);
             console.log(response);
+            console.log($('#productFilters').serialize());
         }
     });
 
     });
 
+    $('.sorting').click(function(){
+        $('#sortingActive').html($(this.id));
+    })
 
     $(document).on('click','.remove',function(){
         var filterId = $(this).parent('span').attr('id');
         console.log(filterId);
         $('#filtersName span#'+filterId).remove();
         $(".brandsAttr#"+filterId).prop('checked', false);
+
+        jQuery.ajax({
+        url: "<?php echo $this->getUrl().'layered/product/filter'?>",
+        type: "POST",
+        // data: {id:id},
+        data: $('#productFilters').serialize(),
+        success: function(response){
+            $('#ajaxresponse').html(response.output);
+            console.log(response);
+            console.log($('#productFilters').serialize());
+        }
+    });
+
     });
 });
 });

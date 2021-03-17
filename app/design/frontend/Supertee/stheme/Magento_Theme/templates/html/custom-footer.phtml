@@ -2,16 +2,13 @@
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customSession = $objectManager->create('Forms\Registration\Model\Session');
 
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->create('Magento\Customer\Model\Session');
 $customerId = $customerSession->getId();
 $getFirstName = explode(" ", $customerSession->getCustomer()->getName());
-
 $firstName = $getFirstName[0];
-// $customerSession->setMyValue('testing value');
-// $customSession->getData('donation_data');
 
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
 $connection = $resource->getConnection();
 $themeTable = $resource->getTableName('user_rewards'); //gives table name
@@ -32,13 +29,14 @@ $earnedPoints = ($credit - $debit);
 
 
 //Select Data from table
-// $sql = $connection->select()->from(
-//          ["tn" => $tableName]
-//     );
-// $result = $connection->fetchAll($getUserPoints);
+$session = ($customSession->getData('donation_data'));
 
-// $session = $this->session->getData('donation_data'); 
-    $session = ($customSession->getData('donation_data'));
+// echo "<pre>";print_r($session);die;
+
+// Whishlist
+$wishlist = $objectManager->create('Magento\Wishlist\Model\Wishlist');
+$wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollection();
+
 ?>
 <!-- Footer -->
     <footer class="text-white">
@@ -47,7 +45,7 @@ $earnedPoints = ($credit - $debit);
                 <div class="row">
                     <div class="col-md-4 col-xl-3">
                         <div class="footer_box">
-                            <div class="footerLogo">	
+                            <div class="footerLogo">    
                                 <!-- <img src="images/logo_light.svg" alt="" class="img-fluid"> -->
                                 <img src="<?php echo $this->getViewFileUrl('images/logo_light.svg'); ?>" alt="websiteLogo" class="img-fluid" />
 
@@ -282,7 +280,7 @@ $earnedPoints = ($credit - $debit);
                                         <p class="mb-0"> <span class="textFade">Copyrights</span> Supertee LLC. all
                                             rights reserved.</p>
                                         <span class="d-flex align-items-center"> 
-                                        	<img src="<?php echo $this->getViewFileUrl('images/canada_flag.png'); ?>"
+                                            <img src="<?php echo $this->getViewFileUrl('images/canada_flag.png'); ?>"
                                                 alt="" class="img-fluid"> 
                                             Proudly Canadian</span>
                                     </div>
@@ -578,24 +576,35 @@ $earnedPoints = ($credit - $debit);
         <div class="cartItems rightPanel">
             <div class="head d-flex align-items-center justify-content-between">
                 <h6>My wishlist</h6>
-                <span>3 items</span>
+                <span><?=count($wishlistCollection)?> items</span>
             </div>
             <div class="similarProduct">
                 <div class="productWrap d-flex align-items-start flex-wrap">
+                    <?php 
+                        if(count($wishlistCollection)) { 
+                            foreach ($wishlistCollection as $item) {
+                                $imagewidth=200;
+                                $imageheight=200;
+                                $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
+                                $image_url = $imageHelper->init($item->getProduct(), 'small_image')->setImageFile($item->getProduct()->getSmallImage())->resize($imagewidth, $imageheight)->getUrl();
+                                $wblock = $this->helper('Magento\Wishlist\Helper\Data');
+                    ?>
                     <div class="product">
                         <div class="productImg">
-                            <img src="images/product/product2.jpg" alt="" class="img-fluid">
+                            <img src="<?php echo $image_url;?>" alt="" class="img-fluid">
                         </div>
                         <div class="productContent">
                             <div class="topWrap d-flex align-items-center justify-content-between">
-                                <h6>Moda rapido</h6>
+                                <h6><?=$item->getProduct()->getName()?></h6>
                             </div>
                             <p>
-                                Men Yellow Printed Round Neck T-Shirt
+                                <?=$item->getProduct()->getShortDescription()?>
                             </p>
-                            <div class="price"> $25.00 </div>
+                            <div class="price"> 
+                                $<?php echo number_format($item->getProduct()->getFinalPrice(), 2); ?>
+                            </div>
                             <div class="box_wrap d-flex align-items-center justify-content-between">
-                                <a href="#" class="link">
+                            <a href="#"  data-role="remove" data-post='<?php echo $wblock->getRemoveParams($item); ?>' title="" class="btn-remove action delete">
                                     <svg width="8" height="8" viewBox="0 0 8 8" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -605,7 +614,7 @@ $earnedPoints = ($credit - $debit);
                                     Remove
                                 </a>
                             </div>
-                            <a href="" class="btn btn-primary">
+                            <a href="" data-role="tocart" data-post='<? echo $wblock->getAddToCartParams($item) ?>' class="btn btn-primary">
                                 Move to cart
                                 <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -616,79 +625,16 @@ $earnedPoints = ($credit - $debit);
                             </a>
                         </div>
                     </div>
-                    <div class="product">
-                        <div class="productImg">
-                            <img src="images/product/product2.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="productContent">
-                            <div class="topWrap d-flex align-items-center justify-content-between">
-                                <h6>Moda rapido</h6>
-                            </div>
-                            <p>
-                                Men Yellow Printed Round Neck T-Shirt
-                            </p>
-                            <div class="price"> $25.00 </div>
-                            <div class="box_wrap d-flex align-items-center justify-content-between">
-                                <a href="#" class="link">
-                                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M0.120558 7.87985C0.200628 7.96052 0.306015 8.00061 0.411403 8.00061C0.51669 8.00061 0.622077 7.96002 0.702751 7.87985L4.00037 4.58223L7.29826 7.87985C7.37843 7.96052 7.48372 8.00061 7.5891 8.00061C7.69389 8.00061 7.79917 7.96002 7.87985 7.87985C8.04059 7.71911 8.04059 7.4585 7.87985 7.29776L4.58237 4.00023L7.87985 0.702751C8.04059 0.541907 8.04059 0.281301 7.87985 0.120558C7.7191 -0.0401859 7.4585 -0.0401859 7.29776 0.120558L4.00023 3.41808L0.702751 0.120558C0.541907 -0.0401859 0.281301 -0.0401859 0.120558 0.120558C-0.0401859 0.281301 -0.0401859 0.541907 0.120558 0.702751L3.4182 4.00012L0.120558 7.29776C-0.0401859 7.4585 -0.0401859 7.71911 0.120558 7.87985Z"
-                                            fill="#151515" />
-                                    </svg>
-                                    Remove
-                                </a>
-                            </div>
-                            <a href="" class="btn btn-primary">
-                                Move to cart
-                                <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M23.725 5.83638C23.7248 5.8361 23.7245 5.83577 23.7242 5.83549L18.8256 0.960497C18.4586 0.595294 17.865 0.596653 17.4997 0.963684C17.1345 1.33067 17.1359 1.92425 17.5028 2.28949L20.7918 5.56249L0.9375 5.56249C0.419719 5.56249 0 5.98221 0 6.49999C0 7.01777 0.419719 7.43749 0.9375 7.43749L20.7917 7.43749L17.5029 10.7105C17.1359 11.0757 17.1345 11.6693 17.4998 12.0363C17.8651 12.4034 18.4587 12.4046 18.8256 12.0395L23.7242 7.16449C23.7245 7.16421 23.7248 7.16388 23.7251 7.1636C24.0923 6.79713 24.0911 6.20163 23.725 5.83638Z"
-                                        fill="white" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <div class="productImg">
-                            <img src="images/product/product2.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="productContent">
-                            <div class="topWrap d-flex align-items-center justify-content-between">
-                                <h6>Moda rapido</h6>
-                            </div>
-                            <p>
-                                Men Yellow Printed Round Neck T-Shirt
-                            </p>
-                            <div class="price"> $25.00 </div>
-                            <div class="box_wrap d-flex align-items-center justify-content-between">
-                                <a href="#" class="link">
-                                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M0.120558 7.87985C0.200628 7.96052 0.306015 8.00061 0.411403 8.00061C0.51669 8.00061 0.622077 7.96002 0.702751 7.87985L4.00037 4.58223L7.29826 7.87985C7.37843 7.96052 7.48372 8.00061 7.5891 8.00061C7.69389 8.00061 7.79917 7.96002 7.87985 7.87985C8.04059 7.71911 8.04059 7.4585 7.87985 7.29776L4.58237 4.00023L7.87985 0.702751C8.04059 0.541907 8.04059 0.281301 7.87985 0.120558C7.7191 -0.0401859 7.4585 -0.0401859 7.29776 0.120558L4.00023 3.41808L0.702751 0.120558C0.541907 -0.0401859 0.281301 -0.0401859 0.120558 0.120558C-0.0401859 0.281301 -0.0401859 0.541907 0.120558 0.702751L3.4182 4.00012L0.120558 7.29776C-0.0401859 7.4585 -0.0401859 7.71911 0.120558 7.87985Z"
-                                            fill="#151515" />
-                                    </svg>
-                                    Remove
-                                </a>
-                            </div>
-                            <a href="" class="btn btn-primary">
-                                Move to cart
-                                <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M23.725 5.83638C23.7248 5.8361 23.7245 5.83577 23.7242 5.83549L18.8256 0.960497C18.4586 0.595294 17.865 0.596653 17.4997 0.963684C17.1345 1.33067 17.1359 1.92425 17.5028 2.28949L20.7918 5.56249L0.9375 5.56249C0.419719 5.56249 0 5.98221 0 6.49999C0 7.01777 0.419719 7.43749 0.9375 7.43749L20.7917 7.43749L17.5029 10.7105C17.1359 11.0757 17.1345 11.6693 17.4998 12.0363C17.8651 12.4034 18.4587 12.4046 18.8256 12.0395L23.7242 7.16449C23.7245 7.16421 23.7248 7.16388 23.7251 7.1636C24.0923 6.79713 24.0911 6.20163 23.725 5.83638Z"
-                                        fill="white" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
+                    <?php }
+                        } else {
+                    ?> 
+                        <p>No record found.</p>
+                    <? }?>
                 </div>
             </div>
             <div class="emptyCart d-none">
                 <div class="emptyCartInner text-center">
-                    <img src="images/empty_wishlist.png" alt="">
+                    <img src="<?php echo $block->getViewFileUrl('images/empty_wishlist.png'); ?>" alt="">
                     <h6>
                         Your wishlist is empty
                     </h6>
@@ -740,7 +686,7 @@ $earnedPoints = ($credit - $debit);
                 <div class="productWrap d-flex align-items-start flex-wrap">
                     <div class="product">
                         <div class="productImg">
-                            <img src="images/product/product2.jpg" alt="" class="img-fluid">
+                            <img src="<?php echo $block->getViewFileUrl('images/product/product2.jpg'); ?>" alt="" class="img-fluid">
                         </div>
                         <div class="productContent">
                             <div class="topWrap d-flex align-items-center justify-content-between">
@@ -754,10 +700,10 @@ $earnedPoints = ($credit - $debit);
                                 <div class="quantityWrap">
                                     <input type="number" value="2">
                                     <div class="ince button">
-                                        <img src="images/plus.png" alt="" class="img-fluid">
+                                        <img src="<?php echo $block->getViewFileUrl('images/plus.png'); ?>" alt="" class="img-fluid">
                                     </div>
                                     <div class="decr button">
-                                        <img src="images/minus.png" alt="" class="img-fluid">
+                                        <img src="<?php echo $block->getViewFileUrl('images/minus.png'); ?>" alt="" class="img-fluid">
                                     </div>
                                 </div>
                                 <a href="#" class="link">
@@ -774,7 +720,7 @@ $earnedPoints = ($credit - $debit);
                     </div>
                     <div class="product">
                         <div class="productImg">
-                            <img src="images/product/product2.jpg" alt="" class="img-fluid">
+                            <img src="<?php echo $block->getViewFileUrl('images/product/product2.jpg'); ?>" alt="" class="img-fluid">
                         </div>
                         <div class="productContent">
                             <div class="topWrap d-flex align-items-center justify-content-between">
@@ -788,10 +734,10 @@ $earnedPoints = ($credit - $debit);
                                 <div class="quantityWrap">
                                     <input type="number" value="2">
                                     <div class="ince button">
-                                        <img src="images/plus.png" alt="" class="img-fluid">
+                                        <img src="<?php echo $block->getViewFileUrl('images/plus.png'); ?>" alt="" class="img-fluid">
                                     </div>
                                     <div class="decr button">
-                                        <img src="images/minus.png" alt="" class="img-fluid">
+                                        <img src="<?php echo $block->getViewFileUrl('images/minus.png'); ?>" alt="" class="img-fluid">
                                     </div>
                                 </div>
                                 <a href="#" class="link">
@@ -808,7 +754,7 @@ $earnedPoints = ($credit - $debit);
                     </div>
                     <div class="product">
                         <div class="productImg">
-                            <img src="images/product/product2.jpg" alt="" class="img-fluid">
+                            <img src="<?php echo $block->getViewFileUrl('images/product/product2.jpg'); ?>" alt="" class="img-fluid">
                         </div>
                         <div class="productContent">
                             <div class="topWrap d-flex align-items-center justify-content-between">
@@ -822,10 +768,10 @@ $earnedPoints = ($credit - $debit);
                                 <div class="quantityWrap">
                                     <input type="number" value="2">
                                     <div class="ince button">
-                                        <img src="images/plus.png" alt="" class="img-fluid">
+                                        <img src="<?php echo $block->getViewFileUrl('images/plus.png'); ?>" alt="" class="img-fluid">
                                     </div>
                                     <div class="decr button">
-                                        <img src="images/minus.png" alt="" class="img-fluid">
+                                        <img src="<?php echo $block->getViewFileUrl('images/minus.png'); ?>" alt="" class="img-fluid">
                                     </div>
                                 </div>
                                 <a href="#" class="link">
@@ -845,7 +791,7 @@ $earnedPoints = ($credit - $debit);
 
             <div class="emptyCart d-none">
                 <div class="emptyCartInner text-center">
-                    <img src="images/empty_cart.png" alt="">
+                    <img src="<?php echo $block->getViewFileUrl('images/empty_cart.png'); ?>" alt="">
                     <h6>
                         Unfortunately, <br /> your shopping cart is empty.
                     </h6>
@@ -922,7 +868,7 @@ $earnedPoints = ($credit - $debit);
             <div class="modal-content">
             <div class="modal-body">
                 <div class="box_wrap text-center">
-                    <img src="images/check.png" alt="" />
+                    <img src="<?php echo $block->getViewFileUrl('images/check.png'); ?>" alt="" />
                     <h3> <span>thanks!</span> your quote request has been updated successfully.</h3>
                     <p>our team will contact you shortly.</p>
                 </div>
@@ -953,7 +899,7 @@ $earnedPoints = ($credit - $debit);
                     <path d="M19.1193 6.69827C19.3302 6.69827 19.5148 6.61915 19.6731 6.46093L21.3608 4.77316C21.6773 4.45671 21.6773 3.95565 21.3608 3.6392C21.0444 3.32274 20.5433 3.32274 20.2269 3.6392L18.5655 5.35333C18.249 5.66979 18.249 6.17084 18.5655 6.4873C18.7237 6.64553 18.9347 6.69827 19.1193 6.69827Z" fill="#FFC62E"/>
                 </svg>
                 <?php if($customerSession->isLoggedIn()){?>
-                        <span>you have $<?php echo number_format($earnedPoints, 2); ?> in points </span>
+                        <span>you have <?php echo number_format($earnedPoints); ?> in points </span>
                 <?php }else{?>
                 <span>sign up & earn points</span>
             <?php } ?>
@@ -973,7 +919,7 @@ $earnedPoints = ($credit - $debit);
                 <div class="rwd_body">
                     <div class="body_content d-flex flex-column">
                         <div class="main_view d-flex flex-column align-items-center my-auto">
-                            <img src="images/rwd_graphics.png" class="img-fluid" alt="">
+                            <img src="<?php echo $block->getViewFileUrl('images/rwd_graphics.png'); ?>" class="img-fluid" alt="">
                             <span class="top_text">Create an account & instantly earn</span>
                             <h6>100 points</h6>
                             <a href="javascript:void(0);" id="action_btn" view-id="rwd_view_reward" class="view_reward">View rewards</a>
@@ -1024,7 +970,7 @@ $earnedPoints = ($credit - $debit);
                             <ul class="reward_list list-unstyled list">
                                 <li>
                                     <div class="icon">
-                                        <img src="images/points.png" alt="">
+                                        <img src="<?php echo $block->getViewFileUrl('images/points.png'); ?>" alt="">
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                        <div class="left d-flex flex-column">
@@ -1035,7 +981,7 @@ $earnedPoints = ($credit - $debit);
                                 </li>
                                 <li>
                                     <div class="icon">
-                                        <img src="images/donate.png" alt="">
+                                        <img src="<?php echo $block->getViewFileUrl('images/donate.png'); ?>" alt="">
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                         <div class="left d-flex flex-column">
@@ -1050,7 +996,7 @@ $earnedPoints = ($credit - $debit);
                             <ul class="reward_list list-unstyled list">
                                 <li>
                                     <div class="icon">
-                                        <img src="images/points.png" alt="">
+                                        <img src="<?php echo $block->getViewFileUrl('images/points.png'); ?>" alt="">
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                         <div class="left d-flex flex-column">
@@ -1061,7 +1007,7 @@ $earnedPoints = ($credit - $debit);
                                 </li>
                                 <li>
                                     <div class="icon">
-                                        <img src="images/register.png" alt="">
+                                        <img src="<?php echo $block->getViewFileUrl('images/register.png'); ?>" alt="">
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                         <div class="left d-flex flex-column">
@@ -1072,7 +1018,7 @@ $earnedPoints = ($credit - $debit);
                                 </li>
                                 <li>
                                     <div class="icon">
-                                        <img src="images/refer.png" alt="">
+                                        <img src="<?php echo $block->getViewFileUrl('images/refer.png'); ?>" alt="">
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                         <div class="left d-flex flex-column">
@@ -1087,7 +1033,7 @@ $earnedPoints = ($credit - $debit);
                                 </li>
                                 <li>
                                     <div class="icon">
-                                        <img src="images/fb.png" alt="">
+                                        <img src="<?php echo $block->getViewFileUrl('images/fb.png'); ?>" alt="">
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                         <div class="left d-flex flex-column">
@@ -1098,7 +1044,7 @@ $earnedPoints = ($credit - $debit);
                                         <div class="right">
                                             <a href="javascript:void(0)">
                                                 <div class="share d-flex align-items-center">
-                                                    <img src="images/share.png" alt="">
+                                                    <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                     <span>share</span>
                                                 </div>
                                             </a>
@@ -1107,7 +1053,7 @@ $earnedPoints = ($credit - $debit);
                                 </li>
                                 <li>
                                     <div class="icon">
-                                        <img src="images/insta.png" alt="">
+                                        <img src="<?php echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                         <div class="left d-flex flex-column">
@@ -1118,7 +1064,7 @@ $earnedPoints = ($credit - $debit);
                                         <div class="right">
                                             <a href="javascript:void(0)">
                                                 <div class="share d-flex align-items-center">
-                                                    <img src="images/share.png" alt="">
+                                                    <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                     <span>share</span>
                                                 </div>
                                             </a>
@@ -1142,7 +1088,7 @@ $earnedPoints = ($credit - $debit);
                                 <line x1="1" y1="17" x2="13" y2="17" stroke="white" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                                 
-                            <img src="images/rewards.png" class="mx-auto" alt="">
+                            <img src="<?php echo $block->getViewFileUrl('images/rewards.png'); ?>" alt="">
                             
                         </div>
                         <svg  class="close pointer ml-3" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1155,9 +1101,11 @@ $earnedPoints = ($credit - $debit);
                             <div class="balance_detail d-flex flex-column">
                                 <h6 class="font-18">Balance</h6>
                                 <span class="amount"><?php echo number_format($earnedPoints, 2);?></span>
-                                <span class="point_value">value $10.00</span>
+                                <span class="point_value">
+                                value $<? echo ($earnedPoints * 2) / 100;?>
+                                </span>
                             </div>
-                            <img src="images/balance.png" alt="">
+                            <img src="<?php echo $block->getViewFileUrl('images/balance.png'); ?>"  alt="">
                         </div>
     
                         <div class="tab_wrap">
@@ -1172,7 +1120,7 @@ $earnedPoints = ($credit - $debit);
                                             <ul class="reward_list list-unstyled list">
                                                 <li>
                                                     <div class="icon">
-                                                        <img src="images/points.png" alt="">
+                                                        <img src="<?php echo $block->getViewFileUrl('images/points.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                        <div class="left d-flex flex-column">
@@ -1183,7 +1131,7 @@ $earnedPoints = ($credit - $debit);
                                                 </li>
                                                 <li>
                                                     <div class="icon">
-                                                        <img src="images/donate.png" alt="">
+                                                        <img src="<?php echo $block->getViewFileUrl('images/donate.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1198,7 +1146,7 @@ $earnedPoints = ($credit - $debit);
                                             <ul class="reward_list list-unstyled list">
                                                 <li>
                                                     <div class="icon">
-                                                        <img src="images/points.png" alt="">
+                                                        <img src="<?php echo $block->getViewFileUrl('images/points.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1209,7 +1157,7 @@ $earnedPoints = ($credit - $debit);
                                                 </li>
                                                 <li>
                                                     <div class="icon">
-                                                        <img src="images/register.png" alt="">
+                                                        <img src="<?php echo $block->getViewFileUrl('images/register.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1220,7 +1168,7 @@ $earnedPoints = ($credit - $debit);
                                                 </li>
                                                 <li>
                                                     <div class="icon">
-                                                        <img src="images/refer.png" alt="">
+                                                        <img src="<?php echo $block->getViewFileUrl('images/register.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1235,7 +1183,7 @@ $earnedPoints = ($credit - $debit);
                                                 </li>
                                                 <li>
                                                     <div class="icon">
-                                                        <img src="images/fb.png" alt="">
+                                                        <img src="<?php echo $block->getViewFileUrl('images/fb.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1246,7 +1194,7 @@ $earnedPoints = ($credit - $debit);
                                                         <div class="right">
                                                             <a href="javascript:void(0)">
                                                                 <div class="share d-flex align-items-center">
-                                                                    <img src="images/share.png" alt="">
+                                                                    <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                                     <span>share</span>
                                                                 </div>
                                                             </a>
@@ -1255,7 +1203,7 @@ $earnedPoints = ($credit - $debit);
                                                 </li>
                                                 <li>
                                                     <div class="icon">
-                                                        <img src="images/insta.png" alt="">
+                                                        <img src="<?php echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1266,7 +1214,7 @@ $earnedPoints = ($credit - $debit);
                                                         <div class="right">
                                                             <a href="javascript:void(0)">
                                                                 <div class="share d-flex align-items-center">
-                                                                    <img src="images/share.png" alt="">
+                                                                    <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                                     <span>share</span>
                                                                 </div>
                                                             </a>
@@ -1275,7 +1223,7 @@ $earnedPoints = ($credit - $debit);
                                                 </li>
                                                 <li>
                                                     <div class="icon">
-                                                        <img src="images/insta.png" alt="">
+                                                        <img src="<?php echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1286,7 +1234,7 @@ $earnedPoints = ($credit - $debit);
                                                         <div class="right">
                                                             <a href="javascript:void(0)">
                                                                 <div class="share d-flex align-items-center">
-                                                                    <img src="images/share.png" alt="">
+                                                                    <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                                     <span>share</span>
                                                                 </div>
                                                             </a>
@@ -1347,6 +1295,17 @@ $earnedPoints = ($credit - $debit);
                 <div class="rwd_body">
 
                     <div class="table-responsive">
+                    <?php
+                    if ($customerSession->isLoggedIn()) {
+                        $customerId = $customerSession->getCustomerId();
+                    
+                        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                        $resourceConnection = $objectManager->get('\Magento\Framework\App\ResourceConnection');
+                        $connection = $resourceConnection->getConnection();
+                        $query = "SELECT * FROM user_rewards WHERE customer_id=".$customerId;
+                        $collection = $connection->fetchAll($query);
+                       // echo '<pre>';print_r($collection);
+                    ?>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -1356,33 +1315,16 @@ $earnedPoints = ($credit - $debit);
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($collection as $key){?>
                                 <tr>
-                                    <td>23 Aug 2020</td>
-                                    <td>order id  12345345</td>
-                                    <td>+ 200</td>
+                                    <td><?=date('d M Y',strtotime($key['created_at']))?></td>
+                                    <td><?=ucwords(str_replace('_',' ',$key['rewards_points_id']))?></td>
+                                    <td><? if($key['reward_type'] =='credit'){echo '+';}else{echo '-';} ?> <?=$key['reward_points']?></td>
                                 </tr>
-                                <tr>
-                                    <td>15 Jul 2020</td>
-                                    <td>Donated to green planet </td>
-                                    <td class="deducted">-1000</td>
-                                </tr>
-                                <tr>
-                                    <td>10 Jun 2020</td>
-                                    <td>Order id  12345345 </td>
-                                    <td  >+1000</td>
-                                </tr>
-                                <tr>
-                                    <td>23 May 2020</td>
-                                    <td>Facebook share </td>
-                                    <td>+200</td>
-                                </tr>
-                                <tr>
-                                    <td>12 May 2020</td>
-                                    <td>Signup bonus </td>
-                                    <td>+100</td>
-                                </tr>
+                               <?php }?>
                             </tbody>
                         </table>
+                        <?php }?>
                     </div>
                     
                 </div>
@@ -1407,13 +1349,14 @@ $earnedPoints = ($credit - $debit);
                     <div class="top_wrap d-flex">
                         <div class="user_balance d-flex flex-column">
                             <h6 class="font-18">Balance</h6>
-                            <span class="amount">400 points</span>
-                            <span class="point_value">value $4.00</span>
+                            <span class="amount"><?php echo number_format($earnedPoints, 2);?></span>
+                            <span class="point_value">value $<? echo ($earnedPoints * 2) / 100;?></span>
                         </div>
                         <div class="donate_point user_balance">
                             <h6 class="font-18">Balance</h6>
                             <input type="number" placeholder="Enter Points to donate" name="donation_points" />
                             <p>100 points = <span>$2</span> </p>
+                            <span id="errorPoints"></span>
                         </div>
                     </div>
 
@@ -1423,22 +1366,28 @@ $earnedPoints = ($credit - $debit);
                         </h6>
                         
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="Organisation name" name="organisation_name">
+                                 <input type="text" class="form-control"  placeholder="Organisation name" name="organisation_name" id="organisation_name">
+                                 <span id="errorOrgName"></span>
                             </div>
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="Contact person" name="contact_person">
+                                 <input type="text" class="form-control"  placeholder="Contact person" name="contact_person" id="contact_person">
+                                 <span id="errorOrgPerson"></span>
                             </div>
                             <div class="form-group">
-                                 <input type="email" class="form-control"  placeholder="E-mail" name="org_email">
+                                 <input type="email" class="form-control"  placeholder="E-mail" name="org_email" id="org_email">
+                                 <span id="errorOrgEmail"></span>
                             </div>
                             <div class="form-group">
-                                 <input type="number" class="form-control"  placeholder="Phone number" name="org_phone">
+                                 <input type="number" class="form-control"  placeholder="Phone number" name="org_phone" id="org_phone">
+                                 <span id="errorOrgNumber"></span>
                             </div>
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="aAdress" name="org_address">
+                                 <input type="text" class="form-control"  placeholder="aAdress" name="org_address" id="org_address">
+                                 <span id="errorOrgAdd"></span>
                             </div>
                             <div class="form-group">
                                 <textarea class="form-control"  rows="3" placeholder="Notes" name="donation_notes"></textarea>
+
                             </div>
                         
 
@@ -1540,7 +1489,7 @@ $earnedPoints = ($credit - $debit);
                         </svg>
                     </div>
                 <div class="rwd_body">
-
+                    <form method="post" id="donateButtonForm">
                     <div class="refer_wrap">
                         <span>You can earn 150 points! </span>
                         <p>
@@ -1549,8 +1498,8 @@ $earnedPoints = ($credit - $debit);
                             </strong>
                         </p>
 
-                        <input type="email" placeholder="enter email id" />
-                        <button class="btn btn-primary">
+                        <input type="email" placeholder="enter email id" name="recipient_email" />
+                        <button class="btn btn-primary" id="referFriend" type="button">
                             Send
                             <svg class="ml-2" width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -1558,7 +1507,9 @@ $earnedPoints = ($credit - $debit);
                                     fill="white" />
                             </svg>
                         </button>
+                        <p id="referResponseTxt"></p>
                     </div>
+                </form>
                     
                 </div>
             </div>
@@ -1581,37 +1532,58 @@ $earnedPoints = ($credit - $debit);
            $('.search_box').addClass('show'); 
            $(".input_box input").focus();
            $('body').css('overflow','hidden');
-           $('.search_result').hide(); 
+           // $('.search_result').hide(); 
         });
 
-        $('.iconWrap .search_box input[type=text]').on('keyup', function(){
-            var value = $(this).val().toLowerCase();
-            console.log(value);
-            $('.search_result > ul li').each(function(){
-                if($(this).text().toLocaleLowerCase().search(value) > -1){
-                    $(this).show();
-                    $('.search_result').show();
-                }else{
-                    $(this).hide();
+
+        $('#search').on('keyup', function(){
+            var search_text = jQuery("#search").val();
+            try {
+                    jQuery.ajax({
+                        url : '<?php echo $block->getUrl('auto/search/product') ?>',
+                        dataType : 'json',
+                        data: { 'search_text' :  search_text  },
+                        type : 'post',
+                        success : function(data) {
+                            console.log(data.output);
+
+                            $('.search_result').html(data.output);
+                            $('.search_result').show();
+                        }
+                    });
+                } catch (e) {
                 }
-                // if($(this).parent('ul').val() < 1){
-                    //     console.log('No Product');
-                    // }
-                });
-                
-                // if($(this).val().length >= 1){
-                //     console.log($('.search_result > ul li:visible').length); 
-                //     var SearchLength = $('.search_result > ul li:visible').length;
-
-                //     if(SearchLength == 0){
-                //         console.log('NO');
-                //         // $('.search_result').html('No Product Found');
-                //     }
-
-                // }else{
-                //     console.log($('.search_result > ul li:visible').length); 
-                // }
         });
+
+
+        // $('.iconWrap .search_box input[type=text]').on('keyup', function(){
+        //     var value = $(this).val().toLowerCase();
+        //     console.log(value);
+        //     $('.search_result > ul li').each(function(){
+        //         if($(this).text().toLocaleLowerCase().search(value) > -1){
+        //             $(this).show();
+        //             $('.search_result').show();
+        //         }else{
+        //             $(this).hide();
+        //         }
+        //         // if($(this).parent('ul').val() < 1){
+        //             //     console.log('No Product');
+        //             // }
+        //         });
+                
+        //         // if($(this).val().length >= 1){
+        //         //     console.log($('.search_result > ul li:visible').length); 
+        //         //     var SearchLength = $('.search_result > ul li:visible').length;
+
+        //         //     if(SearchLength == 0){
+        //         //         console.log('NO');
+        //         //         // $('.search_result').html('No Product Found');
+        //         //     }
+
+        //         // }else{
+        //         //     console.log($('.search_result > ul li:visible').length); 
+        //         // }
+        // });
 
         $('.input_box ').on('click','.close', function(){
             $(this).parents('.search_box').removeClass('show');
@@ -1711,6 +1683,30 @@ $earnedPoints = ($credit - $debit);
         // alert('clicked');
                 // forgetButton.text(forgetText);
                 // forgetButton.attr("disabled", "disabled");
+                var status = true;
+                if($('#donation_points').val() == '') {
+                    $('#errorPoints').text("Please enter the donation points");
+                    status = false;
+                }if($('#organisation_name').val() == ''){
+                    $('#errorOrgName').text("Please enter the orgation name");
+                    status = false;
+                }if($('#contact_person').val() == ''){
+                    $('#errorOrgPerson').text("Please enter the contact person name.");
+                    status = false;
+                }if($('#org_email').val() == ''){
+                    $('#errorOrgEmail').text("Please enter the orgation email");
+                    status = false;
+                }if($('#org_phone').val() == ''){
+                    $('#errorOrgNumber').text("Please enter the orgation phone number");
+                    status = false;
+                }if($('#org_address').val() == ''){
+                    $('#errorOrgAdd').text("Please enter the orgation address");
+                    status = false;
+                }
+
+                if(status  == false){
+                    return false;
+                }
                 var formData = $("#donationData").serialize()
                //console.log(formData);
                 $.ajax({
@@ -1723,18 +1719,29 @@ $earnedPoints = ($credit - $debit);
                                 $('#rwd_donation').removeClass('show');
                                 $('#rwd_donation_confirm').addClass('show');
                             }
-                        // console.log(data);
-                        // showResponse(data);
-                        // if(data.errors) {
-                        //     forgetButton.text(forgetsText);
-                        //     forgetButton.removeAttr('disabled');
-                        // } else {
-                        //     //console.log('here we are');
-                        //     forgetButton.text(forgetsText);
-                        //     forgetButton.removeAttr('disabled');
-                        //     //location.reload();
-                        //     resetLinkModal();
-                        // }
+                    }
+                });
+                return false;
+            });
+
+
+    $('#referFriend').click(function(){
+        
+                var formData = $("#donateButtonForm").serialize()
+               //console.log(formData);
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $block->getUrl()?>/refer/submit/refer/",
+                    data: formData,
+                    dataType: "json",
+                    success: function(data) {
+                            if(data == true){
+                                $('#referResponseTxt').html('Mail has been sent to your referral friend');
+                            }else if(data == false){
+                                $('#referResponseTxt').html('Some error');
+                            }else{
+                                $('#referResponseTxt').html(data);
+                            }
                     }
                 });
                 return false;
@@ -1745,6 +1752,24 @@ $earnedPoints = ($credit - $debit);
 
 
     </script>
+    <!--<script>
+    jQuery(".removeWishlist").click(function(e){
+            e.preventDefault();
+            var actiondata = jQuery.parseJSON(jQuery(this).attr('data-post'));
+            var addurl = actiondata.action;
+            var data = actiondata.data;
+            data['isAjax'] = true;
+            jQuery.ajax({
+                url: addurl,
+                data: data,
+                type: "POST",
+                dataType: 'json'
+            }).done(function (data) {
+                console.log(data);
+            });
+            return false;
+        });
+    </script>-->
 </body>
 
 </html>

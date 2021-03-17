@@ -88,4 +88,11 @@ class Featuredproducts extends \Magento\Framework\View\Element\Template implemen
     {
         return $this->_productloader->create()->load($id);
     }
+
+    public function getAllProductImages($product_id){
+        $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
+        $productimages = array();
+        $product = $objectmanager ->create('Magento\Catalog\Model\Product')->load($product_id);
+        return $productimages = $product->getMediaGalleryImages();
+    }
 }

@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1614753312;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -2066,7 +2066,7 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1614753312;s:6:"expire";i:9999999999;s:4:"t
       </arguments>
    </referenceBlock>
 </body>
-</handle><handle id="checkout_index_index" layout="checkout"><body>
+</handle><handle id="checkout_index_index" layout="1column"><body>
    <referenceContainer name="content">
       <block class="Magento\Checkout\Block\Onepage" name="checkout.root" template="Magento_Checkout::onepage.phtml" cacheable="false">
          <arguments>
@@ -6940,6 +6940,13 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1614753312;s:6:"expire";i:9999999999;s:4:"t
       <block class="Magento\Catalog\Block\Category\View" name="category_desc_main_column" template="category/category.phtml"/>
    </referenceContainer>
 </body>
+</handle><handle id="1catalogsearch_result_index" layout="1column"><body>
+   <referenceBlock name="search.result">
+      <action method="setTemplate">
+         <argument name="template" xsi:type="string">Forms_Registration::result.phtml</argument>
+      </action>
+   </referenceBlock>
+</body>
 </handle><handle id="1checkout_index_index" layout="1column"><body>
    <referenceBlock name="checkout.root">
       <arguments>
@@ -7071,6 +7078,7 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1614753312;s:6:"expire";i:9999999999;s:4:"t
         </block>
 </referenceContainer>
 <referenceBlock name="checkout.success" remove="true"/>
+<referenceBlock name="checkout.registration" remove="true"/>
 </handle><handle id="custom_product_customizer" layout="2columns-left"><body>
    <referenceContainer name="content">
       <block class="Forms\Registration\Block\Product\Customise" name="details_product_customise" template="product/customizer.phtml" cacheable="false"/>
@@ -7333,14 +7341,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1614753312;s:6:"expire";i:9999999999;s:4:"t
    <referenceContainer name="cart.summary">
       <block class="Klarna\Onsitemessaging\Block\Cart" name="klarna.osm.cart" as="klarna_osm_cart" template="Klarna_Onsitemessaging::html/placement/cart.phtml" after="-"/>
    </referenceContainer>
-</body>
-</handle><handle id="default"><head>
-   <css src="MageWorx_SearchSuiteAutocomplete::css/searchsuiteautocomplete.css"/>
-</head>
-<body>
-   <referenceBlock name="top.search">
-      <block class="MageWorx\SearchSuiteAutocomplete\Block\Autocomplete" name="mageworx-search-autocomplete-wrapper" template="MageWorx_SearchSuiteAutocomplete::autocomplete.phtml"/>
-   </referenceBlock>
 </body>
 </handle><handle id="featuredproduct_index_index" layout="1column"><body>
    <referenceContainer name="content">
@@ -8531,6 +8531,7 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1614753312;s:6:"expire";i:9999999999;s:4:"t
    <referenceBlock name="product.info.details" remove="true"/>
    <referenceBlock name="page.main.title" remove="true"/>
    <referenceBlock name="product.attributes" remove="true"/>
+   <referenceBlock name="product.price.tier" remove="true"/>
    <referenceContainer name="product.info.main">
       <block class="Forms\Registration\Block\Product\CustomBtn" name="custombtn_product_custombtn" template="Forms_Registration::product/custombtn.phtml"/>
    </referenceContainer>

@@ -699,9 +699,19 @@ require.config(config);
 })();
 (function() {
 var config = {
-    map: {
-        '*': {
-            'mw-review-modal': 'MageWorx_Info/js/mw-review-modal'
+    paths: {
+        // "popper":"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min",
+        "bootstrap4":"https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min",
+        "fabric":"https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.3.1/fabric.min"
+        // bootstrap: 'js/bootstrap.min'
+    },
+    shim: {
+        
+        bootstrap4: {
+            deps: ['jquery','jquery/ui','Magento_Ui/js/modal/modal']
+        },
+        fabric: {
+            deps: ['jquery']
         }
     }
 };

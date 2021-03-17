@@ -87,6 +87,17 @@ class Index extends Template
 
     // }
 
+    public function getClipArtCategories() {
+        $clipart_categories = $this->connection->getTableName('clipart_categories');
+        $getClipArtCategories = "SELECT * FROM " . $clipart_categories . " WHERE status =1";
+        $result = $this->connection->fetchAll($getClipArtCategories);
+
+        if(!empty($result)){
+            return $result;
+        }
+        return false;
+    }
+
     public function getProduct($storeId, $productId) {
         $product = $this->productFactory->create()
                             ->setStoreId($storeId)

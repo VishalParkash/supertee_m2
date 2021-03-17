@@ -8,10 +8,10 @@ class Interceptor extends \Auctane\Api\Controller\Adminhtml\ApiKey\Index impleme
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory, \Magento\Framework\App\Config\Storage\WriterInterface $configWriter, \Auctane\Api\Model\ApiKeyGenerator $apiKeyGenerator)
+    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory, \Auctane\Api\Model\ApiKeyGenerator $apiKeyGenerator)
     {
         $this->___init();
-        parent::__construct($context, $resultJsonFactory, $configWriter, $apiKeyGenerator);
+        parent::__construct($context, $resultJsonFactory, $apiKeyGenerator);
     }
 
     /**

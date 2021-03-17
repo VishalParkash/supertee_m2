@@ -5,4 +5,6 @@
         </block>
     </referenceContainer>
     <referenceBlock name="checkout.success" remove="true"/>
+    <referenceBlock name="checkout.registration" remove="true"/>
+
 </body>

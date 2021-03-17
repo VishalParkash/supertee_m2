@@ -111,8 +111,8 @@ class OrderPlaceAfter implements ObserverInterface {
         // }
         // $price
         // die;
-        $cartUrl = $this->_url->getUrl('/checkout/onepage/success/');
-        $this->_responseFactory->create()->setRedirect($cartUrl)->sendResponse();            
-        exit;
+        // $cartUrl = $this->_url->getUrl('/checkout/onepage/success/');
+        // $this->_responseFactory->create()->setRedirect($cartUrl)->sendResponse();            
+        // exit;
     }
 }

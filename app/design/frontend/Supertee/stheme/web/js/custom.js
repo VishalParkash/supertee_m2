@@ -493,7 +493,7 @@ require( [ 'jquery', 'slick', 'bootstrap4'], function($,modal){
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            // fade: true,
+            swipe: false,
             dots: false,
             asNavFor: '.productImgSliderNav',
             infinite: false,

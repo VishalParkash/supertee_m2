@@ -8,10 +8,10 @@ class Interceptor extends \Auctane\Api\Controller\Auctane\Index implements \Mage
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Store\Model\StoreManagerInterface $storeManager, \Magento\Backend\Model\Auth\Credential\StorageInterface $storage, \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig, \Auctane\Api\Helper\Data $dataHelper, \Auctane\Api\Model\Action\Export $export, \Auctane\Api\Model\Action\ShipNotify $shipNotify, \Magento\Backend\Model\View\Result\RedirectFactory $redirectFactory, \Auctane\Api\Request\Authenticator $authenticator)
+    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Store\Model\StoreManagerInterface $storeManager, \Magento\Backend\Model\Auth\Credential\StorageInterface $storage, \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig, \Auctane\Api\Helper\Data $dataHelper, \Auctane\Api\Model\Action\Export $export, \Auctane\Api\Model\Action\ShipNotify $shipNotify, \Magento\Backend\Model\View\Result\RedirectFactory $redirectFactory, \Auctane\Api\Request\Authenticator $authenticator, \Psr\Log\LoggerInterface $logger)
     {
         $this->___init();
-        parent::__construct($context, $storeManager, $storage, $scopeConfig, $dataHelper, $export, $shipNotify, $redirectFactory, $authenticator);
+        parent::__construct($context, $storeManager, $storage, $scopeConfig, $dataHelper, $export, $shipNotify, $redirectFactory, $authenticator, $logger);
     }
 
     /**

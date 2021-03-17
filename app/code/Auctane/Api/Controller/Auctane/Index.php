@@ -2,6 +2,8 @@
 
 namespace Auctane\Api\Controller\Auctane;
 
+use Auctane\Api\Exception\AuthenticationFailedException;
+use Auctane\Api\Exception\InvalidXmlException;
 use Auctane\Api\Helper\Data;
 use Auctane\Api\Model\Action\Export;
 use Auctane\Api\Model\Action\ShipNotify;
@@ -13,16 +15,20 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\CsrfAwareActionInterface;
+use Magento\Framework\App\Request\Http as HttpRequest;
 use Magento\Framework\App\Request\InvalidRequestException;
 use Magento\Framework\App\RequestInterface;
-use Magento\Framework\Exception\AuthorizationException;
+use Magento\Framework\App\Response\Http as HttpResponse;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Webapi\Exception as WebapiException;
 use Magento\Store\Model\StoreManagerInterface;
-use Zend\Http\Response;
-use Zend\Json\Server\Response\Http;
-use Magento\Store\Model\Store;
+use Psr\Log\LoggerInterface;
 
 
+/**
+ * Class Index
+ * @package Auctane\Api\Controller\Auctane
+ */
 class Index extends Action implements CsrfAwareActionInterface
 {
     /**
@@ -57,7 +63,23 @@ class Index extends Action implements CsrfAwareActionInterface
      * @var RedirectFactory
      */
     private $redirectFactory;
+    /** @var LoggerInterface */
+    private $logger;
 
+
+    /**
+     * Index constructor.
+     * @param Context $context
+     * @param StoreManagerInterface $storeManager
+     * @param StorageInterface $storage
+     * @param ScopeConfigInterface $scopeConfig
+     * @param Data $dataHelper
+     * @param Export $export
+     * @param ShipNotify $shipNotify
+     * @param RedirectFactory $redirectFactory
+     * @param Authenticator $authenticator
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         Context $context,
         StoreManagerInterface $storeManager,
@@ -67,7 +89,8 @@ class Index extends Action implements CsrfAwareActionInterface
         Export $export,
         ShipNotify $shipNotify,
         RedirectFactory $redirectFactory,
-        Authenticator $authenticator
+        Authenticator $authenticator,
+        LoggerInterface $logger
     )
     {
         parent::__construct($context);
@@ -80,14 +103,14 @@ class Index extends Action implements CsrfAwareActionInterface
         $this->shipNotify = $shipNotify;
         $this->redirectFactory = $redirectFactory;
         $this->authenticator = $authenticator;
+        $this->logger = $logger;
     }
 
     /**
      * @inheritDoc
      */
-    public function createCsrfValidationException(
-        RequestInterface $request
-    ): ?InvalidRequestException {
+    public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
+    {
         return null;
     }
 
@@ -100,44 +123,53 @@ class Index extends Action implements CsrfAwareActionInterface
     }
 
     /**
-     * Default function
-     *
-     * @return bool
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * Execute action based on request and return result.
      */
     public function execute()
     {
-        if (!$this->authenticator->authenticate()) {
-            $this->getResponse()->setHeader('WWW-Authenticate: ', 'Basic realm=ShipStation', true);
-            $this->getResponse()->setHeader('Content-Type', 'text/xml; charset=UTF-8', true);
-            $result = $this->dataHelper->fault(401, 'Authentication failed');
-            $this->getResponse()->setBody($result);
-            return false;
-        }
-
-        /** @var $request \Magento\Framework\App\Request\Http */
+        /** @var HttpRequest $request */
         $request = $this->getRequest();
-        //Get the requested action
-        $action = $request->getParam('action');
+        /** @var HttpResponse $response */
+        $response = $this->getResponse();
 
         try {
-            switch ($action) {
+            $storeIds = $this->authenticator->authenticate();
+
+            switch ($request->getParam('action')) {
                 case 'export':
-                    $result = $this->export->process($request, $this->getResponse(), Store::DEFAULT_STORE_ID);
+                    $response->setHeader('Content-Type', 'text/xml');
+                    $result = $this->export->process($request, $storeIds);
                     break;
 
                 case 'shipnotify':
                     $result = $this->shipNotify->process();
                     // if there hasn't been an error then "200 OK" is given
                     break;
+
+                default:
+                    throw new LocalizedException(__('Invalid action.'));
+            }
+        } catch (AuthenticationFailedException $e) {
+            $result = $this->dataHelper->fault(WebapiException::HTTP_UNAUTHORIZED, $e->getMessage());
+            $response
+                ->setHeader('WWW-Authenticate: ', 'Basic realm=ShipStation', true)
+                ->setHeader('Content-Type', 'text/xml; charset=UTF-8', true);
+
+            $this->logger->error($e->getMessage(), ['authentication']);
+        } catch (InvalidXmlException $e) {
+            $result = $this->dataHelper->fault(WebapiException::HTTP_BAD_REQUEST, $e->getMessage());
+            foreach ($e->getErrors() as $error) {
+                $this->logger->error($error->message, ['ship_notify', $error->line]);
             }
         } catch (LocalizedException $e) {
-            $this->_response->setStatusCode(Response::STATUS_CODE_400);
-            $result = $this->dataHelper->fault(Response::STATUS_CODE_400, $e->getMessage());
+            $result = $this->dataHelper->fault(WebapiException::HTTP_BAD_REQUEST, $e->getMessage());
+            $response->setStatusCode(WebapiException::HTTP_BAD_REQUEST);
+            $this->logger->error($e->getMessage());
         } catch (Exception $fault) {
             $result = $this->dataHelper->fault($fault->getCode(), $fault->getMessage());
+            $this->logger->error($fault->getMessage());
         }
 
-        $this->getResponse()->setBody($result);
+        $response->setBody($result);
     }
 }

@@ -1,7 +1,13 @@
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+     $mediaPath = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
 <h1>Set Design Area for the product customisation</h1>
 <div>
-    <?php //echo "<pre>"; print_r($block->getCurrentProduct());?>
 
+    <form data-form-part="product_form" method="post" action="">
     <?php //echo "<pre>"; print_r($block->getCurrentProduct());die;
     if(!empty($block->getCurrentProduct()['id'])){
         $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -10,43 +16,343 @@
         $product = $objectmanager ->create('Magento\Catalog\Model\Product')->load($product_id);
         $productimages = $product->getMediaGalleryImages();
 
+        $count = 0;
+        $imageUrls = array();
+        // echo "kskskskr". count($productimages);
+        if(!empty($productimages)){
         foreach($productimages as $productimage)
-        { ?>
+        { 
+            
+            $imageUrls[] = $productimage['url'];
+        ?>
+
     
     
         
          
-         <img src ="<?php echo $productimage['url']; ?>" id="currentProductId" style="display: none">
-        <?php }
+         <!-- <img src ="<?php //echo $productimage['url']; ?>" id="currentProductId" style="display: none"> -->
+
+
+        <div class="canvases">
+        <canvas id="canvas_<?php echo $count;?>" width="419" height="400"></canvas>
+        <input data-form-part="product_form" type="hidden" id="getImgUrl_<?php echo $count;?>" name="getImgUrl_<?php echo $count;?>" value="<?php echo $productimage['url']; ?>">
+        <input data-form-part="product_form" type="hidden" id="bgImgWidth_<?php echo $count;?>" name="bgImgWidth_<?php echo $count;?>" value="">
+        <input data-form-part="product_form" type="hidden" id="bgImgHeight_<?php echo $count;?>" name="bgImgHeight_<?php echo $count;?>" value="">
+        <input data-form-part="product_form" type="hidden" id="selectableCordLeft_<?php echo $count;?>" name="selectableCordLeft_<?php echo $count;?>" value="">
+        <input data-form-part="product_form" type="hidden" id="selectableCordTop_<?php echo $count;?>" name="selectableCordTop_<?php echo $count;?>" value="">
+        <input data-form-part="product_form" type="hidden" id="height_<?php echo $count;?>" name="height_<?php echo $count;?>" value="">
+        <input data-form-part="product_form" type="hidden" id="width_<?php echo $count;?>" name="width_<?php echo $count;?>" value="">
+        <input data-form-part="product_form" type="hidden" id="productSide_<?php echo $count;?>" name="productSide_<?php echo $count;?>" value="<?php echo $product_id?>_<?php echo $count;?>">
+
+    </div>
+
+        <?php $count++; }
     }
+}
+
     ?>
-
+<input data-form-part="product_form" type="hidden" name="loopingCount" value="<?php echo count($imageUrls)?>">
     <!-- <img src ="http://127.0.0.1/supertee/pub/media/BlankProduct/forDesign.png" id="currentProductId" style="display: none"> -->
-    <form data-form-part="product_form" method="post" action="">
-    	<input  data-form-part="product_form" type="hidden" name="canvasHeight" id="canvasHeight" value="">
-    	<input  data-form-part="product_form" type="hidden" name="canvasWidth" id="canvasWidth" value="">
-    	<input  data-form-part="product_form" type="hidden" name="canvasXCdnt" id="canvasXCdnt" value="">
-    	<input  data-form-part="product_form" type="hidden" name="canvasYCdnt" id="canvasYCdnt" value="">
-    </form>
+    
+<!--         <input  data-form-part="product_form" type="hidden" name="canvasHeight" id="canvasHeight" value="">
+        <input  data-form-part="product_form" type="hidden" name="canvasWidth" id="canvasWidth" value="">
+        <input  data-form-part="product_form" type="hidden" name="canvasXCdnt" id="canvasXCdnt" value="">
+        <input  data-form-part="product_form" type="hidden" name="canvasYCdnt" id="canvasYCdnt" value=""> -->
+    
 </div>
-<p>Drag the mouse to create an area to set for the logo and tagline.</p>
+    <p>Drag the mouse to create an area to set for the logo and tagline.</p>
 
-<canvas id="canvas" width="500" height="500"></canvas>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.11/fabric.min.js"></script>
+</form>
+
 <script type="text/javascript">
-	// var img = document.getElementById('currentProductId'); 
 
-        rect = new fabric.Rect({
-    left: 40,
-    top: 40,
-    width: 50,
-    height: 50,      
-    fill: 'transparent',
-    stroke: 'green',
-    strokeWidth: 5,
-              });  
-  canvas.add(rect);
-//or however you get a handle to the IMG
+    require([ 'jquery', 'jquery/ui', 'bootstrap4', 'fabric'], function($){ 
+        $( document ).ready(function() {
+
+
+            
+
+var canvases = {};
+// var bgImg = {};
+var images = '<?php echo json_encode($imageUrls); ?>';
+if(images != ""){
+var loopImages = JSON.parse(images);
+var loopLength = JSON.parse(images).length;
+
+for (var p = 0; p < loopLength; p++) {
+    canvases[p] = new fabric.Canvas('canvas_' + p);
+    var canvasWidth = canvases[p].getWidth();
+    var canvasHeight = canvases[p].getHeight();
+    // console.log('canvas_' + (p+1));
+    // var inc = (p+1);
+    
+    // console.log("canvasImageBackground_"+canvasImageBackground);
+
+    
+
+    var canvasImageBackground = loopImages[p];
+
+            updateDimensions(canvasImageBackground, p);
+            setTimeout( function (p) {
+            console.log("p value"+p);
+            console.log('#getImgUrl_'+p);
+            var setImageBackground = loopImages[p];
+
+            console.log("canvasImageBackground_"+setImageBackground);
+            var clipRectangle = new fabric.Rect({
+            originX: 'left',
+            originY: 'top',
+            left: 150,
+            top: 150,
+            width: 100,
+            height: 100,
+            fill: 'transparent',
+            /* use transparent for no fill */
+            strokeDashArray: [10, 10],
+            stroke: 'red',
+            selectable: true
+        });
+        // We give these `Rect` objects a name property so the `clipTo` functions can
+        // find the one by which they want to be clipped.
+        // clipRectangle.set({
+        //     clipFor: 'layer'
+        // });
+    
+    var getImgWidth= $("#bgImgWidth_"+p).val();
+    var getImgHeight= $("#bgImgHeight_"+p).val();
+
+    console.log("in getImgWidth "+getImgWidth);
+    console.log("in getImgHeight "+getImgHeight);
+
+    var getPosition = getPositions(getImgWidth, getImgHeight);
+
+    canvases[p].setBackgroundImage(setImageBackground, canvases[p].renderAll.bind(canvases[p]), {
+    top: getPosition.top,
+    left: getPosition.left,
+    originX: 'left',
+    originY: 'top',
+    scaleX: getPosition.scaleFactor,
+    scaleY: getPosition.scaleFactor
+    });
+    canvases[p].add(clipRectangle);
+
+  }, (p*1000), p);
+}
+
+
+function addDeleteBtn(x, y){
+    $(".deleteBtn").remove(); 
+    var btnLeft = x-10;
+    var btnTop = y-10;
+    var deleteBtn = '<img src="<?php echo $mediaPath?>/misc/trash_bin.ico" class="deleteBtn" style="position:absolute;top:'+btnTop+'px;left:'+btnLeft+'px;cursor:pointer;width:20px;height:20px;"/>';
+    $(".canvas-container").append(deleteBtn);
+}
+
+// canvas.on('object:selected',function(e){
+//         addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+// });
+
+// canvas.on('mouse:down',function(e){
+//     if(!canvas.getActiveObject())
+//     {
+//         $(".deleteBtn").remove(); 
+//     }
+// });
+
+// canvas.on('object:modified',function(e){
+//     addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+// });
+
+// canvas.on('object:scaling',function(e){
+//     $(".deleteBtn").remove(); 
+// });
+// canvas.on('object:moving',function(e){
+//     $(".deleteBtn").remove(); 
+// });
+// canvas.on('object:rotating',function(e){
+//     $(".deleteBtn").remove(); 
+// });
+// $(document).on('click',".deleteBtn",function(){
+//     if(canvas.getActiveObject())
+//     {
+//         canvas.remove(canvas.getActiveObject());
+//         $(".deleteBtn").remove();
+//     }
+// });
+function getdimensions(canvas, index){
+
+    // var obj = canvases[index].getActiveObject();
+canvases[index].on("object:modified", function (e) {
+    var activeObject = e.target;
+    if (!activeObject) {
+      return;
+    }
+    var width = activeObject.getScaledWidth();
+    var height = activeObject.getScaledHeight();
+
+    // $("#widthTextBox").val(width);
+    // $("#heightTextBox").val(height);
+
+    // var objwidth = obj.getWidth();
+    // var objheight = obj.getHeight();
+
+    console.log("actObjwidth"+width)
+    console.log("actObjheight"+height)
+    $('#height_'+index).val(height);
+    $('#width_'+index).val(width);
+
+
+});
+}
+function getCordinates(canvas, index){
+
+
+        // var obj = canvases[index].getActiveObject();
+    
+    // $('#selectableCordLeft').val(obj.left);
+    // $('#selectableCordTop').val(obj.top);
+    // console.log("beofreleft:"+left+", after:"+top)
+    canvases[index].on("object:moving", function(e) {
+    var actObj = e.target;
+    // console.log("actObjwidth"+actObj.getWidth())
+    var coords = actObj.calcCoords();
+    var left = coords.tl.x;
+    var top = coords.tl.y;
+    console.log("coords:"+coords);
+    console.log("left:"+left+", top:"+top)
+    $('#selectableCordLeft_'+index).val(left);
+    $('#selectableCordTop_'+index).val(top);
+
+    
+    // return {left:left,top:top};
+})
+    // var objwidth = obj.getWidth();
+    // var objheight = obj.getHeight();
+
+    // console.log("actObjwidth"+actObjwidth)
+    // console.log("actObjheight"+actObjheight)
+    // $('#height_'+index).val(objwidth);
+    // $('#width_'+index).val(objheight);
+}
+
+
+
+var canvasId;
+$(document).on("click", ".canvases", function(e){
+    canvasId = (jQuery(this).find(".lower-canvas").attr("id"));
+    var res = canvasId.split("_");
+    getCordinates(canvasId, res[1]);
+    getdimensions(canvasId, res[1]);
+
+
+    // console.log(getCordinates);
+    // var currentID = e.target.id;
+    console.log("currentID ");
+    console.log(jQuery(this).attr("class"));
+})
+// document.body.onmousedown = function (e) {
+//   e = e || window.event;
+//   var elementId = (e.target || e.srcElement).id;
+
+//   recreate(elementId);
+// }
+
+// function recreate (id) {
+//   alert(id);
+// }
+
+    
+//     var canvas = new fabric.Canvas('canvas_1');
+//     var canvasWidth = canvas.getWidth();
+//     var canvasHeight = canvas.getHeight();
+
+//     var canvasImageBackground = $('#canvas_1').attr('data-product');
+//     console.log(canvasImageBackground);
+//     var bgImg = new Image();
+//     bgImg.src = canvasImageBackground;
+//     $(bgImg).on('load',function(){
+//         var bgImgWidth = bgImg.width;
+//         var bgImgHeight = bgImg.height;
+//         $('#bgImgWidth').val(bgImgWidth);
+//         $('#bgImgHeight').val(bgImgHeight);
+//         console.log("bgImgWidth "+bgImgWidth);
+//         console.log("bgImgHeight "+bgImgHeight);
+        
+        
+//     });
+
+        
+//     var obj = canvas.getActiveObject();
+    
+//     // $('#selectableCordLeft').val(obj.left);
+//     // $('#selectableCordTop').val(obj.top);
+//     // console.log("beofreleft:"+left+", after:"+top)
+//     canvas.on("object:moving", function(e) {
+//     var actObj = e.target;
+//     var coords = actObj.calcCoords();
+//     var left = coords.tl.x;
+//     var top = coords.tl.y;
+//     console.log("coords:"+coords);
+//     console.log("left:"+left+", top:"+top)
+//     $('#selectableCordLeft').val(left);
+//     $('#selectableCordTop').val(top);
+//     return {left:left,top:top};
+// })
+
+function updateDimensions(img, index){
+    var bgImg = new Image();
+    bgImg.src = img;
+    $(bgImg).on('load',function(){
+        var bgImgWidth = bgImg.width;
+        var bgImgHeight = bgImg.height;
+
+        $('#bgImgWidth_'+index).val(bgImgWidth);
+        $('#bgImgHeight_'+index).val(bgImgHeight);
+
+        console.log("bgImgWidth index"+index+bgImgWidth);
+        console.log("bgImgHeight index"+index+bgImgHeight);
+    });
+}
+
+        function getPositions(imgWidth, imgHeight){
+
+                console.log(imgWidth);
+                console.log(imgHeight);
+                var canvasAspect = canvasWidth / canvasHeight;
+                var imgAspect = imgWidth / imgHeight;
+                var left, top, scaleFactor;
+
+                if (canvasAspect >= imgAspect) {
+                    var scaleFactor = canvasWidth / imgWidth;
+                    left = 0;
+                    top = -((imgHeight * scaleFactor) - canvasHeight) / 2;
+                } else {
+                    var scaleFactor = canvasHeight / imgHeight;
+                    top = 0;
+                    left = -((imgWidth * scaleFactor) - canvasWidth) / 2;
+                }
+
+                var dimensions = new Object();
+                dimensions['left'] = left;
+                dimensions['top'] = top;
+                dimensions['scaleFactor'] = scaleFactor;
+
+                console.log(dimensions);
+                return dimensions;
+            }
+
+
+//              });
+
+
+
+// var obj = canvas.getActiveObject();
+// $('#selectableCordLeft').val(left);
+// $('#selectableCordTop').val(top);
+// alert(obj.left + "," + obj.top);
+
+//     var img = document.getElementById('currentProductId'); 
+// //or however you get a handle to the IMG
 // var width = img.naturalWidth;
 // var height = img.naturalHeight;
 // var canvas = document.getElementById('canvas');
@@ -56,169 +362,10 @@
 // var imageObj = null;
 
 
-// // var canvas = document.getElementById("canvas");
-// // // var canvas2 = document.getElementById("canvas2");
-
-// // var ctx = canvas.getContext("2d");
-// // // var ctx2 = canvas2.getContext("2d");
-
-// // var img = new Image();
-// // var rect = {};
-// // var scale = 0;
-// // var scale2 = 0;
-// // var x = 0;
-// // var y = 0;
-// // var x2 = 0;
-// // var y2 = 0;
-// // var drag = false;
-
-
-// // img.onload = function () {
-// // 	//Setting dpi for canvas1
-// // 	var dpi = window.devicePixelRatio || 1;
-// // 	canvas.setAttribute('width', canvas.clientWidth * dpi);
-// // 	canvas.setAttribute('height', canvas.clientHeight * dpi);
-	
-// // 	//Setting dpi for canvas2
-// // 	var dpi = window.devicePixelRatio || 1;
-// // 	// canvas2.setAttribute('width', canvas2.clientWidth * dpi);
-// // 	// canvas2.setAttribute('height', canvas2.clientHeight * dpi);
-				
-	
-// // 	ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-// // 	ctx.save();
-	
-// // 	// ctx2.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-// // 	// ctx2.save();
-	
-// // 	//fitting image to canvas fill
-// // 	scale = Math.max(canvas.clientWidth / img.width, canvas.clientHeight / img.height); //canvas1 scale
-// // 	// scale2 = Math.max(canvas2.clientWidth / img.width, canvas2.clientHeight / img.height); //canvas2 scale
-
-// //     x = (canvas.clientWidth / 2) - (img.width / 2) * scale; //canvas1 x
-// //     y = (canvas.clientHeight / 2) - (img.height / 2) * scale; //canvas1 y
-
-// // 	// x2 = (canvas2.clientWidth / 2) - (img.width / 2) * scale2; //canvas2 x
-// //  //    y2 = (canvas2.clientHeight / 2) - (img.height / 2) * scale2; //canvas2 y
-	
-// //     ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-// // 	// ctx2.drawImage(img, x2, y2, img.width * scale2, img.height * scale2);
-	
-// //     canvas.addEventListener('mousedown', mouseDown, false);
-// //     canvas.addEventListener('mouseup', mouseUp, false);
-// //     canvas.addEventListener('mousemove', mouseMove, false);
-// //     console.log(scale)
-// //     // console.log(scale2)
-// // }
-// // img.crossOrigin = "Anonymous";
-// // img.src = 'http://127.0.0.1/supertee/pub/media/BlankProduct/forDesign.png';
-
-// // function mouseDown(e) {
-// //     rect.startX = e.clientX - this.offsetLeft;
-// //     rect.startY = e.clientY - this.offsetTop;
-// //     drag = true;
-// // }
-
-// // function mouseUp() { 
-// // 	drag = false; 
-// // 	console.log(rect);
-// // }
-
-// // function mouseMove(e) {
-// //   //   if (drag) {
-// //   //       ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-// //   //       ctx.save();
-// //   //       ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-// //   //       rect.w = (e.clientX - this.offsetLeft) - rect.startX;
-// //   //       rect.h = (e.clientY - this.offsetTop) - rect.startY;
-// // 		// // ctx.lineWidth  = 2;
-// //   //       ctx.strokeStyle = 'red';
-// //   //       ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
-// //   //   }
-
-// //   if (drag) {
-// //         ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-// //         ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-// //         rect.w = (e.clientX - this.offsetLeft) - rect.startX;
-// //         rect.h = (e.clientY - this.offsetTop) - rect.startY;
-// //         ctx.strokeStyle = 'red';
-// //         ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
-// //     }
-// // }
-
-
-
-// // // function sendimg()
-// // // {
-// // // 	if(rect.startX === undefined)
-// // // 	{
-// // // 		alert("draw any rectangle first on canvas1");
-// // // 		return false;
-// // // 	}
-// // // 	// ctx2.lineWidth = 2;
-// // // 	// ctx2.strokeStyle = "yellow";
-// // // 	//Following code is not drawing rectangle on correct position
-// // // 	// ctx2.strokeRect( ((rect.startX - x )/scale) * scale2 + x2, 
-// // //  //                   ((rect.startY - y )/scale) * scale2 + y2, 
-// // //  //                   (rect.w/scale) * (scale2), 
-// // //  //                   (rect.h/scale) * (scale2));
-  
-// // // }
-// // ///////ok
-
-// // // var canvas = document.getElementById("canvas1");
-// // // var canvas2 = document.getElementById("canvas2");
-
-// // // var ctx = canvas.getContext("2d");
-// // // var ctx2 = canvas2.getContext("2d");
-
-// // // var img = new Image();
-// // // var rect = {};
-// // // var scale = 0;
-// // // var scale2 = 0;
-// // // var x = 0;
-// // // var y = 0;
-// // // var x2 = 0;
-// // // var y2 = 0;
-// // // var drag = false;
-
-
-// // // img.onload = function () {
-// // // 	//Setting dpi for canvas1
-// // // 	var dpi = window.devicePixelRatio || 1;
-// // // 	canvas.setAttribute('width', canvas.clientWidth * dpi);
-// // // 	canvas.setAttribute('height', canvas.clientHeight * dpi);
-	
-// // // 	//Setting dpi for canvas2
-// // // 	var dpi = window.devicePixelRatio || 1;
-// // // 	canvas2.setAttribute('width', canvas2.clientWidth * dpi);
-// // // 	canvas2.setAttribute('height', canvas2.clientHeight * dpi);
-				
-	
-// // // 	ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-// // // 	ctx.save();
-	
-// // // 	ctx2.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-// // // 	ctx2.save();
-	
-// // // 	//fitting image to canvas fill
-// // // 	scale = Math.max(canvas.clientWidth / img.width, canvas.clientHeight / img.height); //canvas1 scale
-// // // 	scale2 = Math.max(canvas2.clientWidth / img.width, canvas2.clientHeight / img.height); //canvas2 scale
-
-// // //     x = (canvas.clientWidth / 2) - (img.width / 2) * scale; //canvas1 x
-// // //     y = (canvas.clientHeight / 2) - (img.height / 2) * scale; //canvas1 y
-
-// // // 	x2 = (canvas2.clientWidth / 2) - (img.width / 2) * scale2; //canvas2 x
-// // //     y2 = (canvas2.clientHeight / 2) - (img.height / 2) * scale2; //canvas2 y
-	
-// // //     ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-// // // 	ctx2.drawImage(img, x2, y2, img.width * scale2, img.height * scale2);
-	
-
 
 // function init() {
 //     imageObj = new Image();
-//     imageObj.onload = function () { ctx.drawImage(imageObj, 0, 0, 500, 500); };
+//     imageObj.onload = function () { ctx.drawImage(imageObj, 0, 0, 300, 300); };
 //     // imageObj.src = 'http://127.0.0.1/supertee/pub/media/BlankProduct/forDesign.png';
 //     imageObj.src = document.getElementById('currentProductId').src;
 //     // imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
@@ -234,8 +381,8 @@
 // }
 
 // function mouseUp() { drag = false; 
-// 	// console.log("width"+rect.w);
-// 	var canvasHeight = document.getElementById('canvasHeight');
+//     // console.log("width"+rect.w);
+//     var canvasHeight = document.getElementById('canvasHeight');
 //         canvasHeight.value = rect.w;
 //         var canvasWidth = document.getElementById('canvasWidth');
 //         canvasWidth.value = rect.h;
@@ -243,21 +390,24 @@
 //         canvasXCdnt.value = rect.startX;
 //         var canvasYCdnt = document.getElementById('canvasYCdnt');
 //         canvasYCdnt.value = rect.startY;
-// 	}
+//     }
+
+// function mouseMove(e) {
+//     if (drag) {
+//         ctx.clearRect(0, 0, 419, 400);
+//         ctx.drawImage(imageObj, 0, 0, 300, 300);
+//         rect.w = (e.pageX - this.offsetLeft) - rect.startX;
+//         rect.h = (e.pageY - this.offsetTop) - rect.startY;
+//         ctx.strokeStyle = 'red';
+//         ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
 
 
-
-// // function mouseMove(e) {
-// //     if (drag) {
-// //         ctx.clearRect(0, 0, 500, 500);
-// //         ctx.drawImage(imageObj, 0, 0, 500, 500);
-// //         rect.w = (e.pageX - this.offsetLeft) - rect.startX;
-// //         rect.h = (e.pageY - this.offsetTop) - rect.startY;
-// //         ctx.strokeStyle = 'red';
-// //         ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
-  
-// //     }
-// // }
+        
+//     }
+// }
 // //
 // init();
+}
+    });
+    });
 </script>

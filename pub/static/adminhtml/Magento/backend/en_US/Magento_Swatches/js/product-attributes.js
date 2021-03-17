@@ -1,0 +1,1 @@
+/var/www/html/supertee/vendor/magento/module-swatches/view/adminhtml/web/js/product-attributes.js

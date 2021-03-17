@@ -51,6 +51,7 @@ $cartQty = 0;
 $message1 = '';
 $message2 = '';
 $message3 = '';
+$helper = $this->helper(\Magento\Search\Helper\Data::class);
 
 if(!empty($_REQUEST['referred']) && ($_REQUEST['referred'] =='1')){
     $message1= "You have successfully requested your friend to join Supertee. Once your referral joins the Supertee you will receive 50 reward points and after his first purchase 100 reward points will be credited to your acccount.";
@@ -180,14 +181,15 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
                     <div class="col-md-12">
                         <nav class="navbar navbar-expand-lg ">
                             <a class="navbar-brand" href="<?php echo $block->getBaseUrl(); ?>">
-                                <img src="<?php echo $this->getViewFileUrl('images/logo.svg'); ?>" alt="websiteLogo" class="img-fluid" />
+                                <img src="<?php echo $this->getViewFileUrl('images/logo.svg'); ?>" alt="websiteLogo" class="img-fluid logoDesktop" />
+                                <img src="<?php echo $this->getViewFileUrl('images/logoMobile.svg'); ?>" alt="websiteLogo" class="img-fluid logoMobile" />
 
                             </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
-                            </button>
+                            </button> -->
 
 
                                 <div class="iconWrap my-2 my-lg-0 d-flex align-items-center order-xl-3">
@@ -201,25 +203,59 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
 
                                     <div class="search_box flex-column ">
                                         <div class="input_box d-flex align-items-center">
-                                            <input type="text" placeholder="search here" />
-                                            <svg class="icon position-absolute" width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M31.7162 30.3681L23.9397 22.5916C26.0257 20.1933 27.2887 17.0643 27.2887 13.6443C27.2887 6.11619 21.1654 0 13.6444 0C6.11619 0 0 6.12328 0 13.6443C0 21.1654 6.12329 27.2887 13.6444 27.2887C17.0643 27.2887 20.1934 26.0257 22.5916 23.9397L30.3681 31.7162C30.5526 31.9007 30.8009 32 31.0422 32C31.2834 32 31.5317 31.9078 31.7162 31.7162C32.0852 31.3472 32.0852 30.737 31.7162 30.3681ZM1.90865 13.6443C1.90865 7.17339 7.1734 1.91574 13.6373 1.91574C20.1082 1.91574 25.3659 7.18049 25.3659 13.6443C25.3659 20.1082 20.1082 25.38 13.6373 25.38C7.1734 25.38 1.90865 20.1153 1.90865 13.6443Z"
-                                                    fill="#151515" />
-                                            </svg>
-                                            <svg class="close" width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.467137 30.5329C0.777394 30.8455 1.18575 31.0008 1.59411 31.0008C2.00207 31.0008 2.41043 30.8435 2.72302 30.5329L15.5006 17.7553L28.2793 30.5329C28.59 30.8455 28.9979 31.0008 29.4063 31.0008C29.8123 31.0008 30.2203 30.8435 30.5329 30.5329C31.1557 29.91 31.1557 28.9002 30.5329 28.2774L17.7558 15.5001L30.5329 2.72302C31.1557 2.09978 31.1557 1.08999 30.5329 0.467137C29.91 -0.155712 28.9002 -0.155712 28.2774 0.467137L15.5001 13.2444L2.72302 0.467137C2.09978 -0.155712 1.08999 -0.155712 0.467137 0.467137C-0.155712 1.08999 -0.155712 2.09978 0.467137 2.72302L13.2448 15.4997L0.467137 28.2774C-0.155712 28.9002 -0.155712 29.91 0.467137 30.5329Z" fill="#151515"/>
-                                            </svg>
+                                            <!-- <form class="form minisearch" id="search_mini_form" action="<?php echo $block->getBaseUrl();?>/catalogsearch/advanced/result/" method="get">
+                                                <input id="search" type="text" name="name" value="" placeholder="Search entire store here..." class="input-text" maxlength="128" role="combobox" aria-haspopup="false" aria-autocomplete="both" autocomplete="off" aria-expanded="false">
+                                            </form> -->
+                                            <form class="form minisearch sparsh-minisearch" id="search_mini_form" action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>" method="get">
+            <!-- <div class="field search"> -->
+                <label class="label" for="search" data-role="minisearch-label">
+                    <span><?= /* @escapeNotVerified */ __('Search') ?></span>
+                </label>
+                <!-- <div class="control"> -->
+                    <input id="search"
+                           type="text"
+                           name="<?= /* @escapeNotVerified */ $helper->getQueryParamName() ?>"
+                           value="<?= /* @escapeNotVerified */ $helper->getEscapedQueryText() ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Search entire store here...') ?>"
+                           class="input-text"
+                           maxlength="<?= /* @escapeNotVerified */ $helper->getMaxQueryLength() ?>"
+                           role="combobox"
+                           aria-haspopup="false"
+                           aria-autocomplete="both"
+                           autocomplete="off"/>
+                   
+                <!-- </div>
+            </div> -->
+            <!-- <div class="actions">
+                <button type="submit"
+                    title="<?php // $block->escapeHtml(__('Search')) ?>"
+                    class="action search"
+                    aria-label="Search"
+                >
+                    <span><?php /* @escapeNotVerified */ //__('Search') ?></span>
+                </button>
+            </div> -->
+        </form>
+        <svg class="icon position-absolute" width="32" height="32" viewBox="0 0 32 32" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M31.7162 30.3681L23.9397 22.5916C26.0257 20.1933 27.2887 17.0643 27.2887 13.6443C27.2887 6.11619 21.1654 0 13.6444 0C6.11619 0 0 6.12328 0 13.6443C0 21.1654 6.12329 27.2887 13.6444 27.2887C17.0643 27.2887 20.1934 26.0257 22.5916 23.9397L30.3681 31.7162C30.5526 31.9007 30.8009 32 31.0422 32C31.2834 32 31.5317 31.9078 31.7162 31.7162C32.0852 31.3472 32.0852 30.737 31.7162 30.3681ZM1.90865 13.6443C1.90865 7.17339 7.1734 1.91574 13.6373 1.91574C20.1082 1.91574 25.3659 7.18049 25.3659 13.6443C25.3659 20.1082 20.1082 25.38 13.6373 25.38C7.1734 25.38 1.90865 20.1153 1.90865 13.6443Z"
+            fill="#151515" />
+    </svg>
+    <svg class="close" width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.467137 30.5329C0.777394 30.8455 1.18575 31.0008 1.59411 31.0008C2.00207 31.0008 2.41043 30.8435 2.72302 30.5329L15.5006 17.7553L28.2793 30.5329C28.59 30.8455 28.9979 31.0008 29.4063 31.0008C29.8123 31.0008 30.2203 30.8435 30.5329 30.5329C31.1557 29.91 31.1557 28.9002 30.5329 28.2774L17.7558 15.5001L30.5329 2.72302C31.1557 2.09978 31.1557 1.08999 30.5329 0.467137C29.91 -0.155712 28.9002 -0.155712 28.2774 0.467137L15.5001 13.2444L2.72302 0.467137C2.09978 -0.155712 1.08999 -0.155712 0.467137 0.467137C-0.155712 1.08999 -0.155712 2.09978 0.467137 2.72302L13.2448 15.4997L0.467137 28.2774C-0.155712 28.9002 -0.155712 29.91 0.467137 30.5329Z" fill="#151515"/>
+    </svg>
                                                 
                                         </div>
                                         <div class="search_result">
-                                            <ul class="list-unstyled">
+                                        	 <?= $block->getChildHtml() ?>
+                                        	 
+                                            <!-- <ul class="list-unstyled">
                                                 <li> <a href="#;"> t-shirts </a> </li>
                                                 <li> <a href="#;"> basic t-shirts </a> </li>
                                                 <li> <a href="#;"> men t-shirts </a> </li>
                                                 <li> <a href="#;"> women t-shirts </a> </li>
-                                            </ul>
+                                            </ul> -->
 
                                             <div class="search_thumb row">
                                                 <div class="col-md-4">
@@ -251,6 +287,32 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
                                     </div>
                                 </div>
 
+
+
+
+                      <!--           <div class="block block-content">
+        <form class="form minisearch" id="search_mini_form" action="<?php echo $block->getBaseUrl();?>/catalogsearch/result/" method="get">
+
+            <div class="field search">
+                <label class="label" for="search" data-role="minisearch-label">
+                    <span>Search</span>
+                </label>
+                <div class="control">
+                    <input id="search" type="text" name="q" value="" placeholder="Search entire store here..." class="input-text" maxlength="128" role="combobox" aria-haspopup="false" aria-autocomplete="both" autocomplete="off" aria-expanded="false">
+                    <div id="search_autocomplete" class="search-autocomplete" style="display: none;"></div>
+                    <div class="nested">
+    <a class="action advanced" href="<?php ?>catalogsearch/advanced/" data-action="advanced-search">
+        Advanced Search    </a>
+</div>
+                </div>
+            </div>
+            <div class="actions">
+                <button type="submit" title="Search" class="action search" aria-label="Search" disabled="">
+                    <span>Search</span>
+                </button>
+            </div>
+        </form>
+    </div> -->
                                     
                                     <?php 
                                     if((!$customerSession->isLoggedIn())) { 

@@ -517,10 +517,22 @@ form.password.forget{
                 //   $('.response-msg').html("<div class='notify error'><h6>Please enter the confirm password.</h6></div>");
                 //   return false;
                 // }
+
+
+                  var passwordVal = $('#setPassword').val();
+                  var regularExp = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+                  if(!regularExp.test(passwordVal)){
+                    $('.response-msg').html("<div class='notify error'><h6>Password should be alphanumric and atleast 8 characters long.</h6></div>");
+                    return false;
+                  }
+
+
                 if(($('#setPassword').val()) != ($('#password_confirmation').val())) {
                   $('.response-msg').html("<div class='notify error'><h6>Password and confirm password should be same.</h6></div>");
                 return false;
-            }
+
+              }
+
 
                 registerButton.text(registeringText);
                 registerButton.attr("disabled", "disabled");

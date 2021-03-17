@@ -4,6 +4,7 @@
 * {
   font-family: $primaryFont;
 }
+
 html {
   font-size:$fontSize - 4;
   @include min-768 {
@@ -113,7 +114,14 @@ p,ul,ol{
 
   @include min-1400 {
     max-width: 1710px;
+    padding:0 25px;
   }
+
+  @include min-1600 {
+    padding:0;
+  }
+
+
 }
 .inner-container { 
   max-width: 1440px;
@@ -1347,14 +1355,14 @@ input[type=number]::-webkit-outer-spin-button {
   }
 
   .close{
-    margin-left:34px;
-    margin-right:15px;
+    margin-left:20px;
+    margin-right:20px;
   }
 
   .input_box{
     position:relative;
     input{
-      padding:30px 51px 30px 40px;
+      padding:30px 51px 30px 60px;
       font-size:1.3125rem;
       flex-grow:1;
       
@@ -1369,7 +1377,7 @@ input[type=number]::-webkit-outer-spin-button {
     width:30px;
     height:30px;
     top:50%;
-    left:25px;
+    left:18px;
     transform:translateY(-50%);
     
     @include min-992{

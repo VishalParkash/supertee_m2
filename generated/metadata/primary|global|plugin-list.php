@@ -3835,6 +3835,8 @@
     'AmazonVoidCommand' => NULL,
     'AmazonValueHandlerPool' => NULL,
     'AmazonConfigValueHandler' => NULL,
+    'Auctane\\Api\\Model\\ActionLoggerHandler' => NULL,
+    'Auctane\\Api\\Model\\ActionLogger' => NULL,
     'ContactCustomPrice' => NULL,
     'Zend_Date_DateObject' => NULL,
     'Zend_Date' => NULL,

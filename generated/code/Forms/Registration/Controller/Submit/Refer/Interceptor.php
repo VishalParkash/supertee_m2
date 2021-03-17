@@ -8,10 +8,10 @@ class Interceptor extends \Forms\Registration\Controller\Submit\Refer implements
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\Message\ManagerInterface $messageManager, \Magento\Framework\App\ResourceConnection $resource, \Magento\Framework\Math\Random $mathRandom, \Magento\Framework\App\Filesystem\DirectoryList $directory_list, \Magento\Framework\Filesystem $fileSystem, \Magento\Customer\Model\Session $customer, \Magento\Framework\UrlInterface $url, \Magento\Framework\App\Response\Http $redirect, \Forms\Registration\Model\Session $session, \Magento\Framework\Controller\ResultFactory $result)
+    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\Message\ManagerInterface $messageManager, \Magento\Framework\App\ResourceConnection $resource, \Magento\Framework\Math\Random $mathRandom, \Magento\Framework\App\Filesystem\DirectoryList $directory_list, \Magento\Framework\Filesystem $fileSystem, \Magento\Customer\Model\Session $customer, \Magento\Framework\UrlInterface $url, \Magento\Framework\App\Response\Http $redirect, \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory, \Forms\Registration\Model\Session $session, \Magento\Framework\Controller\ResultFactory $result)
     {
         $this->___init();
-        parent::__construct($context, $messageManager, $resource, $mathRandom, $directory_list, $fileSystem, $customer, $url, $redirect, $session, $result);
+        parent::__construct($context, $messageManager, $resource, $mathRandom, $directory_list, $fileSystem, $customer, $url, $redirect, $resultJsonFactory, $session, $result);
     }
 
     /**

@@ -1,0 +1,31 @@
+<?php
+$productData = $block->getData();
+
+$products = $productData['data'];
+// echo "<pre>123";print_r($products);
+// $products = $block->getProducts($productIds);
+
+?>
+<!-- 
+
+<ul class="list-unstyled">
+                                                <li> <a href="#;"> t-shirts </a> </li>
+                                                <li> <a href="#;"> basic t-shirts </a> </li>
+                                                <li> <a href="#;"> men t-shirts </a> </li>
+                                                <li> <a href="#;"> women t-shirts </a> </li>
+                                            </ul> -->
+
+                                            <div class="search_thumb row">
+                                                <?php if(!empty($products)){?>
+                                                <?php foreach($products as $product){?>
+                                                <div class="col-md-4">
+                                                    <div class="search_thumb_box">
+                                                        <a href="<?php echo $block->getProductUrl($product['entity_id'])?>"><img src="<?php echo $block->getProductImgById($product['entity_id'])?>" class="img-fluid" alt="" /></a>
+                                                        <h6><?php echo $product['name']?></h6>
+                                                        <p>fido dido</p>
+                                                        <span>$<?php echo number_format($block->getPriceById($product['entity_id']),2);?></span>
+                                                    </div>
+                                                </div>
+                                            <?php }?>
+                                            <?php }?>
+                                            </div>
