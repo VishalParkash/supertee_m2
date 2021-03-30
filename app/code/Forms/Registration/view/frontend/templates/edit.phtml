@@ -1,24 +1,60 @@
  <?php 
  $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
  $customerSession = $objectManager->create('Magento\Customer\Model\Session');
- 
  if ($customerSession->isLoggedIn()) {
-     $customerSession->getCustomerId();  // get Customer Id
+     $customerId = $customerSession->getCustomerId();  // get Customer Id
      $customerSession->getCustomerGroupId();
      $customerSession->getCustomer();
      $customerSession->getCustomerData();
- 
-    //  echo $customerSession->getCustomer()->getName();  // get  Full Name
-    // echo $customerSession->getCustomer()->getEmail(); // get Email
+     $customer = $customerSession->getCustomer();
+     $countryHelper = $objectManager->get('Magento\Directory\Model\Config\Source\Country'); 
+     $countryFactory = $objectManager->get('Magento\Directory\Model\CountryFactory');
+
+     $countries = $countryHelper->toOptionArray();
+     
+         foreach ( $countries as $countryKey => $country ) {
+     
+             if ( $country['value'] != '' ) {
+     
+                 $stateArray = $countryFactory->create()->setId(
+                     $country['value']
+                 )->getLoadedRegionCollection()->toOptionArray();
+                 if ( count($stateArray) > 0 ) {
+                     $countries[$countryKey]['states'] = $stateArray;
+                 }
+     
+             }
+         }
+   
+         $customerRepository = $objectManager->get('Magento\Customer\Api\CustomerRepositoryInterface'); 
+         $addressRepository = $objectManager->get('Magento\Customer\Api\AddressRepositoryInterface'); 
+         $customerde = $customerRepository->getById($customerId);
+         $billingAddressId = $customerde->getDefaultBilling();
+         $baddress = $objectManager->create('Magento\Customer\Model\Address')->load($billingAddressId);
+         $address = $baddress->getData();
     $cust_name = $customerSession->getCustomer()->getName();
     $cust_email = $customerSession->getCustomer()->getEmail();
-    $cust_telephone = $customerSession->getCustomer()->getTelephone();
-   // print_r($customerSession->getCustomer());die();
+    $cust_telephone = $customerSession->getCustomer()->getMobile();
+    $cust_gender = $customerSession->getCustomer()->getGender();
+    //$address = $customerSession->getCustomer()->getAddress();
+    $country = (!empty($address['country_id']))?$address['country_id']:'';
+    $city = (!empty($address['city']))?$address['city']:'';
+    $telephone = (!empty($address['telephone']))?$address['telephone']:'';
+    $country = (!empty($address['country_id']))?$address['country_id']:'';
+    $street = (!empty($address['street']))?$address['street']:'';
+    $postcode = (!empty($address['postcode']))?$address['postcode']:'';
+    //echo '<pre>';print_r($customerSession->getCustomer()->getData());
+    //$genderText = $customer->getAttribute('gender')->getSource()->getOptionText($customer->getData('gender'));
+    // echo $customerSession->getCustomer()->getEmail(); // get Email
+    //$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+   
  }
 
  ?>
  <!-- MainBodyWrap -->
  <main class="main">
+ <div class="loading-mask" style="display:none;" data-role="loader" ><div class="loader">
+    <img alt="Loading..." src="<?php echo $block->getViewFileUrl('images/loader-2.gif') ?>"><p>Please wait...</p></div></div>
         <section class="manageAccount manageAccountProfile">
             <div class="container addPadding">
                 <nav aria-label="breadcrumb">
@@ -37,55 +73,84 @@
                             <li><a href="<?php echo $block->getBaseUrl(); ?>customer/account/edit" class="active">Profile</a></li>
                             <li><a href="<?php echo $block->getBaseUrl(); ?>customer/account/password">Password</a></li>
                             <li><a href="<?php echo $block->getBaseUrl(); ?>sales/order/history">Orders</a></li>
-                            <li><a href="#">Your customized design</a></li>
-                            <li><a href="#">Notification settings</a></li>
+                            <!-- <li><a href="#">Your customized design</a></li>
+                            <li><a href="#">Notification settings</a></li> -->
                         </ul>
                     </div>
                     <div class="manageAccountRightBar">
                         <div class="manageAccountRightBarTop">
                             <h4>Profile information</h4>
                         </div>
-                        <form class="form form-edit-account" action="<?= $block->escapeUrl($block->getUrl('profile/account/edit')) ?>"
+                        <!-- <form class="form form-edit-account" action="<?= $block->escapeUrl($block->getUrl('profile/account/edit')) ?>"
                          method="post" id="form-validate"
                          enctype="multipart/form-data"
                          data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
-                           autocomplete="off">
+                           autocomplete="off"> -->
+                           <div class="response-msg" style="width:auto;"></div>
+                           <form class="edit-form" method="POST">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Name" value="<?php echo $cust_name; ?>" />
+                                        <input type="text" name="name" class="form-control" placeholder="Name" value="<?php echo $cust_name; ?>" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" value="<?php echo $cust_email; ?>" readonly/>
+                                        <input type="text" name="email" class="form-control" value="<?php echo $cust_email; ?>" readonly/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Contact number" value="09876543211"/>
+                                        <input type="number" name="mobile" class="form-control" placeholder="Contact number" value="<?=$telephone?>"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="dropdown selectDropdown">
-                                            <button class="dropdown-toggle" type="button" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                <!-- <span>Male</span> -->
-                                                <span class="placeholder">Gender</span>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0);">Male</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Female</a>
-                                            </div>
-                                        </div>
+                                        <select name="gender" class="form-control">
+                                            <option value="1" <?php if($cust_gender == 1){echo 'selected';}?>>Male</option>
+                                            <option value="2" <?php if($cust_gender == 2){echo 'selected';}?>>Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="country" class="form-control" required>
+                                            <option value="">Select country</option>
+                                            <?php foreach ( $countries as $key => $value ) {
+                                                if (!$key == 0) {
+                                                ?>
+                                                <option value="<?=$value['value']?>" <?php if($country == $value['value']){echo 'selected';}?>><?=$value['label']?></option>
+                                            <?php }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" required name="city" class="form-control" placeholder="City" value="<?=$city?>"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" required name="street" class="form-control" placeholder="Street" value="<?=$street?>"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                    <input type="hidden" name="billingId" class="form-control" value="<?=$billingAddressId?>"/>
+
+                                        <input type="text" required name="statecode" class="form-control" placeholder="Post code" value="<?=$postcode?>"/>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-6">
                                     <div class="form-group">
                                         <textarea class="form-control"></textarea>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="manageAccountRightBarBtn d-flex align-items-center">
                                 <button class="btn btn-primary d-flex align-items-center">
@@ -97,7 +162,7 @@
                                             fill="white" />
                                     </svg>
                                 </button>
-                                <button class="btn btn-secondary-outline d-flex align-items-center">
+                                <!-- <button class="btn btn-secondary-outline d-flex align-items-center">
                                     <span>Cancel</span>
                                     <svg width="9" height="11" viewBox="0 0 9 11" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +170,7 @@
                                             d="M1.17884 0.711923L4.42008 4.37813L7.66133 0.723033C7.72514 0.649586 7.80174 0.591916 7.88627 0.55367C7.9708 0.515424 8.06143 0.497434 8.15242 0.500838C8.33098 0.513908 8.49922 0.600038 8.62574 0.743146C8.75226 0.886254 8.82841 1.07656 8.83996 1.27852C8.84085 1.37782 8.8239 1.47629 8.79013 1.56796C8.75636 1.65962 8.70648 1.74258 8.64352 1.81179L5.39245 5.50022L8.64352 9.18864C8.77121 9.32863 8.84193 9.52194 8.83996 9.72191C8.82841 9.92387 8.75226 10.1142 8.62574 10.2573C8.49922 10.4004 8.33098 10.4865 8.15242 10.4996C8.06143 10.503 7.9708 10.485 7.88627 10.4468C7.80174 10.4085 7.72514 10.3508 7.66133 10.2774L4.42008 6.6223L1.18866 10.2774C1.12484 10.3508 1.04825 10.4085 0.963713 10.4468C0.879182 10.485 0.788554 10.503 0.69756 10.4996C0.515677 10.4889 0.343749 10.4023 0.214964 10.2567C0.086179 10.111 0.00966837 9.91653 0.000201034 9.7108C-0.000687659 9.6115 0.0162659 9.51303 0.0500332 9.42136C0.0838005 9.3297 0.133678 9.24674 0.19664 9.17754L3.44771 5.50022L0.186818 1.81179C0.125629 1.74164 0.0775666 1.65827 0.0455029 1.56665C0.0134391 1.47502 -0.00196837 1.37703 0.000201034 1.27852C0.0117559 1.07656 0.0879024 0.886254 0.214422 0.743146C0.340942 0.600038 0.509185 0.513908 0.687738 0.500838C0.778024 0.495988 0.868225 0.512227 0.952717 0.548544C1.03721 0.584861 1.11418 0.640476 1.17884 0.711923Z"
                                             fill="#151515" />
                                     </svg>
-                                </button>
+                                </button> -->
                             </div>
                         </form>
                     </div>
@@ -113,3 +178,56 @@
             </div>
         </section>
     </main>
+
+    <script type="text/javascript">
+        require(['jquery', 'bootstrap4'], function($) {
+            $('.edit-form').submit(function(e){
+                $(".loading-mask").show();
+                var Url = "<?php echo $block->getUrl('profile/account/edit') ?>";
+                var formData = getFormData($(this));
+                console.log(formData);
+                $.ajax({
+                    type: "POST",
+                    url: Url,
+                    data: formData,
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        showResponse(data);
+                        if(data.errors) {
+                            $(".loading-mask").hide();
+                        } else {
+                             window.location.href = "<?php echo $this->getUrl().'customer/account/edit'?>";
+                        }
+
+                    }
+                });
+                return false;
+            });
+            
+            
+
+
+            function getFormData(formElem){
+                var unindexed_array = formElem.serializeArray();
+                var indexed_array = {};
+
+                jQuery.map(unindexed_array, function(n, i){
+                    indexed_array[n['name']] = n['value'];
+                });
+
+                return indexed_array;
+            }
+
+            function showResponse(data) {
+                if(data.errors) {
+                    $('.response-msg').html("<div class='notify error' style='width:auto;'><h6>"+data.message+"</h6></div>");
+                } else {
+                    $('.response-msg').html("<div class='notify success' style='width:auto;'><h6>"+data.message+"</h6></div>");
+                }
+                setTimeout(function(){ $('.response-msg').html(null); }, 5000);
+            }
+
+ 
+   });
+    </script>

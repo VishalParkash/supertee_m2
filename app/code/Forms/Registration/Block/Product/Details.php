@@ -101,8 +101,20 @@ return $selectOptions = $atrributesRepository->get('Color')->getOptions();
       return $this->_registry->registry('current_product');
     }
 
+    public function getCurrentCategory()
+    {
+        return $this->_registry->registry('current_category');
+    }
+
     public function getTierPrice(){
       $product = $this->getCurrentProduct();
+      $id =  $product->getId();
+//       $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+// $product_obj = $objectManager->create('Magento\Catalog\Api\ProductRepositoryInterface')->getById($id);                
+// $tier_price = $product_obj->getTierPrice();
+// echo "<pre>";print_r($tier_price);die;
+
+
       $getTierPrice =  $product->getTierPrice();
       if(!empty($getTierPrice)){
         return $getTierPrice;
@@ -206,6 +218,27 @@ return $selectOptions = $atrributesRepository->get('Color')->getOptions();
         }else{
           return false;
         }
+    }
+
+    public function getSuperAttributeData($productId)
+    {
+        /** @var \Magento\Catalog\Model\Product $product */
+        $product = $this->_productRepository->getById($productId);
+        if ($product->getTypeId() != \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
+            return [];
+        }
+ 
+        /** @var \Magento\ConfigurableProduct\Model\Product\Type\Configurable $productTypeInstance */
+        $productTypeInstance = $product->getTypeInstance();
+        $productTypeInstance->setStoreFilter($product->getStoreId(), $product);
+ 
+        $attributes = $productTypeInstance->getConfigurableAttributes($product);
+        $superAttributeList = [];
+        foreach($attributes as $_attribute){
+            $attributeCode = $_attribute->getProductAttribute()->getAttributeCode();;
+            $superAttributeList[$_attribute->getAttributeId()] = $attributeCode;
+        }
+        return $superAttributeList;
     }
 
 //     public function getProduct(){

@@ -143,8 +143,13 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
                                         <span><?php echo ucwords($firstName); ?></span>
                                       
                                       </button>
-                                  
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <!-- <a href="<?php //echo $block->getBaseUrl(); ?>">Go to supertee website</a> -->
+                                <a class="dropdown-item" href="<?php echo $block->getBaseUrl(); ?>customer/account/edit">Manage account</a>
+                                <a class="dropdown-item" href="<?php echo $block->getBaseUrl(); ?>customer/account/logout">Logout</a>
+                            </div>
+                            
+                                    <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#">Dashboard</a>
                                         <a class="dropdown-item" href="#">Transaction report</a>
                                         <a class="dropdown-item" href="#">Sales report</a>
@@ -160,9 +165,9 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
                                             <label class="switchToggle" for="switch">Toggle</label>
                                             <span>On</span>
                                         </div>
-                                        <a class="dropdown-item" href="<?php echo $block->getBaseUrl(); ?>customer/account/logout">Logout</a>
+                                        <a class="dropdown-item" href="<?php //echo $block->getBaseUrl(); ?>customer/account/logout">Logout</a>
                                         
-                                    </div>
+                                    </div> -->
                                 </div>
                               <?php } ?>
                             </div>

@@ -1037,12 +1037,12 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                         <div class="left d-flex flex-column">
-                                            <h6>Rhare on facebook</h6>
+                                            <h6>Share on facebook</h6>
                                             <p>200 points </p>
                                         </div>
 
                                         <div class="right">
-                                            <a href="javascript:void(0)">
+                                            <a href="http://www.facebook.com/sharer.php?u=<?php echo $block->getBaseUrl(); ?>" target="_blank" id="fbShare" class="shareUrl">
                                                 <div class="share d-flex align-items-center">
                                                     <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                     <span>share</span>
@@ -1051,9 +1051,9 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <div class="icon">
-                                        <img src="<?php echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
+                                        <img src="<?php //echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
                                     </div>
                                     <div class="content d-flex align-items-center justify-content-between">
                                         <div class="left d-flex flex-column">
@@ -1062,15 +1062,15 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                         </div>
 
                                         <div class="right">
-                                            <a href="javascript:void(0)">
+                                            <a href="http://www.facebook.com/sharer.php?u=">
                                                 <div class="share d-flex align-items-center">
-                                                    <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
+                                                    <img src="<?php //echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                     <span>share</span>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                      </div>
@@ -1192,7 +1192,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                                         </div>
                 
                                                         <div class="right">
-                                                            <a href="javascript:void(0)">
+                                                            <a href="http://www.facebook.com/sharer.php?u=<?php echo $block->getBaseUrl(); ?>" id="fbShare" target="_blank" class="shareUrl">
                                                                 <div class="share d-flex align-items-center">
                                                                     <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                                     <span>share</span>
@@ -1201,9 +1201,9 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
+                                                <!-- <li>
                                                     <div class="icon">
-                                                        <img src="<?php echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
+                                                        <img src="<?php //echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1214,16 +1214,16 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                                         <div class="right">
                                                             <a href="javascript:void(0)">
                                                                 <div class="share d-flex align-items-center">
-                                                                    <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
+                                                                    <img src="<?php //echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                                     <span>share</span>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                     </div>
-                                                </li>
-                                                <li>
+                                                </li> -->
+                                                <!-- <li>
                                                     <div class="icon">
-                                                        <img src="<?php echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
+                                                        <img src="<?php //echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
                                                     </div>
                                                     <div class="content d-flex align-items-center justify-content-between">
                                                         <div class="left d-flex flex-column">
@@ -1234,13 +1234,13 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                                         <div class="right">
                                                             <a href="javascript:void(0)">
                                                                 <div class="share d-flex align-items-center">
-                                                                    <img src="<?php echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
+                                                                    <img src="<?php //echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
                                                                     <span>share</span>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                     </div>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                      </div>
@@ -1354,7 +1354,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                         </div>
                         <div class="donate_point user_balance">
                             <h6 class="font-18">Balance</h6>
-                            <input type="number" placeholder="Enter Points to donate" name="donation_points" />
+                            <input type="number" placeholder="Enter Points to donate" name="donation_points" id="donation_points" />
                             <p>100 points = <span>$2</span> </p>
                             <span id="errorPoints"></span>
                         </div>
@@ -1684,8 +1684,15 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                 // forgetButton.text(forgetText);
                 // forgetButton.attr("disabled", "disabled");
                 var status = true;
+
+                var earnedPoints = "<?php echo $earnedPoints; ?>";
+                var donation_points = $('#donation_points').val();
+
                 if($('#donation_points').val() == '') {
                     $('#errorPoints').text("Please enter the donation points");
+                    status = false;
+                }if(donation_points > earnedPoints){
+                    $('#errorPoints').text("You do not have that much points");
                     status = false;
                 }if($('#organisation_name').val() == ''){
                     $('#errorOrgName').text("Please enter the orgation name");
@@ -1703,6 +1710,8 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                     $('#errorOrgAdd').text("Please enter the orgation address");
                     status = false;
                 }
+
+
 
                 if(status  == false){
                     return false;
@@ -1744,7 +1753,29 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                             }
                     }
                 });
-                return false;
+            });
+
+    $('.shareUrl').click(function(){
+            var getHrefAttr = $(this).attr("href");
+            var getId = this.id;
+                
+               //console.log(formData);
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $block->getUrl()?>/refer/submit/share/",
+                    data: {sharingMedia:getId},
+                    dataType: "json",
+                    success: function(data) {
+                            if(data == true){
+                                alert("Rewards points will be added to your wallet once you share the link on facebook.");
+                                // $('#referResponseTxt').html('Mail has been sent to your referral friend');
+                            }else{
+                                alert(data);
+                                
+                            }
+                            return false;
+                    }
+                });
             });
 
         });

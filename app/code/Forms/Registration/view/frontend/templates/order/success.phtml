@@ -1,3 +1,4 @@
+<?php $block->getCustomSuccess(); ?>
 <main class="main">
         <section class="orderSuccessful">
             <div class="d-flex flex-column m-auto">
@@ -27,7 +28,8 @@
                                     </svg>
 
                                     <h3>Your order has been successfully placed</h3>
-                                    <button type="button" class="btn btn-dark d-flex align-items-center"
+                                    <a href="<?php echo $block->getBaseUrl(); ?>">
+                                        <button type="button" class="btn btn-dark d-flex align-items-center"
                                         data-toggle="modal" data-target="#setUpStoreModal">
                                         Continue shopping
                                         <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12" fill="#fff"
@@ -37,6 +39,7 @@
                                             </path>
                                         </svg>
                                     </button>
+                                </a>
                                 </div>
                             </di>
                         </div>

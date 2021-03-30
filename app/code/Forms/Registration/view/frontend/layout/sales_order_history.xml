@@ -28,7 +28,32 @@
    <referenceBlock name="customer-account-navigation-checkout-sku-link" remove="true"/>
    <!-- Gift registry -->
    <referenceBlock name="customer-account-navigation-giftregistry-link" remove="true"/>
-<referenceBlock name="customer-account-navigation-billing-agreements-link" remove="true"/>
+   <referenceBlock name="customer-account-navigation-magento-invitation-link-container" remove="true"/>
+
+    <!-- Company Users -->
+        <referenceBlock name="customer-account-navigation-company-users-link" remove="true"/>
+
+        <!-- Company Delimiter -->
+        <referenceBlock name="customer-account-navigation-delimiter-container-b2b" remove="true"/>
+
+        <!-- Company Profile -->
+        <referenceBlock name="customer-account-navigation-company-profile-link" remove="true"/>
+
+        <!-- Company Structure -->
+        <referenceBlock name="customer-account-navigation-company-link" remove="true"/>
+
+        <!-- My Invitations -->
+        <referenceBlock name="customer-account-navigation-magento-invitation-link-container" remove="true"/>
+        <referenceBlock name="customer_account_navigation" remove="true"/>
+             <referenceBlock name="catalog.leftnav" remove="true"/>
+             <referenceBlock name="sidebar.main" remove="true"/>
+        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+
+
+
+
+
+
    <!-- Reward points -->
         <referenceContainer name="content">
             <block class="Magento\Customer\Block\Account\Dashboard" name="sales.order.history" template="Forms_Registration::StoreHistory.phtml" cacheable="false"/>

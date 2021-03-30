@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1617120120;s:6:"expire";i:9999999999;s:4:"tags";s:37:"8d5_LAYOUT_GENERAL_CACHE_TAG,8d5_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -799,6 +799,14 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
    </referenceBlock>
 </body>
 </handle><handle id="default"><body>
+   <block class="Magento\Framework\Pricing\Render" name="product.price.render.default">
+      <arguments>
+         <argument name="price_render_handle" xsi:type="string">catalog_product_prices</argument>
+         <argument name="use_link_for_as_low_as" xsi:type="boolean">true</argument>
+      </arguments>
+   </block>
+</body>
+</handle><handle id="default"><body>
    <referenceContainer name="before.body.end">
       <block class="Magento\Catalog\Block\FrontendStorageManager" name="frontend-storage-manager" before="-" template="Magento_Catalog::frontend_storage_manager.phtml">
          <arguments>
@@ -855,14 +863,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
       <block class="Magento\Framework\View\Element\Js\Components" name="head.components" as="components" template="Magento_Catalog::js/components.phtml"/>
    </referenceContainer>
    <block class="Magento\Framework\View\Element\Template" name="head.additional" as="head.additional" template="Magento_Theme::html/container.phtml"/>
-</body>
-</handle><handle id="default"><body>
-   <block class="Magento\Framework\Pricing\Render" name="product.price.render.default">
-      <arguments>
-         <argument name="price_render_handle" xsi:type="string">catalog_product_prices</argument>
-         <argument name="use_link_for_as_low_as" xsi:type="boolean">true</argument>
-      </arguments>
-   </block>
 </body>
 </handle><handle id="empty"><body>
    <block class="Magento\Framework\Pricing\Render" name="product.price.render.default">
@@ -6935,96 +6935,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
       </arguments>
    </block>
 </referenceBlock>
-</handle><handle id="1catalog_category_view" layout="2columns-left"><body>
-   <referenceContainer name="content">
-      <block class="Magento\Catalog\Block\Category\View" name="category_desc_main_column" template="category/category.phtml"/>
-   </referenceContainer>
-</body>
-</handle><handle id="1catalogsearch_result_index" layout="1column"><body>
-   <referenceBlock name="search.result">
-      <action method="setTemplate">
-         <argument name="template" xsi:type="string">Forms_Registration::result.phtml</argument>
-      </action>
-   </referenceBlock>
-</body>
-</handle><handle id="1checkout_index_index" layout="1column"><body>
-   <referenceBlock name="checkout.root">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="checkout" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="steps" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="my-new-step" xsi:type="array">
-                              <item name="component" xsi:type="string">%Forms%_%Registration%/js/view/my-step-view</item>
-                              <item name="sortOrder" xsi:type="string">2</item>
-                              <item name="children" xsi:type="array">
-                                                
-                                            </item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="1layered_product_filter" layout="1column"><referenceContainer name="content">
-   <block class="Forms\Registration\Block\Product\ListProduct" name="layered_product_filter" template="Forms_Registration::filter.phtml"/>
-</referenceContainer>
-</handle><handle id="2catalog_category_view" layout="1column"><body>
-   <referenceContainer name="content">
-      <block class="Forms\Registration\Block\Product\ListProduct" name="category.products.list" template="Forms_Registration::product/list.phtml" before="-"/>
-   </referenceContainer>
-   <referenceContainer name="product.info.main" remove="true"/>
-   <referenceContainer name="product.info.media" remove="true"/>
-   <referenceContainer name="product.info.details" remove="true"/>
-   <referenceBlock name="page.main.title" remove="true"/>
-   <referenceBlock name="category.image" remove="true"/>
-   <referenceBlock name="wishlist_sidebar" remove="true"/>
-   <referenceBlock name="catalog.compare.sidebar" remove="true"/>
-   <referenceBlock name="catalog.compare.link" remove="true"/>
-   <referenceBlock name="related.product.addto.compare" remove="true"/>
-   <referenceBlock name="category.product.addto.compare" remove="true"/>
-   <referenceBlock name="view.addto.compare" remove="true"/>
-   <referenceBlock name="breadcrumbs" remove="true"/>
-   <referenceBlock name="catalog.leftnav" remove="true"/>
-</body>
-</handle><handle id="2catalog_product_view" layout="1column"><body>
-   <referenceContainer name="product.info.main">
-      <block class="Forms\Registration\Block\Product\CustomBtn" name="custombtn_product_custombtn" template="Forms_Registration::product/custombtn.phtml"/>
-   </referenceContainer>
-   <referenceBlock name="breadcrumbs" remove="true"/>
-</body>
-</handle><handle id="2checkout_index_index" layout="1column"><body>
-   <referenceBlock name="checkout.root">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="checkout" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="sidebar" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="custom_sidebar" xsi:type="array">
-                              <item name="component" xsi:type="string">Forms_Registration/js/view/custom_sidebar</item>
-                              <item name="displayArea" xsi:type="string">summary</item>
-                              <item name="config" xsi:type="array">
-                                 <item name="template" xsi:type="string">Forms_Registration/custom_sidebar
-                                                </item>
-                              </item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
 </handle><handle id="category_category_index"><body>
    <referenceContainer name="content">
       <referenceBlock name="catalog.leftnav" remove="true"/>
@@ -7033,19 +6943,26 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
       <block class="Forms\Registration\Block\Category\Category" name="category_category_index" template="category/category.phtml" cacheable="false"/>
    </referenceContainer>
 </body>
-</handle><handle id="checkout_cart_configure"><body>
-   <referenceBlock name="product.info.addtocart">
-      <action method="setTemplate">
-         <argument name="template" xsi:type="string">Cirklestudio_Customproduct::cart/item/configure/updatecart.phtml</argument>
-      </action>
-   </referenceBlock>
-   <referenceBlock name="product.info.addtocart.additional">
-      <action method="setTemplate">
-         <argument name="template" xsi:type="string">Cirklestudio_Customproduct::cart/item/configure/updatecart.phtml</argument>
-      </action>
-   </referenceBlock>
-</body>
 </handle><handle id="checkout_cart_index" layout="1column"><body>
+   <referenceBlock name="checkout.cart.totals">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="block-totals" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="custom_discount" xsi:type="array">
+                        <item name="component" xsi:type="string">MageDelight_HelloWorld/js/view/checkout/summary/customdiscount</item>
+                        <item name="sortOrder" xsi:type="string">20</item>
+                        <item name="config" xsi:type="array">
+                           <item name="custom_discount" translate="true" xsi:type="string">Custom Discount</item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
    <referenceContainer name="content">
       <block class="Forms\Registration\Block\Checkout\Cart" name="checkout.cart" template="Forms_Registration::cart/cart.phtml" before="-"/>
       <container name="checkout.cart.noitems" as="no-items">
@@ -7074,7 +6991,7 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
    </referenceBlock>
 </body>
 </handle><handle id="checkout_onepage_success"><referenceContainer name="content">
-   <block class="Forms\Registration\Block\Thankyou" name="order.details.success" template="Forms_Registration::order/success.phtml" after="-">        	
+   <block class="Forms\Registration\Block\OnePage\Success" name="order.details.success" template="Forms_Registration::order/success.phtml" after="-">        	
         </block>
 </referenceContainer>
 <referenceBlock name="checkout.success" remove="true"/>
@@ -7146,6 +7063,17 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
    <block class="Forms\Registration\Block\Edit" name="customer.account.edit" template="Forms_Registration::order/edit.phtml" after="-">        	
         </block>
 </referenceContainer>
+</handle><handle id="customer_password_reset" layout="1column"><head>
+   <title>Reset Your Password</title>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Forms\Registration\Block\Account\Resetpassword" name="CustomresetPassword" template="Forms_Registration::resetpassword.phtml" after="-">
+            </block>
+   </referenceContainer>
+   <referenceContainer name="custom_footer" remove="true"/>
+   <referenceContainer name="custom_header" remove="true"/>
+</body>
 </handle><handle id="customize_zeke_customize" layout="1column"><referenceContainer name="content">
    <block class="Forms\Registration\Block\Zeke\Customize" name="customize_zeke_customize" template="Forms_Registration::customize.phtml"/>
 </referenceContainer>
@@ -7243,7 +7171,16 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
    <referenceBlock name="customer-account-navigation-gift-card-link" remove="true"/>
    <referenceBlock name="customer-account-navigation-checkout-sku-link" remove="true"/>
    <referenceBlock name="customer-account-navigation-giftregistry-link" remove="true"/>
-   <referenceBlock name="customer-account-navigation-billing-agreements-link" remove="true"/>
+   <referenceBlock name="customer-account-navigation-magento-invitation-link-container" remove="true"/>
+   <referenceBlock name="customer-account-navigation-company-users-link" remove="true"/>
+   <referenceBlock name="customer-account-navigation-delimiter-container-b2b" remove="true"/>
+   <referenceBlock name="customer-account-navigation-company-profile-link" remove="true"/>
+   <referenceBlock name="customer-account-navigation-company-link" remove="true"/>
+   <referenceBlock name="customer-account-navigation-magento-invitation-link-container" remove="true"/>
+   <referenceBlock name="customer_account_navigation" remove="true"/>
+   <referenceBlock name="catalog.leftnav" remove="true"/>
+   <referenceBlock name="sidebar.main" remove="true"/>
+   <referenceBlock name="sale.reorder.sidebar" remove="true"/>
    <referenceContainer name="content">
       <block class="Magento\Customer\Block\Account\Dashboard" name="sales.order.history" template="Forms_Registration::StoreHistory.phtml" cacheable="false"/>
    </referenceContainer>
@@ -7519,17 +7456,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
       </referenceBlock>
    </referenceContainer>
 </body>
-</handle><handle id="default"><head>
-   <css src="Sparsh_SearchAutoComplete::css/searchautocomplete.css"/>
-</head>
-<body>
-   <referenceBlock name="top.search">
-      <block class="Sparsh\SearchAutoComplete\Block\Autocomplete" ifconfig="sparsh_search_auto_complete/general/enable" name="search-auto-complete-wrapper" template="Sparsh_SearchAutoComplete::autocomplete.phtml"/>
-      <action method="setTemplate" ifconfig="sparsh_search_auto_complete/general/enable">
-         <argument name="template" xsi:type="string">Sparsh_SearchAutoComplete::form.mini.phtml</argument>
-      </action>
-   </referenceBlock>
-</body>
 </handle><handle id="catalog_product_view"><body>
    <referenceBlock name="product.info.addtocart">
       <block class="StripeIntegration\Payments\Block\Button" name="product.info.stripe_payments_express" template="StripeIntegration_Payments::express/product_button.phtml" before="-" ifconfig="payment/stripe_payments_express/product_button"/>
@@ -7568,6 +7494,11 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
       </arguments>
    </referenceBlock>
 </body>
+</handle><handle id="checkout_index_index"><head>
+   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
+   <css src="StripeIntegration_Payments::css/stripe_payments_elements.css"/>
+   <css src="StripeIntegration_Payments::css/paymentfont.min.css"/>
+</head>
 </handle><handle id="checkout_index_index"><body>
    <referenceBlock name="checkout.root">
       <arguments>
@@ -7716,11 +7647,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
       </arguments>
    </referenceBlock>
 </body>
-</handle><handle id="checkout_index_index"><head>
-   <css src="StripeIntegration_Payments::css/stripe_payments.css"/>
-   <css src="StripeIntegration_Payments::css/stripe_payments_elements.css"/>
-   <css src="StripeIntegration_Payments::css/paymentfont.min.css"/>
-</head>
 </handle><handle id="customer_account"><body>
    <referenceBlock name="customer_account_navigation">
       <block class="Magento\Framework\View\Element\Html\Link\Current" name="stripe-payments-customer-cards">
@@ -7801,6 +7727,73 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1615872917;s:6:"expire";i:9999999999;s:4:"t
    <referenceContainer name="content">
       <block class="StripeIntegration\Payments\Block\Customer\Subscriptions" name="customer_subscriptions" template="customer/subscriptions.phtml" cacheable="false"/>
    </referenceContainer>
+</body>
+</handle><handle id="checkout_cart_index"><body>
+   <referenceBlock name="checkout.cart.totals">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="block-totals" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="custom" xsi:type="array">
+                        <item name="component" xsi:type="string">Turiknox_CustomTotal/js/view/checkout/cart/totals/custom</item>
+                        <item name="sortOrder" xsi:type="string">20</item>
+                        <item name="config" xsi:type="array">
+                           <item name="template" xsi:type="string">Turiknox_CustomTotal/checkout/cart/totals/custom</item>
+                           <item name="title" helper="Turiknox\CustomTotal\Helper\Data::getTitle" xsi:type="helper"/>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_index_index" layout="1column"><body>
+   <referenceBlock name="checkout.root">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="checkout" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="sidebar" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="summary" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="totals" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="custom" xsi:type="array">
+                                          <item name="component" xsi:type="string">Turiknox_CustomTotal/js/view/checkout/cart/totals/custom</item>
+                                          <item name="sortOrder" xsi:type="string">20</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="template" xsi:type="string">Turiknox_CustomTotal/checkout/cart/totals/custom</item>
+                                             <item name="title" helper="Turiknox\CustomTotal\Helper\Data::getTitle" xsi:type="helper"/>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                                 <item name="cart_items" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="details" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="subtotal" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/item/details/subtotal</item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
 </body>
 </handle><handle id="1client_client_index" layout="2columns-left"><head>
    <remove src="Magento_Theme::css/style.css"/>

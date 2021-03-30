@@ -21,7 +21,7 @@ class Change extends \Magento\Framework\App\Action\Action
     protected $customerRegistry;
     protected $customerRepository;
     protected $encryptor;
-
+    protected $resultJsonFactory;
      public function __construct(\Magento\Framework\App\Action\Context $context,
         \Magento\Framework\App\Response\Http $redirect,
         \Magento\Customer\Model\CustomerRegistry $customerRegistry,
@@ -68,10 +68,13 @@ class Change extends \Magento\Framework\App\Action\Action
             $new_password    = $post['new_password'];
             $confirm_password    = $post['confirm_password'];
             $current_user_pass_hash = $this->_customerSession->getCustomer()->getPasswordHash();
-            //print_r($hash);die();
             if ($this->encryptor->validateHash($current_password, $current_user_pass_hash)) {
                 if($new_password !=$confirm_password){
-                    $this->messageManager->addError(__('New Password and confirm password does not matched')); 
+                    $response = [
+                        'errors' => true,
+                        'message' => 'New Password and confirm password does not matched'
+                    ];
+                    // $this->messageManager->addError(__('New Password and confirm password does not matched')); 
                 }else{
                     $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
                     $objectManager = $bootstrap->getObjectManager();
@@ -87,33 +90,27 @@ class Change extends \Magento\Framework\App\Action\Action
                     $customerSecure->setRpTokenCreatedAt(null);
                     $customerSecure->setPasswordHash($encryptor->getHash($confirm_password, true)); // here _encryptor is an instance of \Magento\Framework\Encryption\EncryptorInterface
                     $customerRepositoryInterface->save($customer);
-                    $this->messageManager->addSuccess(__('Your Password is successfully change.'));
+                    $response = [
+                        'errors' => false,
+                        'message' => 'Your Password is successfully change.'
+                    ];
                 }
 
             }else{
-                $this->messageManager->addSuccess(__('Current password does not matched.'));
-
-                //print_r('does not matched');
+                //$this->messageManager->addSuccess(__('Current password does not matched.'));
+                $response = [
+                    'errors' => true,
+                    'message' => 'Current password does not matched.'
+                ];
             }
-           // die();
+            $response_val = json_encode($response);
+            echo $response_val;
+            //$resultJson = $this->resultJsonFactory->create();
+            //return $resultJson->setData($response);
 
-
-            
-            // try {
-
-            // } catch (Exception $e) {
-            //     \Zend_Debug::dump($e->getMessage());
-            // }
-
-
-        
-            $this->_redirect->setRedirect("/magento/customer/account/password");
-             return;
-
-            // $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-            // $resultRedirect->setPath("/customer/account/password");
-
-            // return $resultRedirect;
+            //$resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+            //$resultRedirect->setPath("/customer/account/password");
+            //return $resultRedirect->setPath("/customer/account/password");
         }
     }
 }

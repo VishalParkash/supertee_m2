@@ -1,15 +1,80 @@
 <?php
 $productData = $block->getData();
 
-$productIds = $productData['data'];
-$products = $block->getProducts($productIds);
+$productIds = $productData['data']['data'];
+$sort = $productData['data']['sort'];
+$orderBy = 'name';
+$orderType = 'asc';
+if ($sort == 'hightolow') {
+    $orderBy = 'price';
+    $orderType = 'desc';
+} elseif ($sort == 'lowtohigh'){
+    $orderBy = 'price';
+    $orderType = 'asc';
+} elseif ($sort == 'default') {
+    $orderBy = 'name';
+    $orderType = 'asc';
+} elseif ($sort == 'new') {
+    $orderBy = 'created_at';
+    $orderType = 'desc';
+}
+
+if ($sort == 'mostviewd') {
+    $products = $block->getProducts($productIds)->getSelect()->
+    joinInner('report_event AS _table_views',
+        ' _table_views.object_id = e.entity_id',
+        'COUNT(_table_views.event_id) AS views')->
+    group('e.entity_id')->order('views DESC');
+} else {
+    $products = $block->getProducts($productIds)->setOrder($orderBy, $orderType);
+}
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+$repository = $objectManager->create('Magento\Catalog\Model\ProductRepository');
+$defaultSize = ["Small" => "S", "Medium" => "M", "Large" => "L", "Xtra Large" =>"XL", "2X Large" => "XXL", "One Size" => "OS"];
+
 ?>
 
 <?php 
                                         	// $count = $productCollection->getSize ();
           // $productCollection = $productCollection->getData();
           foreach($products as $product) {
+                $size_array = '';
+                $childrenIds = $product->getTypeInstance()->getChildrenIds($product->getId());
+                if (!empty($childrenIds[0])) {
+                $currentId = reset($childrenIds[0]);
+                $productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+                $collection = $productCollection->addAttributeToSelect('color')->groupByAttribute('color')->addIdFilter($childrenIds)->load();
+                $swatchHelper=$objectManager->get("Magento\Swatches\Helper\Media");
+                $colorArray = [];
+                foreach ($collection as $simg) {
+                    $getId = $simg->getColor();
+                    array_push($colorArray, $getId);
+                }
 
+                $data = $product->getTypeInstance()->getConfigurableOptions($product);
+                $options = array();
+                foreach($data as $attr){
+                    foreach($attr as $p){
+                        $options[$p['sku']][$p['attribute_code']] = $p['option_title'];
+                    
+                    }
+                }
+                    if(!empty($options)){
+                        foreach($options as $sku =>$d){
+                            $pr = $repository->get($sku);
+                            if(!empty($d['size']) && !empty($colorArray[0]) &&$pr->getColor() == $colorArray[0]){
+                                if (!empty($size_array)) {
+                                    $size_array .= ', '.$defaultSize[$d['size']];
+                                } else {
+                                    $size_array .= $defaultSize[$d['size']];
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
           	?>
 
 
@@ -29,11 +94,17 @@ $products = $block->getProducts($productIds);
                                 <?php } ?>
                             
                                                         </div>
+                                                        <?php if ($size_array) {
+
+                                                        ?>
                                                         <div class="productTopOver">
                                                             <h6>available sizes</h6>
-                                                            <div><span class="text-orange">s</span>, m, l , xl, 2xl, 3xl
+                                                            <div><?=$size_array?>
                                                             </div>
                                                         </div>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                     </div>
                                                     <div class="productContent">
                                                         <div class="prodInfo">

@@ -48,12 +48,13 @@ class Donation extends \Magento\Framework\App\Action\Action
                     $result->setData(['output' => false]);
                 }
                 
-                return $result;
+                
                 
                 } catch (Exception $e) {
-                    return 'error';
+                    $result->setData(['output' => false]);
                     \Zend_Debug::dump($e->getMessage());
                 }
+                return $result;
         
     }
 }

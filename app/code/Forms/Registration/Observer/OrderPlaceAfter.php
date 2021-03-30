@@ -16,6 +16,7 @@ class OrderPlaceAfter implements ObserverInterface {
 
     public function __construct(\Magento\Framework\App\ResponseFactory $responseFactory,
     	\Magento\Customer\Model\Session $customer,
+        \Forms\Registration\Model\Session $session,
     	ResourceConnection $resource,
 		\Magento\Framework\UrlInterface $url)
     {
@@ -23,6 +24,7 @@ class OrderPlaceAfter implements ObserverInterface {
         $this->resource             = $resource;
         $this->connection           = $resource->getConnection();
         $this->customer = $customer;
+        $this->session = $session;
         $this->_url = $url;
     }
 
@@ -89,9 +91,43 @@ class OrderPlaceAfter implements ObserverInterface {
                         $this->connection->query($sql2);
                     }
                 }
-
+                if($this->session->getData("discountVar") != "minus" ){
                 $sql = "INSERT INTO " . $themeTable2 . "(customer_id, reward_points, reward_type, rewards_points_id) VALUES (".$customerId.", ".$donation_points.", 'credit',  'user_purchase')";
                 $this->connection->query($sql);
+                }
+
+                if(!empty($this->session->getData("discountVar"))){
+                    if($this->session->getData('discountVar') == "minus"){
+                        // $sql2 = "UPDATE " . $themeTable2 . " SET reward_type = 'debit' WHERE customer_id='$customerId'";
+                        // $this->connection->query($sql2);
+
+
+                        $getUserPointsSql = "SELECT * FROM " . $themeTable2 . " WHERE customer_id ='".$user."'";
+                        $getUserPoints = $this->connection->fetchAll($getUserPointsSql);
+
+                        $credit = 0;
+                        $debit = 0;
+                        if(!empty($getUserPoints)){
+                            foreach($getUserPoints as $points){
+                            if($points['reward_type'] == 'credit'){
+                                $credit += $points['reward_points'];
+                            }elseif($points['reward_type'] == 'debit'){
+                                $debit += $points['reward_points'];
+                            }
+                        } 
+                        $earnedPoints = ($credit - $debit);
+
+
+                        $sql = "INSERT INTO " . $themeTable2 . "(customer_id, reward_points, reward_type, rewards_points_id) VALUES (".$customerId.", ".$earnedPoints.", 'debit',  'pointsRedeemed')";
+                        $this->connection->query($sql);
+                    }
+                    }    
+                }
+
+                if(!empty($this->session->getData("discountVar"))){
+                    $this->session->unsetData('discountVar');    
+                }
+                
                 // die;
         }else{
             $customer   = $observer->getEvent()->getCustomer();

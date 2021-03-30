@@ -27,7 +27,7 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         ?>
 
     
-    
+        
         
          
          <!-- <img src ="<?php //echo $productimage['url']; ?>" id="currentProductId" style="display: none"> -->
@@ -51,7 +51,7 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 }
 
     ?>
-<input data-form-part="product_form" type="hidden" name="loopingCount" value="<?php echo count($imageUrls)?>">
+<input data-form-part="product_form" type="hidden" name="loopingCount" value="<?php if(!empty($imageUrls)){ echo count($imageUrls); }else{ echo '';}?>">
     <!-- <img src ="http://127.0.0.1/supertee/pub/media/BlankProduct/forDesign.png" id="currentProductId" style="display: none"> -->
     
 <!--         <input  data-form-part="product_form" type="hidden" name="canvasHeight" id="canvasHeight" value="">
@@ -74,7 +74,8 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 
 var canvases = {};
 // var bgImg = {};
-var images = '<?php echo json_encode($imageUrls); ?>';
+var images = '<?php //echo json_encode($imageUrls); ?>';
+var images = '<?php if(!empty($imageUrls)){ echo json_encode($imageUrls); }else{ echo '';}?>';
 if(images != ""){
 var loopImages = JSON.parse(images);
 var loopLength = JSON.parse(images).length;

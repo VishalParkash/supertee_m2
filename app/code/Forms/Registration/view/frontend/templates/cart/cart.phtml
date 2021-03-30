@@ -1,77 +1,77 @@
+
 <?php
 
-// namespace Rbj\Customer\Block;
- 
-// class ShoppingCart extends \Magento\Framework\View\Element\Template
-// {
-//     public function __construct(
-//         \Magento\Framework\View\Element\Template\Context $context,
-//         \Magento\Checkout\Model\Session $checkoutSession,
-//         array $data = []
-//     ) {
-//         $this->_checkoutSession = $checkoutSession;;
-//         parent::__construct($context, $data);
-//     }
- 
-//     *
-//      * Get quote object associated with cart. By default it is current customer session quote
-//      *
-//      * @return \Magento\Quote\Model\Quote
-     
-//     public function getQuoteData()
-//     {
-//         $this->_checkoutSession->getQuote();
-//         if (!$this->hasData('quote')) {
-//             $this->setData('quote', $this->_checkoutSession->getQuote());
-//         }
-//         return $this->_getData('quote');
-//     }
-// }
+?>
+
+<?php
+// die;
+
 // Get all visible items in cart
-$quote = $block->getQuoteData();
+
 
 // echo "<pre>";print_r($quote);die;
 
- 
-// foreach($quote->getAllVisibleItems() as $_item) {
-//     //echo "<pre>";print_r($_item->debug());
+
+ $quote = $block->getQuoteData();
+ $grandTotal = 0;
+ $quote->collectTotals()->save();
+
+foreach($quote->getAllVisibleItems() as $_item) {
+//     echo "<pre>";print_r($_item->debug());
 //     echo 'ID: '.$_item->getProductId().'<br/>';
 //     echo 'Name: '.$_item->getName().'<br/>';
 //     echo 'Sku: '.$_item->getSku().'<br/>';
 //     echo 'Quantity: '.$_item->getQty().'<br/>';
-//     echo 'Price: '.$_item->getPrice().'<br/>';
+//     echo 'Price: '.$_item->getProduct()->getPrice().'<br/>';
 //     echo 'Product Type: '.$_item->getProductType().'<br/>';
 //     echo 'Discount: '.$_item->getDiscountAmount();echo "<br/>";
+//     echo 'Discount: '.$_item->getProduct()->getAttributeText('size');
+//     echo "tier " .$_item->getProduct()->getTierPrice($_item->getQty());
+// echo "<br/>";
+// echo "quoteid" .$_item->getId();
 //     echo "<br/>";
-// }
+
+    $grandTotal +=   ($_item->getProduct()->getTierPrice($_item->getQty()))*($_item->getQty());
+
+    if(!empty($_item->getDiscountAmount())){
+        $grandTotal = (($grandTotal) - ($_item->getDiscountAmount()));
+    }
+    $_item->getQuote()->setGrandTotal($grandTotal);
+
+}
+// die;
+
 // // Get total items and total quantity in current cart
 // echo $totalItems = $quote->getItemsCount();echo "<br/>";
 // echo $totalQuantity = $quote->getItemsQty();echo "<br/>";
  
-// //Get subtotal and grand total of customer current cart
+// // //Get subtotal and grand total of customer current cart
 // echo $subTotal = $quote->getSubtotal();echo "<br/>";
 // echo $grandTotal = $quote->getGrandTotal();echo "<br/>";
- 
+ // die;
 // //Get billing and shipping addresses of current cart
 // $billingAddress = $quote->getBillingAddress();
 // echo "<pre>";print_r($billingAddress->getData());
 // $shippingAddress = $quote->getShippingAddress();
 // echo "<pre>";print_r($billingAddress->getData());
-
 ?>
 <?php 
-
+// die;
 //Get subtotal and grand total of customer current cart
+
+
 $subTotal = $quote->getSubtotal();
 
-$grandTotal = $quote->getGrandTotal();
+// $grandTotal = $quote->getGrandTotal();
+
 
 
 // ini_set('display_errors', 1);
 
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
- $cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
-
+$cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
+$cart->getQuote()->getGrandTotal();
+$quoteId =  $cart->getQuote()->getId();
 // retrieve quote items collection
 $itemsCollection = $cart->getQuote()->getItemsCollection();
 
@@ -244,23 +244,10 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                     	 <?php 
 
                                     foreach($quote->getAllVisibleItems() as $item) {
-            //                         	echo 'ID: '.$item->getProductId().'<br />';
-								    //   echo 'Name: '.$item->getName().'<br />';
-								    //    echo 'Sku: '.$item->getSku().'<br />';
-								    //    echo 'Quantity: '.$item->getQty().'<br />';
-								      // echo 'Price: '.$item->getPrice().'<br />';
-								    // echo "<br />"; 
-
-    //                                 	   echo 'ID: '.$_item->getProductId().'<br/>';
-    // echo 'Name: '.$_item->getName().'<br/>';
-    // echo 'Sku: '.$_item->getSku().'<br/>';
-    // echo 'Quantity: '.$_item->getQty().'<br/>';
-    // echo 'Price: '.$_item->getPrice().'<br/>';
-    // echo 'Product Type: '.$_item->getProductType().'<br/>';
-    // echo 'Discount: '.$_item->getDiscountAmount();echo "<br/>";
-    // echo "<br/>";
                                         $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
-                                        $image_url = $imageHelper->init($item->getProduct(), 'small_image')->setImageFile($item->getProduct()->getSmallImage())->getUrl();
+                                        $image_url = $imageHelper->init($item->getProduct(), 'product_thumbnail_image')->getUrl();
+
+                                        // $image_url = $imageHelper->init($item->getProduct(), 'small_image')->setImageFile($item->getProduct()->getSmallImage())->getUrl();
                                     	?>
 								                
 								  
@@ -277,7 +264,7 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                                         <p class="mb-0"><?php echo $item->getShortDescription(); ?>
                                                         </p>
                                                         <span class="size">
-                                                            Size <strong>m</strong>
+                                                            Size <strong><?php echo $item->getProduct()->getAttributeText('size')?></strong>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -334,18 +321,21 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                data-role="cart-item-qty"/>
 
 
-                                                    <div class="ince button">
-                                                        <img src="<?php echo $this->getViewFileUrl('images/plus.png'); ?>" alt="" class="img-fluid">
-                                                    </div>
                                                     <div class="decr button">
                                                         <img src="<?php echo $this->getViewFileUrl('images/minus.png'); ?>" alt="" class="img-fluid">
+                                                    </div>
+                                                    <div class="ince button">
+                                                        
+                                                        <img src="<?php echo $this->getViewFileUrl('images/plus.png'); ?>" alt="" class="img-fluid">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <span class="price">
                                                     <strong>
-                                                        $<?php echo number_format($item->getPrice(), 2); ?>
+                                                        $<?php echo number_format($item->getProduct()->getTierPrice($item->getQty()), 2);?>
+                                                        <?php //echo number_format($item->getProduct()->getPrice(), 2); ?>
+
                                                     </strong>
                                                 </span>
                                             </td>
@@ -440,81 +430,9 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                             </div>
                             </form>
 
-
-                            <!-------------- >
-                            <!-- <div class="cartLikeProducts">
-                                <h6>You may also like</h6>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="cartLikeProductsItem">
-                                            <div class="cartLikeProductsItemImg">
-                                                <img src="./images/cartLikeProductsItem1.jpg"
-                                                    alt="cartLikeProductsItem1" />
-                                            </div>
-                                            <div class="cartLikeProductsItemText">
-                                                <h6>Moda rapido</h6>
-                                                <p>
-                                                    Men Yellow collar dT-Shirt
-                                                </p>
-                                                <div class="cartLikeProductsItemPrice">$50.00</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="cartLikeProductsItem">
-                                            <div class="cartLikeProductsItemImg">
-                                                <img src="./images/cartLikeProductsItem2.jpg"
-                                                    alt="cartLikeProductsItem1" />
-                                            </div>
-                                            <div class="cartLikeProductsItemText">
-                                                <h6>Delite mug</h6>
-                                                <p>
-                                                    Men Yellow Printed Round Neck T-Shirt
-                                                </p>
-                                                <div class="cartLikeProductsItemPrice">$50.00</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="cartLikeProductsItem">
-                                            <div class="cartLikeProductsItemImg">
-                                                <img src="./images/cartLikeProductsItem3.jpg"
-                                                    alt="cartLikeProductsItem1" />
-                                            </div>
-                                            <div class="cartLikeProductsItemText">
-                                                <h6>Perfect fit bag</h6>
-                                                <p>
-                                                    Men green Printed Round Neck T-Shirt
-                                                </p>
-                                                <div class="cartLikeProductsItemPrice">$50.00</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="col-md-4">
                             <div class="cartDetailWrap">
-                                <!-- <div class="coupen">
-                                    <h6>Coupon</h6>
-                                    <div class="coupenWrap d-flex align-items-center">
-                                        <div class="inputWrap position-relative">
-                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M11 14V16H9V14H11ZM14 11H16V9H14V11ZM16 19H14V21H16V19ZM19 14V16H21V14H19ZM18 11C18.2652 11 18.5196 11.1054 18.7071 11.2929C18.8946 11.4804 19 11.7348 19 12H21C21 11.2044 20.6839 10.4413 20.1213 9.87868C19.5587 9.31607 18.7957 9 18 9V11ZM19 18C19 18.2652 18.8946 18.5196 18.7071 18.7071C18.5196 18.8946 18.2652 19 18 19V21C18.7957 21 19.5587 20.6839 20.1213 20.1213C20.6839 19.5587 21 18.7957 21 18H19ZM12 19C11.7348 19 11.4804 18.8946 11.2929 18.7071C11.1054 18.5196 11 18.2652 11 18H9C9 18.7957 9.31607 19.5587 9.87868 20.1213C10.4413 20.6839 11.2044 21 12 21V19ZM15.21 13.79C14.43 14.57 13.163 14.572 12.382 13.792L12.38 13.79L8 9.41L6.57 10.85C6.85 11.356 6.997 11.923 7 12.5C7 13.1922 6.79473 13.8689 6.41015 14.4445C6.02556 15.0201 5.47894 15.4687 4.83939 15.7336C4.19985 15.9985 3.49612 16.0678 2.81719 15.9328C2.13825 15.7977 1.51461 15.4644 1.02513 14.9749C0.535644 14.4854 0.202301 13.8618 0.0672531 13.1828C-0.0677952 12.5039 0.00151649 11.8002 0.266423 11.1606C0.53133 10.5211 0.979934 9.97444 1.55551 9.58986C2.13108 9.20527 2.80777 9 3.5 9C4.077 9.003 4.644 9.15 5.15 9.43L6.59 8L5.15 6.57C4.64475 6.84941 4.07736 6.99728 3.5 7C2.80777 7 2.13108 6.79473 1.55551 6.41015C0.979934 6.02556 0.53133 5.47894 0.266423 4.83939C0.00151649 4.19985 -0.0677952 3.49612 0.0672531 2.81719C0.202301 2.13825 0.535644 1.51461 1.02513 1.02513C1.51461 0.535644 2.13825 0.202301 2.81719 0.0672531C3.49612 -0.0677952 4.19985 0.00151649 4.83939 0.266423C5.47894 0.53133 6.02556 0.979934 6.41015 1.55551C6.79473 2.13108 7 2.80777 7 3.5C6.99728 4.07736 6.84941 4.64475 6.57 5.15L8 6.59L11.88 2.71C12.2549 2.33504 12.7633 2.12422 13.2936 2.12384C13.8238 2.12347 14.3326 2.33357 14.708 2.708L14.71 2.71L9.41 8L15.21 13.79ZM3.5 5C3.69705 4.99994 3.89216 4.96106 4.07418 4.88559C4.2562 4.81012 4.42158 4.69954 4.56087 4.56016C4.70016 4.42078 4.81063 4.25533 4.88597 4.07326C4.96132 3.89118 5.00007 3.69605 5 3.499C4.99994 3.30195 4.96106 3.10685 4.88559 2.92482C4.81012 2.7428 4.69954 2.57742 4.56016 2.43813C4.42078 2.29885 4.25533 2.18838 4.07326 2.11303C3.89118 2.03768 3.69605 1.99894 3.499 1.999C3.10104 1.99913 2.71944 2.15735 2.43813 2.43884C2.15683 2.72033 1.99887 3.10204 1.999 3.5C1.99913 3.89796 2.15735 4.27956 2.43884 4.56087C2.72033 4.84217 3.10204 5.00013 3.5 5ZM5 12.5C4.99994 12.303 4.96106 12.1078 4.88559 11.9258C4.81012 11.7438 4.69954 11.5784 4.56016 11.4391C4.42078 11.2998 4.25533 11.1894 4.07326 11.114C3.89118 11.0387 3.69605 10.9999 3.499 11C3.30195 11.0001 3.10685 11.0389 2.92482 11.1144C2.7428 11.1899 2.57742 11.3005 2.43813 11.4398C2.29885 11.5792 2.18838 11.7447 2.11303 11.9267C2.03768 12.1088 1.99894 12.304 1.999 12.501C1.99913 12.899 2.15735 13.2806 2.43884 13.5619C2.72033 13.8432 3.10204 14.0011 3.5 14.001C3.89796 14.0009 4.27956 13.8427 4.56087 13.5612C4.84217 13.2797 5.00013 12.898 5 12.5Z"
-                                                    fill="#151515" />
-                                            </svg>
-                                            <input type="text" placeholder="" />
-                                            <span datasidebarright="viewCoupons">View coupons</span>
-                                        </div>
-                                        <button type="button" class="btn-outline-primary">Apply</button>
-                                    </div>
-
-                                </div> -->
-
-
-                                
                                 <div class="block discount" id="block-discount" data-mage-init='{"collapsible":{"openedState": "active", "active": true, "saveState": false}}'>
                                     <div class="title" data-role="title">
                                         <strong id="block-discount-heading" role="heading" aria-level="2"><?= /* @escapeNotVerified */ __('Apply Discount Code') ?></strong>
@@ -535,13 +453,13 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M11 14V16H9V14H11ZM14 11H16V9H14V11ZM16 19H14V21H16V19ZM19 14V16H21V14H19ZM18 11C18.2652 11 18.5196 11.1054 18.7071 11.2929C18.8946 11.4804 19 11.7348 19 12H21C21 11.2044 20.6839 10.4413 20.1213 9.87868C19.5587 9.31607 18.7957 9 18 9V11ZM19 18C19 18.2652 18.8946 18.5196 18.7071 18.7071C18.5196 18.8946 18.2652 19 18 19V21C18.7957 21 19.5587 20.6839 20.1213 20.1213C20.6839 19.5587 21 18.7957 21 18H19ZM12 19C11.7348 19 11.4804 18.8946 11.2929 18.7071C11.1054 18.5196 11 18.2652 11 18H9C9 18.7957 9.31607 19.5587 9.87868 20.1213C10.4413 20.6839 11.2044 21 12 21V19ZM15.21 13.79C14.43 14.57 13.163 14.572 12.382 13.792L12.38 13.79L8 9.41L6.57 10.85C6.85 11.356 6.997 11.923 7 12.5C7 13.1922 6.79473 13.8689 6.41015 14.4445C6.02556 15.0201 5.47894 15.4687 4.83939 15.7336C4.19985 15.9985 3.49612 16.0678 2.81719 15.9328C2.13825 15.7977 1.51461 15.4644 1.02513 14.9749C0.535644 14.4854 0.202301 13.8618 0.0672531 13.1828C-0.0677952 12.5039 0.00151649 11.8002 0.266423 11.1606C0.53133 10.5211 0.979934 9.97444 1.55551 9.58986C2.13108 9.20527 2.80777 9 3.5 9C4.077 9.003 4.644 9.15 5.15 9.43L6.59 8L5.15 6.57C4.64475 6.84941 4.07736 6.99728 3.5 7C2.80777 7 2.13108 6.79473 1.55551 6.41015C0.979934 6.02556 0.53133 5.47894 0.266423 4.83939C0.00151649 4.19985 -0.0677952 3.49612 0.0672531 2.81719C0.202301 2.13825 0.535644 1.51461 1.02513 1.02513C1.51461 0.535644 2.13825 0.202301 2.81719 0.0672531C3.49612 -0.0677952 4.19985 0.00151649 4.83939 0.266423C5.47894 0.53133 6.02556 0.979934 6.41015 1.55551C6.79473 2.13108 7 2.80777 7 3.5C6.99728 4.07736 6.84941 4.64475 6.57 5.15L8 6.59L11.88 2.71C12.2549 2.33504 12.7633 2.12422 13.2936 2.12384C13.8238 2.12347 14.3326 2.33357 14.708 2.708L14.71 2.71L9.41 8L15.21 13.79ZM3.5 5C3.69705 4.99994 3.89216 4.96106 4.07418 4.88559C4.2562 4.81012 4.42158 4.69954 4.56087 4.56016C4.70016 4.42078 4.81063 4.25533 4.88597 4.07326C4.96132 3.89118 5.00007 3.69605 5 3.499C4.99994 3.30195 4.96106 3.10685 4.88559 2.92482C4.81012 2.7428 4.69954 2.57742 4.56016 2.43813C4.42078 2.29885 4.25533 2.18838 4.07326 2.11303C3.89118 2.03768 3.69605 1.99894 3.499 1.999C3.10104 1.99913 2.71944 2.15735 2.43813 2.43884C2.15683 2.72033 1.99887 3.10204 1.999 3.5C1.99913 3.89796 2.15735 4.27956 2.43884 4.56087C2.72033 4.84217 3.10204 5.00013 3.5 5ZM5 12.5C4.99994 12.303 4.96106 12.1078 4.88559 11.9258C4.81012 11.7438 4.69954 11.5784 4.56016 11.4391C4.42078 11.2998 4.25533 11.1894 4.07326 11.114C3.89118 11.0387 3.69605 10.9999 3.499 11C3.30195 11.0001 3.10685 11.0389 2.92482 11.1144C2.7428 11.1899 2.57742 11.3005 2.43813 11.4398C2.29885 11.5792 2.18838 11.7447 2.11303 11.9267C2.03768 12.1088 1.99894 12.304 1.999 12.501C1.99913 12.899 2.15735 13.2806 2.43884 13.5619C2.72033 13.8432 3.10204 14.0011 3.5 14.001C3.89796 14.0009 4.27956 13.8427 4.56087 13.5612C4.84217 13.2797 5.00013 12.898 5 12.5Z" fill="#151515"></path>
                                             </svg>
-                                                        <input type="text" class="input-text" id="coupon_code" name="coupon_code" value="<?= $block->escapeHtml($block->getCouponCode()) ?>" placeholder="<?= $block->escapeHtml(__('Enter code')) ?>" <?php if (strlen($block->getCouponCode())): ?> disabled="disabled" <?php endif; ?> />
+                                                        <input type="text" class="input-text" id="coupon_code" name="coupon_code" required value="<?= $block->escapeHtml($block->getCouponCode()) ?>" placeholder="<?= $block->escapeHtml(__('Enter code')) ?>" <?php if (strlen($block->getCouponCode())): ?> disabled="disabled" <?php endif; ?> />
                                                         <!-- <span datasidebarright="viewCoupons">View coupons</span> -->
                                                     </div>
                                                     <div class="actions-toolbar">
                                                     <?php if (!strlen($block->getCouponCode())): ?>
                                                         <div class="primary">
-                                                            <button class="action apply btn-outline-primary" type="button" value="<?= /* @escapeNotVerified */ __('Apply') ?>">
+                                                            <button class="action apply btn-outline-primary" id="applyCoupon" value="<?= /* @escapeNotVerified */ __('Apply') ?>">
                                                                 <span><?= /* @escapeNotVerified */ __('Apply') ?></span>
                                                             </button>
                                                         </div>
@@ -551,10 +469,9 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                                         </div>
                                                     <?php endif; ?>
                                                 </div>
-                                                </div>
-                                                
+                                                </div>                                                
                                             </div>
-                                        </form>                                        
+                                        </form>                                 
                                     </div>
                                 </div>
                                 
@@ -565,31 +482,29 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                     ?>
                                     <div>
                                     <label class="checkUnCheck">
-                                        <input type="checkbox" name="redeemPoints" id="redeemPoints" value="<?php echo number_format($calculations, 2); ?>" />
+                                        <input type="checkbox" name="redeemPoints" id="redeemPoints" value="<?php echo number_format($calculations, 2); ?>" class="redeemPoints" />
                                         <span class="checkUnCheckBox"></span>
                                         <span class="checkUnCheckText">Redeem <b><? echo $points;?></b> points <b
                                                 class="text-blue">($<?php echo number_format($calculations, 2); ?> off)</b></span>
                                     </label>
                                 </div>
                                 <?php  } ?>
-                                
-
-
 
                                 <div class="summary">
                                     <h6>Price detail ( <?php echo $itemCount;?> items)</h6>
                                     <ul class="list-unstyled">
                                         <li>
                                             <span>Cart total</span>
-                                            <b>$<?php echo number_format($subTotal, 2);?></b>
+                                            <b id="cartTotal">$<?php echo number_format($grandTotal, 2);?></b>
                                         </li>
-                                        <li>
+                                        <li id="discountLi">
                                             <span>Discount</span>
                                             <span>$<?php echo number_format($item->getDiscountAmount() , 2);?></span>
                                         </li>
+
                                         <li>
                                             <span>Grand total</span>
-                                            <b>$<?php echo number_format($grandTotal, 2);?></b>
+                                            <b id="grandTotal">$<?php echo number_format($grandTotal, 2);?></b>
                                         </li>
                                     </ul>
 
@@ -642,6 +557,20 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
     }
 }
 </script>
+
+<script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "validation": {},
+                "addToCart": {
+                    "cartButtonId": "#product-updatecart-button",
+                    "cartForm": "#product_addtocart_form"
+                }
+            }
+        }
+    </script>
+
+
 <script type="text/javascript">
     
         require([ 'jquery'], function($){ 
@@ -682,8 +611,13 @@ $('.quantityWrap .decr').click(function subst() {
 });
 
     // if($('#redeemPoints').is(":checked")){
-    //     var quote = <?php //$cart->getQuote()->setCouponCode($couponCode)->collectTotals()->save() ?>
-    // }
+    // $('#redeemPoints').click(function(){
+    //     window.location="<?php //echo $block->getBaseUrl(); ?>cart/checkout/update/";
+    // })
+    
+    
+        
+    
     
     $('.towishlist').on("click" , function(){
         var dataVal = $(this).attr('data-value');
@@ -707,23 +641,82 @@ $('.quantityWrap .decr').click(function subst() {
         }
     });
     });
+
+    $('.redeemPoints').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            var action = "minus";
+        }else{
+            var action = "plus";
+        }
+        var amount = $('#'+this.id).val();
+        var quoteId = "<?php echo $quoteId;?>";
+        // alert("cheked");
+        // return false;
+            $.ajax({
+                type: "POST",
+                url: "<?php echo $block->getBaseUrl(); ?>cart/checkout/update/",
+                showLoader: true,
+                data: {action:action, amount:amount, quoteId:quoteId}, //--> send id of checked checkbox on other page
+                success: function(data) {
+                    // alert('it worked');
+                    if(data.output == true){
+                        if(action == "minus"){
+                            var grandTotal = "<?php echo $grandTotal;?>";
+                            var cartTotal = "<?php echo $grandTotal;?>";
+                            grandTotal = (grandTotal- amount);
+                            cartTotal = (grandTotal- amount);
+
+                            alert("Reward points will be deducted from the total amount");
+                            $('#cartTotal').text('$'+grandTotal);
+                            $('#grandTotal').text('$'+grandTotal);
+                            $("#discountLi").after('<li><span>Reward points</span><b>$'+amount+'</b></li>');
+                            return false;
+                        }else{
+                            //alert("")
+                        }
+                    }
+                    // $('#container').html(data);
+                },
+                 error: function() {
+                    alert('Something went wrong.');
+                },
+                complete: function() {
+                    // alert('it completeompleted');
+                }
+            });
+
+            $('#applyCoupon').click(function(){
+                alert("jsjs");return false;
+                // if(($('#coupon_code').val()) == ''){
+                //     alert("No coupon code entered");
+                //     return false;
+                // }else{
+                //     return true;
+                // }
+            });
+      });
+    // $("#redeemPoints").click(function(){
+    //     id = this.id;
+    //     // alert(id);
+    //     // return false;
+    //     jQuery.ajax({
+    //     // url: "<?php //echo $block->getBaseUrl(); ?>checkout/cart/delete/",
+    //     url: "<?php //echo $block->getBaseUrl(); ?>cart/checkout/remove/",
+    //     type: "POST",
+    //     data: {id:id},
+    //     success: function(response){
+    //         console.log(response);
+    //     }
+    // });
+    // });
 });
 });
 
 
 </script>
 
-<script type="text/x-magento-init">
-        {
-            "#product_addtocart_form": {
-                "validation": {},
-                "addToCart": {
-                    "cartButtonId": "#product-updatecart-button",
-                    "cartForm": "#product_addtocart_form"
-                }
-            }
-        }
-    </script>
+
 
 <?php
 /* For later use from here

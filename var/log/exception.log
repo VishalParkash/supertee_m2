@@ -138,3 +138,467 @@ Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/
 [2021-03-12 22:32:19] main.CRITICAL: {"error":{"root_cause":[{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}],"type":"search_phase_execution_exception","reason":"all shards failed","phase":"query","grouped":true,"failed_shards":[{"shard":0,"index":"magento2_product_1_v459","node":"4QoCKwv8SjuYbus9QsZMeg","reason":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}}],"caused_by":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]","caused_by":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}}},"status":400} {"exception":"[object] (Elasticsearch\\Common\\Exceptions\\BadRequest400Exception(code: 400): {\"error\":{\"root_cause\":[{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}],\"type\":\"search_phase_execution_exception\",\"reason\":\"all shards failed\",\"phase\":\"query\",\"grouped\":true,\"failed_shards\":[{\"shard\":0,\"index\":\"magento2_product_1_v459\",\"node\":\"4QoCKwv8SjuYbus9QsZMeg\",\"reason\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}}],\"caused_by\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\",\"caused_by\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}}},\"status\":400} at /var/www/html/supertee/vendor/elasticsearch/elasticsearch/src/Elasticsearch/Connections/Connection.php:632)"} []
 [2021-03-13 06:44:25] main.CRITICAL: {"error":{"root_cause":[{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}],"type":"search_phase_execution_exception","reason":"all shards failed","phase":"query","grouped":true,"failed_shards":[{"shard":0,"index":"magento2_product_1_v459","node":"4QoCKwv8SjuYbus9QsZMeg","reason":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}}],"caused_by":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]","caused_by":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}}},"status":400} {"exception":"[object] (Elasticsearch\\Common\\Exceptions\\BadRequest400Exception(code: 400): {\"error\":{\"root_cause\":[{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}],\"type\":\"search_phase_execution_exception\",\"reason\":\"all shards failed\",\"phase\":\"query\",\"grouped\":true,\"failed_shards\":[{\"shard\":0,\"index\":\"magento2_product_1_v459\",\"node\":\"4QoCKwv8SjuYbus9QsZMeg\",\"reason\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}}],\"caused_by\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\",\"caused_by\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}}},\"status\":400} at /var/www/html/supertee/vendor/elasticsearch/elasticsearch/src/Elasticsearch/Connections/Connection.php:632)"} []
 [2021-03-13 16:44:00] main.CRITICAL: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'imageUrl' in 'field list', query was: INSERT INTO productCoordinates(product_id, side, top_crdnt, left_crdnt, imageUrl) VALUES ('230', '230_0', '121', '153', 'https://dev.evantiv.com/supertee/pub/media/catalog/product/7/1/71399_b_fm_30.jpg') {"exception":"[object] (Zend_Db_Statement_Exception(code: 42): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'imageUrl' in 'field list', query was: INSERT INTO productCoordinates(product_id, side, top_crdnt, left_crdnt, imageUrl) VALUES ('230', '230_0', '121', '153', 'https://dev.evantiv.com/supertee/pub/media/catalog/product/7/1/71399_b_fm_30.jpg') at /var/www/html/supertee/vendor/magento/framework/DB/Statement/Pdo/Mysql.php:110, PDOException(code: 42S22): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'imageUrl' in 'field list' at /var/www/html/supertee/vendor/magento/framework/DB/Statement/Pdo/Mysql.php:91)"} []
+[2021-03-17 10:21:40] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-17 10:21:51] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-17 10:22:58] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-18 06:43:11] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-18 06:48:26] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-18 09:25:00] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-18 09:26:40] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-18 09:27:02] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-18 11:09:55] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-18 11:11:05] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-18 11:12:13] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/supertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/supertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-19 08:10:31] main.CRITICAL: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '))' at line 2, query was: SELECT `main_table`.*, `cp_table`.`type_id` FROM `cataloginventory_stock_item` AS `main_table`
+ INNER JOIN `catalog_product_entity` AS `cp_table` ON main_table.product_id = cp_table.entity_id WHERE (`main_table`.`website_id` = '0') AND (`main_table`.`product_id` IN()) {"exception":"[object] (Zend_Db_Statement_Exception(code: 42000): SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '))' at line 2, query was: SELECT `main_table`.*, `cp_table`.`type_id` FROM `cataloginventory_stock_item` AS `main_table`
+ INNER JOIN `catalog_product_entity` AS `cp_table` ON main_table.product_id = cp_table.entity_id WHERE (`main_table`.`website_id` = '0') AND (`main_table`.`product_id` IN()) at /var/www/html/supertee/vendor/magento/framework/DB/Statement/Pdo/Mysql.php:110, PDOException(code: 42000): SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '))' at line 2 at /var/www/html/supertee/vendor/magento/framework/DB/Statement/Pdo/Mysql.php:91)"} []
+[2021-03-22 06:12:18] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-22 12:22:55] main.CRITICAL: Notice: Undefined variable: imageUrls in /var/www/html/supertee/app/code/Forms/Registration/view/adminhtml/templates/product/custom.phtml on line 54 {"exception":"[object] (Exception(code: 0): Notice: Undefined variable: imageUrls in /var/www/html/supertee/app/code/Forms/Registration/view/adminhtml/templates/product/custom.phtml on line 54 at /var/www/html/supertee/vendor/magento/framework/App/ErrorHandler.php:61)"} []
+[2021-03-22 12:29:19] main.CRITICAL: Notice: Undefined variable: imageUrls in /var/www/html/supertee/app/code/Forms/Registration/view/adminhtml/templates/product/custom.phtml on line 77 {"exception":"[object] (Exception(code: 0): Notice: Undefined variable: imageUrls in /var/www/html/supertee/app/code/Forms/Registration/view/adminhtml/templates/product/custom.phtml on line 77 at /var/www/html/supertee/vendor/magento/framework/App/ErrorHandler.php:61)"} []
+[2021-03-23 09:37:21] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-23 13:40:49] main.CRITICAL: {"error":{"root_cause":[{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}],"type":"search_phase_execution_exception","reason":"all shards failed","phase":"query","grouped":true,"failed_shards":[{"shard":0,"index":"magento2_product_1_v470","node":"4QoCKwv8SjuYbus9QsZMeg","reason":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}}],"caused_by":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]","caused_by":{"type":"illegal_argument_exception","reason":"no mapping found for field [department_value]"}}},"status":400} {"exception":"[object] (Elasticsearch\\Common\\Exceptions\\BadRequest400Exception(code: 400): {\"error\":{\"root_cause\":[{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}],\"type\":\"search_phase_execution_exception\",\"reason\":\"all shards failed\",\"phase\":\"query\",\"grouped\":true,\"failed_shards\":[{\"shard\":0,\"index\":\"magento2_product_1_v470\",\"node\":\"4QoCKwv8SjuYbus9QsZMeg\",\"reason\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}}],\"caused_by\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\",\"caused_by\":{\"type\":\"illegal_argument_exception\",\"reason\":\"no mapping found for field [department_value]\"}}},\"status\":400} at /var/www/html/supertee/vendor/elasticsearch/elasticsearch/src/Elasticsearch/Connections/Connection.php:632)"} []
+[2021-03-23 18:02:56] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-23 18:02:56] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 05:19:36] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 05:19:36] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 06:47:34] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_reset_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_reset_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 07:24:44] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 07:24:51] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 07:25:23] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 07:26:03] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 07:26:43] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 07:28:31] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 07:28:35] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 08:04:53] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 08:05:18] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 08:22:03] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 08:22:18] main.CRITICAL: Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 {"exception":"[object] (Magento\\Framework\\Config\\Dom\\ValidationException(code: 0): Theme layout update file '/var/www/html/supertee/app/code/Forms/Registration/view/frontend/layout/customer_password.xml' is not valid.
+Namespace prefix xsi for type on argument is not defined
+ Line: 6
+Namespace prefix xsi for type on argument is not defined
+ Line: 7
+Namespace prefix xsi for type on argument is not defined
+ Line: 12
+Namespace prefix xsi for type on argument is not defined
+ Line: 13
+XML declaration allowed only at the start of the document
+ Line: 1 at /var/www/html/supertee/vendor/magento/framework/View/Model/Layout/Merge.php:779)"} []
+[2021-03-25 10:05:28] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 10:09:23] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 10:10:28] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 10:29:22] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 11:03:55] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 11:04:02] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 11:42:54] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 12:07:56] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 12:10:51] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 12:16:35] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 12:22:01] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 12:37:09] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 13:18:10] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 13:22:47] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 13:35:48] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 17:51:34] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 18:00:35] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 19:19:00] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 19:19:08] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-25 21:42:46] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-26 09:16:48] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-26 09:16:48] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-26 18:35:41] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-27 15:16:05] main.CRITICAL: Please correct the country code: 0. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 0. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-27 15:16:27] main.CRITICAL: Please correct the country code: 0. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 0. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-27 15:17:50] main.CRITICAL: Please correct the country code: 1. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 1. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-27 15:18:03] main.CRITICAL: Please correct the country code: 1. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 1. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-27 15:18:39] main.CRITICAL: Please correct the country code: 1. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 1. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-27 15:18:50] main.CRITICAL: Please correct the country code: 1. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 1. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-27 17:15:54] main.CRITICAL: Please correct the country code: 0. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 0. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-27 17:16:19] main.CRITICAL: Please correct the country code: 0. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 0. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-27 21:10:59] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-27 21:11:00] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 10:34:25] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 10:34:25] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 10:38:00] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 10:38:00] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 10:44:19] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 10:44:19] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 10:46:01] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 10:46:01] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-28 17:31:11] main.CRITICAL: Please correct the country code: 0. {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Please correct the country code: 0. at /var/www/html/supertee/vendor/magento/module-directory/Model/ResourceModel/Country.php:71)"} []
+[2021-03-29 20:08:04] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-29 20:08:05] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/supertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-30 08:14:21] main.CRITICAL: Warning: Invalid argument supplied for foreach() in /var/www/html/supertee/vendor/stripe/module-payments/Observer/QtyUpdateObserver.php on line 41 {"exception":"[object] (Exception(code: 0): Warning: Invalid argument supplied for foreach() in /var/www/html/supertee/vendor/stripe/module-payments/Observer/QtyUpdateObserver.php on line 41 at /var/www/html/supertee/vendor/magento/framework/App/ErrorHandler.php:61)"} []

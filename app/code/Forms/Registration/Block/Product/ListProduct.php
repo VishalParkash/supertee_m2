@@ -39,6 +39,7 @@ public function __construct(
     \Magento\Catalog\Model\CategoryFactory $categoryFactory,
     Data $catalogData,
     Resolver $layerResolver,
+    \Forms\Registration\Model\Session $session,
     \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
     \Magento\Catalog\Model\Product\Attribute\Repository $productAttributeRepository,
     array $data = [],
@@ -52,6 +53,7 @@ public function __construct(
     $this->_catalogData = $catalogData;
     $this->_productAttributeRepository = $productAttributeRepository;
     $this->_categoryCollectionFactory = $categoryCollectionFactory;
+    $this->session = $session;
 
     $data['outputHelper'] = $outputHelper ?? ObjectManager::getInstance()->get(OutputHelper::class);
 
@@ -141,6 +143,11 @@ public function getCategory($categoryId)
     $this->_category = $this->_categoryFactory->create();
     $this->_category->load($categoryId);
     return $this->_category;
+}
+
+public function getViewSet()
+{
+    return $this->session->getData("setSession");
 }
 
 /**

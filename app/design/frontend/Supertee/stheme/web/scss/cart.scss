@@ -63,6 +63,12 @@
         padding:24px 0;
         .btnWrap{
             margin-top:23px;
+
+            a{
+                display:flex;
+                align-items:center;
+                justify-content: center;
+            }
         }
 
         .quantityWrap{

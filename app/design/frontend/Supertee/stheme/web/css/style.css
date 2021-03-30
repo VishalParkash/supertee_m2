@@ -1286,18 +1286,11 @@ input[type=number]::-webkit-outer-spin-button,
   padding: 30px 51px 30px 60px;
   font-size: 1.3125rem;
   flex-grow: 1;
-  display: block !important;
 }
 @media (min-width: 992px) {
   .search_box .input_box input, .search_box .input_box .contactBody .formWrap form .form-group textarea, .contactBody .formWrap form .form-group .search_box .input_box textarea {
     padding: 30px 51px 30px 96px;
   }
-}
-.search_box .input_box .minisearch {
-  width: 100%;
-}
-.search_box .input_box .minisearch label {
-  display: none;
 }
 .search_box .icon {
   width: 30px;
@@ -1315,29 +1308,11 @@ input[type=number]::-webkit-outer-spin-button,
   flex-grow: 1;
   background: #fff;
   overflow-y: auto;
-  padding: 0 30px;
 }
 @media (min-width: 992px) {
   .search_box .search_result {
     padding-left: 96px;
     padding-right: 50px;
-  }
-}
-.search_box .search_result .ui-menu {
-  flex-direction: column;
-}
-@media (max-width: 991px) {
-  .search_box .search_result .ui-menu {
-    margin-bottom: 30px;
-  }
-}
-.search_box .search_result .ui-menu li {
-  font-size: 1.125rem;
-  line-height: 1.5;
-}
-@media (max-width: 991px) {
-  .search_box .search_result .ui-menu li {
-    margin-bottom: 5px;
   }
 }
 .search_box .search_result ul {
@@ -3534,16 +3509,16 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 .login_process .form-group .icon-detail {
   display: none;
   position: absolute;
-  top: -50%;
+  bottom: 50px;
   right: -90px;
-  transform: translatey(-50%);
   background: #fff;
   border: 1px solid #A8A8A8;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 120px;
+  width: 200px;
   font-size: 12px;
-  padding: 10px;
+  padding: 20px 10px;
+  z-index: 1;
 }
 .login_process .form-group input, .login_process .contactBody .formWrap form .form-group textarea, .contactBody .formWrap form .login_process .form-group textarea {
   color: #151515;
@@ -4708,14 +4683,20 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 .productDetail .productImage .productImageContent h6 {
   margin: 0 0 5px;
 }
+.productDetail .productImage .productImageContent .table {
+  margin-top: 0;
+}
 .productDetail .productImage .productImageContent .table th, .productDetail .productImage .productImageContent .table td {
   font-size: 0.9375rem;
   vertical-align: middle;
   border-bottom-color: #E6E6E6;
-  padding: 25px 10px;
+  padding: 15px 10px;
 }
 .productDetail .productImage .productImageContent .table tbody tr:hover {
   background-color: #F3F3F3;
+}
+.productDetail .productImage .productImageContent .table tbody tr:hover td {
+  padding: 25px 10px;
 }
 .productDetail .productImage .productImageContent .table tbody tr:hover td span {
   color: #1AAAAD;
@@ -4739,6 +4720,14 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
   color: #00BFF3;
   font-size: 0.938em;
   font-family: "Roboto", sans-serif;
+}
+.productDetail .contentWrap > div:first-child {
+  margin-bottom: 15px !important;
+}
+@media (min-width: 992px) {
+  .productDetail .contentWrap > div:first-child {
+    margin-bottom: 25px !important;
+  }
 }
 .productDetail .contentWrap p {
   font-size: 0.938em;
@@ -4837,6 +4826,9 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
     font-size: 2.25rem;
   }
 }
+.productDetail .contentWrap .priceWrap .price h4:not(:last-child) {
+  margin-right: 24px;
+}
 .productDetail .contentWrap .priceWrap .price .oldPrice {
   position: relative;
 }
@@ -4852,7 +4844,6 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 .productDetail .contentWrap .priceWrap .price .actual {
   color: #C7452A;
   font-weight: bold;
-  margin-left: 24px;
 }
 .productDetail .contentWrap .priceWrap p {
   margin-top: 10px;
@@ -4910,14 +4901,13 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 }
 @media (max-width: 575px) {
   .productDetail .contentWrap .btnWrap {
-    margin-left: -25px;
-    margin-right: -25px;
-    width: -webkit-calc(100% + 50px);
-    width: calc(100% + 50px);
     -webkit-box-pack: justify !important;
     -ms-flex-pack: justify !important;
     justify-content: space-between !important;
   }
+}
+.productDetail .contentWrap .btnWrap #addToCart {
+  width: 100%;
 }
 .productDetail .contentWrap .btnWrap .btn {
   font-size: 1.313em;
@@ -4929,8 +4919,7 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 }
 @media (max-width: 575px) {
   .productDetail .contentWrap .btnWrap .btn {
-    width: -webkit-calc(50% - 5px);
-    width: calc(50% - 5px);
+    width: 100%;
     margin-right: 0 !important;
     text-align: center;
     -webkit-box-pack: center;
@@ -5516,6 +5505,15 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
   width: 100px;
   margin-bottom: 24px;
   height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 1px solid #A8A8A8;
+  box-sizing: border-box;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 5px;
   cursor: pointer;
 }
 @media (min-width: 992px) {
@@ -5530,12 +5528,13 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 }
 @media (min-width: 1400px) {
   .productImgSliderNav .productImgSliderNavItem {
-    height: 140px;
+    height: 120px;
   }
 }
 .productImgSliderNav .productImgSliderNavItem img {
   max-width: 100%;
-  height: 100%;
+  max-height: 100%;
+  padding: 5px;
   margin: 0;
   -o-object-fit: cover;
   object-fit: cover;
@@ -5548,7 +5547,6 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 }
 
 .customize-type {
-  border-bottom: 1px solid #E6E6E6;
   padding-bottom: 24px;
 }
 .customize-type > div {
@@ -5743,6 +5741,10 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
   font-size: 1.125rem;
   color: #151515;
 }
+.custom-design .add-text {
+  min-height: unset;
+  overflow: unset;
+}
 .custom-design .add-text .field-wrap {
   margin-bottom: 48px;
 }
@@ -5839,6 +5841,10 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
   position: absolute;
   bottom: 20px;
   right: 20px;
+}
+
+.canvas-container {
+  margin: 0 auto;
 }
 
 .listingPageBanner {
@@ -6341,6 +6347,11 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 }
 .table td .btnWrap {
   margin-top: 23px;
+}
+.table td .btnWrap a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .table td .quantityWrap {
   margin: unset;

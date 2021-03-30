@@ -5,6 +5,7 @@ $connection = $resource->getConnection();
 
 //*****************loading Customer session *****************//
 $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+// echo "<pre>";print_r($customerSession->);die;
 
 //******** Checking whether customer is logged in or not ********//
 if ($customerSession->isLoggedIn()) {
@@ -12,15 +13,23 @@ $customer_email = $customerSession->getCustomer()->getEmail();
 $customer_telephone = $customerSession->getCustomer()->getTelephone();
 
 // ***********Getting order collection using customer email id ***********//
- $order_collection = $objectManager->create('Magento\Sales\Model\Order')->getCollection()->addAttributeToFilter('customer_email', $customer_email);
+ $order_collection = $objectManager->create('Magento\Sales\Model\Order')->getCollection()->addAttributeToFilter('customer_email', $customer_email)->setOrder(
+                'created_at',
+                'desc'
+            );;
  $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+
  //$order = $objectManager->create('Magento\Sales\Api\OrderRepositoryInterface')->get($orderid);
  
  //echo "<pre>";print_r($order_collection->getData());
  foreach ($order_collection as $orders){ 
     // echo "Order Id: ".$orders->getEntityId(); 
-    //$invoices = $this->getInvoiceDataByOrderId($orderId);
-    // echo "Customer Id: ".$orders->getCustomerId(); 
+    $invoices = $this->getInvoiceDataByOrderId($orders->getEntityId());
+
+    // echo "<pre>";print_r($invoices);
+    // echo "Customer Id: ".$orders->ge
+    // tCustomerId(); 
     // echo '<pre>';
     
     $order = $objectManager->create('\Magento\Sales\Model\OrderRepository')->get($orders->getEntityId());
@@ -34,16 +43,18 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
     $order->getTotalQtyOrdered();
     $order->getOrderCurrencyCode();
     $custLastName = $order->getCustomerLastname();
-    $orderItems = $order->getAllItems();
+    // $AllOrders = $objectManager->create('Magento\Sales\Model\Order')->load($orders->getEntityId());
+    // $orderItems = $AllOrders->getAllItems();
+    // $orderItems[] = $order->getAllItems();
     $total_qty = 0;
-    foreach ($orderItems as $item) {
-        // print_r($item->getProductOptions());
-        // print_r($item->getName());
-        $total_qty = $total_qty + $item->getQtyOrdered();
-        $product = $item->getProduct();
-      $product->getSize();
+    // foreach ($orderItems as $item) {
+    //     // print_r($item->getProductOptions());
+    //     // print_r($item->getName());
+    //     $total_qty = $total_qty + $item->getQtyOrdered();
+    //     $product = $item->getProduct();
+    //   $product->getSize();
 
-    }
+    // }
    } 
 } 
 ?>
@@ -83,27 +94,34 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                             <li><a href="<?php echo $block->getBaseUrl(); ?>customer/account/edit">Profile</a></li>
                             <li><a href="<?php echo $block->getBaseUrl(); ?>customer/account/password">Password</a></li>
                             <li><a href="<?php echo $block->getBaseUrl(); ?>sales/order/history" class="active">Orders</a></li>
-                            <li><a href="#">Your customized design</a></li>
-                            <li><a href="#">Notification settings</a></li>
+                            <!-- <li><a href="#">Your customized design</a></li>
+                            <li><a href="#">Notification settings</a></li> -->
                         </ul>
                     </div>
                     
                     <div class="manageAccountRightBar">
-                        <?php foreach ($order_collection as $orders){ ?>
+                        <?php foreach ($order_collection as $orders) { 
+                            $order = $objectManager->create('\Magento\Sales\Model\OrderRepository')->get($orders->getEntityId());
+                            $AllOrders = $objectManager->create('Magento\Sales\Model\Order')->load($orders->getEntityId());
+
+                            
+
+
+                            ?>
                         <div class="manageAccountOrderDetail">
                             <div class="manageAccountOrderDetailItem d-flex align-items-center">
                                 <div class="flex1 d-flex">
                                     <h5>Order details</h5>
                                     <span class="manageAccountOrderDetailDivider">|</span>
-                                    <a href="<?php echo $block->getBaseUrl(); ?>/pdf_invoice_frontend/invoice/pdfdownload/?invoice_id=<?php echo $orders->getEntityId(); ?>">Download invoice</a>
+                                    <a href="<?php echo $block->getBaseUrl(); ?>pdf_invoice_frontend/invoice/pdfdownload/?invoice_id=<?php echo $order->getEntityId(); ?>">Download invoice</a>
                                  
                                 </div>
                                 <div>
-                                    <h6>Order id <span class="text-gray"><?php echo $orders->getEntityId(); ?></span></h6>
+                                    <h6>Order id <span class="text-gray"><?php echo $order->getEntityId(); ?></span></h6>
                                 </div>
                             </div>
                             <div>
-                                <h6>Order date <span class="text-border"><?php echo $orders->getCreatedAt(); ?></span></h6>
+                                <h6>Order date <span class="text-border"><?php echo $order->getCreatedAt(); ?></span></h6>
                             </div>
                             <div class="manageAccountOrderDetailItem">
                                 <div class="manageAccountOrderDetailPriceDetails d-flex">
@@ -115,17 +133,17 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                             <tbody>
                                                 <tr>
                                                     <td><span>Total</span></td>
-                                                    <td><b><?php echo $orders->getSubTotalInvoiced(); ?></b></td>
+                                                    <td><b><?php echo number_format($order->getSubTotalInvoiced(), 2); ?></b></td>
                                                 </tr>
                                                 <tr>
                                                     <td><span>Tax</span></td>
-                                                    <td><b><?php echo $orders->getShippingTaxAmount(); ?></b></td>
+                                                    <td><b><?php echo number_format($order->getShippingTaxAmount(), 2); ?></b></td>
                                                 </tr>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <td><span>Grand total</span></td>
-                                                    <td><b><?php echo $orders->getGrandTotal(); ?></b></td>
+                                                    <td><b><?php echo number_format($order->getGrandTotal(), 2); ?></b></td>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -142,16 +160,27 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                             <h5>Billing address</h5>
                                             <p class="text-gray">
                                                 <?php 
-                                                $billingaddress = $orders->getBillingAddress();
-                                                $billingstreet = $billingaddress->getStreet();
-                                                $billingpostcode = $billingaddress->getPostcode();
-                                                $billingtelephone = $billingaddress->getTelephone();
-                                                $billingstate_code = $billingaddress->getRegionCode();
-                                                $billingcity = $billingaddress->getCity();
-                                                foreach($billingstreet as $street){
-                                                    echo $street. ' ';
-                                                }
+
+
+                                                $billingaddress = $order->getBillingAddress();
+                                                if(!empty($billingaddress)){
+                                                    $billingstreet = (!empty($billingaddress->getStreet())) ? ($billingaddress->getStreet()) : '';
+                                                    
+                                                    $billingpostcode = (!empty($billingaddress->getPostcode())) ? ($billingaddress->getPostcode()) : '';
+
+                                                    $billingtelephone = (!empty($billingaddress->getTelephone())) ? ($billingaddress->getTelephone()) : '';
+
+                                                    $billingstate_code = (!empty($billingaddress->getRegionCode())) ? ($billingaddress->getRegionCode()) : '';
+
+                                                    $billingcity = (!empty($billingaddress->getCity())) ? ($billingaddress->getCity()) : '';
+                                                    if(!empty($billingstreet)){
+                                                          foreach($billingstreet as $street){
+                                                            echo $street. ' ';
+                                                        }  
+                                                    }
+                                                
                                                 echo $billingcity. ' '.$billingpostcode;
+                                            }
                                                     ?>
                                             </p>
                                         </div>
@@ -159,17 +188,45 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                         <div class="col-md-4">
                                             <h5>Shipping address</h5>
                                             <p class="text-gray">
-                                                <?php 
+                                                <?php
+                                                // $shippingaddress = $order->getShippingAddress();
+                                                // $shippingcity = $shippingaddress->getCity();
+                                                // $shippingstreet = $shippingaddress->getStreet();
+                                                // $shippingpostcode = $shippingaddress->getPostcode();
+                                                // $shippingtelephone = $shippingaddress->getTelephone();
+                                                // $shippingstate_code = $shippingaddress->getRegionCode();
+
+
+
+                                                // foreach($shippingstreet as $street){
+                                                //     echo $street. ' ';
+                                                // }
+
                                                 $shippingaddress = $order->getShippingAddress();
-                                                $shippingcity = $shippingaddress->getCity();
-                                                $shippingstreet = $shippingaddress->getStreet();
-                                                $shippingpostcode = $shippingaddress->getPostcode();
-                                                $shippingtelephone = $shippingaddress->getTelephone();
-                                                $shippingstate_code = $shippingaddress->getRegionCode();
-                                                foreach($shippingstreet as $street){
-                                                    echo $street. ' ';
+                                                // echo "<pre>";print_r($shippingaddress->getData());die;
+                                                if(!empty($shippingaddress)){
+                                                    $shippingstreet = (!empty($shippingaddress->getStreet())) ? ($shippingaddress->getStreet()) : '';
+                                                
+                                                    $shippingpostcode = (!empty($shippingaddress->getPostcode())) ? ($shippingaddress->getPostcode()) : '';
+
+                                                    $shippingtelephone = (!empty($shippingaddress->getTelephone())) ? ($shippingaddress->getTelephone()) : '';
+
+                                                    $shippingstate_code = (!empty($shippingaddress->getRegionCode())) ? ($shippingaddress->getRegionCode()) : '';
+
+                                                    $shippingcity = (!empty($shippingaddress->getCity())) ? ($shippingaddress->getCity()) : '';
+                                                    if(!empty($shippingstreet)){
+                                                          foreach($shippingstreet as $street){
+                                                            echo $street. ' ';
+                                                        }  
+                                                    }
+
+
+                                                    echo $shippingcity. ' '.$shippingpostcode;
                                                 }
-                                                echo $shippingcity. ' '.$shippingpostcode;
+                                                
+
+
+
                                                 ?>
                                                 
                                             </p>
@@ -202,18 +259,28 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                         </div>
                                     </div>
                                     <div class="manageAccountOrderDetailBottomList">
-                                        <?php foreach ($orderItems as $item) { ?>
+                                        <?php 
+
+                                        foreach ($AllOrders->getAllItems() as $item) { 
+                                            $total_qty = $total_qty + $item->getQtyOrdered();
+                                            $product = $item->getProduct();
+
+                                            $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
+                                            $image_url = $imageHelper->init($item->getProduct(), 'product_thumbnail_image')->getUrl();
+
+
+                                            //echo "<pre>";print_r($item->getData()); ?>
                                         <div class="manageAccountOrderDetailBottomItem">
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <div class="manageAccountOrdersProduct">
                                                         <div class="manageAccountOrdersProductImg">
-                                                            <img src="<?php echo $this->getViewFileUrl('/images/t-shirtOrder.png'); ?>" alt="t-shirtOrder">
+                                                            <img src="<?php echo $image_url; ?>" alt="Order">
                                                         </div>
                                                         <div class="manageAccountOrdersProductText">
                                                             <div class="manageAccountOrdersProductSize">
                                                                 <h6><?php echo $item->getName(); ?></h6>
-                                                                <h6><?php echo $item->getPrice(); ?></h6>
+                                                                <h6><?php echo number_format( $item->getPrice(), 2); ?></h6>
                                                             </div>
 
                                                             <h6 class="font-weight-normal text-border">#<?php echo $item->getItemId(); ?></h6>
@@ -230,11 +297,15 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                                 </div>
                                                 <div class="offset-md-2 col-md-3 text-right">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <div class="manageAccountOrdersProductTag">
-                                                            79
-                                                        </div>
+                                                        <!-- <div class="manageAccountOrdersProductTag">
+                                                            
+                                                        </div> -->
+                                                        <form method="post" action="<?php echo $block->getUrl('cancel/order') ?>">
+                                                            <input type="hidden" name="order_id" value="<?php echo $order->getEntityId(); ?>">
                                                         <button class="btn btn-secondary-outline btn-sm">
-                                                            <span>Cancel</span>
+
+                                                            
+                                                            <span><?php if($order->getState() != "canceled"){ echo "Cancel";}?></span>
                                                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path
@@ -242,6 +313,7 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                                                     fill="#151515" />
                                                             </svg>
                                                         </button>
+                                                    </form>
                                                     </div>
                                                     <p class="text-gray">
                                                         You can cancel order within 24 hours only

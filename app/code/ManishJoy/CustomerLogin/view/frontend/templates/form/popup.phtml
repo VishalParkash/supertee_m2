@@ -215,7 +215,7 @@ form.password.forget{
                                 </button>
                             </form>
 
-                            <div class="socialLogin">
+                            <!-- <div class="socialLogin">
                                 <h6>Or use your social accounts</h6>
                                 <div class="socialLink d-flex align-items-center justify-content-center">
                                     <a href="#;">
@@ -234,7 +234,7 @@ form.password.forget{
                                         </svg>
                                     </a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -270,7 +270,7 @@ form.password.forget{
                                         <path d="M8 0C3.58217 0 0 3.58182 0 7.99965C0 12.4178 3.58217 16 8 16C12.4178 16 16 12.4178 16 7.99965C16 3.58182 12.4182 0 8 0ZM9.22293 12.3679C9.22293 13.0387 8.67362 13.5824 8.00349 13.5824C7.33301 13.5824 6.78406 13.0387 6.78406 12.3679V7.05435C6.78406 6.38387 7.33301 5.84015 8.00349 5.84015C8.67362 5.84015 9.22293 6.38352 9.22293 7.05435V12.3679ZM8 4.83688C7.26003 4.83688 6.66009 4.23694 6.66009 3.49732C6.66009 2.757 7.26003 2.15775 8 2.15775C8.73962 2.15775 9.33991 2.757 9.33991 3.49732C9.33991 4.23694 8.73962 4.83688 8 4.83688Z" fill="#A8A8A8"/>
                                     </svg>
                                     <div class="icon-detail">
-                                        Password must be 8 charcter long with alphanumric.
+                                        password should be atleast 8 characters long, should contain number, special character, uppercase letter and lowercase letter and maximum 12 characters.
                                     </div>
                                         
                                 </div> 
@@ -401,8 +401,73 @@ form.password.forget{
             </div>
     </div>
 
+    <!------------------- Reset Password ------------------------->
+
+    <div class="modal fade reset_process"  id="signin" tabindex="-1" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
+            <!-- <div class="notify success">
+                    <h6>request has been approved</h6>
+                    <p>Viverra leo mus magnis rhoncus arcu velit. Nullam senectus bibendum nullam mauris.</p>
+                    <svg class="close" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M1.33352 0.211923L5.00009 3.87813L8.66666 0.223033C8.73885 0.149586 8.8255 0.0919159 8.92112 0.05367C9.01674 0.0154241 9.11927 -0.00256573 9.2222 0.000838218C9.42418 0.0139081 9.6145 0.100038 9.75762 0.243146C9.90075 0.386254 9.98689 0.576556 9.99996 0.778519C10.001 0.87782 9.98178 0.97629 9.94358 1.06796C9.90539 1.15962 9.84896 1.24258 9.77774 1.31179L6.10006 5.00022L9.77774 8.68864C9.92218 8.82863 10.0022 9.02194 9.99996 9.22191C9.98689 9.42387 9.90075 9.61418 9.75762 9.75729C9.6145 9.90039 9.42418 9.98652 9.2222 9.99959C9.11927 10.003 9.01674 9.98501 8.92112 9.94676C8.8255 9.90851 8.73885 9.85085 8.66666 9.7774L5.00009 6.1223L1.34464 9.7774C1.27244 9.85085 1.1858 9.90851 1.09017 9.94676C0.99455 9.98501 0.892029 10.003 0.789095 9.99959C0.583345 9.98888 0.388856 9.90234 0.243172 9.75667C0.0974876 9.611 0.0109371 9.41653 0.000227414 9.2108C-0.000777895 9.1115 0.0184003 9.01303 0.0565986 8.92136C0.094797 8.8297 0.151219 8.74674 0.222444 8.67754L3.90012 5.00022L0.211333 1.31179C0.142114 1.24164 0.0877451 1.15827 0.0514738 1.06665C0.0152026 0.975023 -0.00222666 0.877029 0.000227414 0.778519C0.0132986 0.576556 0.0994371 0.386254 0.242559 0.243146C0.385681 0.100038 0.576002 0.0139081 0.777984 0.000838218C0.880117 -0.00401225 0.982154 0.0122271 1.07773 0.0485439C1.17331 0.0848608 1.26039 0.140476 1.33352 0.211923Z" fill="black"/></svg>
+                        
+                </div>     -->
+        <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    
+                <div class="modal-body">
+                    <div
+                        class="rightWrap forget text-center d-flex flex-column align-items-center justify-content-center h-100 ">
+                        <div class="loginContent my-auto">
+                                <div class="topHeadWrap">
+                                    <h1>reset password</h1>
+                                    <p>create your new password to login</p>
+                                </div>
+                                <form>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Password">
+                                        <svg class="info" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 0C3.58217 0 0 3.58182 0 7.99965C0 12.4178 3.58217 16 8 16C12.4178 16 16 12.4178 16 7.99965C16 3.58182 12.4182 0 8 0ZM9.22293 12.3679C9.22293 13.0387 8.67362 13.5824 8.00349 13.5824C7.33301 13.5824 6.78406 13.0387 6.78406 12.3679V7.05435C6.78406 6.38387 7.33301 5.84015 8.00349 5.84015C8.67362 5.84015 9.22293 6.38352 9.22293 7.05435V12.3679ZM8 4.83688C7.26003 4.83688 6.66009 4.23694 6.66009 3.49732C6.66009 2.757 7.26003 2.15775 8 2.15775C8.73962 2.15775 9.33991 2.757 9.33991 3.49732C9.33991 4.23694 8.73962 4.83688 8 4.83688Z" fill="#A8A8A8"/>
+                                        </svg>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Confirm password">
+                                    </div>
+    
+                                    <button type="submit" class="btn btn-primary submitBtn">
+                                        Submit
+                                        <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12" fill="#fff"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" />
+                                        </svg>
+                                    </button>
+                                </form>
+    
+                        </div>
+    
+    
+                        <div class="bottomText">
+                            <p class="mb-0">back to <a href="login.html"> <strong>login</strong> </a> </p>
+                        </div>
+                    </div>
+                    <a href="#" class="backbutton d-flex align-items-center">
+                        <svg class="mr-3" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.274963 5.14888C0.275244 5.1486 0.275478 5.14827 0.275806 5.14799L5.17443 0.272997C5.54142 -0.0922061 6.135 -0.090847 6.50029 0.276184C6.86554 0.643168 6.86414 1.23675 6.49715 1.60199L3.20821 4.87499L23.0625 4.87499C23.5803 4.87499 24 5.29471 24 5.81249C24 6.33027 23.5803 6.74999 23.0625 6.74999L3.20826 6.74999L6.49711 10.023C6.86409 10.3882 6.8655 10.9818 6.50025 11.3488C6.13495 11.7159 5.54132 11.7171 5.17439 11.352L0.275761 6.47699C0.27548 6.47671 0.275244 6.47638 0.274916 6.4761C-0.0922565 6.10963 -0.0910835 5.51413 0.274963 5.14888Z" fill="#151515"/>
+                        </svg>
+                        <span>back</span>
+                    </a>
+                </div> 
+                </div>
+            </div>
+    </div>
+
+
      <script type="text/javascript">
         require(['jquery', 'bootstrap4'], function($) {
+
+            $(window).on('load',function(){
+                $('.reset_process').modal('hide');
+            });
             // console.log('hhh');
             var headerElem = $('.panel.header');
             var loginLink = $('.topHeader').find('#login-popup');

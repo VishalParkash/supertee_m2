@@ -15,6 +15,9 @@
 }
 
 /*checkoutPage Update*/
+#checkout {
+  min-height: 50px;
+}
 
 #checkout .opc-summary-wrapper:after{
   width: 40%;
@@ -105,8 +108,17 @@
 #checkout .form .fieldset >div{
   flex-direction:column;
   margin:0;
+} 
+  
+#checkout .form .fieldset >div .note{
+  font-size: 14px;
+  margin: 7px 0;
+  display: block;
 }
 
+#customer-email-fieldset{
+  margin-bottom:25px;
+}
 
 #checkout .form .fieldset .field.form-row{
   flex-direction:column;
@@ -214,6 +226,14 @@ outline:0;
 
 #checkout-shipping-method-load table tr.row th, #checkout-shipping-method-load table tr.row td{
   flex:1;
+}
+
+.checkout-shipping-address .loading-mask{
+  left:-25px;
+}
+
+.checkout-shipping-method .loading-mask{
+  left:-25px;
 }
 
 /*Sidebar*/
@@ -325,13 +345,17 @@ outline:0;
     justify-content:space-between;
 }
 
+.opc-sidebar .items-in-cart .minicart-items .product .product-item-details .product-item-inner .product-item-name-block{
+  padding-right:15px;
+}
+
 .opc-sidebar .items-in-cart .minicart-items .product .product-item-details .subtotal{
-  font-size: 1.313em;
+  font-size: 1.125rem;
     font-weight: bold;
 }
 
 .opc-sidebar .items-in-cart .minicart-items .product-item-details .product-item-name{
-  font-size: 1.313em;
+  font-size: 1.125rem;
 }
 
 
@@ -356,7 +380,7 @@ outline:0;
 .checkout-payment-method .payment-method .payment-method-title{
   display:flex;
   align-items:center;
-  padding:5px 0;
+  padding:10px 0;
 }
 
 .checkout-payment-method .payment-method .payment-method-title label .stripe-icon-container.right{
@@ -405,6 +429,16 @@ outline:0;
 .shipping-information-title span{
       font-weight: bold;
     font-size: 1.313em;
+}
+
+.shipping-information-title .action-edit{
+  border-radius:10px;
+}
+
+.shipping-information-title .action-edit span{
+  font-size:0.875rem;
+  font-weight:normal;
+  cursor:pointer;
 }
 
 .mage-error{
@@ -576,10 +610,10 @@ table mark{
 .custom-design .searchWrap .suggestion .item-thumb img {
   margin-bottom: 12px;
 }
-.add-text {
+/*.add-text {
   max-height: 350px;
   overflow-y: auto;
-}
+}*/
 .add-text > *:last-child {
   margin-bottom: 0;
 }
@@ -658,6 +692,60 @@ table mark{
   .singlePageHead .headWrap.inline-headwrap:after {
     content: none;
   }
+
+  #checkout .opc-wrapper{
+    width:unset;
+    padding-right:0px;
+    padding-left:0;
+  }
+
+  .opc-sidebar{
+    width:unset;
+  }
+
+  #checkout .opc-summary-wrapper:after{
+    content:100%;
+  }
+
+  .opc-sidebar .opc-block-summary{
+    padding: 40px 0;
+  }
+
 }
 
 /*Update*/
+
+.checkout-index-index{
+  position:relative;
+}
+
+.payment-method-billing-address .checkout-billing-address > .form-row{
+      padding: 5px;
+    margin-bottom: 20px;
+    padding-left:35px;
+}
+
+.payment-method-content .ccard{
+  padding-top:20px;
+  border-top: 1px solid rgba(0,0,0,0.1); 
+}
+
+.payment-method-content .actions-toolbar{
+  padding-left: 30px;
+}
+
+.payment-method-content .actions-toolbar .paypal-buttons{
+  width:auto !important;
+}
+
+.payment-method-billing-address .checkout-billing-address .actions-toolbar{
+  padding:20px 0;
+}
+
+.payment-method-billing-address .checkout-billing-address .actions-toolbar .primary button{
+  padding: 10px 30px;
+}
+
+.payment-method-billing-address .checkout-billing-address .actions-toolbar .primary button:not(:last-child){
+  margin-right:20px;
+}

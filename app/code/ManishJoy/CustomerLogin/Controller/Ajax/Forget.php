@@ -115,7 +115,7 @@ class Forget extends \Magento\Framework\App\Action\Action
             $email = $this->getRequest()->getPost('email');
 
             $randomString =  $this->getRandomString(12);
-            $resetPasswordLink = $this->getBaseUrl()."?reset=".$randomString;
+            $resetPasswordLink = $this->getBaseUrl()."customer/password/reset?token=".$randomString;
             $senderEmail = "hr@millipixels.com";
             // $password_request_time = date('Y-m-d H:i:s');
             $sql = "INSERT INTO " . $themeTable . "(email_address, token_key) VALUES ('".$email."', '".$randomString."')";
