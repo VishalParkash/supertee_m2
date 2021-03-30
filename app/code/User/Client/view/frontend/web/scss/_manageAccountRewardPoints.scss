@@ -1,0 +1,62 @@
+.manageAccountRewardPoints {
+    .tableCustomDiv {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.rewardPointsTop {
+    .btnText {
+        font-size: 1.3125em;
+        svg {
+            margin-right: 14px;
+            margin-top: 2px;
+        }
+    }
+    h4 {
+        font-size: 1.125em !important;
+    }
+}
+.rewardPointsDonate {
+    margin: 48px 0 0 0;
+    .rewardPointsDonateBtn {
+        padding: 20px 0 0 0;
+    }
+}
+.donateModal {
+    .modal-dialog {
+        width: 1024px;
+        .modal-content {
+            padding: 90px 100px;
+            p {
+                margin: 0;
+                font-size: 1.3125em;
+                line-height: 109%;
+                font-family: $primaryFont;
+                color: $borderLight2;
+                span {
+                    display: block;
+                    margin: 10px 0;
+                    color: $primaryColor;
+                }
+                &.donateModalNotes {
+                    margin: 10px 0 0 0;
+                    font-size: 0.9375em;
+                }
+            }
+        }
+    }
+    .donateModalTop {
+        margin: 0 0 48px 0;
+        h3 {
+            font-size: 2.25em;
+            line-height: 109%;
+            font-weight: 900;
+            font-family: $roboto;
+            margin: 0 0 8px;
+        }
+        
+    }
+    .donateModalBtn {
+        margin: 100px 0 0 0;
+    }
+}

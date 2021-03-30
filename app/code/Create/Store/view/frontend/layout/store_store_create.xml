@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+
+	<head>
+        <title>Create Store</title>
+        <remove src="Magento_Theme::css/style.css" />
+        <remove src="Magento_Theme::scss/blog.scss" />
+
+        <link rel="stylesheet" type="text/css" src="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&amp;display=swap" src_type="url" />
+        
+        <css src="Create_Store::css/bootstrap.min.css"/>
+        <css src="Create_Store::css/bootstrap-datepicker.min.css"/>
+        <css src="Create_Store::css/bootstrap-slider.min.css"/>
+        <css src="Create_Store::css/custom.css"/>
+    </head>
+     <body>
+        <referenceContainer name="footer" remove="true" />
+        <referenceContainer name="custom_footer" remove="true" />
+        <referenceContainer name="custom_header" remove="true" />
+        <referenceContainer name="content">			
+			<block class="Create\Store\Block\Store\Create" name="store_create" template="Create_Store::store/create.phtml">
+			</block>
+        </referenceContainer>      
+    </body>
+</page>

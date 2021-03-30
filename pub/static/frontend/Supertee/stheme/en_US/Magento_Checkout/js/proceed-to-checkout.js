@@ -1,0 +1,1 @@
+/var/www/html/devsupertee/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/proceed-to-checkout.js

@@ -1,0 +1,33 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<fieldset class="fieldset">
+<legend class="legend">
+  <a href="form" class="action submit primary" style="float:right;">
+  <span><i class="fa fa-plus"></i> Add New Post</span>
+  </a>
+</legend><br>
+<% if (data.items.length) { %> 
+                           <% _.each(data.items, function(item) { %> 
+
+                           <div class="postrow">
+                    <blockquote>
+                      <h2><%- item.title %></h2>
+                      <p><i class="fa fa-quote-left"></i> <%- item.content %> <i class="fa fa-quote-right"></i></p>
+                      <footer style="float:left;"><i class="fa fa-calendar"></i> Post At : <%- item.createat %></footer>
+                      <footer><i class="fa fa-edit"></i> Post By : <%- item.name %></footer>
+                    </blockquote>
+                    </div>
+    <% }); %> 
+<% } else { %> 
+<div  class="postrow">
+
+<blockquote>
+  <p><i class="fa fa-quote-left"></i> No Post Found. <i class="fa fa-quote-right"></i></p>
+</blockquote>
+</div>
+<% } %>
+</fieldset>

@@ -1,0 +1,164 @@
+<footer class="store-footer text-white">
+            <div class="top-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="footer-logo-wrap d-flex flex-column align-items-center">
+                                <img src="assets/images/store_logo.png" alt="" class="img-fluid">
+                                <div class="powered-by d-flex flex-column text-center">
+                                    <span>powered by</span>
+                                    <object data="<?php echo $block->getViewFileUrl('User_Frontend::images/logo.svg'); ?>" type=""></object>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="link-wrap">
+                                <h6>Shop By</h6>
+                                <ul class="links list-unstyled">
+                                    <li> <a href="#;">Brands </a> </li>
+                                    <li> <a href="#;">Clothing bags </a> </li>
+                                    <li> <a href="#;">Signs, bannner & Stickers </a> </li>
+                                    <li> <a href="#;">Promotional products </a> </li>
+                                    <li> <a href="#;">Headwear </a> </li>
+                                    <li> <a href="#;">Sports </a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="policy">
+                                <div class="wrap d-flex align-items-center">
+                                    <img src="<?php echo $block->getViewFileUrl('User_Frontend::images/orignal.png'); ?>" alt="" class="img-fluid">
+                                    <div class="content">
+                                        <h6>100% original products</h6>
+                                        <span>Supertee guarantee</span>
+                                    </div>
+                                </div>
+                                <div class="wrap d-flex align-items-center">
+                                    <img src="<?php echo $block->getViewFileUrl('User_Frontend::images/return.png'); ?>" alt="" class="img-fluid">
+                                    <div class="content">
+                                        <h6>Return within 14days</h6>
+                                        <span>Since order recieved</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="newsletter">
+                                <h6>Newsletter</h6>
+                                <p>Join the newsletter and get discounts on products. We help brands liquidate their oversupply and offer you prices that can’t be found anywhere else.</p>
+                                <input type="email" placeholder="Your email address" />
+                                <a href="#;" class="btn btn-primary">Subscribe us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bottom-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="bottomWrap d-flex align-items-center">
+                                <div class="leftWrap d-flex align-items-center">
+                                    <span>2021</span>
+                                    <div class="copyright d-flex align-items-center">
+                                        <p class="mb-0"> <span class="textFade">copyrights</span> Supertee LLC. all
+                                            rights reserved.</p>
+                                        <span class="d-flex align-items-center"> <img src="<?php echo $block->getViewFileUrl('User_Frontend::images/canada_flag.png'); ?>" alt="" class="img-fluid">
+                                            Proudly
+                                            Canadian</span>
+                                    </div>
+                                </div>
+                                <div class="rightWrap ml-auto">
+                                    <a href="#;"><img src="<?php echo $block->getViewFileUrl('User_Frontend::images/facebook.png'); ?>" alt=""></a>
+                                    <a href="#;"><img src="<?php echo $block->getViewFileUrl('User_Frontend::images/twitter.png'); ?>" alt=""></a>
+                                    <a href="#;"><img src="<?php echo $block->getViewFileUrl('User_Frontend::images/insta.png'); ?>" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+        
+<script src="<?php echo $block->getViewFileUrl('User_Frontend::js/custom.js'); ?>"></script>
+<script>
+    //  $(".productImgSlider ").slick({
+    //     dots: true,
+    //     // arrows: false,
+    //     infinite: true,
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    // });
+
+    // listing page
+    // Filter
+    require([ 'jquery', 'bootstrap4', 'Magento_Ui/js/modal/modal'], function($, modal){ 
+        $(document).ready(function() {
+
+    $('.filter_box .filterHead').on('click', function () {
+        console.log('click');
+        $(this).parents('.filter_box').toggleClass('filterOpen');
+    });
+
+
+    // ListView
+    $('.btnWrap .listView').on('click', function () {
+        $(this).toggleClass('selected');
+        $('.btnWrap .gridView').removeClass('selected');
+        $('.similarProduct').addClass('list_view');
+    });
+
+
+    // gridView
+    $('.btnWrap .gridView ').on('click', function () {
+        $(this).addClass('selected');
+        $('.btnWrap .listView').removeClass('selected');
+        $('.similarProduct').removeClass('list_view');
+    });
+    });
+    });
+
+</script>
+<script>
+require([ 'jquery', 'slick'], function($){ 
+$(document).ready(function() {
+
+	     $(".bannerSlider ").slick({
+        dots: false,
+        // arrows: false,
+        autoplay: false,
+        prevArrow: $(".banner-nav .prev "),
+        nextArrow: $(".banner-nav .next "),
+        infinite: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        // centerMode: true,
+    });
+
+    $(".product-slider ").slick({
+        dots: false,
+        // arrows: false,
+        prevArrow: $(".cat-nav .prev "),
+        nextArrow: $(".cat-nav .next "),
+        infinite: false,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        // centerMode: true,
+    });
+
+    $(".trend-slider ").slick({
+        dots: false,
+        // arrows: false,
+        prevArrow: $(".trend-slide-nav .prev "),
+        nextArrow: $(".trend-slide-nav .next "),
+        infinite: false,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        // centerMode: true,
+    });
+});
+
+});
+</script>

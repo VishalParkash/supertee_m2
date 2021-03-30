@@ -1,0 +1,1 @@
+/var/www/html/devsupertee/vendor/amzn/amazon-pay-module/view/frontend/web/js/amazon-widgets-loader.js

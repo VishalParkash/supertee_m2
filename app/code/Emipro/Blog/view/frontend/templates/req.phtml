@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/** @var Magento\Framework\View\Element\Template $block */
+?>
+<div data-mage-init='{"emiproblog":{"url": "<?php echo $block->getUrl('blog/index/reqpost') ?>"}}'>
+    <fieldset class="fieldset" data-role="filter_group">
+        <?php include($block->getTemplateFile('Emipro_Blog::filter.phtml')); ?>
+    </fieldset>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button data-role="search_products" type="submit" title="<?php echo __('Search') ?>" class="action submit primary">
+                <span><?php echo __('Search') ?></span>
+            </button>
+        </div>
+    </div>
+    <div data-role="blogresult"></div>
+</div>

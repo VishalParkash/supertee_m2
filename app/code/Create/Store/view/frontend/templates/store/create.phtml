@@ -1,0 +1,573 @@
+<style type="text/css">
+    /*Custom CSS */
+.header.content{
+  display: none !important;
+}
+.column {
+    max-width:unset;
+}
+</style>
+
+
+<?php 
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+$categories = $block->getCategoryCollection(); ?>
+<div class="mainSite">
+        <div class="sideBar">
+            <div class="sideBarInner">
+                <div class="sideBarTop">
+                    <a href="index.html">
+                        <img src="<?php echo $this->getViewFileUrl('Forms_Registration::images/logoWhite.png'); ?>" alt="logoWhite" />
+                    </a>
+                </div>
+                <div class="sideBarMiddle flex1">
+                    <h4>risk-free. Stress-free.</h4>
+                    <h2>
+                        get started with your own custom printed apparel and accessories store
+                    </h2>
+                    <ul class="listCheck">
+                        <li>
+                            set up your store in minutes. choose your products, your markup and start selling.
+                        </li>
+                        <li>
+                            No hassle of managing production or shipment. We take care of all of that.
+                        </li>
+                        <li>
+                            Get payouts at regular intervals based on your markup percentage.
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <button class="btn btn-outline-light prev newprevv" id="pressInfo" style="display:none">
+                        <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="fillHover"
+                                d="M0.274963 5.33638C0.275244 5.3361 0.275479 5.33577 0.275807 5.33549L5.17443 0.460497C5.54142 0.0952939 6.135 0.096653 6.50029 0.463684C6.86554 0.830668 6.86414 1.42425 6.49715 1.78949L3.20821 5.06249L23.0625 5.06249C23.5803 5.06249 24 5.48221 24 5.99999C24 6.51777 23.5803 6.93749 23.0625 6.93749L3.20826 6.93749L6.49711 10.2105C6.86409 10.5757 6.8655 11.1693 6.50025 11.5363C6.13495 11.9034 5.54132 11.9046 5.17439 11.5395L0.27576 6.66449C0.275479 6.66421 0.275244 6.66388 0.274916 6.6636C-0.0922562 6.29713 -0.091084 5.70163 0.274963 5.33638Z"
+                                fill="white" />
+                        </svg>
+                        <b>previous</b>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="indexTab px50 pageContent">
+                <ul class="storeNav storeNav1 nav" role="tablist">
+                    <li class="nav-item pInfo" id="active_pInfo"><a  role="tab" data-toggle="tab" href="javascript:void(0)" class="active">01 personal information</a></li>
+                    <li class="nav-item ssInfo" id="active_ssInfo"><a role="tab" data-toggle="tab" href="javascript:void(0)">02 store information</a></li>
+                    <li class="nav-item confirmation" id="active_confirmation"><a role="tab" data-toggle="tab" href="javascript:void(0)">03 confirmation</a></li>
+                </ul>
+                
+
+                <div class="tab-content">
+                <!-- <section class="active flex1 overflowY pInfo" id="firstsection"> -->
+                <div class="tab-pane fade show active pInfo" id="firstsection" role="tabpanel">
+                    <span id="errorReporting"></span>
+                    <form method="post" id="personalInfoData" class="d-flex">
+                        <div class=" overflowY mb15 flex1">
+                                <h1>tell us about<br /> yourself</h1>
+                                <div class="row row20">
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" id="name" placeholder="name" name="name" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="phone number" id="phone_number" name="phone_number" maxlength="10" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="email" class="form-control" placeholder="e-mail" id="email" name="email" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control"
+                                                placeholder="address (house no, building, street, area)*" id="address" name="address" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="zip code" id="zip" name="zipcode" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="location/town" id="town" name="location" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="city/district" id="city" name="city" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="country" id="country" name="country" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="password" class="form-control" placeholder="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="password" class="form-control" placeholder="confirm password" id="cpassword" name="confirmPassword" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt15 mb15 d-flex formActionLink">
+                                    <p class="colorBlack m-0">already a user? </p>
+                                    <a href="#" class="btn btn-link btn-success font-weight-bold">sign in</a>
+                                </div>
+                            </div>
+
+                        <div class="text-right formBtn">
+                            <button class="btn btn-secondary btn-link" id="cancelBtn">
+                                <b>cancel</b>
+                            </button>
+                            <button class="btn btn-secondary next" id="pInfo" type="button">
+                                <b>next</b>
+                                <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="fillHover"
+                                        d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
+                                        fill="white" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- <section class="flex1 overflowY ssInfoss" id="secoundone"> -->
+                <div class="tab-pane fade ssInfo fullView" id="secoundone" role="tabpanel">
+                    <form method="post" id="StoreInfoData" class="d-flex">
+                        <input type="hidden" name="ccid" value="" id="ccid">
+                        <div class="  overflowY mb15 flex1">
+                            <div class="storeInfo">
+                                    <h1>
+                                        a bit about what you have in mind for your store
+                                    </h1>
+                            
+                                    <div class="box_wrap">
+                                        <div class="box_head">what is the name of your online store</div>
+                                        <div class="form-group">
+                                             <input type="text" class="form-control" placeholder="add your store name here" id="store_name" name="storename">
+                                        </div>
+                                    </div>
+                            
+                                    <div class="box_wrap">
+                                        <div class="box_head">select store type</div>
+                                        <div class="customCheck roundCheck">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="storetype" id="storeType1" value="retailStore" >
+                                                <div class="label_box">
+                                                    <label class="form-check-label" for="storeType1">
+                                                        <div class="labelWrap">
+                                                            <p class="mb-0">retail store</p>
+                                                            <p class="mb-0 info">
+                                                                a retail sales associate is responsible for all sales activities and sales associate job duties, from greeting customers, answering questions, offering assistance, suggesting items, lending opinions and providing product information.
+                                                            </p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="customCheck roundCheck">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="storetype" id="storeType2" value="privateStore" >
+                                                <div class="label_box">
+                                                    <label class="form-check-labe2" for="storeType2">
+                                                        <div class="labelWrap">
+                                                            <p class="mb-0">private store</p>
+                                                            <p class="mb-0 info">
+                                                                a retail sales associate is responsible for all sales activities and sales associate job duties, from greeting customers, answering questions, offering assistance, suggesting items, lending opinions and providing product information.
+                                                            </p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="customCheck roundCheck">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="storetype" id="storeType3" value="dualPurposeStore" >
+                                                <div class="label_box">
+                                                    <label class="form-check-labe2" for="storeType3">
+                                                        <div class="labelWrap">
+                                                            <p class="mb-0">dual purpose store</p>
+                                                            <p class="mb-0 info">
+                                                                a retail sales associate is responsible for all sales activities and sales associate job duties, from greeting customers, answering questions, offering assistance, suggesting items, lending opinions and providing product information.
+                                                            </p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="customCheck roundCheck">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="storetype" id="storeType4" value="popupStore" >
+                                                <div class="label_box">
+                                                    <label class="form-check-labe2" for="storeType4">
+                                                        <div class="labelWrap">
+                                                            <p class="mb-0">popup store</p>
+                                                            <div class="dateWrap info">
+                                                                <div class="start">
+                                                                    <span>start date</span>
+                                                                    <div class="inputWrap  form-group">
+                                                                        <input type="text" placeholder="15-05-2020" class="datePicker" /> 
+                                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M19.2 1.8H15V0.2C15 0.09 14.91 0 14.8 0H13.4C13.29 0 13.2 0.09 13.2 0.2V1.8H6.8V0.2C6.8 0.09 6.71 0 6.6 0H5.2C5.09 0 5 0.09 5 0.2V1.8H0.8C0.3575 1.8 0 2.1575 0 2.6V19.2C0 19.6425 0.3575 20 0.8 20H19.2C19.6425 20 20 19.6425 20 19.2V2.6C20 2.1575 19.6425 1.8 19.2 1.8ZM18.2 18.2H1.8V8.7H18.2V18.2ZM1.8 7V3.6H5V4.8C5 4.91 5.09 5 5.2 5H6.6C6.71 5 6.8 4.91 6.8 4.8V3.6H13.2V4.8C13.2 4.91 13.29 5 13.4 5H14.8C14.91 5 15 4.91 15 4.8V3.6H18.2V7H1.8Z" fill="#A8A8A8"/>
+                                                                        </svg>                                                                
+                                                                    </div>
+                                                                </div>
+                                                                <div class="end">
+                                                                    <span>end date</span>
+                                                                    <div class="inputWrap form-group">
+                                                                        <input type="text" placeholder="15-09-2020" class="datePicker" /> 
+                                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M19.2 1.8H15V0.2C15 0.09 14.91 0 14.8 0H13.4C13.29 0 13.2 0.09 13.2 0.2V1.8H6.8V0.2C6.8 0.09 6.71 0 6.6 0H5.2C5.09 0 5 0.09 5 0.2V1.8H0.8C0.3575 1.8 0 2.1575 0 2.6V19.2C0 19.6425 0.3575 20 0.8 20H19.2C19.6425 20 20 19.6425 20 19.2V2.6C20 2.1575 19.6425 1.8 19.2 1.8ZM18.2 18.2H1.8V8.7H18.2V18.2ZM1.8 7V3.6H5V4.8C5 4.91 5.09 5 5.2 5H6.6C6.71 5 6.8 4.91 6.8 4.8V3.6H13.2V4.8C13.2 4.91 13.29 5 13.4 5H14.8C14.91 5 15 4.91 15 4.8V3.6H18.2V7H1.8Z" fill="#A8A8A8"/>
+                                                                        </svg>                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                            
+                                    <div class="box_wrap">
+                                        <div class="box_head">
+                                            which of the products in our lineup do you wish to sell on the store? 
+                                        </div>
+                                        <div class="dropdown select">
+                                            <select name="storecategory" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton">
+                                                <option class="dropdown-item d-flex justify-content-between" value="">Please select</option>
+                                                <option class="dropdown-item d-flex justify-content-between" value="all">Give me everything</option>
+                                                <?php foreach ($categories as $category)  {?>
+                                                    <option class="dropdown-item d-flex justify-content-between" value="<?php echo $category->getId(); ?>"><?php echo $category->getName(); ?></option>
+                                                <?php } ?>
+                                            </select>
+                                           
+                                          </div>
+            
+                                    </div>
+                            
+                                    <div class="box_wrap ">
+                                        <div class="box_head">
+                                            do you already have a website where you’ll be selling these products?  
+                                        </div>
+                                        <div class="tg-list-item d-flex align-items-center toggleSwitch">
+                                            <span>no</span>
+                                            <input class="tgl tgl-ios" id="cb" type="checkbox" name="iswebsiteavailable" />
+                                            <label class="tgl-btn mb-0 mx-2" for="cb"></label>
+                                            <span>yes</span>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="box_wrap">
+                                        <div class="box_head">
+                                            no worries, just choose an address for your free website  
+                                        </div>
+                                        <div class="content">
+                                            <p>
+                                                please choose a web address name that represents your business and is easy to remember. you can change this address and use your own domain name later.
+                                            </p>
+                            
+                                            <div class="form-group">
+                                                 <input type="text" class="form-control" placeholder="www.supertree.com / yourstorename" id="storeURL" name="storedomain">
+                                                 <p>The store code may contain only letters (a-z), numbers (0-9) or underscore (_), and the first character must be a letter.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="box_wrap">
+                                        <div class="box_head">
+                                            do you already have experience in selling online 
+                                        </div>
+                                            
+
+                                        <div class="dropdown select ">
+                                            <select name="issellingexperienced" class="btn btn-secondary dropdown-toggle">
+                                                <option class="dropdown-item" value="">Select option</option>
+                                                <option class="dropdown-item" value="offlineSelling">I am selling but not online yet</option>
+                                                <option class="dropdown-item" value="noSale">I am not selling anything yet</option>
+                                                <option class="dropdown-item" value="onlineSelling">i am alredy selling online</option>
+                                            </select>
+                                            
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="box_wrap">
+                                        <div class="box_head">
+                                            what do expect your monthly sales volume to be from this store?
+                                        </div>
+                                        <div class="progressBar">
+                                            <ul class="list-unstyled d-flex rangeWrap">
+                                                <li>5000-10000</li>
+                                                <li>10000-20000</li>
+                                                <li>30000-40000</li>
+                                                <li>50000-60000</li>
+                                                <li>60000-70000</li>
+                                            </ul>
+                                            <input type="range" class="rangeSlider" data-slider-id='ex1Slider' type="text"
+                                                    data-slider-min="0" data-slider-max="100" data-slider-step="1"
+                                                    data-slider-value="14"  name="monthlyvolume">
+                                        </div>
+                                    </div>
+                            
+                                    <div class="box_wrap">
+                            <div class="box_head">
+                                how did you hear about us
+                            </div>
+                            <div class="dropdown select">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    website
+                                </button>
+                                <div class="dropdown-menu dropdown_two" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="#">website</a>
+                                  <a class="dropdown-item" href="#">google</a>
+                                  <a class="dropdown-item" href="#">social media</a>
+                                  <a class="dropdown-item" href="#">friend</a>
+                                </div>
+                              </div>
+                        </div>
+                                </div>
+                        </div>
+                        <div class="text-right formBtn">
+                            <button class="btn btn-secondary btn-link prev" id="pressInfo">
+                                <b>cancel</b>
+                            </button>
+                            <button class="btn btn-secondary next" id="ssInfo" type="button">
+                                <b>submit store application</b>
+                                <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="fillHover" d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" fill="white"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- <section id="confirmation" class="flex1 overflowY confirmationPage"> -->
+                <div class="tab-pane fade confirmationPage" id="confirmationPage" role="tabpanel">
+                    <div class="overflowY mb15 flex1">
+                        <h1>
+                                Do you want to build your store?
+                        </h1>
+                        <p class="f18 colorGray m-0">
+                            You are on your way to starting your own store. Do you want to continue and set up your store right away?
+                        </p>
+                    </div>
+                    <div class="text-right formBtn">
+                            <button class="btn btn-link btn-secondary">
+                                <b>Do it later</b>
+                            </button>
+                            <a href="<?php echo $block->getBaseUrl(); ?>setupstore/setup/page"><button class="btn btn-secondary">
+                                <b>Yes, continue</b>
+                                <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="fillHover"
+                                        d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
+                                        fill="white" />
+                                </svg>
+                            </button>
+                        </a>
+                        </div>
+
+                </div>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="<?php //echo $block->getViewFileUrl('Create_Store::js/bootstrap-slider.min.js'); ?>"></script>
+    <script src="<?php echo $block->getViewFileUrl('Create_Store::js/custom.js'); ?>"></script>
+    <script>
+
+
+        require([ 'jquery', 'jquery/ui', 'bootstrap4'], function($){ 
+            $( document ).ready(function() {
+                $(".dropdown-toggle").click(function (){
+                    $(".dropdown").addClass('selected'); // I also tried .parent().addClass
+                });
+            $('.next').click(function() {
+                    var linkId = $('.storeNav li.'+this.id).attr('class');
+                    console.log(linkId);
+                    
+                    $("#newprevv").show();
+                    if(this.id == 'pInfo'){
+                        console.log('info tab here');
+                        if($("#name").val().length == 0  ){
+                            $("#name").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#name").removeClass('alert alert-danger');
+                        }
+                        if($("#phone_number").val().length == 0  ){
+                            $("#phone_number").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#phone_number").removeClass('alert alert-danger');
+                        }
+                        if($("#address").val().length == 0  ){
+                            $("#address").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#address").removeClass('alert alert-danger');
+                        }
+                        if($("#email").val().length == 0  ){
+                            $("#email").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#email").removeClass('alert alert-danger');
+                        }
+                        if($("#zip").val().length == 0  ){
+                            $("#zip").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#zip").removeClass('alert alert-danger');
+                        }
+                        if($("#town").val().length == 0  ){
+                            $("#town").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#town").removeClass('alert alert-danger');
+                        }
+                        if($("#city").val().length == 0  ){
+                            $("#city").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#city").removeClass('alert alert-danger');
+                        }
+                        if($("#country").val().length == 0  ){
+                            $("#country").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#country").removeClass('alert alert-danger');
+                        }
+                        if($("#password").val().length == 0  ){
+                            $("#password").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#password").removeClass('alert alert-danger');
+                        }if($('#password').val() != $('#cpassword').val()){
+                            $("#password").addClass('alert alert-danger');
+                            $("#cpassword").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#password").removeClass('alert alert-danger');
+                            $("#cpassword").removeClass('alert alert-danger');
+                        }
+                        $('.pageContent section').removeClass("active");
+                    $('.pageContent section.'+this.id).next().addClass("active");
+                        var formData = $("#personalInfoData").serialize();
+                      // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
+                      var url = "<?php echo $block->getBaseUrl().'store/personal/information/' ?>";
+                        jQuery.ajax({
+                        url: url,
+                        type: "POST",
+                        data: formData,
+                        showLoader: true,
+                        cache: false,
+                        success: function(response){
+                            console.log(response);
+                            if(response.output == 'passwordError'){
+                                $('#errorReporting').text("Password and Confirm Password should have same values.");
+                                return false;
+                            }else if(response.output == false){
+                                $('#errorReporting').text('Some error occured. Please fill the form again');
+                                return false;
+                            }else{
+                                $('#ccid').val(response.output);
+                                $('#firstsection').removeClass("active").attr('class', this.id);
+                                // $('#secoundone').removeClass("active").attr('class', this.id);
+                                $('#secoundone').addClass("active show");
+                                return false;
+                            }
+                        }
+                    });
+                    }
+                    if(this.id == 'ssInfo'){
+                        $("#newprevv").removeAttr( 'style' );
+                        console.log('store tab here');
+                        $('#secoundone').removeClass("active").attr('class', this.id);
+                        $('#confirmation').addClass("active");
+                        var formData = $("#StoreInfoData").serialize()
+                      // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
+                        var url = "<?php echo $block->getBaseUrl().'store/store/save/' ?>";
+                        $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: formData,
+                        showLoader: true,
+                        // cache: false,
+                        // dataType: 'json',
+                        success: function(result){
+                            console.log(result);
+                            console.log(result.output);
+                            if(result.output == 0){
+                                console.log('false');
+                                $('#errorReporting').text('Some error occured. Please fill the form again');
+                                return false;
+                            }else if(result.output == true){
+                                console.log('true');
+                                $('#errorReporting').text('Store created');
+                                $('#secoundone').css("display", 'none');
+                                $('#secoundone').removeClass("active");
+                                $('#secoundone').removeClass("show");
+                                // $('#secoundone').removeClass("active").attr('class', this.id);
+                                $('#confirmationPage').addClass("active show");
+                                return false;
+                            }else{
+                                console.log('something else');
+                                $('#errorReporting').text(result.output);
+                                return false;
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                          var err = (xhr);
+                          console.log(err);
+                          console.log(error);
+                          // alert(err.output);
+                          return false;
+
+                        }  
+                                    
+                    });
+                    }
+                    if(linkId == this.id)
+                    {   
+                        // $("#newprevv").addClass("hidden");
+                        $('.storeNav li a').removeClass("active");
+                        $('.storeNav li.'+this.id).next().find('a').addClass("active");
+        
+                    } 
+        
+                    
+        });
+        $('.prev').click(function() {
+                if(this.id == 'pressInfo'){
+                    $('#secoundone').removeClass("active");
+                    $('#firstsection').addClass("active");
+                    $('#active_ssInfo').removeClass("active");
+                    $('#active_pInfo').addClass("active");
+                }
+                if(this.id == 'pressconfirmation'){
+                    $('#confirmation').removeClass("active");
+                    $('#secoundone').addClass("active");
+                    // $('#active_ssInfo').removeClass("active");
+                    // $('#active_pInfo').addClass("active");
+                }
+                // $('.pageContent section').removeClass("active");
+                // $('.pageContent section.'+this.id).prev().addClass("active");
+         
+            });
+        
+         });
+        });
+            
+        </script>

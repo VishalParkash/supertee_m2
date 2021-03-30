@@ -1,0 +1,63 @@
+[2021-03-05 15:59:13] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-05 15:59:14] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-09 07:50:01] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-09 07:50:01] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-09 07:52:50] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-09 07:52:50] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-09 07:56:46] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-09 07:56:46] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-09 07:58:24] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-09 07:58:24] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-12 18:50:29] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-12 18:50:30] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/devsupertee/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-19 06:21:05] main.CRITICAL: The stock item was unable to be saved. Please try again. {"exception":"[object] (Magento\\Framework\\Exception\\CouldNotSaveException(code: 0): The stock item was unable to be saved. Please try again. at /var/www/html/devsupertee/vendor/magento/module-catalog-inventory/Model/Stock/StockItemRepository.php:187, Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/devsupertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []
+[2021-03-19 08:24:04] main.CRITICAL: The website with code my_custom_code that was requested wasn't found. Verify the website and try again. {"exception":"[object] (Magento\\Framework\\Exception\\NoSuchEntityException(code: 0): The website with code my_custom_code that was requested wasn't found. Verify the website and try again. at /var/www/html/devsupertee/vendor/magento/module-store/Model/WebsiteRepository.php:81)"} []
+[2021-03-30 11:28:44] main.CRITICAL: Could not ping search engine: No alive nodes found in your cluster {"exception":"[object] (Magento\\Framework\\Exception\\LocalizedException(code: 0): Could not ping search engine: No alive nodes found in your cluster at /var/www/html/devsupertee/vendor/magento/module-elasticsearch/Model/Adapter/Elasticsearch.php:166)"} []

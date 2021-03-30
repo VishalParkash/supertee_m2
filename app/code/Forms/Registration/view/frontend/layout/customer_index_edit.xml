@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<body>
+    <referenceContainer name="content">
+        <block class="Forms\Registration\Block\Edit" name="customer.account.edit" template="Forms_Registration::order/edit.phtml" after="-">        	
+        </block>
+    </referenceContainer>
+</body>

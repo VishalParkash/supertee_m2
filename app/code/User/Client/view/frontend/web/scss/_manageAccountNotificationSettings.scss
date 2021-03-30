@@ -1,0 +1,30 @@
+.manageAccountNotificationSettings {
+    .notificationSettings {
+        h4 {
+            font-size: 1.5em;
+            margin: 0 0 0;
+        }
+    }
+    .notificationSettingsItem {
+        padding: 24px 0;
+        &:not(:last-child) {
+            border-bottom: 1px solid $borderLight;
+        }
+        p {
+            margin: 0;
+            font-size: 0.9375em;
+            line-height: 1.2em;
+            color: $borderLight2;
+            b {
+                display: block;
+                color: $primaryColor;
+                padding: 7px 0 0 0;
+            }
+            span {
+                display: block;
+                margin: 15px 0 0 0;
+                max-width: 240px;
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+<!-- <move element="catalog.topnav" destination="custom_header" /> -->
+        
+        
+        <referenceContainer name="product.info.main" remove="true"></referenceContainer>
+        <referenceContainer name="product.info.media" remove="true"></referenceContainer>
+        <referenceContainer name="product.info.details" remove="true"></referenceContainer>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceBlock name="category.image" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/> <!-- Remove sidebar -->
+        <referenceBlock name="catalog.compare.link" remove="true"/> <!-- Remove link in header -->
+        <referenceBlock name="related.product.addto.compare" remove="true"/> <!-- Related product -->
+        <referenceBlock name="category.product.addto.compare" remove="true"/> <!-- Category add compare -->
+        <referenceBlock name="view.addto.compare" remove="true" /> <!-- Product addto compare -->
+        <referenceBlock name="breadcrumbs" remove="true" />
+        <referenceBlock name="catalog.leftnav" remove="true" />
+        <referenceBlock name="category.description" remove="true"/>
+
+        
+
+        <!-- <move element="catalog.topnav" destination="custom_header" /> -->
+
+        
+        <referenceContainer name="content">
+            
+            <block class="User\Frontend\Block\Product\ListProduct" name="category.products.list" template="Magento_Catalog::product/listing.phtml" cacheable="false"/>
+            
+        </referenceContainer>
+        <referenceContainer name="footer" remove="true" />
+        
+</body>
+</page>
