@@ -1,1 +1,1 @@
-/var/www/html/supertee/vendor/magento/module-page-cache/view/frontend/web/js/page-cache.js
+/var/www/html/stee_test/vendor/magento/module-page-cache/view/frontend/web/js/page-cache.js

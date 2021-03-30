@@ -1,1 +1,1 @@
-/var/www/html/supertee/vendor/magento/module-ui/view/base/web/js/core/renderer/layout.js
+/var/www/html/stee_test/vendor/magento/module-ui/view/base/web/js/core/renderer/layout.js

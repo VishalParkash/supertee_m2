@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/requirejs/domReady.js
+/var/www/html/stee_test/lib/web/requirejs/domReady.js

@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-cookie/view/frontend/web/js/require-cookie.js

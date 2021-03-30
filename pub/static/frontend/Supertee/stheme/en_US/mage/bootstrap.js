@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/mage/bootstrap.js
+/var/www/html/stee_test/lib/web/mage/bootstrap.js

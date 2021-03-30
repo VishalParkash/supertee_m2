@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/jquery/ui-modules/selectable.js
+/var/www/html/stee_test/lib/web/jquery/ui-modules/selectable.js

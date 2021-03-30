@@ -142,24 +142,8 @@ class Register extends \Magento\Framework\App\Action\Action
                 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
                 $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
                 $connection = $resource->getConnection();
-            //     $select = $connection->select()
-            //         ->from(
-            //             ['ur' => 'user_rewards'],
-            //             ['*'])
-            //             ->where(
-            //     "ur.customer_id = ".$customer->getId()
-            // );
-            
-            //     $data = $connection->fetchAll($select);
-
-            //     if(empty($data)){
-                // $this->session->setData("donation_data", $post);
-                // echo "<pre>";print_r($this->request->getParams());die;
-                // echo "<pre>";print_r($this->session->getData('referid'));die;
-
-                if(!empty($this->session->getData('referid'))){
+                 if(!empty($this->session->getData('referid'))){
                     $referid = $this->session->getData('referid');
-// die('in here');
                     $themeTable = $connection->getTableName('referral_system');
                     $checkReferral = "SELECT * FROM " . $themeTable . " WHERE tokenCode ='$referid'";
                     $result = $connection->fetchAll($checkReferral);
@@ -178,9 +162,6 @@ class Register extends \Magento\Framework\App\Action\Action
                             $connection->query($sql2);
                         }
 
-                        //  $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-                        // $resultRedirect->setPath('/magento');
-                        // return $resultRedirect;
                     }
                 }
 
@@ -188,13 +169,27 @@ class Register extends \Magento\Framework\App\Action\Action
                 $themeTable = $connection->getTableName('user_rewards');
                 $sql = "INSERT INTO " . $themeTable . "(customer_id, reward_points, reward_type, rewards_points_id) VALUES (".$customer->getId().", 100, 'credit', 'signUp_reward')";
                 $connection->query($sql);
-                // }
+                
+                // Sent Mail
 
-                // echo "<pre>";print_r($data);die;
+                // die;
+                $senderEmail = "hr@millipixels.com";
+                $loginUrl = $this->getBaseUrl();
+                $msg = '';
+                $msg .= "<p>Hi</p>";
+                $msg .= "<p>Thank you for register with us. Please login with below link:-</p>";
+                $msg .= "<p><a href='".$loginUrl."' target='_blank'>Click here to login.</a></p>";
+                $msg .= "<p>Regards</p>";
+                $msg .= "<p>Team Supertee</p>";
+                $email = new \Zend_Mail();
+                $email->setSubject("Welcome to Supertee");
+                $email->setBodyHtml($msg);
+                $email->setFrom($senderEmail);
+                $email->addTo($this->getRequest()->getPost('email'));
+                $email->send();
 
-
-                    $this->customerSession->setCustomerDataAsLoggedIn($customer);
-                    $this->customerSession->regenerateId();
+                $this->customerSession->setCustomerDataAsLoggedIn($customer);
+                $this->customerSession->regenerateId();
 
                 }
             } catch (LocalizedException $e) {
@@ -216,4 +211,11 @@ class Register extends \Magento\Framework\App\Action\Action
         $resultJson = $this->resultJsonFactory->create();
         return $resultJson->setData($response);
     }
+
+    function getBaseUrl(){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+        return $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
+
+}
 }

@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/jquery/jquery.mobile.custom.js
+/var/www/html/stee_test/lib/web/jquery/jquery.mobile.custom.js

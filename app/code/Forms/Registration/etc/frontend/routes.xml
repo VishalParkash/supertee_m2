@@ -74,6 +74,26 @@
     </route>
     <route id="setupstore" frontName="setupstore">
             <module name="Forms_Registration" />
-        </route>
+    </route>
+    <route id="pincode" frontName="pincode">
+        <module name="Forms_Registration" />
+    </route>
+    <route id="tier" frontName="tier">
+        <module name="Forms_Registration" />
+    </route>
+    <route id="auto" frontName="auto">
+        <module name="Forms_Registration" />
+    </route>
+    <route id="add" frontName="add">
+        <module name="Forms_Registration" />
+    </route>
+    <route id="user" frontName="user">
+        <module name="Forms_Registration" />
+    </route>
+    <route id="cancel" frontName="cancel">
+        <module name="Forms_Registration" />
+    </route>
+    
+
     </router>
 </config>

@@ -1,1 +1,1 @@
-/var/www/html/supertee/vendor/stripe/module-payments/view/base/web/js/stripe_payments.js
+/var/www/html/stee_test/vendor/stripe/module-payments/view/base/web/js/stripe_payments.js

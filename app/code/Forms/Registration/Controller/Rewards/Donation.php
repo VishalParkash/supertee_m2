@@ -42,14 +42,19 @@ class Donation extends \Magento\Framework\App\Action\Action
 
         try {
                 $post = (array) $this->getRequest()->getPost();
-                $this->session->setData("donation_data", $post);
-                $result->setData(['output' => $post]);
-                return $result;
+                if($this->session->setData("donation_data", $post)){
+                    $result->setData(['output' => $post]);    
+                }else{
+                    $result->setData(['output' => false]);
+                }
+                
+                
                 
                 } catch (Exception $e) {
-                    return 'error';
+                    $result->setData(['output' => false]);
                     \Zend_Debug::dump($e->getMessage());
                 }
+                return $result;
         
     }
 }

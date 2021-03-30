@@ -82,19 +82,56 @@
     }
 }
 .multipleStore {
-    .paginationDiv {
-        box-shadow: 0 0 0 transparent;
-        @include min-992 {
-            padding-left: 0;
-            padding-right: 0;
-            background-color: transparent;
-            -webkit-box-pack: end;
-            -ms-flex-pack: end;
-            justify-content: flex-end;
-        }
-        @include max-991 {
-            box-shadow: 1px -1px 23px rgba($black, 0.04);
-            border-radius: 0px 0px 10px 10px;
-        }
+    min-height: auto;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+    .multipleStoreInner {
+        height: -webkit-calc(100% - 50px);
+        height: calc(100% - 50px);
+        overflow: auto;
     }
+    .paginationDiv {
+        // box-shadow: 0 0 0 transparent;
+        // @include min-992 {
+        //     padding-left: 0;
+        //     padding-right: 0;
+        //     background-color: transparent;
+        //     -webkit-box-pack: end;
+        //     -ms-flex-pack: end;
+        //     justify-content: flex-end;
+        // }
+        // @include max-991 {
+        //     box-shadow: 1px -1px 23px rgba($black, 0.04);
+        //     border-radius: 0px 0px 10px 10px;
+        // }
+        box-shadow: 0px -16px 23px rgba($black, 0.04);
+        position: absolute;
+        left: -48px;
+        right: -48px;
+        bottom: -24px;
+    }
+}
+.multipleStoreItemStatus {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 0.8125rem;
+    line-height: 0.9375rem;
+    background-color: $btnBlue;
+    color: $white;
+    border-radius: 20px;
+    padding: 5px 20px;
+    text-transform: capitalize;
+    font-weight: 600;
+    &.deactivated {
+        background-color: $bgGray6;
+    }
+}
+.multipleStoreItemTextSm {
+    font-weight: normal;
+    margin-bottom: 5px;
+    color: $arrow;
+    font-size: 0.9375rem;
+    line-height: 1.125rem;
 }

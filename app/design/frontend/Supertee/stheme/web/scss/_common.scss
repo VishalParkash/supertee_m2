@@ -4,6 +4,7 @@
 * {
   font-family: $primaryFont;
 }
+
 html {
   font-size:$fontSize - 4;
   @include min-768 {
@@ -113,7 +114,14 @@ p,ul,ol{
 
   @include min-1400 {
     max-width: 1710px;
+    padding:0 25px;
   }
+
+  @include min-1600 {
+    padding:0;
+  }
+
+
 }
 .inner-container { 
   max-width: 1440px;
@@ -281,6 +289,11 @@ a{
     font-size: 0.9375rem;
     line-height: 1.125rem;
   }
+  &:disabled{
+    background:$blue;
+    border-color:$blue;
+    opacity:0.5;
+  }
 }
 .btn-secondary {
   @extend .btn-dark;
@@ -291,6 +304,7 @@ a{
       box-shadow:none !important;
       background:$blue !important;
       border-color:$blue !important;
+      color:$white !important;
   }
   &.btn-sm {
     font-size: 0.9375rem;
@@ -1341,19 +1355,31 @@ input[type=number]::-webkit-outer-spin-button {
   }
 
   .close{
-    margin-left:34px;
-    margin-right:15px;
+    margin-left:20px;
+    margin-right:20px;
   }
 
   .input_box{
     position:relative;
     input{
-      padding:30px 51px 30px 40px;
+      padding:30px 51px 30px 60px;
       font-size:1.3125rem;
       flex-grow:1;
       
       @include min-992{
         padding:30px 51px 30px 96px;
+      }
+    }
+
+    .minisearch{
+      width:100%;
+
+      .label{
+        display:none;
+      }
+      
+      #search{
+        width: 100%;
       }
     }
   }
@@ -1363,7 +1389,7 @@ input[type=number]::-webkit-outer-spin-button {
     width:30px;
     height:30px;
     top:50%;
-    left:25px;
+    left:18px;
     transform:translateY(-50%);
     
     @include min-992{
@@ -1380,6 +1406,16 @@ input[type=number]::-webkit-outer-spin-button {
     @include min-992{
       padding-left:96px;
       padding-right:50px;
+    }
+
+    .ui-widget {
+      flex-direction:column;
+      li{
+        line-height:normal; 
+        &:not(:last-child){
+          margin-bottom:10px;
+        }
+      }
     }
 
     ul{
@@ -1563,4 +1599,8 @@ input[type=number]::-webkit-outer-spin-button {
     }
   }
 
+}
+
+p:empty{
+  display:none;
 }

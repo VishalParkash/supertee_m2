@@ -9,6 +9,7 @@ use Magento\Framework\App\ResourceConnection;
 // use Forms\Registration\Model\DataExampleFactory;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Controller\Result\JsonFactory;
 
 
 class Refer extends \Magento\Framework\App\Action\Action
@@ -33,7 +34,9 @@ class Refer extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Model\Session $customer,
         \Magento\Framework\UrlInterface $url,
         \Magento\Framework\App\Response\Http $redirect,
+        JsonFactory $resultJsonFactory,
         \Forms\Registration\Model\Session $session,
+
     \Magento\Framework\Controller\ResultFactory $result){
         parent::__construct($context);
         $this->mathRandom = $mathRandom;
@@ -48,6 +51,7 @@ class Refer extends \Magento\Framework\App\Action\Action
         $this->_url = $url;
          $this->_redirect = $redirect; 
         $this->resultRedirect = $result;
+        $this->resultJsonFactory = $resultJsonFactory;
 
 
     }
@@ -86,7 +90,7 @@ function getBaseUrl(){
 
     public function execute()
     {
-
+        $resultJson = $this->resultJsonFactory->create();
         $post = (array) $this->getRequest()->getPost();
         if (!empty($post)) {
 
@@ -116,17 +120,12 @@ function getBaseUrl(){
                 if(!empty($result)){
                     foreach($result as $collection){
                         if($collection['signUp_status'] == 1){
-                            $referralMsg = '2';
-                            // $referralMsg = "This user is already registered. Please refer other friend.";
+                            $referralMsg = "This user is already registered. Please refer other friend.";
                         }elseif($collection['signUp_status'] == 0){
-                            $referralMsg = '3';
-                            // $referralMsg = "This user is already referred by some other user. Please refer other friend.";
+                            $referralMsg = "This user is already referred by some other user. Please refer other friend.";
                         }
-                        $customer->setMyMessage($referralMsg);
-                        $this->messageManager->addSuccessMessage( __('This is your success message.') );
-                        $CustomRedirectionUrl = $this->_url->getUrl().'?referred='.$referralMsg;
-                        $this->_redirect->setRedirect($CustomRedirectionUrl);
-                        return;
+                        // $customer->setMyMessage($referralMsg);
+                        return $resultJson->setData($referralMsg);
 
                 //          $this->messageManager->addSuccess(
                 //     __('Congratulations you have been successfully redirected to this page and your message is displaying'),
@@ -163,22 +162,20 @@ function getBaseUrl(){
                 // $email->setBodyText("hope you are good");
                 $email->setFrom($referralUserEmail, "Supertee");
                 $email->addTo($recipient_email, "Friend");
-                $email->send();
+                if($email->send()){
+                    $response =true;
+                }else{
+                    $response = false;
+                }
                 
             } catch (Exception $e) {
-                \Zend_Debug::dump($e->getMessage());
+                $response = false;
+                // \Zend_Debug::dump($e->getMessage());
             }
             
+            // $resultJson = $this->resultJsonFactory->create();
+            return $resultJson->setData($response);
 
-
-            $CustomRedirectionUrl = $this->_url->getUrl().'?referred=1';
-            $this->_redirect->setRedirect($CustomRedirectionUrl);
-            return;
-
-            // $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-            // $resultRedirect->setPath();
-
-            return $resultRedirect;
         }
     }
 }

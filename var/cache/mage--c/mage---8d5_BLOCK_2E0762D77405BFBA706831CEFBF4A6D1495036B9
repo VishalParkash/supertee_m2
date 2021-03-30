@@ -1,9 +1,0 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611116500;s:6:"expire";i:1611120100;s:4:"tags";s:69:"8d5_BLOCK_HTML,8d5_CAT_C,8d5_CAT_C_4,8d5_CAT_C_3,8d5_CAT_C_6,8d5_MAGE";}
-
-<ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}' class="navbar-nav mx-auto">
-    <li  class="level0 nav-1 category-item first nav-item"><a href="https://dev.evantiv.com/supertee/default/brands.html"  class="nav-item" ><span>Brands</span></a></li><li  class="level0 nav-2 category-item nav-item"><a href="https://dev.evantiv.com/supertee/default/clothing.html"  class="nav-item" ><span>Clothing &amp; Bags</span></a></li><li  class="level0 nav-3 category-item last nav-item"><a href="https://dev.evantiv.com/supertee/default/mugs-cups.html"  class="nav-item" ><span>Mugs &amp; Cups</span></a></li>    </ul>	
-
-<!-- <nav class="navbar navbar-expand-xl" data-action="navigation">
-    <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}' class="navbar-nav mx-auto">
-                    </ul>
-</nav> -->

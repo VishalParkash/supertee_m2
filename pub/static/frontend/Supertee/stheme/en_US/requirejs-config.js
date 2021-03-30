@@ -981,13 +981,17 @@ require.config(config);
 var config = {
     paths: {
         // "popper":"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min",
-        "bootstrap4":"https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min"
+        "bootstrap4":"https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min",
+        "bootstrapSlider":"js/bootstrap-slider.min"
         // bootstrap: 'js/bootstrap.min'
     },
     shim: {
         
         bootstrap4: {
-            deps: ['jquery',,'jquery/ui','Magento_Ui/js/modal/modal']
+            deps: ['jquery','jquery/ui','Magento_Ui/js/modal/modal']
+        },
+        bootstrapSlider: {
+            deps: ['jquery']
         }
     }
 };
@@ -1173,9 +1177,15 @@ require.config(config);
 })();
 (function() {
 var config = {
-    map: {
-        '*': {
-            customjs: 'User_Client/js/custom',
+    paths: {
+        slick: 'Magento_Theme::slick/slick.min',
+        // "popper":"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min",
+        // "bootstrap4":"https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min"
+        // bootstrap: 'js/bootstrap.min'
+    },
+    shim: {
+        slick: {
+            deps: ['jquery']
         }
     }
 };
@@ -1246,9 +1256,10 @@ require.config(config);
 (function() {
 var config = {
     paths: {
-        slick:        'slick/slick.min',
+        'slick': 'slick/slick.min',
         // "popper":"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min",
-        "bootstrap4":"https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min"
+        "bootstrap4":"https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min",
+        "fabric":"https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.3.1/fabric.min"
         // bootstrap: 'js/bootstrap.min'
     },
     shim: {
@@ -1256,7 +1267,10 @@ var config = {
             deps: ['jquery']
         },
         bootstrap4: {
-            deps: ['jquery',,'jquery/ui','Magento_Ui/js/modal/modal']
+            deps: ['jquery','jquery/ui','Magento_Ui/js/modal/modal']
+        },
+        fabric: {
+            deps: ['jquery']
         }
     }
 };

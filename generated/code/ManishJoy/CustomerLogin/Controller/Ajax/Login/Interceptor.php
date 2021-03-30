@@ -17,6 +17,24 @@ class Interceptor extends \ManishJoy\CustomerLogin\Controller\Ajax\Login impleme
     /**
      * {@inheritdoc}
      */
+    public function setAccountRedirect($value)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setAccountRedirect');
+        return $pluginInfo ? $this->___callPlugins('setAccountRedirect', func_get_args(), $pluginInfo) : parent::setAccountRedirect($value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setScopeConfig($value)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setScopeConfig');
+        return $pluginInfo ? $this->___callPlugins('setScopeConfig', func_get_args(), $pluginInfo) : parent::setScopeConfig($value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function execute()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'execute');
@@ -30,5 +48,32 @@ class Interceptor extends \ManishJoy\CustomerLogin\Controller\Ajax\Login impleme
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'dispatch');
         return $pluginInfo ? $this->___callPlugins('dispatch', func_get_args(), $pluginInfo) : parent::dispatch($request);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getActionFlag()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getActionFlag');
+        return $pluginInfo ? $this->___callPlugins('getActionFlag', func_get_args(), $pluginInfo) : parent::getActionFlag();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRequest()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getRequest');
+        return $pluginInfo ? $this->___callPlugins('getRequest', func_get_args(), $pluginInfo) : parent::getRequest();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getResponse()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getResponse');
+        return $pluginInfo ? $this->___callPlugins('getResponse', func_get_args(), $pluginInfo) : parent::getResponse();
     }
 }

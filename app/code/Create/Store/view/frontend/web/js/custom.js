@@ -1,6 +1,6 @@
-require([ 'jquery'], function($,modal){ 
+require([ 'jquery', 'bootstrapSlider'], function($,modal){ 
 $(document).ready(function () {
-    // $(".rangeSlider").slider();
+    $(".rangeSlider").slider();
 
     
     // $('.datePicker').datepicker({

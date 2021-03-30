@@ -4,13 +4,20 @@ use Magento\Backend\Block\Template\Context;
 use Stripe;
 class Page extends \Magento\Framework\View\Element\Template
 {
-	public function __construct(Context $context,array $data = [])
+	public function __construct(Context $context,
+    \Forms\Registration\Model\Session $session,
+      array $data = [])
     {
+        $this->session = $session;
         parent::__construct($context, $data);
     }
     public function getFormAction()
         {
         return $this->getUrl('postvendor/submit/submit', ['_secure' => true]);  
+    }
+
+    public function getSessionData(){
+        return $this->session->getData();
     }
 
     public function getstripeUrl()
@@ -21,8 +28,8 @@ class Page extends \Magento\Framework\View\Element\Template
             ]);
             $account_links = \Stripe\AccountLink::create([
               'account' => $account->id,
-              'refresh_url' => 'https://dev.evantiv.com/magento/reauth/index/issue',
-              'return_url' => 'https://dev.evantiv.com/magento/return/index/success',
+              'refresh_url' => $this->getUrl('reauth/index/issue'),
+              'return_url' => $this->getUrl('return/index/success'),
               'type' => 'account_onboarding'
             ]);
             return $this->getUrl($account_links->url);  

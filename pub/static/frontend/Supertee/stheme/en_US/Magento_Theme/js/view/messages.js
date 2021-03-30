@@ -1,1 +1,1 @@
-/var/www/html/supertee/vendor/magento/module-theme/view/frontend/web/js/view/messages.js
+/var/www/html/stee_test/vendor/magento/module-theme/view/frontend/web/js/view/messages.js

@@ -14,7 +14,7 @@ return [
         'connection' => [
             'default' => [
                 'host' => '127.0.0.1',
-                'dbname' => 'm2_supertee',
+                'dbname' => 'm2_supertee_test',
                 'username' => 'development',
                 'password' => 'Milli@123',
                 'model' => 'mysql4',

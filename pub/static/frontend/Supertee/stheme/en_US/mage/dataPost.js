@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/mage/dataPost.js
+/var/www/html/stee_test/lib/web/mage/dataPost.js

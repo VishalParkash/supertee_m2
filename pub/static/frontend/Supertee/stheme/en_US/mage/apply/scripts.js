@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/mage/apply/scripts.js
+/var/www/html/stee_test/lib/web/mage/apply/scripts.js

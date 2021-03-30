@@ -1,1 +1,1 @@
-/var/www/html/supertee/vendor/magento/module-ui/view/base/web/js/lib/knockout/template/loader.js
+/var/www/html/stee_test/vendor/magento/module-ui/view/base/web/js/lib/knockout/template/loader.js

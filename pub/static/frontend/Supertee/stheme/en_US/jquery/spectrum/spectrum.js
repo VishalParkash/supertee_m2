@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/jquery/spectrum/spectrum.js
+/var/www/html/stee_test/lib/web/jquery/spectrum/spectrum.js

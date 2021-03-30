@@ -1,2 +1,0 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1611115840;s:6:"expire";i:9999999999;s:4:"tags";s:19:"8d5_CONFIG,8d5_MAGE";}
-{"search":{"patterns":{"catalog_image":"\/^\\\/?media\\\/(.*)\/","catalog_image_with_pub":"\/^\\\/pub\\\/?media\\\/(.*)\/","media_gallery":"\/{{media url=\"?(.*?)\"?}}\/","wysiwyg":"\/src=\".*\\\/media\\\/(.*?)\"\/"}}}

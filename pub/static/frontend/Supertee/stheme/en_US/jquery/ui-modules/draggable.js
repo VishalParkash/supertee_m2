@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/jquery/ui-modules/draggable.js
+/var/www/html/stee_test/lib/web/jquery/ui-modules/draggable.js

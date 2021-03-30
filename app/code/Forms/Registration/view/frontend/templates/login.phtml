@@ -5,7 +5,7 @@
                 <div class="leftWrap h-100 d-flex align-items-center justify-content-center ">
                     <!-- <img src="images/login_pattern.jpg" alt="" class="img-fluid"> -->
                     <div class="logo">
-                        <img src="https://dev.evantiv.com/magento/pub/static/version1605643217/frontend/Supertee/customtheme/en_US/images/logoLight.svg" alt="" class="img-fluid">
+                        <img src="<?php echo $block->getViewFileUrl('images/logoLight.svg') ?>" alt="" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -13,8 +13,8 @@
                 <div class="rightWrap text-center d-flex flex-column align-items-center justify-content-center h-100 ">
                     <div class="loginContent my-auto">
                         <div class="topHeadWrap">
-                            <h1>login to your account</h1>
-                            <p>enter your credentials below here</p>
+                            <h1>Login to your account</h1>
+                            <p>Enter your credentials below here</p>
                         </div>
                         <form action="<?php /* @escapeNotVerified */ echo $block->getPostActionUrl() ?>"
               method="post"
@@ -31,24 +31,24 @@
                             <div class="linkWrap d-flex align-items-center justify-content-between">
                                 <div class="form-check d-flex align-items-center">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">remember Me</label>
+                                    <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                                   </div>
     
                                   <a href="<?php /* @escapeNotVerified */ echo $block->getForgotPasswordUrl() ?>">
-                                    forgot password?
+                                    Forgot password?
                                   </a>
                             </div>
     
                             <button type="submit" class="btn btn-primary submitBtn"  name="send" id="send2">
-                                sign in 
+                                Sign in 
                                 <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12" fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"  />
                                 </svg>
                             </button>
                         </form>
     
-                        <div class="socialLogin">
-                            <h6>or use your social accounts</h6>
+                        <!-- <div class="socialLogin">
+                            <h6>Or use your social accounts</h6>
                             <div class="socialLink d-flex align-items-center justify-content-center">
                                 <a href="#;">
                                     <svg width="48" height="48" viewBox="0 0 48 48" fill="#667CEC" xmlns="http://www.w3.org/2000/svg">
@@ -62,11 +62,11 @@
                                     </svg>                                                                        
                                 </a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     
                     <div class="bottomText">
-                        <p class="mb-0">don’t have an account? sign up <a href="signup.html"> <strong>here</strong> </a> </p>
+                        <p class="mb-0">Don’t have an account? sign up <a href="signup.html"> <strong>here</strong> </a> </p>
                     </div>
                 </div>
             </div>

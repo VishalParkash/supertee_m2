@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/jquery/patches/jquery-ui.js
+/var/www/html/stee_test/lib/web/jquery/patches/jquery-ui.js

@@ -684,6 +684,35 @@ a:hover, a:focus {
   fill: #1AAAAD;
 }
 
+.indexTab .tab-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow: auto;
+}
+.indexTab .tab-content .tab-pane.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+
 .sideBar {
   background-color: #00263E;
   color: #ffffff;
@@ -1502,3 +1531,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /*# sourceMappingURL=custom.css.map */
+.tab-pane form.d-flex{
+  flex-direction: column;
+  flex: 1;
+  height: 100% !important;
+}
+
+.fullView.ssInfo{
+  height: 100%;
+}

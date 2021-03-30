@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/jquery/spectrum/tinycolor.js
+/var/www/html/stee_test/lib/web/jquery/spectrum/tinycolor.js

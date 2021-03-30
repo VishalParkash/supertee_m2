@@ -1,1 +1,1 @@
-/var/www/html/supertee/vendor/magento/module-customer/view/frontend/web/js/section-config.js
+/var/www/html/stee_test/vendor/magento/module-customer/view/frontend/web/js/section-config.js

@@ -1,1 +1,1 @@
-/var/www/html/supertee/lib/web/mage/cookies.js
+/var/www/html/stee_test/lib/web/mage/cookies.js

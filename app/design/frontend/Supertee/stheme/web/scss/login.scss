@@ -137,15 +137,16 @@ input[type="checkbox"] {
     opacity:0;
     }
     &:checked {
-      color: $blue;
-      border-color: $blue;
-      background: $blue;
+        color: #fff;
+        border-color: #7BC46F;
+        background: #7BC46F;
       &::before {
         opacity: 1;
       }
        
     }
   }
+  
 
 
 //   ResetLink
@@ -203,6 +204,7 @@ input[type="checkbox"] {
 
     .modal-content{
         border-radius:10px;
+        overflow:hidden;
     }
 
     .nav-tabs{
@@ -219,6 +221,7 @@ input[type="checkbox"] {
                 font-weight: bold;
                 font-size: 1.125rem;
                 line-height: 22px;
+                border-radius:0;
             &.active{
                 background: #00BFF3;
                 color:#fff;
@@ -237,13 +240,16 @@ input[type="checkbox"] {
     }
 
     .tab-content{
-        padding:68px 15px;
         text-align:center;
         flex-grow: 1;
         overflow-y: auto;
-
-        @include max-767{
-            padding:50px 15px;
+        
+        
+        &>.tab-pane{
+            padding:68px 15px;
+            @include max-767{
+                padding:50px 15px;
+            }
         }
     }
 
@@ -265,6 +271,27 @@ input[type="checkbox"] {
             right:-30px;
             transform:translatey(-50%);
             cursor: pointer;
+            &:hover{
+                &~ .icon-detail{
+                    display:inline-block;
+                }
+            }
+        }
+
+        .icon-detail{
+            display:none;
+            position: absolute;
+            bottom: 50px;
+            right: -90px;
+            // transform: translatey(-50%);
+            background: #fff;
+            border: 1px solid #A8A8A8;
+            border-radius:10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            width: 200px;
+            font-size: 12px;
+            padding: 20px 10px;
+            z-index:1;
         }
 
         input{
@@ -275,7 +302,6 @@ input[type="checkbox"] {
 
         }
     }
-
 
     .submitBtn{
         margin:48px 0;

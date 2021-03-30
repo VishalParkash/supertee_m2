@@ -1,1 +1,1 @@
-/var/www/html/supertee/vendor/magento/module-theme/view/frontend/web/js/cookie-status.js
+/var/www/html/stee_test/vendor/magento/module-theme/view/frontend/web/js/cookie-status.js

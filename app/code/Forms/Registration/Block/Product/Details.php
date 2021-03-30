@@ -6,6 +6,7 @@ use Magento\Catalog\Block\Product\View;
 use Magento\Framework\Registry;
 use Develodesign\Designer\Block\Product;
 use Magento\Catalog\Helper\Data;
+use Magento\Framework\App\ResourceConnection;
 
 
 class Details extends Template
@@ -19,6 +20,7 @@ class Details extends Template
     protected $_productRepository;
     protected $_productloader;
     protected $_url; 
+    protected $_storeManager;
 
     public function __construct(
         Template\Context $context,
@@ -29,6 +31,8 @@ class Details extends Template
         \Magento\Framework\UrlInterface $url,
         Data $helper,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\Store\Model\StoreManagerInterface $storemanager,
+        ResourceConnection $resource,
 
         array $data = [])
     {
@@ -40,6 +44,8 @@ class Details extends Template
         $this->helper = $helper;
         $this->_productCollectionFactory = $productCollectionFactory;
         $this->_url = $url;
+        $this->_storeManager =  $storemanager;
+        $this->connection = $resource->getConnection();
 
         parent::__construct($context, $data);
     }
@@ -95,8 +101,20 @@ return $selectOptions = $atrributesRepository->get('Color')->getOptions();
       return $this->_registry->registry('current_product');
     }
 
+    public function getCurrentCategory()
+    {
+        return $this->_registry->registry('current_category');
+    }
+
     public function getTierPrice(){
       $product = $this->getCurrentProduct();
+      $id =  $product->getId();
+//       $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+// $product_obj = $objectManager->create('Magento\Catalog\Api\ProductRepositoryInterface')->getById($id);                
+// $tier_price = $product_obj->getTierPrice();
+// echo "<pre>";print_r($tier_price);die;
+
+
       $getTierPrice =  $product->getTierPrice();
       if(!empty($getTierPrice)){
         return $getTierPrice;
@@ -179,6 +197,48 @@ return $selectOptions = $atrributesRepository->get('Color')->getOptions();
     public function _prepareLayout()
     {
         return parent::_prepareLayout();
+    }
+
+    public function getProductImgById($productId){
+        $store = $this->_storeManager->getStore();
+        // $productId = $productId;
+        $product = $this->_productRepository->getById($productId);
+ 
+        $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' .$product->getImage();
+         $productUrl = $product->getProductUrl();
+        return $productImageUrl;
+    }
+
+    public function getCordinates($productId){
+        $productCoordinates = $this->connection->getTableName('productCoordinates');   
+        $productCoordinatesData = $this->connection->fetchAll("SELECT * FROM ".$productCoordinates." WHERE product_id=".$productId);
+
+        if(!empty($productCoordinatesData)){
+            return $productCoordinatesData;
+        }else{
+          return false;
+        }
+    }
+
+    public function getSuperAttributeData($productId)
+    {
+        /** @var \Magento\Catalog\Model\Product $product */
+        $product = $this->_productRepository->getById($productId);
+        if ($product->getTypeId() != \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
+            return [];
+        }
+ 
+        /** @var \Magento\ConfigurableProduct\Model\Product\Type\Configurable $productTypeInstance */
+        $productTypeInstance = $product->getTypeInstance();
+        $productTypeInstance->setStoreFilter($product->getStoreId(), $product);
+ 
+        $attributes = $productTypeInstance->getConfigurableAttributes($product);
+        $superAttributeList = [];
+        foreach($attributes as $_attribute){
+            $attributeCode = $_attribute->getProductAttribute()->getAttributeCode();;
+            $superAttributeList[$_attribute->getAttributeId()] = $attributeCode;
+        }
+        return $superAttributeList;
     }
 
 //     public function getProduct(){

@@ -3,8 +3,17 @@
 .header.content{
   display: none !important;
 }
+.column {
+    max-width:unset;
+}
 </style>
-<?php $categories = $block->getCategoryCollection(); ?>
+
+
+<?php 
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+$categories = $block->getCategoryCollection(); ?>
 <div class="mainSite">
         <div class="sideBar">
             <div class="sideBarInner">
@@ -55,89 +64,89 @@
                 <!-- <section class="active flex1 overflowY pInfo" id="firstsection"> -->
                 <div class="tab-pane fade show active pInfo" id="firstsection" role="tabpanel">
                     <span id="errorReporting"></span>
-                    <form method="post" id="personalInfoData">
-                    <div class=" mb15">
-                            <h1>tell us about<br /> yourself</h1>
-                            <div class="row row20">
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" id="name" placeholder="name" name="name" />
+                    <form method="post" id="personalInfoData" class="d-flex">
+                        <div class=" overflowY mb15 flex1">
+                                <h1>tell us about<br /> yourself</h1>
+                                <div class="row row20">
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" id="name" placeholder="name" name="name" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="phone number" id="phone_number" name="phone_number" maxlength="10" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="email" class="form-control" placeholder="e-mail" id="email" name="email" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control"
+                                                placeholder="address (house no, building, street, area)*" id="address" name="address" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="zip code" id="zip" name="zipcode" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="location/town" id="town" name="location" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="city/district" id="city" name="city" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="text" class="form-control" placeholder="country" id="country" name="country" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="password" class="form-control" placeholder="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb15">
+                                            <input type="password" class="form-control" placeholder="confirm password" id="cpassword" name="confirmPassword" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="phone number" id="phone_number" name="phone_number" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="e-mail" id="email" name="email" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control"
-                                            placeholder="address (house no, building, street, area)*" id="address" name="address" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="zip code" id="zip" name="zipcode" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="location/town" id="town" name="location" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="city/district" id="city" name="city" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="text" class="form-control" placeholder="country" id="country" name="country" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="password" class="form-control" placeholder="password" id="password" name="password" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb15">
-                                        <input type="password" class="form-control" placeholder="confirm password" id="cpassword" name="confirmPassword" />
-                                    </div>
+                                <div class="mt15 mb15 d-flex formActionLink">
+                                    <p class="colorBlack m-0">already a user? </p>
+                                    <a href="#" class="btn btn-link btn-success font-weight-bold">sign in</a>
                                 </div>
                             </div>
-                            <div class="mt15 mb15 d-flex formActionLink">
-                                <p class="colorBlack m-0">already a user? </p>
-                                <a href="#" class="btn btn-link btn-success font-weight-bold">sign in</a>
-                            </div>
-                        </div>
 
-                <div class="text-right formBtn">
-                        <button class="btn btn-secondary btn-link" id="cancelBtn">
-                            <b>cancel</b>
-                        </button>
-                        <button class="btn btn-secondary next" id="pInfo" type="button">
-                            <b>next</b>
-                            <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path class="fillHover"
-                                    d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
-                                    fill="white" />
-                            </svg>
-                        </button>
-                    </div>
-                </form>
+                        <div class="text-right formBtn">
+                            <button class="btn btn-secondary btn-link" id="cancelBtn">
+                                <b>cancel</b>
+                            </button>
+                            <button class="btn btn-secondary next" id="pInfo" type="button">
+                                <b>next</b>
+                                <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="fillHover"
+                                        d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
+                                        fill="white" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <!-- <section class="flex1 overflowY ssInfo" id="secoundone"> -->
-                <div class="tab-pane fade ssInfo" id="secoundone" role="tabpanel">
-                    <form method="post" id="StoreInfoData">
+                <!-- <section class="flex1 overflowY ssInfoss" id="secoundone"> -->
+                <div class="tab-pane fade ssInfo fullView" id="secoundone" role="tabpanel">
+                    <form method="post" id="StoreInfoData" class="d-flex">
                         <input type="hidden" name="ccid" value="" id="ccid">
-                        <div class="  mb15">
+                        <div class="  overflowY mb15 flex1">
                             <div class="storeInfo">
                                     <h1>
                                         a bit about what you have in mind for your store
@@ -271,6 +280,7 @@
                             
                                             <div class="form-group">
                                                  <input type="text" class="form-control" placeholder="www.supertree.com / yourstorename" id="storeURL" name="storedomain">
+                                                 <p>The store code may contain only letters (a-z), numbers (0-9) or underscore (_), and the first character must be a letter.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -306,31 +316,29 @@
                                             </ul>
                                             <input type="range" class="rangeSlider" data-slider-id='ex1Slider' type="text"
                                                     data-slider-min="0" data-slider-max="100" data-slider-step="1"
-                                                    data-slider-value="14" / name="monthlyvolume">
+                                                    data-slider-value="14"  name="monthlyvolume">
                                         </div>
                                     </div>
                             
                                     <div class="box_wrap">
-                                        <div class="box_head">
-                                            how did you hear about us
-                                        </div>
-                                        <div class="dropdown select">
-                                            
-                                            <div class="dropdown-menu dropdown_two" aria-labelledby="dropdownMenuButton">
-                                                <select name="mediumtocontact" class="btn btn-secondary dropdown-toggle">
-                                                    <option class="dropdown-item" value="">Please select</option>
-                                                    <option class="dropdown-item" value="website">website</option>
-                                                    <option class="dropdown-item" value="google">google</option>
-                                                    <option class="dropdown-item" value="social media">social media</option>
-                                                    <option class="dropdown-item" value="friend">friend</option>
-                                                </select>
-                                            </div>
-                                          </div>
-                                    </div>
+                            <div class="box_head">
+                                how did you hear about us
+                            </div>
+                            <div class="dropdown select">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    website
+                                </button>
+                                <div class="dropdown-menu dropdown_two" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="#">website</a>
+                                  <a class="dropdown-item" href="#">google</a>
+                                  <a class="dropdown-item" href="#">social media</a>
+                                  <a class="dropdown-item" href="#">friend</a>
                                 </div>
-                    </div>
-
-                    <div class="text-right formBtn">
+                              </div>
+                        </div>
+                                </div>
+                        </div>
+                        <div class="text-right formBtn">
                             <button class="btn btn-secondary btn-link prev" id="pressInfo">
                                 <b>cancel</b>
                             </button>
@@ -346,7 +354,7 @@
 
                 <!-- <section id="confirmation" class="flex1 overflowY confirmationPage"> -->
                 <div class="tab-pane fade confirmationPage" id="confirmationPage" role="tabpanel">
-                    <div class="  mb15">
+                    <div class="overflowY mb15 flex1">
                         <h1>
                                 Do you want to build your store?
                         </h1>
@@ -376,6 +384,7 @@
             </div>
         </div>
     </div>
+    <script src="<?php //echo $block->getViewFileUrl('Create_Store::js/bootstrap-slider.min.js'); ?>"></script>
     <script src="<?php echo $block->getViewFileUrl('Create_Store::js/custom.js'); ?>"></script>
     <script>
 
@@ -445,10 +454,17 @@
                             return false;
                         }else{
                             $("#password").removeClass('alert alert-danger');
+                        }if($('#password').val() != $('#cpassword').val()){
+                            $("#password").addClass('alert alert-danger');
+                            $("#cpassword").addClass('alert alert-danger');
+                            return false;
+                        }else{
+                            $("#password").removeClass('alert alert-danger');
+                            $("#cpassword").removeClass('alert alert-danger');
                         }
                         $('.pageContent section').removeClass("active");
                     $('.pageContent section.'+this.id).next().addClass("active");
-                        var formData = $("#personalInfoData").serialize()
+                        var formData = $("#personalInfoData").serialize();
                       // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
                       var url = "<?php echo $block->getBaseUrl().'store/personal/information/' ?>";
                         jQuery.ajax({
@@ -458,51 +474,69 @@
                         showLoader: true,
                         cache: false,
                         success: function(response){
-                            if(response.output != false){
+                            console.log(response);
+                            if(response.output == 'passwordError'){
+                                $('#errorReporting').text("Password and Confirm Password should have same values.");
+                                return false;
+                            }else if(response.output == false){
+                                $('#errorReporting').text('Some error occured. Please fill the form again');
+                                return false;
+                            }else{
                                 $('#ccid').val(response.output);
                                 $('#firstsection').removeClass("active").attr('class', this.id);
                                 // $('#secoundone').removeClass("active").attr('class', this.id);
-                                $('#secoundone').addClass("active");
-                            }else{
-                                $('#errorReporting').text('Some error occured. Please fill the form again');
+                                $('#secoundone').addClass("active show");
+                                return false;
                             }
-                            // console.log(response.output);
-                            // jQuery(".result").show();
-                            // jQuery(".result").text(response.output);
-                        }                    });
+                        }
+                    });
                     }
                     if(this.id == 'ssInfo'){
                         $("#newprevv").removeAttr( 'style' );
-
-
-
                         console.log('store tab here');
                         $('#secoundone').removeClass("active").attr('class', this.id);
                         $('#confirmation').addClass("active");
-
-
-                          var formData = $("#StoreInfoData").serialize()
+                        var formData = $("#StoreInfoData").serialize()
                       // var url = "https://dev.evantiv.com/supertee/store/personal/information/";
-                      var url = "<?php echo $block->getBaseUrl().'store/store/save/' ?>";
-                        jQuery.ajax({
+                        var url = "<?php echo $block->getBaseUrl().'store/store/save/' ?>";
+                        $.ajax({
                         url: url,
                         type: "POST",
                         data: formData,
                         showLoader: true,
-                        cache: false,
-                        success: function(response){
-                            if(response.output === false){
+                        // cache: false,
+                        // dataType: 'json',
+                        success: function(result){
+                            console.log(result);
+                            console.log(result.output);
+                            if(result.output == 0){
+                                console.log('false');
                                 $('#errorReporting').text('Some error occured. Please fill the form again');
-                            }else if(response.output == true){
+                                return false;
+                            }else if(result.output == true){
+                                console.log('true');
                                 $('#errorReporting').text('Store created');
+                                $('#secoundone').css("display", 'none');
+                                $('#secoundone').removeClass("active");
+                                $('#secoundone').removeClass("show");
+                                // $('#secoundone').removeClass("active").attr('class', this.id);
+                                $('#confirmationPage').addClass("active show");
+                                return false;
                             }else{
-                                $('#errorReporting').text(response.output);
+                                console.log('something else');
+                                $('#errorReporting').text(result.output);
+                                return false;
                             }
-                            // console.log(response.output);
-                            // jQuery(".result").show();
-                            // jQuery(".result").text(response.output);
-                        }
-                        
+                        },
+                        error: function(xhr, status, error) {
+                          var err = (xhr);
+                          console.log(err);
+                          console.log(error);
+                          // alert(err.output);
+                          return false;
+
+                        }  
+                                    
                     });
                     }
                     if(linkId == this.id)
@@ -515,27 +549,7 @@
         
                     
         });
-        // $('.next').click(function() {
-        //     console.log($('sInfo_pInfo').serialize());
-        //     // $.ajax({
-        //     //             url:"<?php //echo $this->getFormAction(); ?>",
-        //     //             type:'POST',
-        //     //             showLoader: true,
-        //     //             dataType:'json',
-        //     //             data: {id:id},                                      
-        //     //             success:function(response){
-        //     //                 alert(response);
-        //     //             },
-        //     //             error:function(response){
-        //     //                 alert(response);
-        //     //             }
-        //     //         });
-        // });
         $('.prev').click(function() {
-                
-                
-                
-                
                 if(this.id == 'pressInfo'){
                     $('#secoundone').removeClass("active");
                     $('#firstsection').addClass("active");
@@ -552,38 +566,6 @@
                 // $('.pageContent section.'+this.id).prev().addClass("active");
          
             });
-        
-            // function next(id){
-            //          console.log(id);
-            //         var linkId = $('.storeNav li#'+id).attr('id');
-            //         console.log(linkId);
-            //         if(linkId == id)
-            //         {
-            //             $('.storeNav li a').removeClass("active");
-            //             $('.storeNav li#'+id).next().find('a').addClass("active");
-        
-            //         } 
-        
-            //         $('.pageContent section').removeClass("active");
-            //         $('.pageContent section#'+id).next().addClass("active");
-         
-            // }
-        
-            // function prev(id){
-            //     console.log(id);
-            //     var linkId = $('.storeNav li#'+id).attr('id');
-            //     console.log(linkId);
-            //     if(linkId == id)
-            //     {
-            //         $('.storeNav li a').removeClass("active");
-            //         $('.storeNav li#'+id).prev().find('a').addClass("active");
-        
-            //     } 
-        
-            //     $('.pageContent section').removeClass("active");
-            //     $('.pageContent section#'+id).prev().addClass("active");
-         
-            // }
         
          });
         });

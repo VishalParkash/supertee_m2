@@ -1,5 +1,23 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+
+	<type name="Magento\Cms\Model\Wysiwyg\Images\Storage">
+    <arguments>
+        <argument name="extensions" xsi:type="array">
+            <item name="allowed" xsi:type="array">
+                <item name="svg" xsi:type="string">image/svg+xml</item>
+            </item>
+            <item name="image_allowed" xsi:type="array">
+                <item name="svg" xsi:type="string">image/svg+xml</item>
+            </item>
+            <item name="media_allowed" xsi:type="array">
+                <item name="svg" xsi:type="string">image/svg+xml</item>
+            </item>
+        </argument>
+    </arguments>
+</type>
+
+<!-- 
     <preference for="Magento\Catalog\Model\Layer\ContextInterface" type="Magento\Catalog\Model\Layer\Context" />
     <preference for="Magento\Catalog\Model\Layer\ItemCollectionProviderInterface" type="Magento\Catalog\Model\Layer\Category\ItemCollectionProvider" />
     <preference for="Magento\Catalog\Model\Layer\StateKeyInterface" type="Magento\Catalog\Model\Layer\Category\StateKey" />
@@ -7,5 +25,5 @@
     <preference for="Magento\Catalog\Model\Layer\FilterableAttributeListInterface" type="Magento\Catalog\Model\Layer\Category\FilterableAttributeList" />
     <preference for="Magento\Catalog\Model\Layer\AvailabilityFlagInterface" type="Magento\Catalog\Model\Layer\Category\AvailabilityFlag" />
     <preference for="Magento\Catalog\Model\ResourceModel\Layer\Filter\Price" type="Forms\Registration\Model\ResourceModel\Layer\Filter\Price" />
-    <preference for="Magento\Wishlist\Controller\Index\Add" type="Forms\Registration\Controller\Index\Add" />
+    <preference for="Magento\Wishlist\Controller\Index\Add" type="Forms\Registration\Controller\Index\Add" /> -->
 </config>

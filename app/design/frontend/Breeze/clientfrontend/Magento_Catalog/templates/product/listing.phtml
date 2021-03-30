@@ -37,36 +37,72 @@
 // die;
 
 ?>
+<?php 
+    $_description = '';
+if($block->getCurrentCategory()->getDescription()) {
+    $_description = $block->getCurrentCategory()->getDescription();
+}
+    ?>
+
+    <?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+    // echo $category->getId();
+    // echo $category->getName();
+
+    // echo $block->getCurrentCategory()->getId();
+    // die;
+?>
+
+    <?php
+    $categoryId = $block->getCurrentCategory()->getId();
+    $category = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
+    $_outputhelper    = $this->helper('Magento\Catalog\Helper\Output');
+    $_imgHtml   = '';
+    if ($_imgUrl = $category->getImageUrl()) {
+        $_imgHtml = '<img src="' . $_imgUrl . '" class="img-fluid"/>';
+        $_imgHtml = $_outputhelper->categoryAttribute($category, $_imgHtml, 'image');
+        /* @escapeNotVerified */ ///echo $_imgHtml;
+    }
+?>
+
 
 <main class="main">
-        <section class="listingPageBanner d-none d-md-block">
+    <section class="singlePageHead ">
             <div class="container">
-                <h1><?php echo $block->getCurrentCategory()->getName() ?></h1>
-            </div>
-        </section>
-        <section class="singlePageHead">
-            <div class="outerContainer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="<?php echo $block->getBaseUrl(); ?>">Home</a></li>                                 
- <li class="breadcrumb-item active" aria-current="page"><?php echo $block->getCurrentCategory()->getName() ?></li>
-                                </ol>
-                            </nav>
-                            <!-- <div class="headWrap">
-                                <h3>Men - tshirts</h3>
-                            </div> -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="headWrap inline-headwrap d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+                            <h2><?php echo $block->getCurrentCategory()->getName() ?></h2>
+                            <p>
+                                <?php echo $_description; ?>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <section class="listingPageBanner d-none d-md-block">
+            <div class="container">
+                <?php echo $_imgHtml;?>
+            </div>
+        </section>
+
         <section class="productListing">
-            <div class="outerContainer">
-                <div class="container">
+            <div class="container">                    
+                    <div class="row">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="<?php echo $block->getBaseUrl(); ?>">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><?php echo $block->getCurrentCategory()->getName() ?></li>
+                            </ol>
+                        </nav>
+                    </div>
+
+
+                </div>
                     <div class="row">
                         <div class="col-md-5 col-lg-3 d-none d-md-block">
                             <div class="filterWrap">
@@ -256,165 +292,16 @@
                                             </ul> -->
 
                                             <div class="tab-content" id="myTabContent">
-                                                <!-- <div class="tab-pane fade show active" id="quantity" role="tabpanel"
-                                                    aria-labelledby="quantity-tab">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Size</th>
-                                                                <th>Quantity</th>
-                                                                <th>Price</th>
-                                                                <th>Discount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="customCheck">
-                                                                        <div class="form-group">
-                                                                            <input type="checkbox" id="item21">
-                                                                            <label for="item21"
-                                                                                class=" d-flex align-items-center">s</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" value="-" />
-                                                                </td>
-                                                                <td>
-                                                                    $24.99
-                                                                </td>
-                                                                <td>
-                                                                    -
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="customCheck">
-                                                                        <div class="form-group">
-                                                                            <input type="checkbox" id="item22">
-                                                                            <label for="item22"
-                                                                                class=" d-flex align-items-center">m</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" value="23" />
-                                                                </td>
-                                                                <td>
-                                                                    $21.56
-                                                                </td>
-                                                                <td>
-                                                                    $3.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="customCheck">
-                                                                        <div class="form-group">
-                                                                            <input type="checkbox" id="item23">
-                                                                            <label for="item23"
-                                                                                class=" d-flex align-items-center">l</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" value="50" />
-                                                                </td>
-                                                                <td>
-                                                                    $20.56
-                                                                </td>
-                                                                <td>
-                                                                    $4.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="customCheck">
-                                                                        <div class="form-group">
-                                                                            <input type="checkbox" id="item24">
-                                                                            <label for="item24"
-                                                                                class=" d-flex align-items-center">xl</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" value="20" />
-                                                                </td>
-                                                                <td>
-                                                                    $20.56
-                                                                </td>
-                                                                <td>
-                                                                    $4.67
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div> -->
-                                                <!-- <div class="tab-pane fade" id="bundlePrice" role="tabpanel"
-                                                    aria-labelledby="bundlePrice-tab">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Quantity</th>
-                                                                <th>Price</th>
-                                                                <th>Discount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>1-10</strong>
-                                                                </td>
-                                                                <td>
-                                                                    $ 24.99
-                                                                </td>
-                                                                <td>
-                                                                    $1.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>10-30</strong>
-                                                                </td>
-                                                                <td>
-                                                                    $ 21.99
-                                                                </td>
-                                                                <td>
-                                                                    $3.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>30-80</strong>
-                                                                </td>
-                                                                <td>
-                                                                    $ 20.45
-                                                                </td>
-                                                                <td>
-                                                                    $4.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>80-110</strong>
-                                                                </td>
-                                                                <td>
-                                                                    $ 18.48
-                                                                </td>
-                                                                <td>
-                                                                    $5.67
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div> -->
+                                                <div class="tab-pane fade show active" id="quantity" role="tabpanel"
+                                                aria-labelledby="quantity-tab">
+                                            </div>
+                                        </div>
+                                                
                                             </form>
                                             </div>
                                         </div>
                                     </div>
 
-                                </div>
                             </div>
                         </div>
 

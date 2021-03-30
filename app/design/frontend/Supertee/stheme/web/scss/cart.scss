@@ -27,15 +27,24 @@
     .shortInfo{
         // margin-left:25px;
         img{
-            width: 120px;
-            height: 93px;
-            object-fit: cover;
+            width: 70px;
+            height: 80px;
+            // object-fit: cover;
+            object-fit: contain;
             object-position: center;
+            
+            @include min-768{
+                width: 120px;
+                height: 93px;
+            }
         }
 
         .detail{
             font-size:0.938em;
-            padding-left:25px;
+            padding-left:15px;
+            @include min-768{
+                padding-left:25px;
+            }
             .prodId{
                 color: #999999;
                 font-weight: bold;
@@ -62,14 +71,36 @@
         padding:24px 0;
         .btnWrap{
             margin-top:23px;
+
+            a{
+                display:flex;
+                align-items:center;
+                justify-content: center;
+
+                svg{
+                    margin-right:5px;
+                }
+            }
         }
 
         .quantityWrap{
-            margin: unset;
+            margin:0 10px;
+            @include min-768{
+                margin: unset;
+            }
+
+            input{
+                @include max-767{
+                    padding: 5px 17px;
+                }
+            }
         }
 
         .price{
-            font-size:1.125em;
+            font-size:1.5em;
+            @include min-768{
+                font-size:1.125em;
+            }
         }
     }
 }

@@ -1,16 +1,24 @@
 <?php 
 // die('sssii');
 // $productCollection = $block->getProductCollection(); 
+// echo "<pre>";print_r($_GET);die;
+$getViewSet = $block->getViewSet();
+
+if($getViewSet == 1){
+    $ViewSet = 1;
+}else{
+    $ViewSet = 2;
+}
+
+    $sortingType = "Recomended";
+
     $categories = $block->getCategoryCollection(true, false, 'name', false);
     $brandAttributes = $block->getAllBrand();
     array_shift($brandAttributes);
 
     $sizeAttributes = $block->getAllSizes();
     array_shift($sizeAttributes);
-    // echo "<pre>";print_r($brandAttributes)->getLabel(); 
-//     foreach($block->getAllBrand() as $cats){
-       
-// }
+   
     $brandsAttr = array();
     $sizeAttr = array();
     foreach ($brandAttributes as $value) {
@@ -20,24 +28,19 @@
         $sizeAttr[$value->getValue()] = $value->getLabel();
     }
 
-    // echo "<pre>";print_r($sizeAttr);
-
-
-// die;
-    // $sizeAttributes = $block->getAllSizes();
-    // array_shift($sizeAttributes);
-
-    // getAllColors
-    // echo "<pre>";print_r($sizeAttributes) ;die;
-// echo $block->getCurrentCategory()->getName();
-// // foreach($block->getCurrentCategory() as $cats){
-// //     echo "<pre>";print_r($cats->getName());die;    
-// // }
-// die;
+    // Shorting Products
+    $category_id_array = $block->getAllChildren(true,$block->getCurrentCategory()->getEntity_id());
+    $productlist = $block->getProductCollection($category_id_array);
+    $currentUrl  = $block->getUrl('*/*/*', array('_use_rewrite' => true, '_forced_secure' => true));
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+    $repository = $objectManager->create('Magento\Catalog\Model\ProductRepository');
 
 ?>
 
 <main class="main">
+<div class="loading-mask" style="display:none; position:fixed !important;" data-role="loader" ><div class="loader">
+    <img alt="Loading..." src="<?php echo $block->getViewFileUrl('images/loader-2.gif') ?>"><p>Please wait...</p></div></div>
+
         <section class="listingPageBanner d-none d-md-block">
             <div class="container">
                 <h1><?php echo $block->getCurrentCategory()->getName() ?></h1>
@@ -67,12 +70,13 @@
             <div class="outerContainer">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-5 col-lg-3 d-none d-md-block">
+                        <div class="col-md-4 col-lg-3  d-none d-md-block">
                             <div class="filterWrap">
                                 <div class="topHead">
                                     <h6>Filter</h6>
                                 </div>
 <form id="productFilters">
+    <input type="hidden" id="orderType" name="orderType"/>
                                 <div class="filters">
                                     <div class="filter_box filterOpen">
                                         <div class="filterHead d-flex align-items-center justify-content-between">
@@ -89,9 +93,10 @@
                                             <?php foreach ($categories as $category) { ?>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" class="brandsAttr" id="<?php echo $category->getId(); ?>" value="<?php echo $category->getId(); ?>" name="categories">
+                                                    <input type="checkbox" class="brandsAttr" id="<?php $textid = substr($category->getName(),0,2).'_'.$category->getId(); echo $textid; ?>" value="<?php echo $category->getId(); ?>" name="categories[]" <?php if($block->getCurrentCategory()->getName() == $category->getName()) echo "checked
+                                                    "; ?>>
                                                     <span class="checkUnCheckBox"></span>
-                                                    <span class="checkUnCheckText" id="filters_<?php echo $category->getId(); ?>"><?php echo $category->getName();?></span>
+                                                    <span class="checkUnCheckText" id="filters_<?php echo $textid; ?>"><?php echo $category->getName();?></span>
                                                 </label>
                                             </div>
                                         <?php } ?>
@@ -109,14 +114,14 @@
                                             </svg>
                                         </div>
                                         <div class="wrap">
-                                            <div class="search position-relative">
+                                            <!-- <div class="search position-relative">
                                                 <input type="text" placeholder="find a brand name" />
                                                 <svg class="icon" width="32" height="32" viewBox="0 0 32 32"
                                                     fill="#A8A8A8" xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M31.7162 30.3681L23.9397 22.5916C26.0257 20.1933 27.2887 17.0643 27.2887 13.6443C27.2887 6.11619 21.1654 0 13.6444 0C6.11619 0 0 6.12328 0 13.6443C0 21.1654 6.12329 27.2887 13.6444 27.2887C17.0643 27.2887 20.1934 26.0257 22.5916 23.9397L30.3681 31.7162C30.5526 31.9007 30.8009 32 31.0422 32C31.2834 32 31.5317 31.9078 31.7162 31.7162C32.0852 31.3472 32.0852 30.737 31.7162 30.3681ZM1.90865 13.6443C1.90865 7.17339 7.1734 1.91574 13.6373 1.91574C20.1082 1.91574 25.3659 7.18049 25.3659 13.6443C25.3659 20.1082 20.1082 25.38 13.6373 25.38C7.1734 25.38 1.90865 20.1153 1.90865 13.6443Z" />
                                                 </svg>
-                                            </div>
+                                            </div> -->
 
                                             <?php
                                             
@@ -131,9 +136,9 @@
                                         ?>
                                         <div class="form-group">
                                             <label class="checkUnCheck">
-                                                    <input type="radio" class="brandsAttr" name="brand" id="<?php echo $key ?>" value="<?php echo $key; ?>" />
+                                                    <input type="checkbox" class="brandsAttr" name="brand[]" id="<?php $textid = substr($attributes,0,2).'_'.$key; echo $textid; ?>" value="<?php echo $key; ?>" />
                                                     <span class="checkUnCheckBox"></span>
-                                                    <span class="checkUnCheckText" id="filters_<?php echo $key; ?>"><?php echo $attributes; ?></span>
+                                                    <span class="checkUnCheckText" id="filters_<?php echo $textid; ?>"><?php echo $attributes; ?></span>
                                                 </label>
                                         </div>
                                        <?php } 
@@ -167,9 +172,9 @@
                                         ?>
                                         <div class="form-group">
                                             <label class="checkUnCheck">
-                                                    <input type="radio" class="brandsAttr" name="size" id="<?php echo $key ?>" value="<?php echo $key; ?>" />
+                                                    <input type="checkbox" class="brandsAttr" name="size[]" id="<?php $textid = substr($attributes,0,2).'_'.$key; echo $textid; ?>" value="<?php echo $key; ?>" />
                                                     <span class="checkUnCheckBox"></span>
-                                                    <span class="checkUnCheckText" id="filters_<?php echo $key; ?>"><?php echo $attributes; ?></span>
+                                                    <span class="checkUnCheckText" id="filters_<?php echo $textid; ?>"><?php echo $attributes; ?></span>
                                                 </label>
                                         </div>
 
@@ -193,236 +198,63 @@
                                         <div class="wrap">
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="1_20" />
+                                                    <input type="checkbox" name="priceRange[]" class="brandsAttr" id="10-20-price" value="1_20" />
                                                     <span class="checkUnCheckBox"></span>
-                                                    <span class="checkUnCheckText">$10 - $20</span>
+                                                    <span class="checkUnCheckText" id="filters_10-20-price">$10 - $20</span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="21_50" />
+                                                    <input type="checkbox" name="priceRange[]" class="brandsAttr" id="21_50_price" value="21_50" />
                                                     <span class="checkUnCheckBox"></span>
-                                                    <span class="checkUnCheckText">$21 - $50</span>
+                                                    <span class="checkUnCheckText" id="filters_21_50_price">$21 - $50</span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="51_100"/>
+                                                    <input type="checkbox" name="priceRange[]" class="brandsAttr" id="51_100_price" value="51_100"/>
                                                     <span class="checkUnCheckBox"></span>
-                                                    <span class="checkUnCheckText">$51 - $100</span>
+                                                    <span class="checkUnCheckText" id="filters_51_100_price">$51 - $100</span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="101_500"/>
+                                                    <input type="checkbox" name="priceRange[]" class="brandsAttr" id="101_500_price" value="101_500"/>
                                                     <span class="checkUnCheckBox"></span>
-                                                    <span class="checkUnCheckText">$101 - $500</span>
+                                                    <span class="checkUnCheckText" id="filters_101_500_price">$101 - $500</span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkUnCheck">
-                                                    <input type="radio" name="priceRange" class="brandsAttr" value="500"/>
+                                                    <input type="checkbox" name="priceRange[]" class="brandsAttr" id="500_gt_price" value="500_gt"/>
                                                     <span class="checkUnCheckBox"></span>
-                                                    <span class="checkUnCheckText">$501 & above</span>
+                                                    <span class="checkUnCheckText" id="filters_500_gt_price">$501 & above</span>
                                                 </label>
                                             </div>
                                             
                                         </div>
                                     </div>
 
-                                    <div class="filter_box">
-                                        <div class="filterHead d-flex align-items-center justify-content-between">
-                                            <h6>Quantity</h6>
-                                            <svg width="16" height="8" viewBox="0 0 11 6" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M5.90333 5.83906C5.68323 6.05365 5.32899 6.05365 5.12131 5.83906L0.183332 1.03663C-0.0611106 0.798303 -0.0611106 0.417074 0.183332 0.178746C0.427774 -0.0595822 0.818784 -0.0595822 1.06323 0.178746L5.10899 4.12331C5.32909 4.3379 5.68333 4.3379 5.89101 4.12331L9.93677 0.178746C10.1812 -0.0595822 10.5722 -0.0595822 10.8167 0.178746C11.0611 0.417074 11.0611 0.798303 10.8167 1.03663L5.90333 5.83906Z"
-                                                    fill="#151515" />
-                                            </svg>
-                                        </div>
-                                        <div class="wrap quantityDropdown">
-                                            <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" id="quantity-tab" data-toggle="tab"
-                                                        href="#quantity" role="tab" aria-controls="quantity"
-                                                        aria-selected="true">Enter quantity</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="bundlePrice-tab" data-toggle="tab"
-                                                        href="#bundlePrice" role="tab" aria-controls="bundlePrice"
-                                                        aria-selected="false">Bundle pricing</a>
-                                                </li>
-                                            </ul> -->
+                                    <!-- <div class="filter_box"> -->
+                                        
+                                        <!-- <div class="wrap quantityDropdown"> -->
+                                            
 
-                                            <div class="tab-content" id="myTabContent">
-                                                <!-- <div class="tab-pane fade show active" id="quantity" role="tabpanel"
-                                                    aria-labelledby="quantity-tab">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Size</th>
-                                                                <th>Quantity</th>
-                                                                <th>Price</th>
-                                                                <th>Discount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="customCheck">
-                                                                        <div class="form-group">
-                                                                            <input type="checkbox" id="item21">
-                                                                            <label for="item21"
-                                                                                class=" d-flex align-items-center">s</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" value="-" />
-                                                                </td>
-                                                                <td>
-                                                                    $24.99
-                                                                </td>
-                                                                <td>
-                                                                    -
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="customCheck">
-                                                                        <div class="form-group">
-                                                                            <input type="checkbox" id="item22">
-                                                                            <label for="item22"
-                                                                                class=" d-flex align-items-center">m</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" value="23" />
-                                                                </td>
-                                                                <td>
-                                                                    $21.56
-                                                                </td>
-                                                                <td>
-                                                                    $3.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="customCheck">
-                                                                        <div class="form-group">
-                                                                            <input type="checkbox" id="item23">
-                                                                            <label for="item23"
-                                                                                class=" d-flex align-items-center">l</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" value="50" />
-                                                                </td>
-                                                                <td>
-                                                                    $20.56
-                                                                </td>
-                                                                <td>
-                                                                    $4.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="customCheck">
-                                                                        <div class="form-group">
-                                                                            <input type="checkbox" id="item24">
-                                                                            <label for="item24"
-                                                                                class=" d-flex align-items-center">xl</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" value="20" />
-                                                                </td>
-                                                                <td>
-                                                                    $20.56
-                                                                </td>
-                                                                <td>
-                                                                    $4.67
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div> -->
-                                                <!-- <div class="tab-pane fade" id="bundlePrice" role="tabpanel"
-                                                    aria-labelledby="bundlePrice-tab">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Quantity</th>
-                                                                <th>Price</th>
-                                                                <th>Discount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>1-10</strong>
-                                                                </td>
-                                                                <td>
-                                                                    $ 24.99
-                                                                </td>
-                                                                <td>
-                                                                    $1.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>10-30</strong>
-                                                                </td>
-                                                                <td>
-                                                                    $ 21.99
-                                                                </td>
-                                                                <td>
-                                                                    $3.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>30-80</strong>
-                                                                </td>
-                                                                <td>
-                                                                    $ 20.45
-                                                                </td>
-                                                                <td>
-                                                                    $4.67
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>80-110</strong>
-                                                                </td>
-                                                                <td>
-                                                                    $ 18.48
-                                                                </td>
-                                                                <td>
-                                                                    $5.67
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div> -->
+                                            <!-- <div class="tab-content" id="myTabContent"> -->
+                                                
                                             </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            
 
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-7 col-lg-9">
+                        <div class="col-md-8 col-lg-9">
                             <div class="filteredProduct">
                                 <div class="d-none topWrap d-md-flex align-items-center justify-content-between">
-                                    <a href="" id="clearAll" style="display: none">Clear all</a>
-                                    <div class="btnWrap d-flex align-items-center">
-                                        <div class="listView">
+                                    <!-- <a href="" id="clearAll" style="display: none">Clear all</a> -->
+                                    <div class="btnWrap d-flex align-items-center ml-auto">
+                                        <div class="listView listingViews <?php if($ViewSet ==1){echo "selected";} ?>" id="listView">
                                             <svg width="22" height="21" viewBox="0 0 22 21" fill="none" stroke="#151515"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <line x1="0.5" y1="0.5" x2="21.5" y2="0.5" stroke-linecap="round" />
@@ -431,7 +263,7 @@
                                             </svg>
                                         </div>
 
-                                        <div class="gridView selected">
+                                        <div class="gridView listingViews <?php if($ViewSet !=1){echo "selected";} ?>" id="gridView">
                                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -446,75 +278,110 @@
                                             <button class="btn btn-secondary dropdown-toggle d-flex align-items-center"
                                                 type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
-                                                Sort by: <strong>Recomended</strong>
+                                                Sort by: <strong id="sortingActive"><?php echo $sortingType?></strong>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item active" href="#">Recomended</a>
-                                                <a class="dropdown-item" href="#">Default</a>
-                                                <a class="dropdown-item" href="#">Popularity</a>
-                                                <a class="dropdown-item" href="#">Average ratings</a>
-                                                <a class="dropdown-item" href="#">Price low to high</a>
-                                                <a class="dropdown-item" href="#">Price high to low</a>
-                                            </div>
+                                                <a class="dropdown-item sorting" href="javascript:void(0)" id="Recomended" data-type="recomended">Recomended</a>
+                                                <a class="dropdown-item sorting" href="javascript:void(0)" data-id="Default" data-type="default">Default</a>
+                                                <a class="dropdown-item sorting" href="javascript:void(0)" data-id="What's New" data-type="new">What's New</a>
+                                                <!-- <a class="dropdown-item sorting" href="javascript:void(0)" data-type="mostviewd" data-id="Popularity">Popularity</a> -->
+                                                <a class="dropdown-item sorting" href="javascript:void(0)" data-type="lowtohigh" data-id="Price low to high">Price low to high</a>
+                                                <a class="dropdown-item sorting" href="javascript:void(0)" data-type="hightolow" data-id="Price high to low">Price high to low</a>
+
+                                                <!-- <a class="dropdown-item" href="<?=$currentUrl.'?product_list_order=name'?>">Default</a>
+                                                <a class="dropdown-item sorting" href="<?=$currentUrl.'?product_list_order=mostviewd'?>" id="Popularity">Popularity</a>
+                                                <a class="dropdown-item sorting" href="<?=$currentUrl.'?product_list_order=price&order_wise=asc'?>" id="Price low to high">Price low to high</a>
+                                                <a class="dropdown-item sorting" href="<?=$currentUrl.'?product_list_order=price&order_wise=desc'?>" id="Price high to low">Price high to low</a> -->
+                                            </div>                                          
                                         </div>
 
                                     </div>
                                 </div>
                                 <div class="tagsWrap d-none d-md-block" id="filtersName">
-                                    <!-- <span>
-                                        T-shirts
-                                        <svg width="11" height="12" viewBox="0 0 11 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z"
-                                                fill="#BDBDBD" />
-                                        </svg>
-                                    </span>
-                                    <span>
-                                        Puma
-                                        <svg width="11" height="12" viewBox="0 0 11 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z"
-                                                fill="#BDBDBD" />
-                                        </svg>
-                                    </span> -->
                                 </div>
                                 <div class="d-md-none filteredProductActionMobile">
                                     <button>Filter</button>
                                     <button>Sort by</button>
                                 </div>
-                                <div class="similarProduct">
+                                <div class="similarProduct <?php if($ViewSet ==1){echo "list_view";} ?>">
                                     <div class="productWrap">
                                         <div class="row" id="ajaxresponse">
 
-                                <?php 
-                                        $category_id_array = $block->getAllChildren(true,$block->getCurrentCategory()->getEntity_id());
-                                        foreach ($block->getProductCollection($category_id_array) as $product){
+                                    <?php
+                                        $defaultSize = ["Small" => "S", "Medium" => "M", "Large" => "L", "Xtra Large" =>"XL", "2X Large" => "XXL", "One Size" => "OS"];
+                                        foreach ( $productlist as $product){
+                                            //test
+                                            $size_array = '';
+                                            $childrenIds = $product->getTypeInstance()->getChildrenIds($product->getId());
+                                            if (!empty($childrenIds[0])) {
+                                            $currentId = reset($childrenIds[0]);
+                                            $productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+                                            $collection = $productCollection->addAttributeToSelect('color')->groupByAttribute('color')->addIdFilter($childrenIds)->load();
+                                            $swatchHelper=$objectManager->get("Magento\Swatches\Helper\Media");
+                                            $colorArray = [];
+                                            foreach ($collection as $simg) {
+                                                $getId = $simg->getColor();
+                                                array_push($colorArray, $getId);
+                                            }
 
-            ?>
+                                            $data = $product->getTypeInstance()->getConfigurableOptions($product);
+                                            $options = array();
+                                            foreach($data as $attr){
+                                                foreach($attr as $p){
+                                                    $options[$p['sku']][$p['attribute_code']] = $p['option_title'];
+                                                
+                                                }
+                                            }
+                                                if(!empty($options)){
+                                                    foreach($options as $sku =>$d){
+                                                        $pr = $repository->get($sku);
+                                                        if(!empty($d['size']) && !empty($colorArray[0]) &&$pr->getColor() == $colorArray[0]){
+                                                            if (!empty($size_array)) {
+                                                                $size_array .= ', '.$defaultSize[$d['size']];
+                                                            } else {
+                                                                $size_array .= $defaultSize[$d['size']];
+                                                            }
+                                                            
+                                                        }
+                                                        
+                                                    }
+                                                }
+                                            }
+
+                                            
+                                    ?>
 
 
-                                            <div class="col-sm-6 col-md-4">
+                                            <div class="col-sm-6 col-lg-4">
                                                 <div class="product">
                                                     <div class="productTop">
                                                         <div class="productImgSlider">
-
+                                                            
                                                             <?php 
                                 
-                                foreach($block->getAllProductImages($product->getId()) as $images){
-                                    ?>
-                                    <div class="productTopImg" style="background-image: url(<?php echo $images['url'];?>);">
-                                        <img class="productFeaturedBatch" src="<?php echo $this->getViewFileUrl('images/productFeaturedBatch.png'); ?>" alt="productFeaturedBatch" />
-                                    </div>
-
+                                foreach($block->getAllProductImages($product->getId()) as $images){ ?>
+                                    <a href="<?php echo $product->getProductUrl(); ?>">
+                                        <div class="productTopImg" style="background-image: url(<?php echo $images['url'];?>);">
+                                            <img class="productFeaturedBatch" src="<?php echo $this->getViewFileUrl('images/productFeaturedBatch.png'); ?>" alt="productFeaturedBatch" />
+                                        </div>
+                                    </a>
                                 <?php } ?>
+                            
                                                         </div>
+                                                        <?php if ($size_array) {
+
+                                                        ?>
                                                         <div class="productTopOver">
                                                             <h6>available sizes</h6>
-                                                            <div><span class="text-orange">s</span>, m, l , xl, 2xl, 3xl
+                                                            <!-- <div><span class="text-orange">s</span>, m, l , xl, 2xl, 3xl
+                                                            </div> -->
+                                                            
+                                                            <div><?=$size_array?>
                                                             </div>
                                                         </div>
+                                                        <?php
+                                                        } 
+                                                        ?>
                                                     </div>
                                                     <div class="productContent">
                                                         <div class="prodInfo">
@@ -560,7 +427,7 @@
                                                         <div class="price">
                                                             <!-- <strike>$64.89</strike> -->
                                                             <strong>$<?php echo number_format($product->getFinalPrice(), 2); ?></strong>
-                                                            <b class="discount">(20% off)</b>
+                                                            <b class="discount"><!-- (20% off) --></b>
 <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post"> 
                                         <?php echo $block->getBlockHtml('formkey')?>
                                         <button type="submit" title="Add to Cart" class="addCart btn btn-primary align-items-center">
@@ -573,7 +440,7 @@
                                                                 </svg>
 
                                                                 
-                                                                add to cart
+                                                                Add to cart
                                                             
                                                         </button>
                                                         </form>
@@ -657,29 +524,107 @@
     </main>
 
    <script>
-        require([ 'jquery'], function($){ 
+require([ 'jquery'], function($){ 
 $(document).ready(function() {
-    $(".brandsAttr").click(function(){
-        id = this.id;
+   
+    $(".brandsAttr").on('click',function(){
+        $(".loading-mask").show();       
+        var id = this.id;
         var text = $('#filters_'+id).text();
-
-        var filterDiv = '<span>'+text+'<svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z" fill="#BDBDBD" /></svg></span>';
-
+        var filterDiv = '<span class="'+id+'">'+text+'<svg class="remove" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z" fill="#BDBDBD" /></svg></span>';
         $('#clearAll').css('display', 'block');
-        $('#filtersName').append(filterDiv);
-        
-        // alert(id);
-        jQuery.ajax({
-        url: "<?php echo $this->getUrl().'layered/product/filter'?>",
-        type: "POST",
-        // data: {id:id},
-        data: $('#productFilters').serialize(),
-        success: function(response){
-            $('#ajaxresponse').html(response.output);
-            console.log(response);
+        if($(this).prop("checked") == true){
+            $('#filtersName').append(filterDiv);
+        }else{
+             $('.'+id).remove();
         }
+        ajaxFilter();
     });
+
+    function ajaxFilter(){
+        jQuery.ajax({
+            url: "<?php echo $this->getUrl().'layered/product/filter'?>",
+            type: "POST",
+            data: $('#productFilters').serialize(),
+            success: function(response){
+                $('#ajaxresponse').html(response.output);
+                $(".loading-mask").hide();
+                // console.log(response);
+                // console.log($('#productFilters').serialize());
+            }
+        });
+    }
+
+    $('.sorting').click(function(){
+        $(".loading-mask").show();
+        $("#orderType").val($(this).attr('data-type'));
+        $('#sortingActive').html($(this).attr('data-id'));
+        //$('#Recomended').hide();
+        ajaxFilter();
     });
+
+    $('.listingViews').click(function(){
+        getId = this.id;
+
+        if(getId == 'listView'){
+            setSession =1;
+        }else if(getId == 'gridView'){
+            setSession = 2;
+        }
+
+        jQuery.ajax({
+            url: "<?php echo $this->getUrl().'products/check/view'?>",
+            type: "POST",
+            data: {setSession:setSession},
+            success: function(response){
+                if(response.output == true){
+                    console.log(response);    
+                }
+            }
+        });
+
+    })
+    // ListView
+    // $('.btnWrap .listView').on('click', function () {
+    //     $(this).toggleClass('selected');
+    //     $('.btnWrap .gridView').removeClass('selected');
+    //     $('.similarProduct').addClass('list_view');
+    // });
+
+
+    // // gridView
+    // $('.btnWrap .gridView ').on('click', function () {
+    //     $(this).addClass('selected');
+    //     $('.btnWrap .listView').removeClass('selected');
+    //     $('.similarProduct').removeClass('list_view');
+    // });
+
+
+
+    $(document).on('click','.remove',function(){
+        $(".loading-mask").show();
+        var filterId = $(this).parent('span').attr('class');
+       // id = filterId.split('_'),
+        $('.'+filterId).remove();
+        $("#"+filterId).prop('checked', false);
+        ajaxFilter();
+
+    });
+
+    <?php foreach ($categories as $category) {
+          if($block->getCurrentCategory()->getName() == $category->getName()) {
+              ?>
+              text = '<?=$category->getName()?>';
+              textid = '<?=substr($category->getName(),0,2)?>';
+              id = textid+'_'+<?=$category->getId()?>;
+             var filterDiv = '<span class="'+id+'">'+text+'<svg class="remove" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.165764 11.3344C0.275859 11.4453 0.420765 11.5004 0.56567 11.5004C0.710438 11.5004 0.855343 11.4446 0.966267 11.3344L5.50042 6.80023L10.0349 11.3344C10.1452 11.4453 10.2899 11.5004 10.4349 11.5004C10.5789 11.5004 10.7237 11.4446 10.8346 11.3344C11.0556 11.1134 11.0556 10.755 10.8346 10.534L6.30066 5.99999L10.8346 1.46602C11.0556 1.24487 11.0556 0.886539 10.8346 0.66552C10.6136 0.444501 10.2553 0.444501 10.0343 0.66552L5.50023 5.19955L0.966267 0.66552C0.74511 0.444501 0.386783 0.444501 0.165764 0.66552C-0.0552547 0.886539 -0.0552547 1.24487 0.165764 1.46602L4.69995 5.99983L0.165764 10.534C-0.0552547 10.755 -0.0552547 11.1134 0.165764 11.3344Z" fill="#BDBDBD" /></svg></span>';
+            $('#clearAll').css('display', 'block');
+            $('#filtersName').append(filterDiv);
+            return;
+      <?php
+          }
+      }   
+      ?>
 });
 });
 </script>

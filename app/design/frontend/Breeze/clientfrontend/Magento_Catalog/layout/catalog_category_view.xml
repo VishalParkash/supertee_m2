@@ -18,23 +18,19 @@
         <referenceBlock name="view.addto.compare" remove="true" /> <!-- Product addto compare -->
         <referenceBlock name="breadcrumbs" remove="true" />
         <referenceBlock name="catalog.leftnav" remove="true" />
+        <referenceBlock name="category.description" remove="true"/>
 
+        
+
+        <!-- <move element="catalog.topnav" destination="custom_header" /> -->
+
+        
         <referenceContainer name="content">
             
-            <block class="User\Frontend\Block\Product\ListProduct" name="category.products.list" template="Magento_Catalog::product/listing.phtml" />
+            <block class="User\Frontend\Block\Product\ListProduct" name="category.products.list" template="Magento_Catalog::product/listing.phtml" cacheable="false"/>
             
         </referenceContainer>
-
-        <move element="catalog.topnav" destination="custom_header" />
-
-        <referenceContainer name="header.container">
-            <block class="Magento\Framework\View\Element\Template" name="custom_header" template="Magento_Theme::html/custom-header.phtml" before="main.content">
-            </block>
-        </referenceContainer>
         <referenceContainer name="footer" remove="true" />
-        <referenceContainer name="footer-container">
-            <block class="Magento\Framework\View\Element\Template" name="custom_footer" template="Magento_Theme::html/custom-footer.phtml">
-            </block>
-        </referenceContainer>
+        
 </body>
 </page>

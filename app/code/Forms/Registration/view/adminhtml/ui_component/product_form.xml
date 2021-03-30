@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-    <htmlContent name="custom" sortOrder="10">
+    <!-- <htmlContent name="custom" sortOrder="10">
         <argument name="data" xsi:type="array">
             <item name="wrapper" xsi:type="array">
                 <item name="label" xsi:type="string" translate="true">Set Design Area</item>
@@ -15,5 +15,17 @@
             </wrapper>
         </settings>
         <block name="custom.block" class="Forms\Registration\Block\Adminhtml\Product\Custom" template="Forms_Registration::product/custom.phtml"/>
-    </htmlContent>
+    </htmlContent> -->
+
+    <fieldset name="product_custom_tab_789" sortOrder="10">
+       <settings>
+           <collapsible>true</collapsible>
+           <label translate="true">Custom Tab</label>
+       </settings>
+       <container name="custom_tab_container" sortOrder="100">
+           <htmlContent name="html_content">
+               <block name="custom.block" class="Forms\Registration\Block\Adminhtml\Product\Custom" template="Forms_Registration::product/custom.phtml"/>
+           </htmlContent>
+       </container>
+   </fieldset>
 </form>

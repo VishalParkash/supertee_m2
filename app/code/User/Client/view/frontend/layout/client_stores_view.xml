@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>Client Backend : Stores</title>
+		<remove src="Magento_Theme::css/style.css" />
+		<remove src="css/styles.css" />
+		<remove src="css/bootstrap.min.css" />
+		
+        <css src="User_Client::css/bootstrap.min.css"/>
+        <css src="User_Client::css/custom.css"/>
+    </head>
+     <body>
+     	<referenceContainer name="header.container" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceContainer name="footer-container" remove="true"/>
+        <referenceBlock name="catalog.leftnav" remove="true"/>
+        <referenceBlock name="sidebar.main" remove="true"/>
+        <referenceBlock name="sidebar.additional" remove="true"/>
+        <referenceContainer name="content">			
+			<block class="User\Client\Block\Stores\Index" name="client_store_view" template="client/stores/store-view.phtml">
+			</block>
+        </referenceContainer>
+    </body>
+</page>

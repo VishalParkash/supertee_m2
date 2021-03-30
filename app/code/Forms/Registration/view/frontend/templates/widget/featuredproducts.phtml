@@ -33,8 +33,8 @@ if( !empty($productCollection)){
     ?>
 
     <?php  foreach ($productCollection as $item) { ?>
-                                            <div class="productItem">
-                                        <div class="productItemImg">
+                                            <div class="tproduct ">
+                                        <div class="imgWrap">
                                                 <?php
                                                 $_product =$block->getLoadProduct($item->getId());
                                                 
@@ -56,18 +56,14 @@ if( !empty($productCollection)){
                                     if($count == 1){
                                     ?>
                                     
-                                        <img src="<?php echo $images['url'];?>" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" class="">
+                                        <img src="<?php echo $images['url'];?>" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" class="img-fluid mx-auto">
                                         
 
                                 <?php $count++; } }?>
 
                                             
                                             <!-- <span class="productOff">25% off</span> -->
-                                            <div class="productImgAction">
-                                                <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post"> 
-                                        <?php echo $block->getBlockHtml('formkey')?>
-                                                    <button class="buyNow">buy now</button>
-                                                </form>
+                                            <!-- <div class="productImgAction">
                                                 <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post">
                                                 <button>
                                                     <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,17 +78,55 @@ if( !empty($productCollection)){
                                                     </svg>
                                                 </button>
                                                 </form>
-                                            </div>
+                                            </div> -->
                                         </div>
-                                        <div class="productItemContent">
-                                            <h4><?php echo $item->getName()?></h4>
+                                        <div class="content text-center d-flex flex-column align-items-center">
+                                            <h6><?php echo $item->getName()?></h6>
                                             <p>
                                                 <?php echo $item->getName()?>
                                             </p>
-                                            <h4>
-                                                $<?php echo number_format($item->getPrice(), 2)?>
-                                            </h4>
+                                            <div class="buyNow d-flex flex-column">
+                                                <span class="price">$<?php echo number_format($item->getPrice(), 2)?></span>
+                                                <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post"> 
+                                                    <?php echo $block->getBlockHtml('formkey')?>
+                                                        <button class="buyNow btn btn-primary">buy now</button>
+                                                </form>         
+                                                <!-- <a href="#" class="btn btn-primary" tabindex="-1">Buy now</a> -->
+                                            </div>
+
                                         </div>
                                     </div>
                                 <?php } ?>
                                 <?php } ?>
+
+                               <!--  <script type="text/javascript">
+                                    require( [ 'jquery', 'slick', 'bootstrap4'], function($,modal){ 
+                                        $(document).ready(function(){ 
+                                            console.log('featureSlider');
+                                             // home
+                                            // $(".productShots ").slick({
+                                            $(".productShots").not('.slick-initialized').slick({
+                                                dots: false,
+                                                // arrows: false,
+                                                // prevArrow: $(".sliderNav .prev "),
+                                                // nextArrow: $(".sliderNav .next "),
+                                                infinite: true,
+                                                centerMode: true,
+                                                slidesToShow: 2,
+                                                slidesToScroll: 1,
+                                                // autoplay: true,
+                                                autoplaySpeed: 2000,
+                                                responsive: [
+                                                    {
+                                                        breakpoint: 991,
+                                                        settings: {
+                                                            slidesToShow: 1,
+                                                        }
+                                                    },
+                                                ]
+
+                                            });
+                                        });
+                                    });
+                                           
+                                </script> -->
