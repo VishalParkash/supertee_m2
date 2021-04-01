@@ -17,8 +17,6 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                 'created_at',
                 'desc'
             );;
- $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-
 
  //$order = $objectManager->create('Magento\Sales\Api\OrderRepositoryInterface')->get($orderid);
  
@@ -103,6 +101,13 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                         <?php foreach ($order_collection as $orders) { 
                             $order = $objectManager->create('\Magento\Sales\Model\OrderRepository')->get($orders->getEntityId());
                             $AllOrders = $objectManager->create('Magento\Sales\Model\Order')->load($orders->getEntityId());
+                            $orderItems = $AllOrders->getAllItems();
+                            $total_qty = 0;
+                            foreach ($orderItems as $item)
+                            {
+                               $total_qty = $total_qty + $item->getQtyOrdered();
+                            }
+                            // $total_qty = $total_qty + $item->getQtyOrdered();
 
                             
 
@@ -241,7 +246,7 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                     <div class="d-flex">
                                         <div class="flex1">
                                             <h6>Order status <span class="text-border"><?php echo $order->getState(); ?></span></h6>
-                                            <h6>Total items in this order <span class="font-weight-normal"><?php echo $total_qty; ?></span></h6>
+                                            <h6>Total items in this order <span class="font-weight-normal"><?php echo number_format($total_qty, 2); ?></span></h6>
                                         </div>
                                         <div>
                                             <button class="btn btn-primary btn-sm">
@@ -265,11 +270,25 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                             $total_qty = $total_qty + $item->getQtyOrdered();
                                             $product = $item->getProduct();
 
-                                            $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
-                                            $image_url = $imageHelper->init($item->getProduct(), 'product_thumbnail_image')->getUrl();
+                                            // if(!empty($product)){
+                                            //     $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
+                                            //     $image_url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $product->getImage();
+                                            //     }
+                                            if(!empty($product)){
+
+                                                $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
+                                                $image_url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $product->getImage();
 
 
-                                            //echo "<pre>";print_r($item->getData()); ?>
+                                                $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
+                                                if(!empty($imageHelper)){
+                                                    $image_url = $imageHelper->init($item->getProduct(), 'product_thumbnail_image')->getUrl();    
+                                                }else{
+                                                    $image_url = "";
+                                                }
+                                                //}
+                                            
+ ?>
                                         <div class="manageAccountOrderDetailBottomItem">
                                             <div class="row">
                                                 <div class="col-md-7">
@@ -321,7 +340,7 @@ $customer_telephone = $customerSession->getCustomer()->getTelephone();
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php } ?>
+                                        <?php } } ?>
                                         
                                     </div>
                                 </div>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>Emipro Blog Search</title>
+        <css src="Emipro_Blog::css/emiprostyles.css"/>
+	    <css src="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" src_type="url"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Emipro\Blog\Block\Index" name="blogindex" template="Emipro_Blog::req.phtml" />
+        </referenceContainer>
+    </body>
+</page>
+

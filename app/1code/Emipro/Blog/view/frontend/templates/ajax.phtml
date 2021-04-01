@@ -1,0 +1,48 @@
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$urlencode = $objectManager->get('Magento\Framework\Url\Encoder');
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+?>
+<div data-mage-init='{"emiproajax":{"url": "<?php echo $block->getUrl('blog/index/ajaxpost') ?>","searchurl": "<?php echo $block->getUrl('blog/index/reqpost') ?>","ajaxformurl": "<?php echo $block->getUrl('blog/index/ajaxform') ?>"}}'>
+<fieldset class="fieldset" data-role="filter_group">
+        <fieldset class="fieldset" data-role="filter">
+    <div class="field value required">
+        <label class="label" for="filter_value"><span><?php echo __('Search') ?></span></label>
+
+        <div class="control">
+            <input type="text" class="input-text" data-role="filter-value" id="filter_value" data-validate="{required:true}">
+        </div>
+    </div>
+	</fieldset>
+        
+</fieldset>
+
+    
+<fieldset class="fieldset">
+	<legend class="legend">
+	
+    <button data-role="search_post" type="submit" title="<?php echo __('Search') ?>" class="action submit primary">
+        <span><?php echo __('Search') ?></span>
+    </button>
+    <button data-role="search_reset" id="resetsearch" style="display:none;" type="submit" title="<?php echo __('Reset') ?>" class="action submit primary">
+        <span><?php echo __('Reset Search') ?></span>
+    </button>
+    <button style="float:right;" data-role="ajax_form" id="ajaxform" style="display:none;" type="submit" title="<?php echo __('Add New Post') ?>" class="action submit primary">
+        <span><i class="fa fa-plus"></i> <?php echo __('Add New Post') ?></span>
+    </button>
+	</legend><br>
+    <div data-role="ajaxresultdata"></div>
+</fieldset>
+</div>
+<?php if($customerSession->isLoggedIn()) { ?>
+<script type="text/javascript">
+    window.custlogin = '<?php echo $customerSession->getCustomer()->getName(); ?>';
+</script>
+<?php }else{ ?>
+<script type="text/javascript">
+    window.custlogin = false;
+</script>
+<?php } ?>
+<script type="text/javascript">
+    window.loginurl = '<?php echo $this->getUrl('customer/account/login').'referer/'.$urlencode->encode($this->getUrl('blog/index/form/')); ?>';
+</script>

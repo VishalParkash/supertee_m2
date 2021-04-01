@@ -1,0 +1,134 @@
+<?php include('client-header.phtml');?>
+<?php 
+    
+    if(!empty($_REQUEST['res'])){
+        $res = $_REQUEST['res'];
+
+        if($res == 1){
+            $message = "Your request submitted successfully.";
+        }elseif ($res == 2) {
+            $message = "Something went wrong. Please try again.";
+        }elseif($res == 3){
+            $message = "Sorry! We cannot process your request right now.";
+        }
+    }
+
+
+?>
+<div class="pageContainer">
+    <section class="marketing_wrap">
+        <div class="flex1">
+            <?php if(!empty($res))echo $message;?>
+            <div class="row">
+
+                <div class="col-md-8 col-xl-4">
+                    <div class="topHead">
+                        <h4>Let’s work together.</h4>
+                        <p>We’d like to hear from you. send us a message using the form opposite or email us.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <form method="post" action="<?php echo $block->getBaseUrl(); ?>client/marketing/submit">
+                        <div class="form-group">
+                            <input type="text" class="form-control" required="" placeholder="Full name" name="fullName" />
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" required placeholder="Your email" name="email" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" required placeholder="Company" name="company"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="phone_wrap position-relative">
+                                <input type="number" class="form-control" placeholder="Phone no" name="phone" />
+                                <span class="position-absolute float">Optional</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="textarea_wrap position-relative">
+                                <textarea class="form-control" required rows="3" placeholder="How can we help you?" name="howToHelp"></textarea>
+                                <span class="position-absolute float">Max. 500 characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <button class="btn btn-select btn-select-white" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="heardButton">
+                                    
+                                    How did you hear about us
+                                </button>
+                                <input type="hidden" name="hearAboutUs" id="hearAboutUs">
+                                <div class="dropdown-menu dropdown-menu-border" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a class="dropdown-item" href="#" id="Direct">Direct</a>
+                                    <a class="dropdown-item" href="#" id="Through Website">Through Website</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <button class="btn btn-primary submit_button" type="submit" name="submit_message" value="submit_message">
+                        Send message
+                        <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path class="fillHover"
+                                d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"
+                                fill="white" />
+                        </svg>
+                    </button>
+                    </form>
+                </div>
+                <div class="col-sm-5 col-xl-4 offset-xl-1">
+                    <div class="contact_wrap">
+                        <img src="./assets/images/mail.png" alt="" />
+                        <h4>Get in touch</h4>
+                        <p>You can get all the contact information</p>
+                        <ul class="contact-detail list-unstyled">
+                            <li>
+                                <svg class="mr-3" width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.0007 16H2.33267C1.046 16 0 14.954 0 13.6673V2.33267C0 1.046 1.046 0 2.33267 0H19.0007C20.2873 0 21.3333 1.046 21.3333 2.33267V13.6673C21.3333 14.954 20.2873 16 19.0007 16ZM2.33267 1.33333C1.78133 1.33333 1.33333 1.78133 1.33333 2.33267V13.6673C1.33333 14.218 1.78133 14.6667 2.33267 14.6667H19.0007C19.5513 14.6667 20 14.218 20 13.6673V2.33267C20 1.78133 19.5513 1.33333 19.0007 1.33333H2.33267ZM10.6667 10.3167C10.2647 10.3167 9.86333 10.1707 9.54267 9.88L2.88467 3.82667C2.612 3.57933 2.59267 3.15733 2.84 2.88467C3.088 2.61267 3.50867 2.59267 3.782 2.84L10.44 8.89267C10.5687 9.01133 10.764 9.01067 10.8933 8.89333L17.5513 2.84C17.8233 2.59267 18.246 2.61267 18.4933 2.88467C18.7407 3.15733 18.7207 3.57933 18.4487 3.82667L11.7907 9.88C11.47 10.1707 11.0687 10.3167 10.6667 10.3167ZM3.33333 13.3333C3.16267 13.3333 2.992 13.268 2.862 13.138C2.60133 12.8773 2.60133 12.456 2.862 12.1953L7.52867 7.52867C7.78933 7.268 8.21067 7.268 8.47133 7.52867C8.732 7.78933 8.732 8.21067 8.47133 8.47133L3.80467 13.138C3.67467 13.268 3.504 13.3333 3.33333 13.3333ZM18 13.3333C17.8293 13.3333 17.6587 13.268 17.5287 13.138L12.862 8.47133C12.6013 8.21067 12.6013 7.78933 12.862 7.52867C13.1227 7.268 13.544 7.268 13.8047 7.52867L18.4713 12.1953C18.732 12.456 18.732 12.8773 18.4713 13.138C18.3413 13.268 18.1707 13.3333 18 13.3333Z" fill="#727272"/>
+                                </svg>
+                                    
+                                support@supertee.com</li>
+                            <li> 
+                                <svg class="mr-3" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.7071 17.0902L13.7072 17.0897C10.5377 16.4851 7.62372 14.938 5.34525 12.6503C3.06677 10.3626 1.52953 7.44032 0.933974 4.26468L0.93382 4.26386L0.933823 4.26386C0.847196 3.77959 0.92813 3.28021 1.16327 2.84823C1.3984 2.41624 1.77368 2.07749 2.22712 1.88798L2.22748 1.88783L4.52257 0.938983C4.52261 0.93897 4.52264 0.938956 4.52267 0.938943C4.64186 0.889374 4.77542 0.887042 4.89627 0.932427C5.01714 0.977823 5.11621 1.06754 5.17342 1.18335L5.17367 1.18385L6.80566 4.5344C6.85077 4.61209 6.87455 4.70036 6.87455 4.79026C6.87455 4.88158 6.85001 4.97123 6.80349 5.0498L6.79778 5.05945L6.79728 5.05907L5.33569 6.99713C5.20203 7.18136 5.12632 7.40137 5.1183 7.629C5.11027 7.85691 5.17046 8.08202 5.29113 8.27539L5.29171 8.27632L5.29171 8.27633C6.39266 10.0846 7.91061 11.602 9.71818 12.7013L9.71906 12.7018C9.90976 12.8205 10.1311 12.8802 10.3555 12.8735C10.5799 12.8668 10.7974 12.794 10.9807 12.6642L10.9808 12.6641L13.0311 11.2162L13.0385 11.2109L13.0387 11.2113C13.1172 11.1659 13.2063 11.142 13.2971 11.142C13.3867 11.142 13.4748 11.1653 13.5527 11.2097L16.8171 12.8444C16.8172 12.8444 16.8173 12.8445 16.8175 12.8445C16.933 12.9019 17.0224 13.001 17.0676 13.1219C17.1129 13.2428 17.1106 13.3765 17.0611 13.4958L17.0612 13.4956L13.7071 17.0902ZM13.7071 17.0902L13.7167 17.0911C13.8432 17.1028 13.9705 17.103 14.0971 17.0916M13.7071 17.0902L17.0611 13.4958L16.1137 15.7943L16.1129 15.7963L16.1129 15.7962C15.9417 16.1882 15.6583 16.5205 15.2985 16.7511C14.9402 16.9807 14.5223 17.0991 14.0971 17.0916M14.0971 17.0916C14.099 17.0914 14.1008 17.0912 14.1027 17.0911L14.0935 16.9915L14.0914 17.0915C14.0933 17.0915 14.0952 17.0915 14.0971 17.0916ZM2.62236 2.84167L2.62237 2.84167L2.62317 2.84133L4.47169 2.06021L5.75971 4.71001L4.52138 6.38742L4.52127 6.38757C4.26686 6.73358 4.12121 7.14767 4.10291 7.57694C4.08461 8.00616 4.19444 8.43112 4.41841 8.79755C5.60529 10.7464 7.24124 12.382 9.18922 13.5673C9.54982 13.7898 9.96783 13.9011 10.3912 13.8874C10.8146 13.8736 11.2247 13.7354 11.5702 13.49L11.5704 13.4898L13.3432 12.2239L15.9579 13.5138L15.1775 15.374L15.1772 15.3746C15.0782 15.6153 14.8997 15.8147 14.6715 15.9392C14.4433 16.0637 14.1793 16.1059 13.9238 16.0587C10.9502 15.4978 8.21484 14.0513 6.07521 11.9085C3.93602 9.76616 2.49186 7.02735 1.93145 4.05001C1.89635 3.80071 1.94498 3.54678 2.06972 3.32818C2.1948 3.10894 2.38928 2.93776 2.62236 2.84167Z" fill="#727272" stroke="#727272" stroke-width="0.2"/>
+                                </svg>
+                                        
+                                <div class="wrap d-flex align-items-center">
+                                    <a href="tel:+ 1 987 654 3210">+ 1 987 654 3210</a>
+                                    <span class="mx-2">|</span>    
+                                    <a href="tel:+ 1 987 654 3210">+ 1 987 654 3210</a>
+                                </div>
+                            </li>
+                            <li>
+                                <svg class="mr-3" width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.6 0C2.54632 0 0 2.15545 0 5.20861C0 6.36851 0.482336 7.7344 1 8.63257L5.06875 15.7014C5.11962 15.7915 5.196 15.8669 5.28964 15.9195C5.38327 15.9722 5.49059 16 5.6 16C5.70941 16 5.81673 15.9722 5.91036 15.9195C6.004 15.8669 6.08038 15.7915 6.13125 15.7014L10.2 8.63257C10.7177 7.73438 11.2 6.36849 11.2 5.20861C11.2 2.15545 8.65369 0 5.6 0ZM5.6 1.11613C8.06917 1.11613 10 2.71396 10 5.20861C10 6.04818 9.55253 7.39431 9.14375 8.10358L5.6 14.2481L2.05625 8.10358C1.64748 7.39432 1.2 6.04818 1.2 5.20861C1.2 2.71396 3.13084 1.11613 5.6 1.11613ZM5.6 2.6043C4.0607 2.6043 2.8 3.77691 2.8 5.20861C2.8 6.6403 4.06071 7.81292 5.6 7.81292C7.13929 7.81292 8.4 6.6403 8.4 5.20861C8.4 3.77691 7.1393 2.6043 5.6 2.6043ZM5.6 3.72043C6.49075 3.72043 7.2 4.38014 7.2 5.20861C7.2 6.03711 6.49076 6.69678 5.6 6.69678C4.70924 6.69678 4 6.03711 4 5.20861C4 4.38014 4.70925 3.72043 5.6 3.72043Z" fill="#727272"/>
+                                </svg>
+                                <address>
+                                    Dummy # 706, 7th floor, crown heights, california
+                                </address>        
+                                
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<?php include('client-footer.phtml');?>
+
+<script type="text/javascript">
+    require([ 'jquery', 'jquery/ui', 'bootstrap4'], function($){ 
+        $( document ).ready(function() {
+            $('.dropdown-item').click(function(){
+                var getId = this.id;
+                $('#hearAboutUs').val(getId);
+                $('#heardButton').text(getId);
+                // return false;
+            });
+
+             });
+    });
+
+</script>

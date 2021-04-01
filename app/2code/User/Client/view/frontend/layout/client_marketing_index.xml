@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>Client backend : Sales</title>
+		<remove src="Magento_Theme::css/style.css" />
+		<remove src="css/styles.css" />
+		<remove src="css/bootstrap.min.css" />
+		
+        <css src="User_Client::css/bootstrap.min.css"/>
+        <css src="User_Client::css/custom.css"/>
+    </head>
+     <body>
+     	<referenceContainer name="header.container" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceContainer name="footer-container" remove="true"/>
+        <referenceBlock name="catalog.leftnav" remove="true"/>
+        <referenceBlock name="sidebar.main" remove="true"/>
+        <referenceBlock name="sidebar.additional" remove="true"/>
+        
+        <referenceContainer name="page.messages">            
+    
+    <block class="User\Client\Block\Client\Index" name="addMessages" as="addMessages" template="User_Client::client/messages.phtml"/>
+</referenceContainer>
+
+        <referenceContainer name="content">			
+			<block class="User\Client\Block\Client\Index" name="client_marketing_index" template="client/marketing.phtml">
+			</block>
+        </referenceContainer>
+    </body>
+</page>

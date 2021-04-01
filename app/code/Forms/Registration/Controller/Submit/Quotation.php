@@ -24,6 +24,7 @@ class Quotation extends \Magento\Framework\App\Action\Action
     protected $resource;
     protected $connection;
     protected $resultJsonFactory;
+    protected $scopeConfig;
 
 
      public function __construct(\Magento\Framework\App\Action\Context $context,
@@ -39,6 +40,7 @@ class Quotation extends \Magento\Framework\App\Action\Action
         \Forms\Registration\Model\Session $session,
         JsonFactory $resultJsonFactory,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
     \Magento\Framework\Controller\ResultFactory $result){
         parent::__construct($context);
         $this->mathRandom = $mathRandom;
@@ -55,11 +57,19 @@ class Quotation extends \Magento\Framework\App\Action\Action
          $this->_redirect = $redirect; 
          $this->resultJsonFactory = $resultJsonFactory;
         $this->resultRedirect = $result;
+        $this->scopeConfig = $scopeConfig;
 
 
 
     }
 
+    public function getStoreEmail()
+    {
+        return $this->scopeConfig->getValue(
+            'trans_email/ident_sales/email',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
     
     function getBaseUrl(){
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -68,7 +78,7 @@ class Quotation extends \Magento\Framework\App\Action\Action
     }
 
     public function execute(){
-
+// echo $this->getStoreEmail();die;
         $result = $this->resultJsonFactory->create();
         $resultPage = $this->_pageFactory->create();
 
@@ -84,38 +94,41 @@ class Quotation extends \Magento\Framework\App\Action\Action
 
                 $themeTable = $this->connection->getTableName('supertee_quotations');
 
-                $sql = "INSERT INTO " . $themeTable . "(fullName, emailAddress, phoneNumber, quantity, productDetail, projectDescription) VALUES ('".$fullName."', '".$emailAddress."','".$phoneNumber."', '".$quantity."', '".$productDetail."','".$projectDescription."' )";
-                $this->connection->query($sql);  
-                $recipientMail = 'vishal.parkash@cerebrent.com';
+                if(!empty($fullName) && (!empty($emailAddress)) && (!empty($phoneNumber)) && (!empty($quantity)) && (!empty($productDetail)) && (!empty($projectDescription))){
+                    $sql = "INSERT INTO " . $themeTable . "(fullName, emailAddress, phoneNumber, quantity, productDetail, projectDescription) VALUES ('".$fullName."', '".$emailAddress."','".$phoneNumber."', '".$quantity."', '".$productDetail."','".$projectDescription."' )";
+                    $this->connection->query($sql);  
+                    // $recipientMail = 'vishal.parkash@cerebrent.com';
+                    $recipientMail = "supertee.admin@mailinator.com";
 
-                $msg = '';
-                
-                $msg .= "<p>Hi</p>";
-                $msg .= "<p>Someone has requested quotation for the products. </p>";
-                $msg .= "<p>Here are the detais.</p>";
-                $msg .= "<p>Full Name: ".$fullName."</p>";
-                $msg .= "<p>Email Address: ".$emailAddress."</p>";
-                $msg .= "<p>Phone Number: ".$phoneNumber."</p>";
-                $msg .= "<p>Quantity: ".$quantity."</p>";
-                $msg .= "<p>Product Detail: ".$productDetail."</p>";
-                $msg .= "<p>Project Description: ".$projectDescription."</p>";
-                $msg .= "<p>You are referred by your friend to join Supertee</p>";
-                $msg .= "<p>Regards</p>";
-                
-                // echo $msg;die;
-                $email = new \Zend_Mail();
-                $email->setSubject("Quotation Requested");
-                $email->setBodyHtml($msg);
-                $email->setFrom($emailAddress, "Quotation Requested");
-                $email->addTo($recipientMail, "Friend");
-                if($email->send()){
-                    $output = 1;
+                    $msg = '';
+                    
+                    $msg .= "<p>Hi</p>";
+                    $msg .= "<p>Someone has requested quotation for the products. </p>";
+                    $msg .= "<p>Here are the detais.</p>";
+                    $msg .= "<p>Full Name: ".$fullName."</p>";
+                    $msg .= "<p>Email Address: ".$emailAddress."</p>";
+                    $msg .= "<p>Phone Number: ".$phoneNumber."</p>";
+                    $msg .= "<p>Quantity: ".$quantity."</p>";
+                    $msg .= "<p>Product Detail: ".$productDetail."</p>";
+                    $msg .= "<p>Project Description: ".$projectDescription."</p>";
+                    $msg .= "<p>You are referred by your friend to join Supertee</p>";
+                    $msg .= "<p>Regards</p>";
+                    
+                    // echo $msg;die;
+                    $email = new \Zend_Mail();
+                    $email->setSubject("Quotation Requested");
+                    $email->setBodyHtml($msg);
+                    $email->setFrom($emailAddress, "Quotation Requested");
+                    $email->addTo($recipientMail, "Friend");
+                    if($email->send()){
+                        $output = true;
+                    }  
+                }else{
+                    $output = "emptyData";
                 }
-
-                
             } catch (Exception $e) {
                 \Zend_Debug::dump($e->getMessage());
-                $$output = 2;
+                $$output = false;
             }
 
             $result->setData(['output' => $output]);

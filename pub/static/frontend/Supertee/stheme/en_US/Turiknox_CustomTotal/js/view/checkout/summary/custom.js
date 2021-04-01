@@ -1,0 +1,1 @@
+/var/www/html/stee_test/app/code/Turiknox/CustomTotal/view/frontend/web/js/view/checkout/summary/custom.js

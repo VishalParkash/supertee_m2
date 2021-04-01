@@ -19,6 +19,17 @@
   min-height: 50px;
 }
 
+#checkout > .messages{
+  position:relative;
+  width:100%;
+  margin-bottom:20px;  
+}
+
+#checkout > .messages .message-error{
+  position: absolute;
+;
+}
+
 #checkout .opc-summary-wrapper:after{
   width: 40%;
 }
@@ -290,6 +301,15 @@ outline:0;
   padding:40px;
 }
 
+.opc-sidebar .opc-block-summary table th,
+.opc-sidebar .opc-block-summary table td,{
+  font-size:inherit;
+}
+
+.opc-sidebar .opc-block-summary table .mark .title{
+  font-size:inherit;
+}
+
 .opc-sidebar .opc-block-summary span.title{
   font-weight:bold;
       font-size: 1.313em;
@@ -432,13 +452,22 @@ outline:0;
 }
 
 .shipping-information-title .action-edit{
-  border-radius:10px;
+ border-radius: 10px;
+  background: #00BFF3 !important;
+  border-color: #00BFF3 !important;
+  color: #fff;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  cursor:pointer;
 }
 
 .shipping-information-title .action-edit span{
   font-size:0.875rem;
-  font-weight:normal;
-  cursor:pointer;
+  /*font-weight:normal;*/
+
 }
 
 .mage-error{
@@ -723,6 +752,32 @@ table mark{
       padding: 5px;
     margin-bottom: 20px;
     padding-left:35px;
+    display:block;
+}
+
+.payment-method-billing-address .billing-address-same-as-shipping-block > .form-row span,
+.payment-method-billing-address .billing-address-same-as-shipping-block > .form-row a{
+  margin:0 5px;
+}
+
+.payment-method-billing-address .checkout-billing-address> .form-row .action-edit-address{
+  border-radius: 10px;
+    background: #00BFF3 !important;
+    border-color: #00BFF3 !important;
+    color: #fff;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top:15px;
+}
+
+.payment-method-billing-address .checkout-billing-address > .form-row .action-edit-address span{
+  font-size: 0.875rem;
+  font-weight: bold;
+
 }
 
 .payment-method-content .ccard{

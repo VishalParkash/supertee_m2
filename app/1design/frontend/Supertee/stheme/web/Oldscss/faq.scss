@@ -1,0 +1,271 @@
+.main{
+&.faq{
+    .pageHead{
+        background: #2AADE5;
+        padding-top:70px;
+        padding-bottom:130px;
+        
+        @include min-768{
+            padding-top:130px;
+            padding-bottom:240px;
+        }
+    
+        h2{
+            margin-bottom:100px;
+            u{
+                text-decoration-style: solid;
+                text-decoration-color: #FFC62E;
+            }
+        }
+    
+        .search{
+            margin-bottom:50px;
+            position:relative;
+            input{
+                background: #FFFFFF;
+                mix-blend-mode: normal;
+                border: 1px solid #DFE1F3;
+                box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.12);
+                border-radius: 100px;
+                width:100%;
+                padding: 40px 52px;
+                padding-right: 120px;
+                font-size: 1.313rem;
+                @include max-767{
+                    padding: 24px 34px;
+                }
+            &::placeholder{
+                color: #727272;
+                font-size: 1.313rem;
+                font-size: 1.313rem;
+                }
+    
+            }
+    
+            button{
+                position: absolute;
+                top:50%;
+                right:20px;
+                transform: translateY(-50%);
+                background: #FFC62E;
+                border-radius:50%;
+                width: 78px;
+                height: 78px;
+                display:flex;
+                align-items:center;
+                justify-content: center;
+                padding:0;
+                border-color:transparent;
+
+                @include max-767{
+                    width: 60px;
+                    height: 60px;
+                    right:10px;
+                }
+
+                svg{
+                    transform:unset;
+                }
+
+            &:hover{
+                svg{
+                    fill:#fff;
+                }
+            }
+            }
+    
+        }
+    
+        p{
+            font-size:1.500rem;
+            font-family:$roboto;
+        }
+    
+    }
+}
+}
+
+.faqBody{
+    .container{
+        @include min-1600{
+            padding: 0 130px;
+        }
+    }
+
+    .bodyWrap{
+        margin-top: -124px;
+        @include max-767{
+            margin-top:-64px;
+        }
+    }
+
+    .nav-tabs{
+        display:flex;
+        align-items:flex-end;
+        @include max-767{
+            width:calc(100% + 50px);
+            margin-left:-25px;
+        }
+        > li{
+            flex:0 0 33.33%;
+        }
+        .nav-link{
+            background-color:rgba(255,255,255,0.4);
+            font-family:$roboto;
+            line-height:normal;
+            padding: 20px 15px;
+            justify-content:center;
+            
+            @include min-768{
+                padding: 20px 14px;
+                font-size:1.750rem;
+            }
+
+        &.active{
+            background:#fff;
+            // padding: 27px 14px;
+            padding: 20px 14px;
+            font-weight:bold;
+
+            @include min-768{
+                padding: 27px 12px;
+             }
+
+            @include min-992{
+                padding: 27px ;
+             }
+        }
+    
+            .icon{
+                margin-right:10px;
+                width: 68px;
+                height: 68px;
+                display:flex;
+                align-items: center;
+                justify-content: center;
+
+                @include max-767{
+                    display:none;
+                }
+            }
+        }
+
+    }
+
+    .tab-pane{
+        padding:48px 0;
+        @include min-768{
+            padding:75px 0;
+        }
+
+        @include min-992{
+            padding:120px 0;
+        }
+
+        .headWrap{
+            margin-bottom:55px;
+            h2{
+                margin-bottom:20px;
+            }
+    
+            p{
+                font-size:1.500rem;
+                color: #727272;
+                max-width:1000px;
+                margin-bottom:0;
+            }
+            
+        }
+        
+        .questionWrap{
+            padding:40px 10px;
+            // background: #F2F3F2;
+            border-radius: 10px;
+            border-bottom: 1px solid #A8A8A8;
+            border-radius:0;
+            @include min-992{
+                padding:45px 48px;
+            }
+            .heading{
+            &:after{
+                content:"";
+                background:url("../images/down_arrow.png") no-repeat;
+                display:block;
+                height: 10px;
+                width:18px;
+                background-size: contain;
+                transition: all 300ms;
+            }
+
+            h5{
+                font-size:1.500rem;
+                font-weight:bold;
+                // margin-bottom:20px;
+            }
+            
+        }
+
+        p{
+            margin-bottom:20px;
+        }
+        
+        .answerWrap{
+            max-height:0;
+            overflow:hidden;
+            transition: all 500ms;
+            
+            @include min-768{
+                padding-right:80px;
+            }
+            
+            @include min-1200{
+                padding-right:250px;
+            }
+
+            & > *{
+                font-size:1.125rem;
+            }
+
+            ul{
+                margin-bottom:0;
+                li{
+                    margin-bottom:5px;
+                    display:flex;
+                &:before{
+                    content:"-";
+                    margin-right:5px;
+                    display:inline-block;
+                    vertical-align: middle;
+                }
+                }
+            }
+        }
+
+        &.open{
+            background: #F2F3F2;
+            border-radius: 10px;
+            border-bottom:0;
+            padding: 40px 30px;
+            @include min-992{
+                padding:45px 48px;
+            }
+            .heading{
+                &:after{
+                    transition:all 300ms;
+                    transform: rotate(180deg);
+                }
+            }
+
+            .answerWrap{
+                max-height:500px;
+                transition: all 500ms;
+                padding-top:20px;
+            }
+        }
+
+        }
+
+    }
+
+}
+

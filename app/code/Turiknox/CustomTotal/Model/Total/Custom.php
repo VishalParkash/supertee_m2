@@ -62,14 +62,13 @@ class Custom extends AbstractTotal
 
         if($this->customerSession->isLoggedIn()) { 
             if($this->session->getData("discountVar") == "minus" ){
-            $amount = $this->helper->getAmount($this->customerSession->getCustomer()->getId());
+              $amount = $this->helper->getAmount($this->customerSession->getCustomer()->getId());
 
             // if($total->getGrandTotal() > $amount){
                 $amount = (-$amount);
                 $total->setGrandTotal((($total->getGrandTotal()) + ($amount)));
                 $total->setBaseGrandTotal((($total->getBaseGrandTotal()) + ($amount)));
-            // }
-            
+                
             // $total->addTotalAmount('custom', $amount);
             // $total->setTotalAmount('custom', $amount);
             // $total->setBaseTotalAmount('custom', $amount);

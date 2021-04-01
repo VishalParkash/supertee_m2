@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-translation/view/base/web/js/mage-translation-dictionary.js

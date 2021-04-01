@@ -1,0 +1,54 @@
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+?>
+<form data-hasrequired="* Required Fields" method="post" id="blog-form" action="<?php echo $this->getUrl('*/*/post') ?>" class="form contact" novalidate="novalidate">
+   <input type="hidden" value="<?php echo $this->getFormKey(); ?>" name="form_key">
+    <fieldset class="fieldset">
+        <legend class="legend"><span><i class="fa fa-edit"></i> Post Somthing</span>
+        <a href="<?php echo $this->getUrl('*/customer') ?>" class="action submit primary" style="float:right;">
+          <span><i class="fa fa-eye"></i> View All Post</span>
+          </a>
+        </legend><br>
+        <div class="field name required">
+            <label for="name" class="label"><span>Name</span></label>
+            <div class="control">
+                <input type="text" data-validate="{required:true}" class="input-text" value="<?php echo $customerSession->getCustomer()->getName(); ?>" title="Name" id="name" name="name" aria-required="true">
+            </div>
+        </div>
+        <div class="field name required">
+            <label for="title" class="label"><span>Title</span></label>
+            <div class="control">
+                <input type="text" data-validate="{required:true}" class="input-text" value="" title="Name" id="title" name="title" aria-required="true">
+            </div>
+        </div>
+        <div class="field comment required">
+            <label for="comment" class="label"><span>What’s on your mind?</span></label>
+            <div class="control">
+                <textarea data-validate="{required:true}" rows="3" cols="5" class="input-text" title="What’s on your mind?" id="content" name="content" aria-required="true"></textarea>
+            </div>
+        </div>
+            </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" value="" id="hideit" name="hideit">
+            <button class="action submit primary" title="Submit" type="submit">
+                <span><i class="fa fa-get-pocket"></i> Submit</span>
+            </button>
+            <button class="action submit primary" title="Reset" type="reset">
+                <span><i class="fa fa-refresh"></i> Reset</span>
+            </button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+   require([
+       'jquery',
+       'mage/mage'
+   ], function($){
+    
+      var dataForm = $('#blog-form');
+      dataForm.mage('validation', {});
+    
+   });
+</script>

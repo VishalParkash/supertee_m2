@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-backend/view/adminhtml/web/js/bootstrap/editor.js

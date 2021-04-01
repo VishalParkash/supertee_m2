@@ -1,0 +1,1 @@
+/var/www/html/stee_test/app/code/Forms/Registration/view/frontend/web/js/cart.js

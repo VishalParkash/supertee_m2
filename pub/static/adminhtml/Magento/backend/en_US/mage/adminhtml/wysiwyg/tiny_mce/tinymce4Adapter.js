@@ -1,0 +1,1 @@
+/var/www/html/stee_test/lib/web/mage/adminhtml/wysiwyg/tiny_mce/tinymce4Adapter.js

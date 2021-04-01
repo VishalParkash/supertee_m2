@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-inventory-in-store-pickup-frontend/view/frontend/web/js/view/shipping-information-ext.js

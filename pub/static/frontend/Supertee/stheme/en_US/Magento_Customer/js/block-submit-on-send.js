@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-customer/view/frontend/web/js/block-submit-on-send.js

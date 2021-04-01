@@ -4,8 +4,8 @@
         <observer name="forms_registration_add_custom_option" instance="Forms\Registration\Observer\AddCustomOption" />
     </event>
     <!-- <event name="checkout_cart_product_add_after"> -->
-    <!-- <event name="controller_action_predispatch_checkout_cart_index">
+    <event name="checkout_cart_product_add_after">
     		<observer name="set_custom_price_after_add_to_cart" instance="Forms\Registration\Observer\CustomPrice" />
-    </event> -->
+    </event>
     
 </config>

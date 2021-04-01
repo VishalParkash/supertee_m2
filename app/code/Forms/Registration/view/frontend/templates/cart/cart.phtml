@@ -1,8 +1,3 @@
-
-<?php
-
-?>
-
 <?php
 // die;
 
@@ -11,56 +6,95 @@
 
 // echo "<pre>";print_r($quote);die;
 
+// echo "<pre>";print_r($block->getCouponCode());die;
+
 
  $quote = $block->getQuoteData();
  $grandTotal = 0;
- $quote->collectTotals()->save();
+ $Subtotal = 0;
+ $discountTotal = 0;
+ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$parentProductIds = array();
 
+// $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+// $cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
+ 
+// $subTotal = $cart->getQuote()->getSubtotal();
+// echo $grandTotal = $cart->getQuote()->getGrandTotal();
 foreach($quote->getAllVisibleItems() as $_item) {
-//     echo "<pre>";print_r($_item->debug());
-//     echo 'ID: '.$_item->getProductId().'<br/>';
-//     echo 'Name: '.$_item->getName().'<br/>';
-//     echo 'Sku: '.$_item->getSku().'<br/>';
-//     echo 'Quantity: '.$_item->getQty().'<br/>';
-//     echo 'Price: '.$_item->getProduct()->getPrice().'<br/>';
-//     echo 'Product Type: '.$_item->getProductType().'<br/>';
-//     echo 'Discount: '.$_item->getDiscountAmount();echo "<br/>";
-//     echo 'Discount: '.$_item->getProduct()->getAttributeText('size');
-//     echo "tier " .$_item->getProduct()->getTierPrice($_item->getQty());
-// echo "<br/>";
-// echo "quoteid" .$_item->getId();
-//     echo "<br/>";
-
-    $grandTotal +=   ($_item->getProduct()->getTierPrice($_item->getQty()))*($_item->getQty());
-
-    if(!empty($_item->getDiscountAmount())){
-        $grandTotal = (($grandTotal) - ($_item->getDiscountAmount()));
-    }
-    $_item->getQuote()->setGrandTotal($grandTotal);
-
+    // echo "<pre>";print_r($_item->debug());
+    // echo 'ID: '.$_item->getProductId().'<br/>';
+    // echo 'Name: '.$_item->getName().'<br/>';
+    // echo 'Sku: '.$_item->getSku().'<br/>';
+    // echo 'Quantity: '.$_item->getQty().'<br/>';
+    // echo 'Price: '.$_item->getProduct()->getPrice().'<br/>';
+    // echo 'Product Type: '.$_item->getProductType().'<br/>';
+    // echo 'Discount: '.$_item->getDiscountAmount();echo "<br/>";
+    // echo 'Discount: '.$_item->getProduct()->getAttributeText('size');
+    // echo "tier " .$_item->getProduct()->getTierPrice($_item->getQty());
+    // echo "<br/>";
+    // echo "quoteid" .$_item->getId();
+    // echo "<br/>";
+    $productId = $_item->getProductId();
+    $product = $objectManager->create('Magento\ConfigurableProduct\Model\ResourceModel\Product\Type\Configurable')->getParentIdsByChild($productId);
+     if(isset($product[0])){
+         $parentProductIds[$product[0]][] = $_item->getQty();
+         $getParentId = $product[0];
+    }    
 }
+$QtyArr = array();
+foreach($parentProductIds as $key => $var){
+    $sum = 0;
+    foreach($var as $value){
+        $sum += $value;
+        
+    }
+    $QtyArr[$key] = $sum;
+}
+
+function getQty($parentProductId, $arr){
+    foreach($arr as $key => $qty){
+        if($parentProductId == $key){
+            return $qty;
+        }
+    }
+}
+// echo "<pre>";print_r($QtyArr);die;
+foreach($quote->getAllVisibleItems() as $_item) {
+    
+    $productId = $_item->getProductId();
+    $product = $objectManager->create('Magento\ConfigurableProduct\Model\ResourceModel\Product\Type\Configurable')->getParentIdsByChild($productId);
+     if(isset($product[0])){
+        $itemQty = getQty($product[0], $QtyArr);
+    } 
+
+
+    $grandTotal +=   ($_item->getProduct()->getTierPrice($itemQty))*($_item->getQty());
+    $Subtotal +=   ($_item->getProduct()->getTierPrice($itemQty))*($_item->getQty());
+    $discountTotal += $_item->getDiscountAmount();
+}
+// echo "<pre>quoteidfree";print_r($parentProductIds);
+// echo "discountTotal".$discountTotal;
+// die;
+ if(!empty($discountTotal)) {
+        $grandTotal = (($grandTotal) - ($discountTotal));
+        $disableElement = "disabled";
+    }else{
+        $disableElement = "";
+    }
+    $subTotal = $Subtotal;
+    $quote->collectTotals()->save();
+    // $_item->getQuote()->setGrandTotal($grandTotal);
+    // $_item->getQuote()->setGrandTotal($grandTotal);
 // die;
 
-// // Get total items and total quantity in current cart
-// echo $totalItems = $quote->getItemsCount();echo "<br/>";
-// echo $totalQuantity = $quote->getItemsQty();echo "<br/>";
- 
-// // //Get subtotal and grand total of customer current cart
-// echo $subTotal = $quote->getSubtotal();echo "<br/>";
-// echo $grandTotal = $quote->getGrandTotal();echo "<br/>";
- // die;
-// //Get billing and shipping addresses of current cart
-// $billingAddress = $quote->getBillingAddress();
-// echo "<pre>";print_r($billingAddress->getData());
-// $shippingAddress = $quote->getShippingAddress();
-// echo "<pre>";print_r($billingAddress->getData());
 ?>
 <?php 
 // die;
 //Get subtotal and grand total of customer current cart
 
 
-$subTotal = $quote->getSubtotal();
+
 
 // $grandTotal = $quote->getGrandTotal();
 
@@ -108,10 +142,10 @@ $itemsVisible = $cart->getQuote()->getAllVisibleItems();
 
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+$customSession = $objectManager->get('Forms\Registration\Model\Session');
 
-
+echo $this->getBlockHtml('formkey');
 ?>
-<?php echo $this->getBlockHtml('formkey'); ?>
 <style>
 
 #block-discount .title{
@@ -247,6 +281,12 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                         $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                                         $image_url = $imageHelper->init($item->getProduct(), 'product_thumbnail_image')->getUrl();
 
+                                        $productId = $item->getProductId();
+                                        $product = $objectManager->create('Magento\ConfigurableProduct\Model\ResourceModel\Product\Type\Configurable')->getParentIdsByChild($productId);
+                                         if(isset($product[0])){
+                                            $itemQty = getQty($product[0], $QtyArr);
+                                        }
+
                                         // $image_url = $imageHelper->init($item->getProduct(), 'small_image')->setImageFile($item->getProduct()->getSmallImage())->getUrl();
                                     	?>
 								                
@@ -318,7 +358,7 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
                                class="input-text qty"
                                data-validate="{required:true,'validate-greater-than-zero':true}"
-                               data-role="cart-item-qty"/>
+                               data-role="cart-item-qty" min="1" readonly/>
 
 
                                                     <div class="decr button">
@@ -333,7 +373,7 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                             <td>
                                                 <span class="price">
                                                     <strong>
-                                                        $<?php echo number_format($item->getProduct()->getTierPrice($item->getQty()), 2);?>
+                                                        $<?php echo number_format($item->getProduct()->getTierPrice($itemQty), 2);?>
                                                         <?php //echo number_format($item->getProduct()->getPrice(), 2); ?>
 
                                                     </strong>
@@ -439,12 +479,8 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                     </div>
                                     <div class="content" data-role="content" aria-labelledby="block-discount-heading">
                                         <form id="discount-coupon-form"
-                                            action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/couponPost') ?>"
-                                            method="post"
-                                            data-mage-init='{"discountCode":{"couponCodeSelector": "#coupon_code",
-                                                                            "removeCouponSelector": "#remove-coupon",
-                                                                            "applyButton": "button.action.apply",
-                                                                            "cancelButton": "button.action.cancel"}}'>
+                                            action="<?= /* @escapeNotVerified */ $block->getUrl('post/cart/coupon') ?>"
+                                            method="post">
                                             <div class="fieldset coupon<?= strlen($block->getCouponCode()) ? ' applied' : '' ?>">
                                                 <input type="hidden" name="remove" id="remove-coupon" value="0" />
                                                 <div class="field">
@@ -453,28 +489,30 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M11 14V16H9V14H11ZM14 11H16V9H14V11ZM16 19H14V21H16V19ZM19 14V16H21V14H19ZM18 11C18.2652 11 18.5196 11.1054 18.7071 11.2929C18.8946 11.4804 19 11.7348 19 12H21C21 11.2044 20.6839 10.4413 20.1213 9.87868C19.5587 9.31607 18.7957 9 18 9V11ZM19 18C19 18.2652 18.8946 18.5196 18.7071 18.7071C18.5196 18.8946 18.2652 19 18 19V21C18.7957 21 19.5587 20.6839 20.1213 20.1213C20.6839 19.5587 21 18.7957 21 18H19ZM12 19C11.7348 19 11.4804 18.8946 11.2929 18.7071C11.1054 18.5196 11 18.2652 11 18H9C9 18.7957 9.31607 19.5587 9.87868 20.1213C10.4413 20.6839 11.2044 21 12 21V19ZM15.21 13.79C14.43 14.57 13.163 14.572 12.382 13.792L12.38 13.79L8 9.41L6.57 10.85C6.85 11.356 6.997 11.923 7 12.5C7 13.1922 6.79473 13.8689 6.41015 14.4445C6.02556 15.0201 5.47894 15.4687 4.83939 15.7336C4.19985 15.9985 3.49612 16.0678 2.81719 15.9328C2.13825 15.7977 1.51461 15.4644 1.02513 14.9749C0.535644 14.4854 0.202301 13.8618 0.0672531 13.1828C-0.0677952 12.5039 0.00151649 11.8002 0.266423 11.1606C0.53133 10.5211 0.979934 9.97444 1.55551 9.58986C2.13108 9.20527 2.80777 9 3.5 9C4.077 9.003 4.644 9.15 5.15 9.43L6.59 8L5.15 6.57C4.64475 6.84941 4.07736 6.99728 3.5 7C2.80777 7 2.13108 6.79473 1.55551 6.41015C0.979934 6.02556 0.53133 5.47894 0.266423 4.83939C0.00151649 4.19985 -0.0677952 3.49612 0.0672531 2.81719C0.202301 2.13825 0.535644 1.51461 1.02513 1.02513C1.51461 0.535644 2.13825 0.202301 2.81719 0.0672531C3.49612 -0.0677952 4.19985 0.00151649 4.83939 0.266423C5.47894 0.53133 6.02556 0.979934 6.41015 1.55551C6.79473 2.13108 7 2.80777 7 3.5C6.99728 4.07736 6.84941 4.64475 6.57 5.15L8 6.59L11.88 2.71C12.2549 2.33504 12.7633 2.12422 13.2936 2.12384C13.8238 2.12347 14.3326 2.33357 14.708 2.708L14.71 2.71L9.41 8L15.21 13.79ZM3.5 5C3.69705 4.99994 3.89216 4.96106 4.07418 4.88559C4.2562 4.81012 4.42158 4.69954 4.56087 4.56016C4.70016 4.42078 4.81063 4.25533 4.88597 4.07326C4.96132 3.89118 5.00007 3.69605 5 3.499C4.99994 3.30195 4.96106 3.10685 4.88559 2.92482C4.81012 2.7428 4.69954 2.57742 4.56016 2.43813C4.42078 2.29885 4.25533 2.18838 4.07326 2.11303C3.89118 2.03768 3.69605 1.99894 3.499 1.999C3.10104 1.99913 2.71944 2.15735 2.43813 2.43884C2.15683 2.72033 1.99887 3.10204 1.999 3.5C1.99913 3.89796 2.15735 4.27956 2.43884 4.56087C2.72033 4.84217 3.10204 5.00013 3.5 5ZM5 12.5C4.99994 12.303 4.96106 12.1078 4.88559 11.9258C4.81012 11.7438 4.69954 11.5784 4.56016 11.4391C4.42078 11.2998 4.25533 11.1894 4.07326 11.114C3.89118 11.0387 3.69605 10.9999 3.499 11C3.30195 11.0001 3.10685 11.0389 2.92482 11.1144C2.7428 11.1899 2.57742 11.3005 2.43813 11.4398C2.29885 11.5792 2.18838 11.7447 2.11303 11.9267C2.03768 12.1088 1.99894 12.304 1.999 12.501C1.99913 12.899 2.15735 13.2806 2.43884 13.5619C2.72033 13.8432 3.10204 14.0011 3.5 14.001C3.89796 14.0009 4.27956 13.8427 4.56087 13.5612C4.84217 13.2797 5.00013 12.898 5 12.5Z" fill="#151515"></path>
                                             </svg>
-                                                        <input type="text" class="input-text" id="coupon_code" name="coupon_code" required value="<?= $block->escapeHtml($block->getCouponCode()) ?>" placeholder="<?= $block->escapeHtml(__('Enter code')) ?>" <?php if (strlen($block->getCouponCode())): ?> disabled="disabled" <?php endif; ?> />
+                                                        <input type="text" class="input-text" id="coupon_code" name="coupon_code" value="<?php if(!empty($block->getCouponCode())){ echo $block->getCouponCode(); } ?>" placeholder="<?= $block->escapeHtml(__('Enter code')) ?>" <?php if (strlen($block->getCouponCode())): ?> disabled="disabled" <?php endif; ?> />
                                                         <!-- <span datasidebarright="viewCoupons">View coupons</span> -->
                                                     </div>
                                                     <div class="actions-toolbar">
-                                                    <?php if (!strlen($block->getCouponCode())): ?>
+                                                    <?php  
+                                                    if (!strlen($block->getCouponCode())){ 
+                                                    ?>
                                                         <div class="primary">
-                                                            <button class="action apply btn-outline-primary" id="applyCoupon" value="<?= /* @escapeNotVerified */ __('Apply') ?>">
-                                                                <span><?= /* @escapeNotVerified */ __('Apply') ?></span>
+                                                            <button class="action apply btn-outline-primary" id="applyCoupon" value="Apply" name="applyCoupon">
+                                                                <span>Apply</span>
                                                             </button>
                                                         </div>
-                                                    <?php else: ?>
+                                                    <?php }else{ ?>
                                                         <div class="primary">
-                                                            <button  type="button" class="action cancel primary" value="<?= /* @escapeNotVerified */ __('Cancel Coupon') ?>"><span><?= /* @escapeNotVerified */ __('Cancel Coupon') ?></span></button>
+                                                            <button  type="button" class="action cancel primary" value="<?= /* @escapeNotVerified */ __('Cancel Coupon') ?>" name="CancelCoupon"><span><?= /* @escapeNotVerified */ __('Cancel Coupon') ?></span></button>
                                                         </div>
-                                                    <?php endif; ?>
+                                                    <?php } ?>
                                                 </div>
                                                 </div>                                                
                                             </div>
                                         </form>                                 
                                     </div>
                                 </div>
-                                
+                                    
                                 <?php if($customerSession->isLoggedIn()) { 
 
                                     $points = ($block->getUserRewardPoints($customerSession->getCustomer()->getId()));
@@ -482,7 +520,7 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                     ?>
                                     <div>
                                     <label class="checkUnCheck">
-                                        <input type="checkbox" name="redeemPoints" id="redeemPoints" value="<?php echo number_format($calculations, 2); ?>" class="redeemPoints" />
+                                        <input type="checkbox" name="redeemPoints" id="redeemPoints" value="<?php echo number_format($calculations, 2); ?>" class="redeemPoints"<?php if(!empty($disableElement)){ echo $disableElement; }?> />
                                         <span class="checkUnCheckBox"></span>
                                         <span class="checkUnCheckText">Redeem <b><? echo $points;?></b> points <b
                                                 class="text-blue">($<?php echo number_format($calculations, 2); ?> off)</b></span>
@@ -495,16 +533,18 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
                                     <ul class="list-unstyled">
                                         <li>
                                             <span>Cart total</span>
-                                            <b id="cartTotal">$<?php echo number_format($grandTotal, 2);?></b>
+                                            <!-- <b id="cartTotal"><?php //echo number_format($grandTotal, 2);?></b> -->
+                                            <b id="cartTotal">$<?php echo number_format($subTotal, 2);?></b>
                                         </li>
                                         <li id="discountLi">
                                             <span>Discount</span>
-                                            <span>$<?php echo number_format($item->getDiscountAmount() , 2);?></span>
+                                            <span>$<?php echo number_format($discountTotal , 2);?></span>
                                         </li>
 
                                         <li>
                                             <span>Grand total</span>
                                             <b id="grandTotal">$<?php echo number_format($grandTotal, 2);?></b>
+                                            <input type="hidden" id="updateTotal">
                                         </li>
                                     </ul>
 
@@ -544,6 +584,7 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
             </div>
         </section>
     </main>
+    <div class="response-msg"></div>
     <script type="text/x-magento-init">
 {
     "*": {
@@ -570,7 +611,18 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
         }
     </script>
 
-
+<script>
+    require ([
+            'jquery'
+        ],
+        function ($) {
+            $(window).on("load", function () {
+                require([
+                    'Forms_Registration/js/cart'
+                ]);
+            });
+        });
+</script>
 <script type="text/javascript">
     
         require([ 'jquery'], function($){ 
@@ -592,7 +644,7 @@ $(".quantityWrap input").focusout(function(){
     var value = $(this).val();
      
     if(value <= 1){
-        value = 0;
+        value = 1;
         $(this).val(value);
     }
 })
@@ -600,7 +652,9 @@ $(".quantityWrap input").focusout(function(){
 $('.quantityWrap .decr').click(function subst() {
     var $totalProd = $(this).parents(".quantityWrap").find('input');
         var b = $totalProd.val();
-    if (b >= 1) {
+    if (b > 1) {
+    // if (b && b >= 1) {
+    // if ((b > 0) && (b >=1 )) {
         b--;
         $totalProd.val(b);
             // console.log('decr value'+ b);
@@ -642,9 +696,58 @@ $('.quantityWrap .decr').click(function subst() {
     });
     });
 
+    disableElement = "<?php echo $disableElement?>";
+    if(disableElement !="" && disableElement == "disabled"){
+
+        var action = "plus";
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo $block->getBaseUrl(); ?>cart/checkout/update/",
+                showLoader: true,
+                data: {action:action}, //--> send id of checked checkbox on other page
+                success: function(data) {
+                    // alert('it worked');
+                    if(data.output == true){
+                        $('.response-msg').html("<div class='notify error' style='width:auto;'><h6>Redeem Points are returned as you have applied coupon.</h6></div>");
+                removeMessageResponse();
+                $(this).prop('checked', false); // Unchecks it
+                return;
+                    }
+                    // $('#container').html(data);
+                },
+                 error: function() {
+                    alert('Something went wrong.');
+                },
+                complete: function() {
+                    // alert('it completeompleted');
+                }
+            });
+    }
+
     $('.redeemPoints').click(function() {
     // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+    if($(this).prop('disabled')){
+        alert("You cannot redeem points once you apply coupon")
+        $('.response-msg').html("<div class='notify error' style='width:auto;'><h6>You cannot redeem points once you apply coupon.</h6></div>");
+                
+                $(this).prop('checked', false); // Unchecks it
+                removeMessageResponse();
+        return false;
+    }
+    var grandTotal = "<?php echo ($grandTotal);?>";
+    
+    var amount = $('#'+this.id).val();
+    
        if(this.checked){
+            if( parseFloat(amount) > parseFloat(grandTotal)){
+                console.log("amount."+amount);
+                console.log("grandTotal."+grandTotal);
+                $('.response-msg').html("<div class='notify error' style='width:auto;'><h6>Your total is less than the redeem value.</h6></div>");
+                removeMessageResponse();
+                $(this).prop('checked', false); // Unchecks it
+                return false;
+            }
             var action = "minus";
         }else{
             var action = "plus";
@@ -653,6 +756,7 @@ $('.quantityWrap .decr').click(function subst() {
         var quoteId = "<?php echo $quoteId;?>";
         // alert("cheked");
         // return false;
+        // var withFormatgrandTotal = "<?php echo number_format($grandTotal, 2);?>";
             $.ajax({
                 type: "POST",
                 url: "<?php echo $block->getBaseUrl(); ?>cart/checkout/update/",
@@ -662,21 +766,23 @@ $('.quantityWrap .decr').click(function subst() {
                     // alert('it worked');
                     if(data.output == true){
                         if(action == "minus"){
-                            var grandTotal = "<?php echo $grandTotal;?>";
-                            // var cartTotal = "<?php echo $grandTotal;?>";
-                            grandTotal = (grandTotal- amount);
-                            // cartTotal = (grandTotal- amount);
+                            // var withFormatgrandTotal = "<?php //echo number_format($grandTotal, 2);?>";
+                            // console.log(withFormatgrandTotal);
+                            console.log(amount);
+                            // var cartTotal = "<?php //echo $grandTotal;?>";
+                            newGrandTotal = ((grandTotal)- (amount));
+                            console.log(newGrandTotal);
 
                             alert("Reward points will be deducted from the total amount");
                             // $('#cartTotal').text('$'+grandTotal);
-                            $('#grandTotal').text('$'+grandTotal);
+                            $('#grandTotal').text('$'+newGrandTotal.toFixed(2));
                             $("#discountLi").after('<li id="rewardsPoints"><span>Reward points</span><b>$'+amount+'</b></li>');
                             return false;
                         }else{
-                            grandTotal = "<?php echo number_format($grandTotal, 2);?>";
+                            var withFormatgrandTotal = "<?php echo number_format($grandTotal, 2);?>";
                             // grandTotal = 
                             // grandTotal = 
-                            $('#grandTotal').text('$'+grandTotal);
+                            $('#grandTotal').text('$'+withFormatgrandTotal);
                             $("#rewardsPoints").css("display", "none");
                             return false;
                         }
@@ -690,17 +796,13 @@ $('.quantityWrap .decr').click(function subst() {
                     // alert('it completeompleted');
                 }
             });
-
-            $('#applyCoupon').click(function(){
-                alert("jsjs");return false;
-                // if(($('#coupon_code').val()) == ''){
-                //     alert("No coupon code entered");
-                //     return false;
-                // }else{
-                //     return true;
-                // }
-            });
       });
+
+    function removeMessageResponse(){
+            setTimeout(function(){
+          $('.response-msg').remove();
+        }, 5000);
+        }
     // $("#redeemPoints").click(function(){
     //     id = this.id;
     //     // alert(id);

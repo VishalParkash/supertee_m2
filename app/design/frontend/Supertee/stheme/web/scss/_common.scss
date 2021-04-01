@@ -167,13 +167,13 @@ a{
     // -webkit-transform: translateY(-0.1rem);
     // transform: translateY(-0.1rem);
     @include min-1200 {
-      -webkit-transform: translateY(-0.2rem);
-      transform: translateY(-0.2rem);
+      -webkit-transform: translateY(0.1rem);
+      transform: translateY(0.1rem);
     }
   }
   span + svg, b + svg {
-    -webkit-transform: translateY(-0.1rem);
-    transform: translateY(-0.1rem);
+    -webkit-transform: translateY(0.1rem);
+    transform: translateY(0.1rem);
   }
   span, b {
     line-height: 100%;

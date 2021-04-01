@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/amzn/login-with-amazon-module/view/frontend/web/js/amazon-logout.js

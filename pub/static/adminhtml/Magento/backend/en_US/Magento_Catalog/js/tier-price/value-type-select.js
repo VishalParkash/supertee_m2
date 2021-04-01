@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-catalog/view/adminhtml/web/js/tier-price/value-type-select.js

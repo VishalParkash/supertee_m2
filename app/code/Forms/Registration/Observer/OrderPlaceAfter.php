@@ -32,6 +32,7 @@ class OrderPlaceAfter implements ObserverInterface {
 
         $order 	= $observer->getEvent()->getOrder();
         // echo "<pre>";print_r($order->getData());die;
+        $order_id = $order->getId();
         $storeId = $order->getData()['store_id'];
         $firstName = $order->getData()['customer_firstname'];
         $lastName = $order->getData()['customer_lastname'];
@@ -61,8 +62,12 @@ class OrderPlaceAfter implements ObserverInterface {
         //"INSERT INTO ".$storeSetup_info."(client_id, customStore_id, store_id, storeCode, theme_id, updatesNotification, desktopNotification, pushNotification, status) VALUES ('".$getMyClientId."', '".$parent_id."', '".$storeId."', '".$storeCode."', '".$getTheme."', '".$post['updatesNotification']."', '".$post['desktopNotification']."', '".$post['pushNotification']."', '".$changeStatus."')";
                 // $this->connection->query($InsertOrderCustomer_table);
                 // $lastInsertedId = $this->connection->lastInsertId();
-
-        $InsertOrderCustomer_table = "INSERT INTO OrderCustomer_table(customer_email, customer_firstname, customer_lastname, store_id, customer_phone, customer_location, customer_address, customer_city, customer_postcode, customer_registration_date) VALUES ('".$customer_email."', '".$firstName."', '".$lastName."', '".$storeId."', '".$customer_telephone."', '".$customer_location."', '".$customer_address."', '".$customer_city."', '".$customer_postcode."', NOW())";
+        if(($customer->isLoggedIn())){
+            $customerId = $customer->getId();
+        }else{
+            $customerId = "";
+        }
+        $InsertOrderCustomer_table = "INSERT INTO OrderCustomer_table(customer_email, customer_firstname, customer_lastname, store_id, customer_phone, customer_location, customer_address, customer_city, customer_postcode, customer_registration_date, customer_id, order_id) VALUES ('".$customer_email."', '".$firstName."', '".$lastName."', '".$storeId."', '".$customer_telephone."', '".$customer_location."', '".$customer_address."', '".$customer_city."', '".$customer_postcode."', NOW(), '".$customerId."', '".$order_id."')";
             $this->connection->query($InsertOrderCustomer_table);
 
         // echo "<pre>";print_r($customer->getData());die;

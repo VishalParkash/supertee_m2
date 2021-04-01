@@ -127,15 +127,6 @@ function getBaseUrl(){
                         // $customer->setMyMessage($referralMsg);
                         return $resultJson->setData($referralMsg);
 
-                //          $this->messageManager->addSuccess(
-                //     __('Congratulations you have been successfully redirected to this page and your message is displaying'),
-                //     'message_manager_example'
-                // );
-                         // $resultRedirect = $this->resultRedirectFactory->create(); 
-
-                        //  $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-                        // $resultRedirect->setPath('/magento');
-                        // return $resultRedirect;
                     }
                 }
 
@@ -156,10 +147,7 @@ function getBaseUrl(){
                 $email = new \Zend_Mail();
                 $email->setSubject("You are referred by your friend to join Supertee");
                 $email->setBodyHtml($msg);
-                // $email->setBodyText("You have been referred by your friend ".$referralUserName." to join Supertee.");
-                // $email->setBodyText("Here you can customise the products online and get it delivered at your door step.");
-                // $email->setBodyText("Please click the below given link to join the application.");
-                // $email->setBodyText("hope you are good");
+
                 $email->setFrom($referralUserEmail, "Supertee");
                 $email->addTo($recipient_email, "Friend");
                 if($email->send()){

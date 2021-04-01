@@ -1,0 +1,116 @@
+// .manageAccountOrders {}
+.manageAccountOrdersList {
+    .pageTopActions {
+        margin-top: 0;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $borderLight;
+        .dropdown {
+            &:nth-child(1) {
+                margin-left: 0;
+            }
+        }
+    }
+    h5 {
+        font-size: 1.125em;
+        line-height: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: $primaryColor;
+        span {
+            color: $borderLight2;
+        }
+    }
+    p {
+        font-size: 1.125em;
+        line-height: 1.2em;
+        margin-bottom: 10px;
+        color: $borderLight2;
+        b {
+            color: $primaryColor;
+        }
+        span {
+            padding: 0 5px;
+            font-weight: 100;
+        }
+    }
+    .manageAccountOrderTitle {
+        margin-bottom: 30px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        h5 {
+            margin: 0;
+            &:nth-child(1) {
+                -webkit-box-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+            }
+        }
+        button {
+            margin: -3px 0 0 25px;
+            b {
+                font-size: 1.125em;
+            }
+        }
+    }
+    .manageAccountOrder {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        &:not(:last-child) {
+            margin-bottom: 25px;
+        }
+        .manageAccountOrderContent {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            .manageAccountOrderImg {
+                img {
+                    width: 71px;
+                    height: inherit;
+                    display: block;
+                }
+            }
+            .manageAccountOrderText {
+                -webkit-box-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                padding-left: 40px;
+            }
+        }
+        .manageAccountOrderActions {
+            button {
+                &:not(:last-child) {
+                    margin-right: 25px;
+                }
+            }
+        }
+        &+.manageAccountOrderTitle {
+            padding-top: 20px;
+        }
+    }
+    .orderMoreItems {
+        border-top: 1px solid $borderLight;
+        padding: 25px 0 0 0;
+        h5 {
+            margin: 0;
+        }
+    }
+    .btn-primary {
+        svg {
+            position: relative;
+            bottom: -2px;
+        }
+    }
+}

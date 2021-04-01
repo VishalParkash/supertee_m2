@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-variable/view/adminhtml/web/js/config-directive-generator.js

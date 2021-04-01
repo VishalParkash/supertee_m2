@@ -50,6 +50,15 @@ foreach ($collection as $simg) {
 
 // Size
 $data = $product->getTypeInstance()->getConfigurableOptions($product);
+$_children = $product->getTypeInstance()->getUsedProducts($product);
+if(!empty($_children)){
+    foreach ($_children as $child){
+                        $pricingArr[] = ($child->getPrice());
+    }
+    $configurablePrice = number_format(min($pricingArr), 2);
+}
+                    
+                    
 $options = array();
 $size_array = array();
 foreach($data as $attr){
@@ -62,7 +71,8 @@ foreach($data as $attr){
     if(!empty($options)){
         foreach($options as $sku =>$d){
             $pr = $repository->get($sku);
-            if(!empty($d['size']) && $pr->getColor() == $colorArray[0]){
+            // if(!empty($d['size']) && $pr->getColor() == $colorArray[0]){
+            if(!empty($d['size'])){
                 $size_array[] = array("size"=>$d['size'],"price"=>$pr->getPrice(),"id" => $pr->getId());
             }
             
@@ -70,16 +80,18 @@ foreach($data as $attr){
     }
 
 }
-
+if (empty($size_array)) {
+    $sizeval = $product->getResource()->getAttribute('size')->getFrontend()->getValue($product);
+    $size_array[] = array("size"=>$sizeval,"price"=>$product->getPrice(),"id" => $product->getId());
+    //$childrenIds [] = $product->getId();
+}
 $productid = (isset($currentId))?$currentId:$product->getId();
 $currentProduct = $objectManager->get('Magento\Catalog\Api\ProductRepositoryInterface')->getById($productid);
 
-if(!empty($block->getTierPrice())){  
-    $tier_price = $block->getTierPrice();    
-} else {
-    // $productid = (isset($currentId))?$currentId:$product->getId();
-    // $currentProduct = $objectManager->get('Magento\Catalog\Api\ProductRepositoryInterface')->getById($productid);
+if(isset($currentProduct)){ 
     $tier_price = $currentProduct->getTierPrice();
+} else {    
+    $tier_price = $block->getTierPrice();    
 }
 
 if(!empty($product->getRelatedProducts())){
@@ -93,7 +105,26 @@ if(!empty($block->getCurrentCategory())){
 }else{
     $getCurrentCategory = "";   
 }
+$wishlistHelper = $objectManager->get('Magento\Wishlist\Helper\Data');
+$checkWishlist = $wishlistHelper->getWishlistItemCollection();
+$checkList = false;
+foreach ($checkWishlist as $_wishlist_item){
+    if($product->getId() == $_wishlist_item->getProduct()->getId()){
+        $checkList = true;
+        break;
+    }
+}
 
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+$customerId = $customerSession->getId();
+// $wishlist = $objectManager->create('Magento\Wishlist\Model\Wishlist');
+// $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollection();
+// foreach ($wishlistCollection as $item) {
+//     if ($item->getProductId() == $product->getId()) {
+//         $item->delete();
+//     }
+// }
+// die();
 ?>
 
 <main class="main">
@@ -176,16 +207,50 @@ if(!empty($block->getCurrentCategory())){
                                                 </button>
                                             </div> -->
                                         </div>
-                                        <a href="" data-post='<?php  echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product) ?>' class="action towishlist" data-action="add-to-wishlist">
-                                        <button class="productWishlistBtn">
-                                            <svg width="31" height="27" viewBox="0 0 31 27" fill="none"
+                                        <?php if($checkList){?>
+                                        
+                                        <!-- <a href="javascript:void(0)"  data-post='<?php  //echo $this->helper('Magento\Wishlist\Helper\Data')->getRemoveParams($product) ?>' class="action towishlist addedToWishList" data-action="add-to-wishlist"> -->
+                                        <a href="javascript:void(0)" class="action towishlist addedToWishList" data-id="<?=$customerId.'-'.$product->getId()?>" data-action="add-to-wishlist">
+ 
+                                            <button class="productWishlistBtn">
+                                            <svg width="31" height="27" viewBox="0 0 24 21"
+                                                fill="#C7452A" stroke="#C7452A"
+                                                stroke-width="0.2"
                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M24.7877 16.7959C22.5255 19.4195 19.1212 22.2997 16.4379 24.2056C16.058 24.4744 15.5604 24.4842 15.171 24.2299C12.4136 22.4359 8.90106 19.698 6.54365 17.1717C4.52974 15.0116 1.86883 11.7422 2.00529 8.28666C2.1194 5.34443 4.32623 2.36692 8.32112 2.36692C8.39876 2.36692 8.47522 2.36814 8.55286 2.37057C11.5443 2.45693 13.7794 5.58161 13.7959 5.60593L14.4817 6.59844C14.9687 7.30268 15.9886 7.282 16.4485 6.5583L17.0955 5.53782C17.1167 5.5062 19.2306 2.29638 22.2091 2.08717C22.3914 2.07501 22.5726 2.06893 22.7502 2.06893C26.551 2.06893 28.7602 4.91751 28.9802 7.73203C29.2484 11.1802 26.7157 14.5567 24.7877 16.7959ZM30.9741 7.5654C30.6588 3.53579 27.458 0 22.7502 0C22.5279 0 22.302 0.00851411 22.0727 0.0255423C18.7942 0.254207 16.4673 2.97994 15.6992 4.01136C15.5545 4.20476 15.2839 4.21084 15.1322 4.02231C14.324 3.02373 11.896 0.398947 8.60932 0.301643C8.51286 0.29921 8.4164 0.29921 8.32112 0.29921C3.39809 0.29921 0.169008 4.05028 0.00667155 8.20395C-0.158018 12.3832 2.75933 16.0929 5.1038 18.6058C8.2223 21.9482 12.8665 25.3185 15.6721 26.9508C15.7909 27.0189 15.9239 27.0165 16.0403 26.9423C18.7836 25.1969 23.2925 21.638 26.2816 18.1715C28.5261 15.5626 31.2976 11.7385 30.9741 7.5654Z"
-                                                    fill="black"></path>
+                                                <path
+                                                    d="M15.1614 18.1119L15.1606 18.1125C14.3849 18.7736 13.5061 19.5226 12.5947 20.3195C12.335 20.5469 12.0018 20.6721 11.6562 20.6721C11.3108 20.6721 10.9774 20.5469 10.7179 20.3198C9.80441 19.521 8.92427 18.7708 8.14715 18.1088L8.14714 18.1087L8.14082 18.1034C5.87182 16.1696 3.9028 14.4916 2.53088 12.8361C0.992397 10.9798 0.269085 9.21039 0.269085 7.27252C0.269085 5.39493 0.912827 3.65876 2.08622 2.38597C3.27396 1.09774 4.90435 0.388281 6.67521 0.388281C8.00089 0.388281 9.21568 0.807881 10.2833 1.63354C10.7881 2.02391 11.2475 2.49563 11.6562 3.0413C12.0648 2.49562 12.5244 2.0239 13.029 1.63355L13.029 1.63355C14.0966 0.807881 15.3114 0.388281 16.6371 0.388281C18.4081 0.388281 20.0383 1.09774 21.2261 2.38596L21.2261 2.38597C22.3994 3.65875 23.0434 5.39492 23.0434 7.27252C23.0434 9.21039 22.3199 10.9798 20.7814 12.8363L20.7044 12.7724L20.7814 12.8363C19.4091 14.492 17.4392 16.1707 15.1691 18.1053L15.1654 18.1084L15.1646 18.1091L15.1614 18.1119ZM19.6094 11.8649L19.6864 11.9287L19.6094 11.8649C20.9371 10.2628 21.5212 8.84857 21.5212 7.27252C21.5212 5.77284 21.017 4.40496 20.107 3.41781C19.2108 2.44595 17.9793 1.91065 16.6371 1.91065C15.6566 1.91065 14.7567 2.2219 13.9603 2.83769C13.2488 3.38797 12.7515 4.08538 12.4591 4.5755L12.4591 4.57553C12.2888 4.86079 11.9882 5.03159 11.6562 5.03159C11.3242 5.03159 11.0236 4.86079 10.8534 4.57553L10.9392 4.52427L10.8534 4.57553C10.5608 4.08538 10.0635 3.38797 9.35211 2.83769C8.55572 2.2219 7.65588 1.91065 6.67521 1.91065C5.33313 1.91065 4.10147 2.44596 3.20549 3.4178C2.29544 4.40495 1.79128 5.77283 1.79128 7.27252C1.79128 8.84857 2.37531 10.2628 3.70291 11.8649C4.9894 13.4173 6.90505 15.05 9.13455 16.9502C9.8962 17.599 10.7572 18.3329 11.658 19.1166C12.5536 18.3344 13.4132 17.6017 14.1732 16.954L14.1741 16.9533L14.1774 16.9505C14.1775 16.9504 14.1776 16.9503 14.1777 16.9502C16.4072 15.0502 18.3229 13.4172 19.6094 11.8649Z" />
+                                            </svg>
+                                            </button>
+                                        </a>
+                                        <?php }else{?>
+                                        <?php if (!empty($customerId)){?>
+                                            <a href="" data-post='<?php  echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product) ?>' class="action towishlist" data-action="add-to-wishlist">
+                                        <? }else{?>
+                                           <a href="#" class="action towishlist showlogin">
+                                        <? }?> 
+                                            <button class="productWishlistBtn">
+                                                <svg width="31" height="27" viewBox="0 0 31 27" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M24.7877 16.7959C22.5255 19.4195 19.1212 22.2997 16.4379 24.2056C16.058 24.4744 15.5604 24.4842 15.171 24.2299C12.4136 22.4359 8.90106 19.698 6.54365 17.1717C4.52974 15.0116 1.86883 11.7422 2.00529 8.28666C2.1194 5.34443 4.32623 2.36692 8.32112 2.36692C8.39876 2.36692 8.47522 2.36814 8.55286 2.37057C11.5443 2.45693 13.7794 5.58161 13.7959 5.60593L14.4817 6.59844C14.9687 7.30268 15.9886 7.282 16.4485 6.5583L17.0955 5.53782C17.1167 5.5062 19.2306 2.29638 22.2091 2.08717C22.3914 2.07501 22.5726 2.06893 22.7502 2.06893C26.551 2.06893 28.7602 4.91751 28.9802 7.73203C29.2484 11.1802 26.7157 14.5567 24.7877 16.7959ZM30.9741 7.5654C30.6588 3.53579 27.458 0 22.7502 0C22.5279 0 22.302 0.00851411 22.0727 0.0255423C18.7942 0.254207 16.4673 2.97994 15.6992 4.01136C15.5545 4.20476 15.2839 4.21084 15.1322 4.02231C14.324 3.02373 11.896 0.398947 8.60932 0.301643C8.51286 0.29921 8.4164 0.29921 8.32112 0.29921C3.39809 0.29921 0.169008 4.05028 0.00667155 8.20395C-0.158018 12.3832 2.75933 16.0929 5.1038 18.6058C8.2223 21.9482 12.8665 25.3185 15.6721 26.9508C15.7909 27.0189 15.9239 27.0165 16.0403 26.9423C18.7836 25.1969 23.2925 21.638 26.2816 18.1715C28.5261 15.5626 31.2976 11.7385 30.9741 7.5654Z"
+                                                        fill="black"></path>
+                                                </svg>
+                                            </button>
+                                        </a>
+                                        <?php } ?>
+                                        <!-- <a href="" data-post='<?php  //echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product) ?>' class="action towishlist" data-action="add-to-wishlist">
+
+                                        <button class="productContentWishList">
+                                            <svg width="24" height="21" viewBox="0 0 24 21"
+                                                fill="#C7452A" stroke="#C7452A"
+                                                stroke-width="0.2"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M15.1614 18.1119L15.1606 18.1125C14.3849 18.7736 13.5061 19.5226 12.5947 20.3195C12.335 20.5469 12.0018 20.6721 11.6562 20.6721C11.3108 20.6721 10.9774 20.5469 10.7179 20.3198C9.80441 19.521 8.92427 18.7708 8.14715 18.1088L8.14714 18.1087L8.14082 18.1034C5.87182 16.1696 3.9028 14.4916 2.53088 12.8361C0.992397 10.9798 0.269085 9.21039 0.269085 7.27252C0.269085 5.39493 0.912827 3.65876 2.08622 2.38597C3.27396 1.09774 4.90435 0.388281 6.67521 0.388281C8.00089 0.388281 9.21568 0.807881 10.2833 1.63354C10.7881 2.02391 11.2475 2.49563 11.6562 3.0413C12.0648 2.49562 12.5244 2.0239 13.029 1.63355L13.029 1.63355C14.0966 0.807881 15.3114 0.388281 16.6371 0.388281C18.4081 0.388281 20.0383 1.09774 21.2261 2.38596L21.2261 2.38597C22.3994 3.65875 23.0434 5.39492 23.0434 7.27252C23.0434 9.21039 22.3199 10.9798 20.7814 12.8363L20.7044 12.7724L20.7814 12.8363C19.4091 14.492 17.4392 16.1707 15.1691 18.1053L15.1654 18.1084L15.1646 18.1091L15.1614 18.1119ZM19.6094 11.8649L19.6864 11.9287L19.6094 11.8649C20.9371 10.2628 21.5212 8.84857 21.5212 7.27252C21.5212 5.77284 21.017 4.40496 20.107 3.41781C19.2108 2.44595 17.9793 1.91065 16.6371 1.91065C15.6566 1.91065 14.7567 2.2219 13.9603 2.83769C13.2488 3.38797 12.7515 4.08538 12.4591 4.5755L12.4591 4.57553C12.2888 4.86079 11.9882 5.03159 11.6562 5.03159C11.3242 5.03159 11.0236 4.86079 10.8534 4.57553L10.9392 4.52427L10.8534 4.57553C10.5608 4.08538 10.0635 3.38797 9.35211 2.83769C8.55572 2.2219 7.65588 1.91065 6.67521 1.91065C5.33313 1.91065 4.10147 2.44596 3.20549 3.4178C2.29544 4.40495 1.79128 5.77283 1.79128 7.27252C1.79128 8.84857 2.37531 10.2628 3.70291 11.8649C4.9894 13.4173 6.90505 15.05 9.13455 16.9502C9.8962 17.599 10.7572 18.3329 11.658 19.1166C12.5536 18.3344 13.4132 17.6017 14.1732 16.954L14.1741 16.9533L14.1774 16.9505C14.1775 16.9504 14.1776 16.9503 14.1777 16.9502C16.4072 15.0502 18.3229 13.4172 19.6094 11.8649Z" />
                                             </svg>
                                         </button>
-                                    </a>
+
+                                        </a> -->
                                     </div>
                                 </div>
                                 <div class="productImageContent">
@@ -193,9 +258,12 @@ if(!empty($block->getCurrentCategory())){
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Quantity</th>
+                                                <th>Min Quantity</th>
+                                                <th>Max Quantity</th>
                                                 <th>Price</th>
+                                                <?php if(!empty($tier_price[0]['percentage_value'])){?>
                                                 <th>Discount</th>
+                                                <?php }?>
                                             </tr>
                                         </thead>
                                         <tbody id="bundle-price">
@@ -205,12 +273,19 @@ if(!empty($block->getCurrentCategory())){
                                         ?>
                                         <input value="<?=$min?>" id="tierMinPrice" type="hidden"/>
                                         <?php
-                                            foreach($tier_price as $pirces){ 
+                                            for ($j=0; $j<count($tier_price); $j++) { 
                                         ?>
                                             <tr>
-                                                <td><?=round($pirces['price_qty'])?></td>
-                                                <td><?php echo number_format($pirces['price'], 2)?></td>
-                                                <td><?=round($pirces['percentage_value']).'%'?></td>
+                                                <td><?=round($tier_price[$j]['price_qty'])?></td>
+                                                <td><? $maxqty = (!empty($tier_price[$j+1]['price_qty']))?round($tier_price[$j+1]['price_qty'] - 1):'+'; echo $maxqty;?></td>
+                                                <td><?php echo number_format($tier_price[$j]['price'], 2)?></td>
+                                                <?php if (!empty($tier_price[$j]['percentage_value']) && $tier_price[$j]['percentage_value'] > 0){?>
+                                                <td>
+                                                    <?=round($tier_price[$j]['percentage_value']).'%'?>
+                                                </td>
+                                                <?php
+                                                    }
+                                                ?>
                                             </tr> 
                                                 
                                             <!-- <tr>
@@ -328,7 +403,7 @@ if(!empty($block->getCurrentCategory())){
                                         <!-- <h4 class="actual"><?php //echo $currencySymbol;?><?php //echo number_format($block->getSpecialPrice(), 2); ?></h4> -->
                                         <h4 class="actual"><?php echo $currencySymbol;?>
                                             <?php
-                                                $fprice = (!empty($currentId))?$currentProduct->getFinalPrice():$block->getPrice();
+                                                $fprice = (!empty($currentId))? $configurablePrice:$block->getPrice();
                                                 echo number_format($fprice, 2);
                                             ?>
                                         </h4>
@@ -807,58 +882,9 @@ if(!empty($block->getCurrentCategory())){
                                     </div>
                                 </div>
 
-
-
-                                <!--<div class="colorWrap">
-                                    <h6>Choose color</h6>
-                                    <div class="colorWrapColor d-flex align-items-center">
-
-
-                                       
-
-                                        <div id="colorWrapMore1" class="collapse multi-collapse show">
-                                            <div class="colorWrapMore">
-                                            <?php 
-                                            /*Temp Code Comment Vishal Parkash*/
-                                                // if($product->getTypeId() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE){
-                                                //     $data = $product->getTypeInstance()->getConfigurableOptions($product);
-
-                                                // $options = array();
-
-                                                // foreach($data as $attr){
-                                                // foreach($attr as $p){
-                                                //     $options[$p['sku']][$p['attribute_code']] = $p['option_title'];
-                                                // }
-                                                // }
-
-
-                                                // foreach($options as $sku =>$d){
-                                                // $pr = $repository->get($sku);
-                                                // foreach($d as $k => $v) 
-                                                ?>
-                                                  
-                                                    <span  style="background-color:<?php //echo $d['color'];?>"></span>
-                                              <?php 
-                                                //}
-                                                //} 
-                                                /*Temp Code Comment Vishal Parkash*/ 
-                                                ?>
-                                       
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button class="btnDropCollapse collapsed" data-toggle="collapse"
-                                        data-target="#colorWrapMore1" aria-expanded="false"
-                                        aria-controls="colorWrapMore1">
-                                        <svg width="15" height="9" viewBox="0 0 15 9" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M6.95 8.75859C7.25014 9.08047 7.7332 9.08047 8.0164 8.75859L14.75 1.55495C15.0833 1.19745 15.0833 0.62561 14.75 0.268119C14.4167 -0.0893736 13.8835 -0.0893737 13.5501 0.268119L8.0332 6.18497C7.73306 6.50685 7.25 6.50685 6.9668 6.18497L1.44986 0.268118C1.11652 -0.0893748 0.583328 -0.0893748 0.249998 0.268118C-0.0833323 0.625609 -0.0833323 1.19745 0.249998 1.55495L6.95 8.75859Z"
-                                                fill="#A8A8A8" />
-                                        </svg>
-                                    </button>
-                                </div>-->
 <!---------------------- Color Choose ----------------->
+<?php                                                 if($product->getTypeId() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE){ ?>
+
 <div class="colorWrap">
                                     <h6>Choose color</h6>
                                     <div class="colorWrapColors d-flex align-items-center">
@@ -874,7 +900,6 @@ if(!empty($block->getCurrentCategory())){
                                                 <span style="background-color: #871AAD"></span>
                                                 <span class="colorWrapColorBorder" style="background-color: #FFFFFF"></span> -->
                                                 <?php 
-                                                if($product->getTypeId() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE){
                                                     foreach ($collection as $simg) {
                                                         $getcolorId = $simg->getColor();
                                                         $getId = $simg->getId();
@@ -890,7 +915,7 @@ if(!empty($block->getCurrentCategory())){
                                                     </span>
                                               <?php // echo ' : '.$pr->getPrice()."\n";
                                                     }  
-                                                }                                            
+                                                                                       
                                               ?>
                                             </div>
                                         </div>
@@ -901,6 +926,7 @@ if(!empty($block->getCurrentCategory())){
                                         </svg>
                                     </button>
                                 </div>
+                                <?php }?>
                                 <div class="selectQuantity">
                                     <div class="d-flex">
                                         <div class="flex1">
@@ -926,7 +952,7 @@ if(!empty($block->getCurrentCategory())){
                                         <div class="uantityMore">
                                             <div class="d-flex">
                                                 <div class="flex1">
-                                                    <h6>Quantity</h6>
+                                                    <!-- <h6>Quantity</h6> -->
                                                 </div>
                                                 <!-- <a href="#">size guide</a> -->
                                             </div>
@@ -942,22 +968,27 @@ if(!empty($block->getCurrentCategory())){
                                                 <tbody>
                                                   
                                                     <?php
-                                                    if(!empty($childrenIds)){
+                                                    if(!empty($size_array)){
 
                                                         $count = 1;
                                                         $tmpLoop = 0;
                                                         // echo "<pre>";print_r($childrenIds);
-                                                        $getChildProductsCount =  count($childrenIds);
+                                                        //$getChildProductsCount =  count($childrenIds);
                                                         $customArr = array();
-                                                        foreach($childrenIds as $children){
-                                                            $customArr[] = $children;
+                                                        
+                                                        if (!empty($childrenIds)){
+                                                            foreach($childrenIds as $children){
+                                                                $customArr[] = $children;
+                                                            }    
+                                                        } else {
+                                                            $customArr[] = $product->getId();
                                                         }
                                                         // echo "<pre>";print_r($size_array);
                                                         // die;
-                                                        $getAttrCount =  count($size_array);
-                                                        if($getAttrCount == $getChildProductsCount){
-                                                            $countForLoop = $getAttrCount;
-                                                        }
+                                                        // $getAttrCount =  count($size_array);
+                                                        // if($getAttrCount == $getChildProductsCount){
+                                                        //     $countForLoop = $getAttrCount;
+                                                        // }
                                                         foreach($size_array as $sku){
                                                         // for($i = 0; $i < $countForLoop; $i++){
                                                     ?>
@@ -1062,6 +1093,7 @@ if(!empty($block->getCurrentCategory())){
         </section>
 
         <!-- Similar Product -->
+        <?php /*
         <section class="similarProduct">
             <div class="outerContainer">
                 <div class="container">
@@ -1089,11 +1121,6 @@ if(!empty($block->getCurrentCategory())){
                                     ?>
                                         <img src="<?php echo $images['url'];?>" id="side_<?php echo $count; ?>" data-side ="<?php echo $images['url'];?>" class="img-fluid"/>
                                     <?php $count ++ ; } ?>
-
-                                        <!-- <img src="images/product/product2.jpg" alt="" class="img-fluid">
-                                        <img src="images/product/product2.jpg" alt="" class="img-fluid">
-                                        <img src="images/product/product2.jpg" alt="" class="img-fluid">
-                                        <img src="images/product/product2.jpg" alt="" class="img-fluid"> -->
                                     </div>
                                     <div class="productContent">
                                         <div class="topWrap d-flex align-items-center justify-content-between">
@@ -1124,6 +1151,7 @@ if(!empty($block->getCurrentCategory())){
                 </div>
             </div>
         </section>
+        <?php */?>
     </main>
 
     <div class="modal fade productImageModal" id="productImageModal" tabindex="-1" role="dialog"
@@ -1580,9 +1608,11 @@ $(".cimageUrl").click(function(){
                            price     = response[index].price;
                            qty       = response[index].qty;
                            discount  = response[index].discount;
+                           maxqty = (typeof response[index+1] == 'undefined')?'+':response[index+1].qty-1;
                            html +='<td>'+qty+'</td>';
-                           html +='<td>'+price+'</td>';
-                           html +='<td>'+discount+'%</td>';
+                           html +='<td>'+maxqty+'</td>';
+                           html +='<td>'+parseFloat(price)+'</td>';
+                           if(discount > 0){html +='<td>'+discount+'%</td>';}
                            html += '</tr>';
 
                         });
@@ -1876,7 +1906,7 @@ $("#addToCart").submit(function(e){
     object = [];
     var checkQty = "<?php echo ($checkQty);?>"; //refer to the variable above, set if the product has child or is it a simple prodcut.
     // console.log("checkQty"+checkQty);
-    if(checkQty == 1){
+    //if(checkQty == 1){
         
        $('.checkSizeBox').each(function() {
         // console.log('here');
@@ -1898,7 +1928,7 @@ $("#addToCart").submit(function(e){
             e.preventDefault();
             return false;
         }
-    }
+    //}
     
     console.log(object);
     //e.preventDefault();
@@ -1907,67 +1937,144 @@ $("#addToCart").submit(function(e){
 
 $('.tierPriceChecker').keyup(function(){
         totalQty = 0;
-        totalQty = parseInt($(this).val()) || 0;
+        //totalQty = parseInt($(this).val());
         attrid = $(this).attr('id');
-        id = attrid.split('_');
-        // $( ".tierPriceChecker" ).each(function( index ) {
-            
-        // });
+        gid = attrid.split('_');
+
+        $( ".tierPriceChecker" ).each(function( index ) {
+            checkVal = $(this).val();
+            if (checkVal) {
+                totalQty+=parseInt(checkVal); 
+            }
+        });
+        //alert(totalQty);
         frontprice = $("#frontPrice").val();
         backendPrice = $("#backendPrice").val();
+      
         if (totalQty) {
             $(this).closest('td').prev().find('[type=checkbox]').prop('checked', true);
-            // var pid = $('#currentProductId').val();
-            var pid = $(this).attr("data-pid");
+             var pid = $('#currentProductId').val();
+           // var pid = $(this).attr("data-pid");
             $.ajax({
                 url: "<?php echo $block->getBaseUrl().'tier/bundle/' ?>", 
                 type: 'POST',
                 data: {qty:totalQty,pid:pid,type:'check'},
                 success: function (response) {
                            // price = (response.length > 0)?parseInt(response[0].price)+parseInt(frontprice)+parseInt(backendPrice):0;
-                           totalPrice = 0;
-                            totalQnty = 0;
+                           var totalPrice = [];
+                            //totalQnty = 0;
                            if(response.length == 0){
-                            actualPrice = $("#tierPriceOld_"+id[1]).val()
-                            price = actualPrice*totalQty;
+                            actualPrice = $("#tierPriceOld_"+gid[1]).val()
+                            price = actualPrice * totalQty;
                            }else{
-                            discount = (response.length > 0)?response[0].discount:0;
-                               
                                price = response[0].price;
-                               price = totalQty*price;
-
                            }
+                           //$('#tierPrice_'+gid[1]).val('$'+price);
+                           $( ".tierPriceChecker" ).each(function( index ) {
+                                checkVal = $(this).val();
+                                oldprice = 0;
+                                if (checkVal) {
 
-                            $('#tierPrice_'+id[1]).val('$'+price.toFixed(2));
-                            if ($('#tierPriceChecker_'+id[1]).val() > 0 && price==0) {
-                                $(this).closest('td').prev().find('[type=checkbox]').prop('checked', true);
-                            } else{
-                                $(this).closest('td').prev().find('[type=checkbox]').prop('checked', false);
-                            }
-                                 // }
-                            // });
+                                    //price*totalQty
+                                    attrid = $(this).attr('id');
+                                    id = attrid.split('_');
+                                    // if (backendPrice && frontprice) {
+                                    //     oldprice = parseInt($("#tierPriceOld_"+id[1]).val())+parseInt(frontprice)+parseInt(backendPrice);
+                                    // } else {
+                                        oldprice = parseInt($("#tierPriceOld_"+id[1]).val());
+
+                                    //}
+                                    $('#tierPrice_'+id[1]).val('$'+price);
+                                    if ($('#tierPriceChecker_'+id[1]).val() > 0) {
+                                        $(this).closest('td').prev().find('[type=checkbox]').prop('checked', true);
+                                    } else{
+                                        $('#tierPrice_'+id[1]).val('$'+oldprice);
+                                        $(this).closest('td').prev().find('[type=checkbox]').prop('checked', false);
+                                    }
+                                 }
+                            });
                             
                             $('.checkSizeBox').each(function() {
                                 if ($(this).is(":checked")) {
-                                // if (this.checked) {
                                     attrid = $(this).attr('id');
                                     id = attrid.split('_');
                                     actualPrice = ($('#tierPrice_'+id[1]).val()).split('$');
-                                    totalPrice +=(actualPrice[1]);
-                                    
+                                    qty = $('#tierPriceChecker_'+id[1]).val();
+                                    if((actualPrice[1] !="") && (actualPrice[1] != 0)){
+                                        totalPrice.push(actualPrice[1]*qty);
+                                    }
                                 }
                             });
-                            console.log("totalPrice"+totalPrice.toFixed(2));
-                            $('#updatedPrice').val(totalPrice);
-                            $('#newPrice').val(totalPrice);
-                            $('.actual').text('$ '+totalPrice);
+                            var total = 0;
+                            $.each(totalPrice,function() {
+                                total += parseFloat(totalPrice);
+                            });
+                            $('#updatedPrice').val(total);
+                            $('#newPrice').val(total);
+                            $('.actual').text('$ '+total);
 
                 }
             });
         }
+        $( ".tierPriceChecker" ).each(function( index ) {
+                            checkVal = $(this).val();
+                            if (!checkVal || checkVal<=0) {
+                                attrid = $(this).attr('id');
+                                id = attrid.split('_');
+                                // if (backendPrice && frontprice) {
+                                //     oldprice = parseInt($("#tierPriceOld_"+id[1]).val())+parseInt(frontprice)+parseInt(backendPrice);
+                                // } else {
+                                    oldprice = parseInt($("#tierPriceOld_"+id[1]).val());
+
+                                //}
+                               
+                                $('#tierPrice_'+id[1]).val('$'+oldprice);
+                                $(this).closest('td').prev().find('[type=checkbox]').prop('checked', false);
+                            } 
+        });
         
 })
+// Dalate item from wishlst
 
+$('.addedToWishList').on("click", function(){
+    var data_id = $(this).attr('data-id');
+    var split = data_id.split('-');
+    cust_id = split[0];
+    p_id = split[1];
+    $.ajax({
+        url: "<?php echo $block->getBaseUrl().'removeitem/wishlist/' ?>", 
+        type: 'post',
+        data: {cust_id:cust_id,p_id:p_id},
+        dataType: 'json',
+        success: function (response) {
+            location.reload();
+        }
+    });
+});
+$('.showlogin').on("click", function(){
+    $("#signin").css("background-color", "rgba(0, 0, 0, 0.7)");
+   $('#signin').addClass('show');
+   $('#signin').addClass('d-block');
+   $('#login-form')[0].reset();
+});
+
+//             canvas.on('object:moving', (e) => {
+//   var obj = e.target;
+
+//   obj.set({
+//     top:  clamp(obj.top, 0, obj.canvas.height - obj.height),
+//     left: clamp(obj.left, 0, obj.canvas.width - obj.width),
+//   })
+//   obj.setCoords();
+
+//   console.log("obj.setCoords()");
+//   console.log(obj.setCoords());
+
+//   // this.editSettingsService.updateEditText({
+//   //   elem: e.target,
+//   //   reposition: true
+//   // });
+// });
 
 function clamp(number, min_number, max_number) {
   return Math.min(Math.max(number, min_number), max_number);

@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-payment/view/frontend/web/js/view/payment/payments.js

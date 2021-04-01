@@ -127,12 +127,12 @@ p, ul, ol, .blogContent .contentWrap ul {
 @media (min-width: 1400px) {
   .container {
     max-width: 1710px;
-    padding: 0 25px;
+    padding: 0 45px;
   }
 }
 @media (min-width: 1600px) {
   .container {
-    padding: 0;
+    padding: 0 25px;
   }
 }
 
@@ -177,13 +177,16 @@ a:hover {
 }
 @media (min-width: 1200px) {
   .btn svg {
-    -webkit-transform: translateY(-0.2rem);
-    transform: translateY(-0.2rem);
+    -webkit-transform: translateY(0.05rem);
+    transform: translateY(0.05rem);
   }
 }
 .btn span + svg, .btn b + svg {
-  -webkit-transform: translateY(-0.1rem);
-  transform: translateY(-0.1rem);
+  -webkit-transform: translateY(-0.2rem);
+  transform: translateY(-0.2rem);
+}
+.btn > span + svg {
+  display: inline !important;
 }
 .btn span, .btn b {
   line-height: 100%;
@@ -5316,6 +5319,13 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
   left: 0;
   max-width: 100%;
   top: 35px;
+  background: url("../images/productFeaturedBatchBg.png") no-repeat;
+  background-size: 100% 100%;
+  height: 18px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 10px 20px;
 }
 .similarProduct .product .productTop .productTopOver {
   background: rgba(255, 255, 255, 0.8);
@@ -6207,6 +6217,19 @@ input[type=checkbox]:checked::before, .contactBody .formWrap form .form-group te
 }
 .filteredProduct .similarProduct.list_view .price .addCart svg path {
   fill: #ffffff;
+}
+.filteredProduct .dropdown .dropdown-menu a {
+  border: 0 !important;
+  padding: 10px 0;
+}
+.filteredProduct .dropdown .dropdown-menu a:first-child {
+  padding-top: 0;
+}
+.filteredProduct .dropdown .dropdown-menu a:last-child {
+  padding-bottom: 0;
+}
+.filteredProduct .dropdown .dropdown-menu a:hover {
+  font-weight: normal;
 }
 
 .pagination .currentPage {

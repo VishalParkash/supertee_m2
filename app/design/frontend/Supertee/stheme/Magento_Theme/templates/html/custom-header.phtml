@@ -73,16 +73,7 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
                     <div class="col-md-12">
                         <div class="topSection d-flex align-items-center">
                             <div class="leftWrap d-flex align-items-center">
-                                <!-- <button class="btnMenu" data-toggle="collapse" data-target="#navbarSupportedContent"
-                                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                                    aria-label="Toggle navigation">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M0 1C0 0.447236 0.446 0 0.995 0H9.005C9.26889 0 9.52197 0.105357 9.70857 0.292893C9.89517 0.480429 10 0.734783 10 1C10 1.26522 9.89517 1.51957 9.70857 1.70711C9.52197 1.89464 9.26889 2 9.005 2H0.995C0.731109 2 0.478028 1.89464 0.291429 1.70711C0.10483 1.51957 0 1.26522 0 1ZM0 9.57861C0 9.02585 0.446 8.57861 0.995 8.57861H19.005C19.2689 8.57861 19.522 8.68397 19.7086 8.87151C19.8952 9.05904 20 9.3134 20 9.57861C20 9.84383 19.8952 10.0982 19.7086 10.2857C19.522 10.4733 19.2689 10.5786 19.005 10.5786H0.995C0.731109 10.5786 0.478028 10.4733 0.291429 10.2857C0.10483 10.0982 0 9.84383 0 9.57861ZM0.291429 17.4501C0.478028 17.2626 0.731109 17.1572 0.995 17.1572H13.005C13.2689 17.1572 13.522 17.2626 13.7086 17.4501C13.8952 17.6377 14 17.892 14 18.1572C14 18.4224 13.8952 18.6768 13.7086 18.8643C13.522 19.0519 13.2689 19.1572 13.005 19.1572H0.995C0.731109 19.1572 0.478028 19.0519 0.291429 18.8643C0.10483 18.6768 0 18.4224 0 18.1572C0 17.892 0.10483 17.6377 0.291429 17.4501Z"
-                                            fill="white" />
-                                    </svg>
-                                </button> -->
+                                
                                 <button class="btnMenu">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -207,7 +198,7 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
 
                                     <div class="search_box flex-column ">
                                         <div class="input_box d-flex align-items-center">
-                                            <!-- <form class="form minisearch" id="search_mini_form" action="<?php echo $block->getBaseUrl();?>/catalogsearch/advanced/result/" method="get">
+                                            <!-- <form class="form minisearch" id="search_mini_form" action="<?php //echo $block->getBaseUrl();?>/catalogsearch/advanced/result/" method="get">
                                                 <input id="search" type="text" name="name" value="" placeholder="Search entire store here..." class="input-text" maxlength="128" role="combobox" aria-haspopup="false" aria-autocomplete="both" autocomplete="off" aria-expanded="false">
                                             </form> -->
                                             <form class="form minisearch sparsh-minisearch" id="search_mini_form" action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>" method="get">
@@ -253,72 +244,9 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
                                         </div>
                                         <div class="search_result">
                                         	 <?= $block->getChildHtml() ?>
-                                        	 
-                                            <!-- <ul class="list-unstyled">
-                                                <li> <a href="#;"> t-shirts </a> </li>
-                                                <li> <a href="#;"> basic t-shirts </a> </li>
-                                                <li> <a href="#;"> men t-shirts </a> </li>
-                                                <li> <a href="#;"> women t-shirts </a> </li>
-                                            </ul> -->
-
-                                            <!-- <div class="search_thumb row">
-                                                <div class="col-md-4">
-                                                    <div class="search_thumb_box">
-                                                        <img src="images/search_thumb.png" class="img-fluid" alt="" />
-                                                        <h6>fido dido</h6>
-                                                        <p>fido dido</p>
-                                                        <span>$23.89</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="search_thumb_box">
-                                                        <img src="images/search_thumb.png" class="img-fluid" alt="" />
-                                                        <h6>fido dido</h6>
-                                                        <p>fido dido</p>
-                                                        <span>$23.89</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="search_thumb_box">
-                                                        <img src="images/search_thumb.png" class="img-fluid" alt="" />
-                                                        <h6>fido dido</h6>
-                                                        <p>fido dido</p>
-                                                        <span>$23.89</span>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                         </div>
                                     </div>
-                                </div>
-
-
-
-
-                      <!--           <div class="block block-content">
-        <form class="form minisearch" id="search_mini_form" action="<?php echo $block->getBaseUrl();?>/catalogsearch/result/" method="get">
-
-            <div class="field search">
-                <label class="label" for="search" data-role="minisearch-label">
-                    <span>Search</span>
-                </label>
-                <div class="control">
-                    <input id="search" type="text" name="q" value="" placeholder="Search entire store here..." class="input-text" maxlength="128" role="combobox" aria-haspopup="false" aria-autocomplete="both" autocomplete="off" aria-expanded="false">
-                    <div id="search_autocomplete" class="search-autocomplete" style="display: none;"></div>
-                    <div class="nested">
-    <a class="action advanced" href="<?php ?>catalogsearch/advanced/" data-action="advanced-search">
-        Advanced Search    </a>
-</div>
-                </div>
-            </div>
-            <div class="actions">
-                <button type="submit" title="Search" class="action search" aria-label="Search" disabled="">
-                    <span>Search</span>
-                </button>
-            </div>
-        </form>
-    </div> -->
-                                    
-                                    <?php 
+                                </div><?php 
                                     if((!$customerSession->isLoggedIn())) { 
                                         $redirectUrl = $block->getBaseUrl()."customer/account/login";
                                     }else{
@@ -326,10 +254,10 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
                                     }
 
                                     ?>
-                                        <!-- <a href="<?php echo $redirectUrl;?>/"> -->
+                                        <!-- <a href="<?php //echo $redirectUrl;?>/"> -->
                                         <a href="javascript:void(0);">
 
-                                    <div class="notification position-relative" id="notification">
+                                    <div class="notification position-relative" id="notification" dataSidebarRight="notificationBar">
                                         <svg width="30" height="32" viewBox="0 0 30 32" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -398,6 +326,24 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
         <p><?php echo $message2;?></p>
         <p><?php echo $message3;?></p>
     </header>
+
+    <script>
+        require([ 'jquery', 'jquery/ui', 'bootstrap4', 'fabric'], function($){
+            $(document).ready(function () {  
+                $("form").bind("keypress", function (e) {  
+                if (e.keyCode == 13) {  
+                return false;  
+                }  
+                });
+
+                $('#signin').on("click", function(){
+                 $('.login-form').trigger('reset');
+                 $('.register-form').trigger('reset');
+                });
+            }); 
+        });
+    </script>
+ 
      <script type="text/x-magento-init">
     {
         "[data-block='minicart']": {

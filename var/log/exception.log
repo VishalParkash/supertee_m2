@@ -396,3 +396,160 @@ Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/
  </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
 Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
  </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-30 17:35:19] main.CRITICAL: No alive nodes found in your cluster {"exception":"[object] (Elasticsearch\\Common\\Exceptions\\NoNodesAvailableException(code: 0): No alive nodes found in your cluster at /var/www/html/stee_test/vendor/elasticsearch/elasticsearch/src/Elasticsearch/ConnectionPool/StaticNoPingConnectionPool.php:50)"} []
+[2021-03-30 19:30:58] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-30 19:30:59] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 06:21:02] main.CRITICAL: No alive nodes found in your cluster {"exception":"[object] (Elasticsearch\\Common\\Exceptions\\NoNodesAvailableException(code: 0): No alive nodes found in your cluster at /var/www/html/stee_test/vendor/elasticsearch/elasticsearch/src/Elasticsearch/ConnectionPool/StaticNoPingConnectionPool.php:50)"} []
+[2021-03-31 06:27:12] main.CRITICAL: No alive nodes found in your cluster {"exception":"[object] (Elasticsearch\\Common\\Exceptions\\NoNodesAvailableException(code: 0): No alive nodes found in your cluster at /var/www/html/stee_test/vendor/elasticsearch/elasticsearch/src/Elasticsearch/ConnectionPool/StaticNoPingConnectionPool.php:50)"} []
+[2021-03-31 12:18:53] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 12:18:54] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 16:19:03] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/5/5/5546_fm_15.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/5/5/5546_fm_15.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:19:03] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71400_f_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71400_f_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:19:03] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71400_b_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71400_b_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:19:03] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71400_d_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71400_d_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:19:03] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71400_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71400_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:22:07] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/6/9/6957_fm_15.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/6/9/6957_fm_15.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:22:07] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_f_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_f_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:22:07] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_b_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_b_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:22:07] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_d_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_d_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:22:07] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:23:28] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/6/9/6957_fm_15.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/6/9/6957_fm_15.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:23:28] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_f_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_f_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:23:28] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_b_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_b_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:23:28] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_d_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_d_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:23:28] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:24:30] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/6/9/6957_fm_15.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/6/9/6957_fm_15.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:24:30] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_f_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_f_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:24:30] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_b_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_b_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:24:30] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_d_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_d_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:24:30] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:24:57] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_fm_5.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71389_fm_5.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:02] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/1/7/17041_fm_24.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/1/7/17041_fm_24.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:02] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_b_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_b_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:02] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_f_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_f_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:02] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_d_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_d_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:02] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:24] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/1/7/17041_fm_24.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/1/7/17041_fm_24.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:24] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_b_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_b_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:24] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_f_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_f_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:24] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_d_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_d_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:28:24] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:29:57] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/1/7/17041_fm_24.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/1/7/17041_fm_24.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:29:57] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_b_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_b_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:29:57] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_f_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_f_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:29:57] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_d_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_d_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:29:57] main.WARNING: Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_fm_19.jpg {"exception":"[object] (Magento\\Framework\\Exception\\FileSystemException(code: 0): Cannot gather stats! Warning!stat(): stat failed for /var/www/html/stee_test/pub/media/catalog/product/7/1/71208_fm_19.jpg at /var/www/html/stee_test/vendor/magento/framework/Filesystem/Driver/File.php:77)"} []
+[2021-03-31 16:46:28] main.CRITICAL: The product that was requested doesn't exist. Verify the product and try again. {"exception":"[object] (Magento\\Framework\\Exception\\NoSuchEntityException(code: 0): The product that was requested doesn't exist. Verify the product and try again. at /var/www/html/stee_test/vendor/magento/module-catalog/Model/ProductRepository.php:310)"} []
+[2021-03-31 17:16:17] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 17:16:18] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 18:22:14] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 18:22:15] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 19:09:30] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 19:09:30] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 20:04:38] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 20:04:38] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 20:44:55] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-03-31 20:44:55] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 04:19:30] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 04:19:30] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 05:28:50] main.CRITICAL: The product that was requested doesn't exist. Verify the product and try again. {"exception":"[object] (Magento\\Framework\\Exception\\NoSuchEntityException(code: 0): The product that was requested doesn't exist. Verify the product and try again. at /var/www/html/stee_test/vendor/magento/module-catalog/Model/ProductRepository.php:310)"} []
+[2021-04-01 05:33:12] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 05:33:13] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 05:36:40] main.CRITICAL: The product that was requested doesn't exist. Verify the product and try again. {"exception":"[object] (Magento\\Framework\\Exception\\NoSuchEntityException(code: 0): The product that was requested doesn't exist. Verify the product and try again. at /var/www/html/stee_test/vendor/magento/module-catalog/Model/ProductRepository.php:310)"} []
+[2021-04-01 05:37:00] main.CRITICAL: The product that was requested doesn't exist. Verify the product and try again. {"exception":"[object] (Magento\\Framework\\Exception\\NoSuchEntityException(code: 0): The product that was requested doesn't exist. Verify the product and try again. at /var/www/html/stee_test/vendor/magento/module-catalog/Model/ProductRepository.php:310)"} []
+[2021-04-01 05:37:29] main.CRITICAL: The product that was requested doesn't exist. Verify the product and try again. {"exception":"[object] (Magento\\Framework\\Exception\\NoSuchEntityException(code: 0): The product that was requested doesn't exist. Verify the product and try again. at /var/www/html/stee_test/vendor/magento/module-catalog/Model/ProductRepository.php:310)"} []
+[2021-04-01 05:37:56] main.CRITICAL: The product that was requested doesn't exist. Verify the product and try again. {"exception":"[object] (Magento\\Framework\\Exception\\NoSuchEntityException(code: 0): The product that was requested doesn't exist. Verify the product and try again. at /var/www/html/stee_test/vendor/magento/module-catalog/Model/ProductRepository.php:310)"} []
+[2021-04-01 05:40:25] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 05:40:25] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 07:59:19] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 07:59:20] main.ERROR: <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> {"exception":"[object] (Magento\\Framework\\Exception\\MailException(code: 0): <pre> 
+Compilation from source: LESS file is empty: frontend/Supertee/stheme/en_US/css/email-inline.less
+ </pre> at /var/www/html/stee_test/vendor/magento/module-email/Model/Template/Filter.php:1039)"} []
+[2021-04-01 09:00:10] main.CRITICAL: Class Magento\CatalogRule\Model\Indexer\Product\ProductRuleIndexer\Interceptor does not exist {"exception":"[object] (ReflectionException(code: -1): Class Magento\\CatalogRule\\Model\\Indexer\\Product\\ProductRuleIndexer\\Interceptor does not exist at /var/www/html/stee_test/vendor/magento/framework/Code/Reader/ClassReader.php:24)"} []
+[2021-04-01 10:41:59] main.CRITICAL: The product that was requested doesn't exist. Verify the product and try again. {"exception":"[object] (Magento\\Framework\\Exception\\NoSuchEntityException(code: 0): The product that was requested doesn't exist. Verify the product and try again. at /var/www/html/stee_test/vendor/magento/module-catalog/Model/ProductRepository.php:310)"} []

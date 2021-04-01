@@ -70,9 +70,7 @@ class Index extends \Magento\Framework\App\Action\Action
         $type = $post['type'];
         $currentProduct = $this->tierPrice->getById($productid);
         $tier_price = $currentProduct->getTierPrice();
-        // echo "<pre>";print_r($tier_price);die;
-        if(!empty($tier_price)){
-           $allData = [];
+        $allData = [];
         if ($post['type'] == 'allprice') {
             foreach ($tier_price as $keyval) {
                    $data['price'] = $keyval['price'];
@@ -81,35 +79,42 @@ class Index extends \Magento\Framework\App\Action\Action
                    $allData [] = $data;                
             }
         } else {
-            $min = (isset($tier_price[0]['price_qty']))?round($tier_price[0]['price_qty']):0;
+            $min = 1;
             $max = 0;
+            $oldmax = 0;
             $max_default_val = round(max(array_column($tier_price, 'price_qty')));
-            foreach ($tier_price as $keyval) {
-                $max = $keyval['price_qty'];
-                if ($post['qty'] >= $min && $post['qty'] <= $max) {
+            $i = 1;
+           
+            for ($j=0; $j<count($tier_price); $j++) {
+                $max = (!empty($tier_price[$j+1]))?$tier_price[$j+1]['price_qty'] - 1:0;
+                $min = $tier_price[$j]['price_qty'];
+                
+                if ($post['qty'] >= $min && $post['qty'] <= $max && $max != 0) {
+                //    $data['min']  = ($i==1)?$min:$oldmax+1;
+                //    $data['max']  = $keyval['price_qty'];
                    $data['min']  = $min;
-                   $data['max']  = $keyval['price_qty'];
-                   $data['price'] = $keyval['price'];
-                   $data['discount'] = $keyval['percentage_value'];
+                   $data['max']  = $max;
+                   //$data['price'] = $tier_price[$j]['price'] * $post['qty'];
+                   $data['price'] = round($tier_price[$j]['price'],2);
+                   $data['discount'] = $tier_price[$j]['percentage_value'];
                    $allData [] = $data;
                    break;
-                } elseif($post['qty'] > $max_default_val) {
+                } elseif($post['qty'] >= $max_default_val) {
                     foreach ($tier_price as $keyval) {
-                        if ($keyval['price_qty'] == $max_default_val) {
-                            $data['price'] = $keyval['price'];
-                            $data['discount'] = $keyval['percentage_value'];
+                        if ($tier_price[$j]['price_qty'] == $max_default_val) {
+                            // $data['price'] = $tier_price[$j]['price'] * $post['qty'];
+                            $data['price'] = round($tier_price[$j]['price'],2);
+                            $data['discount'] = $tier_price[$j]['percentage_value'];
                             $allData [] = $data;
-                            break; 
+                            break;
                         }
                     }
                 }
-                $min = $keyval['price_qty']+1;
+                // $min = $keyval['price_qty']+1;
+                // $oldmax = $max;
+                // $i++;
             }
-        } 
-    }else{
-        $allData = array();
-    }
-        
+        }
         
             
         // /** @var \Magento\Framework\Controller\Result\Json $resultJson */

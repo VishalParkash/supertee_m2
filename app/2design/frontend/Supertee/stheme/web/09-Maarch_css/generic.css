@@ -1,0 +1,47 @@
+.genricCms {
+  background: #F2F3F2;
+  padding: 120px 0;
+  scroll-behavior: smooth;
+}
+.genricCms .contentWrap {
+  max-width: 930px;
+  scroll-behavior: smooth;
+}
+.genricCms .contentWrap h3 {
+  font-size: 2.25em;
+  line-height: 41px;
+  margin-bottom: 10px;
+  padding-top: 45px;
+}
+.genricCms .contentWrap h3 strong {
+  margin-bottom: 30px;
+  display: block;
+}
+.genricCms .contentWrap p {
+  color: #727272;
+  font-size: 1.125em;
+  margin-bottom: 20px;
+}
+.genricCms .clickWrap {
+  position: sticky;
+  top: 50px;
+}
+.genricCms .clickWrap > * {
+  font-size: 1.125em;
+}
+.genricCms .clickWrap h6 {
+  font-weight: normal;
+}
+.genricCms .clickWrap .linkWrap {
+  margin-top: 50px;
+}
+.genricCms .clickWrap .linkWrap a {
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+.genricCms .clickWrap .linkWrap a.active {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=generic.css.map */

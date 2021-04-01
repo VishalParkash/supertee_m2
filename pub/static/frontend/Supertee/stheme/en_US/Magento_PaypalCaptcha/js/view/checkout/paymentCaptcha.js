@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-paypal-captcha/view/frontend/web/js/view/checkout/paymentCaptcha.js

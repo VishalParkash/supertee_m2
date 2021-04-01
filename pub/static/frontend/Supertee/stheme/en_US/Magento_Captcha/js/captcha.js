@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-captcha/view/frontend/web/js/captcha.js

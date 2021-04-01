@@ -1,0 +1,33 @@
+<fieldset class="fieldset">
+<legend class="legend">
+  <a href="<?php echo $this->getUrl('*/*/form') ?>" class="action submit primary" style="float:right;">
+  <span><i class="fa fa-plus"></i> Add New Post</span>
+  </a>
+</legend><br>
+<?php  $_gridrecords = $block->getCollection(); // get collection which we set in block class ?>
+<?php if ($_gridrecords && count($_gridrecords)): ?>
+
+                <?php  // read collection as magento1.x and display in list 
+                       foreach ($_gridrecords as $_gridrecord): ?>
+                    <div class="postrow">
+                    <blockquote>
+                      <h2><?php echo $_gridrecord->getTitle(); ?></h2>
+                      <p><i class="fa fa-quote-left"></i> <?php echo $_gridrecord->getContent(); ?> <i class="fa fa-quote-right"></i></p>
+                      <footer style="float:left;"><i class="fa fa-calendar"></i> Post At : <?php echo $_gridrecord->getCreateat(); ?></footer>
+                      <footer><i class="fa fa-edit"></i> Post By : <?php echo $_gridrecord->getName(); ?></footer>
+                    </blockquote>
+                    </div>
+                <?php endforeach; ?>
+         
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); // for display pager block which we create in block file.   ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div  class="postrow">
+
+<blockquote>
+  <p><i class="fa fa-quote-left"></i> <?php echo "No Post Found." ?> <i class="fa fa-quote-right"></i></p>
+</blockquote>
+</div>
+<?php endif ?>
+</fieldset>

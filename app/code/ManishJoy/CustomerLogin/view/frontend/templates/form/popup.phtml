@@ -270,8 +270,7 @@ form.password.forget{
                                         <path d="M8 0C3.58217 0 0 3.58182 0 7.99965C0 12.4178 3.58217 16 8 16C12.4178 16 16 12.4178 16 7.99965C16 3.58182 12.4182 0 8 0ZM9.22293 12.3679C9.22293 13.0387 8.67362 13.5824 8.00349 13.5824C7.33301 13.5824 6.78406 13.0387 6.78406 12.3679V7.05435C6.78406 6.38387 7.33301 5.84015 8.00349 5.84015C8.67362 5.84015 9.22293 6.38352 9.22293 7.05435V12.3679ZM8 4.83688C7.26003 4.83688 6.66009 4.23694 6.66009 3.49732C6.66009 2.757 7.26003 2.15775 8 2.15775C8.73962 2.15775 9.33991 2.757 9.33991 3.49732C9.33991 4.23694 8.73962 4.83688 8 4.83688Z" fill="#A8A8A8"/>
                                     </svg>
                                     <div class="icon-detail">
-                                        password should be atleast 8 characters long, should contain number, special character, uppercase letter and lowercase letter and maximum 12 characters.
-                                    </div>
+                                    Password must contain at least one number and one uppercase and lowercase letter and special character, and at least 8 or more characters.                                    </div>
                                         
                                 </div> 
                                 <div class="form-group">
@@ -288,7 +287,7 @@ form.password.forget{
                                 </button>
                             </form>
 
-                            <div class="socialLogin">
+                            <!-- <div class="socialLogin">
                                 <h6>Or use your social accounts</h6>
                                 <div class="socialLink d-flex align-items-center justify-content-center">
                                     <a href="#;">
@@ -307,7 +306,7 @@ form.password.forget{
                                         </svg>
                                     </a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -587,7 +586,7 @@ form.password.forget{
                   var passwordVal = $('#setPassword').val();
                   var regularExp = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
                   if(!regularExp.test(passwordVal)){
-                    $('.response-msg').html("<div class='notify error'><h6>Password should be alphanumric and atleast 8 characters long.</h6></div>");
+                    $('.response-msg').html("<div class='notify error'><h6>Password must contain at least one number and one uppercase and lowercase letter and special character, and at least 8 or more characters.</h6></div>");
                     return false;
                   }
 

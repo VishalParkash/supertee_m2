@@ -195,7 +195,7 @@ class Login extends \Magento\Framework\App\Action\Action
         } catch (\Exception $e) {
             $response = [
                 'errors' => true,
-                'message' => __('Invalid login or password.').$e->getMessage()
+                'message' => __('Invalid username or password.')
             ];
         }
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */

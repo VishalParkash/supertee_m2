@@ -373,6 +373,25 @@
     }
     }
 
+    .dropdown{
+        .dropdown-menu{
+            a{
+                border:0 !important;
+                padding:10px 0;
+                &:first-child{
+                    padding-top:0;
+                }
+                &:last-child{
+                    padding-bottom:0;
+                }
+
+                &:hover{
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+
 }
 
 .pagination{

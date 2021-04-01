@@ -59,6 +59,37 @@ class Edit extends \Magento\Framework\App\Action\Action
             $statecode = $_POST['statecode'];
             $street = $_POST['street'];
             $billingId = $_POST['billingId'];
+            if (empty($_POST['name'])){
+                $response = [
+                    'errors' => true,
+                    'message' => 'Name is required.'
+                ];
+            }else if (empty($_POST['mobile'])){
+                $response = [
+                    'errors' => true,
+                    'message' => 'Invalid contact number.'
+                ];
+            }else if (empty($_POST['country'])){
+                $response = [
+                    'errors' => true,
+                    'message' => 'Invalid country name.'
+                ];
+            }else if (empty($_POST['city'])){
+                $response = [
+                    'errors' => true,
+                    'message' => 'Invalid city name.'
+                ];
+            }else if (empty($_POST['statecode'])){
+                $response = [
+                    'errors' => true,
+                    'message' => 'Invalid statecode.'
+                ];
+            }else if (empty($_POST['street'])){
+                $response = [
+                    'errors' => true,
+                    'message' => 'Invalid street.'
+                ];
+            }else{
                     $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
                     $objectManager = $bootstrap->getObjectManager();
                     $appState = $objectManager->get('\Magento\Framework\App\State');
@@ -90,7 +121,7 @@ class Edit extends \Magento\Framework\App\Action\Action
                         'errors' => false,
                         'message' => 'Your Profile updated successfully.'
                     ];
-                
+             }
             $response_val = json_encode($response);
             echo $response_val;
         }

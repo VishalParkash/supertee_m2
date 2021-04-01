@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/magento/module-cookie/view/base/web/js/jquery.storageapi.extended.js

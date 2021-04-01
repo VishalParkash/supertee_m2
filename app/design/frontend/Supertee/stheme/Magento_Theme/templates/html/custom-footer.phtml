@@ -2,13 +2,11 @@
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customSession = $objectManager->create('Forms\Registration\Model\Session');
 
-//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->create('Magento\Customer\Model\Session');
 $customerId = $customerSession->getId();
 $getFirstName = explode(" ", $customerSession->getCustomer()->getName());
 $firstName = $getFirstName[0];
 
-//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
 $connection = $resource->getConnection();
 $themeTable = $resource->getTableName('user_rewards'); //gives table name
@@ -26,19 +24,13 @@ foreach($getUserPoints as $points){
     }
 } 
 $earnedPoints = ($credit - $debit);
-
-
-//Select Data from table
 $session = ($customSession->getData('donation_data'));
-
-// echo "<pre>";print_r($session);die;
-
-// Whishlist
 $wishlist = $objectManager->create('Magento\Wishlist\Model\Wishlist');
 $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollection();
 
 ?>
 <!-- Footer -->
+<div class="response-msg"></div>
     <footer class="text-white">
         <div class="footerTop">
             <div class="container">
@@ -73,7 +65,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                         <path
                                             d="M14.2505 12H1.7495C0.7845 12 0 11.2155 0 10.2505V1.7495C0 0.7845 0.7845 0 1.7495 0H14.2505C15.2155 0 16 0.7845 16 1.7495V10.2505C16 11.2155 15.2155 12 14.2505 12ZM1.7495 1C1.336 1 1 1.336 1 1.7495V10.2505C1 10.6635 1.336 11 1.7495 11H14.2505C14.6635 11 15 10.6635 15 10.2505V1.7495C15 1.336 14.6635 1 14.2505 1H1.7495ZM8 7.7375C7.6985 7.7375 7.3975 7.628 7.157 7.41L2.1635 2.87C1.959 2.6845 1.9445 2.368 2.13 2.1635C2.316 1.9595 2.6315 1.9445 2.8365 2.13L7.83 6.6695C7.9265 6.7585 8.073 6.758 8.17 6.67L13.1635 2.13C13.3675 1.9445 13.6845 1.9595 13.87 2.1635C14.0555 2.368 14.0405 2.6845 13.8365 2.87L8.843 7.41C8.6025 7.628 8.3015 7.7375 8 7.7375ZM2.5 10C2.372 10 2.244 9.951 2.1465 9.8535C1.951 9.658 1.951 9.342 2.1465 9.1465L5.6465 5.6465C5.842 5.451 6.158 5.451 6.3535 5.6465C6.549 5.842 6.549 6.158 6.3535 6.3535L2.8535 9.8535C2.756 9.951 2.628 10 2.5 10ZM13.5 10C13.372 10 13.244 9.951 13.1465 9.8535L9.6465 6.3535C9.451 6.158 9.451 5.842 9.6465 5.6465C9.842 5.451 10.158 5.451 10.3535 5.6465L13.8535 9.1465C14.049 9.342 14.049 9.658 13.8535 9.8535C13.756 9.951 13.628 10 13.5 10Z" />
                                     </svg>
-                                    <a href="mailto:test@elevateddist.com">test@elevateddist.com</a>
+                                    <a href="mailto:test@elevateddist.com">info@supertee.ca</a>
                                 </div>
                                 <div class="tel d-flex align-items-center">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"
@@ -116,13 +108,11 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     <div class="footerTopItem footerTopItemDrop">
                                         <h6>Shop by</h6>
                                         <ul>
-                                            <li><a href="#;">Brands</a></li>
-                                            <li><a href="#;">Clothing & bags</a></li>
-                                            <li><a href="#;">Signs, banners & sticlers</a></li>
-                                            <li><a href="#;">Promotional producats</a></li>
-                                            <li><a href="#;">Headwear</a></li>
-                                            <li><a href="#;">Sports</a></li>
-                                            <li><a href="#;">Offers & coupons</a></li>
+                                            <li><a href="brands.html">Brands</a></li>
+                                            <li><a href="clothing.html">Clothing & bags</a></li>
+                                            <li><a href="mugs-cups.html">Mugs & Cups</a></li>
+                                            <li><a href="trucker.html">Trucker</a></li>
+                                            <li><a href="cap.html">Caps</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -130,12 +120,11 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     <div class="footerTopItem footerTopItemDrop">
                                         <h6>About us</h6>
                                         <ul>
-                                            <li><a href="#;">About company</a></li>
-                                            <li><a href="#;">Contact us</a></li>
-                                            <li><a href="#;">Sustainability</a></li>
-                                            <li><a href="#;">Set up store</a></li>
-                                            <li><a href="#;">Blog</a></li>
-                                            <li><a href="#;">Help</a></li>
+                                            <li><a href="about-us">About company</a></li>
+                                            <li><a href="how-it-works">How it works</a></li>
+                                            <li><a href="contact-us">Contact us</a></li>
+                                            <li><a href="sustainability">Sustainability</a></li>
+                                            <li><a href="terms-and-conditions">Terms & Conditions</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -286,10 +275,9 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     </div>
                                 </div>
                                 <div class="rightWrap ml-md-auto">
-                                    <a href="#">Terms & conditions</a>
-                                    <a href="#">Privacy policy</a>
-                                    <a href="#">Sitemap</a>
-                                    <a href="#">Return policy</a>
+                                    <a href="terms-and-conditions">Terms & conditions</a>
+                                    <a href="privacy-policy">Privacy policy</a>
+                                    <a href="return-policy">Return policy</a>
                                 </div>
                             </div>
                         </div>
@@ -491,84 +479,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         </div>
     </div>
 
-    <!-- notificationPanel slidePanel -->
-    <div id="notificationBar" class="rightSlide">
-        <div class="rightSlideOver"></div>
-        <div class="notificationPanel rightPanel">
-            <div class="notificationWrap slidePanel">
-                <div class="topHead d-flex align-items-center justify-content-between">
-                    <h6>Notifications</h6>
-                    <button class="btn btn-link">Mark all as read</button>
-                </div>
-
-                <div class="allNotification">
-                    <div class="notifications_box current">
-                        <span class="notifyHead">Today</span>
-                        <div class="message d-flex align-items-start">
-                            <p>
-                                Your order for <strong>harpa black printed shift dress</strong> has been delivered
-                                sucessfully,
-                            </p>
-                            <span> 2min </span>
-                        </div>
-
-                        <div class="message d-flex align-items-start">
-                            <p>
-                                Your order for <strong>pretty serets women blue robe PSS15CH0CO4</strong> has been
-                                dispatched.
-                            </p>
-                            <span> 3hr </span>
-                        </div>
-
-                    </div>
-
-                    <div class="notifications_box">
-                        <span class="notifyHead">Yesterday</span>
-                        <div class="message d-flex align-items-start">
-                            <p>
-                                Your order for <strong>harpa black printed shift dress</strong> has been delivered
-                                sucessfully,
-                            </p>
-                            <span> 2min </span>
-                        </div>
-
-                        <div class="message d-flex align-items-start">
-                            <p>
-                                Your order for <strong>pretty serets women blue robe PSS15CH0CO4</strong> has been
-                                dispatched.
-                            </p>
-                            <span> 3hr </span>
-                        </div>
-
-                    </div>
-
-                    <div class="notifications_box">
-                        <span class="notifyHead">Sat 20 aug 2020</span>
-
-                        <div class="message d-flex align-items-start">
-                            <p>
-                                Your order for <strong>pretty serets women blue robe PSS15CH0CO4</strong> has been
-                                dispatched.
-                            </p>
-                            <span> 12:03 </span>
-                        </div>
-
-                        <div class="message d-flex align-items-start">
-                            <p>
-                                Your order for <strong>pretty serets women blue robe PSS15CH0CO4</strong> has been
-                                dispatched.
-                            </p>
-                            <span> 12:03 </span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
-    </div>
+    
 
     <!-- wishlist slidePanel -->
     <div id="wishlistBar" class="wishlist rightSlide">
@@ -586,8 +497,19 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                 $imagewidth=200;
                                 $imageheight=200;
                                 $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
-                                $image_url = $imageHelper->init($item->getProduct(), 'small_image')->setImageFile($item->getProduct()->getSmallImage())->resize($imagewidth, $imageheight)->getUrl();
+                                $image_url = $imageHelper->init($item->getProduct(), 'product_thumbnail_image')->setImageFile($item->getProduct()->getSmallImage())->resize($imagewidth, $imageheight)->getUrl();
                                 $wblock = $this->helper('Magento\Wishlist\Helper\Data');
+                               // $item->getProduct()->getTypeInstance()->getConfigurableOptions($item->getProduct());
+                                // finalprice
+                                $pricingArr = [];
+                                $product = $item->getProduct();
+                                $_children = $product->getTypeInstance()->getUsedProducts($product);
+                                if(!empty($_children)){
+                                    foreach ($_children as $child){
+                                                        $pricingArr[] = ($child->getPrice());
+                                    }
+                                    $configurablePrice = number_format(min($pricingArr), 2);
+                                }
                     ?>
                     <div class="product">
                         <div class="productImg">
@@ -600,8 +522,9 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                             <p>
                                 <?=$item->getProduct()->getShortDescription()?>
                             </p>
-                            <div class="price"> 
-                                $<?php echo number_format($item->getProduct()->getFinalPrice(), 2); ?>
+                            <div class="price">
+                            <?php $getFinalPrice = (!empty($configurablePrice)) ?  $configurablePrice :  number_format($product->getFinalPrice(), 2); ?>
+                                $<?php echo $getFinalPrice; ?>
                             </div>
                             <div class="box_wrap d-flex align-items-center justify-content-between">
                             <a href="#"  data-role="remove" data-post='<?php echo $wblock->getRemoveParams($item); ?>' title="" class="btn-remove action delete">
@@ -820,37 +743,38 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                         <h3> Request Your Quote  </h3>
                         <p>Complete the form below to get your free quote.</p>
                     </div>
-                    <form action="">
+                    <form method="post" id="requestQuoteData">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <input type="text" class="form-control" placeholder="Full name">
+                              <input type="text" name="fullName" class="form-control" placeholder="Full name">
                             </div>
                             <div class="form-group col-md-6">
-                              <input type="email" class="form-control" placeholder="Email">
+                              <input type="email" name="emailAddress" class="form-control" placeholder="Email">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <input type="number" class="form-control" placeholder="Phone number">
+                              <input type="number" name="phoneNumber" class="form-control" placeholder="Phone number">
                             </div>
                             <div class="form-group col-md-6">
-                              <input type="number" class="form-control" placeholder="Quantity">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                              <input type="text" class="form-control" placeholder="Product detail">
+                              <input type="number" name="quantity" class="form-control" placeholder="Quantity">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <textarea class="form-control" placeholder="Describe your project in a few sentences:"  rows="5"></textarea>
-                                <span class="floating-text">max. 500 characters</span>
+                              <input type="text" name="productDetail" class="form-control" placeholder="Product detail">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <textarea class="form-control" placeholder="Describe your project in a few sentences:"  rows="5" name="projectDescription" maxlength="500"></textarea>
+                                <span class="floating-text">Max. 500 characters</span>
                             </div>
                         </div>
                     </form>
 
-                    <button type="button" class="btn btn-primary d-flex align-items-center" id="modalOpen" data-toggle="modal" data-target="#requestQuoteSuccess">
+                    <!-- <button type="button" name="requestQuoteBtn" class="btn btn-primary d-flex align-items-center" id="requestQuoteBtn" data-toggle="modal" data-target="#requestQuoteSuccess"> -->
+                        <button type="button" name="requestQuoteBtn" class="btn btn-primary d-flex align-items-center" id="requestQuoteBtn" data-toggle="modal">
                         <span>Request a quote</span> 
                         <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12" fill="#fff" xmlns="http://www.w3.org/2000/svg">
                             <path d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z"></path>
@@ -876,6 +800,8 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
             </div>
         </div>
     </div>
+
+    
     <?php 
         if($customerSession->isLoggedIn()){
             $viewId = 'rwd_view_reward_user';
@@ -925,7 +851,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                             <a href="javascript:void(0);" id="action_btn" view-id="rwd_view_reward" class="view_reward">View rewards</a>
                             <a href="#register">
                             <button type="button" id="modalOpen" view-id="rwd_view_reward_user" data-target="#signin" class="btn btn-primary d-flex align-items-center">
-                                    sign up now <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12"
+                                    Sign up now <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12"
                                     fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z">
@@ -934,7 +860,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                             </button>
                         </a>
                             <div class="bottom_text ">
-                                <p>Already have an account? <a href="#login" id="modalOpenSignin" data-target="#signin" view-id="rwd_view_reward_user">sign in</a> </p>
+                                <p>Already have an account? <a href="#login" id="modalOpenSignin" data-target="#signin" view-id="rwd_view_reward_user">Sign in</a> </p>
                             </div>
                         </div>
                     </div>
@@ -1051,26 +977,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                         </div>
                                     </div>
                                 </li>
-                                <!-- <li>
-                                    <div class="icon">
-                                        <img src="<?php //echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
-                                    </div>
-                                    <div class="content d-flex align-items-center justify-content-between">
-                                        <div class="left d-flex flex-column">
-                                            <h6>Share on instagram</h6>
-                                            <p>200 points </p>
-                                        </div>
-
-                                        <div class="right">
-                                            <a href="http://www.facebook.com/sharer.php?u=">
-                                                <div class="share d-flex align-items-center">
-                                                    <img src="<?php //echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
-                                                    <span>share</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li> -->
+                                
                             </ul>
                         </div>
                      </div>
@@ -1201,46 +1108,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <!-- <li>
-                                                    <div class="icon">
-                                                        <img src="<?php //echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
-                                                    </div>
-                                                    <div class="content d-flex align-items-center justify-content-between">
-                                                        <div class="left d-flex flex-column">
-                                                            <h6>Share on instagram</h6>
-                                                            <p>200 points </p>
-                                                        </div>
-                
-                                                        <div class="right">
-                                                            <a href="javascript:void(0)">
-                                                                <div class="share d-flex align-items-center">
-                                                                    <img src="<?php //echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
-                                                                    <span>share</span>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </li> -->
-                                                <!-- <li>
-                                                    <div class="icon">
-                                                        <img src="<?php //echo $block->getViewFileUrl('images/insta.png'); ?>" alt="">
-                                                    </div>
-                                                    <div class="content d-flex align-items-center justify-content-between">
-                                                        <div class="left d-flex flex-column">
-                                                            <h6>Share on instagram</h6>
-                                                            <p>200 points </p>
-                                                        </div>
-                
-                                                        <div class="right">
-                                                            <a href="javascript:void(0)">
-                                                                <div class="share d-flex align-items-center">
-                                                                    <img src="<?php //echo $block->getViewFileUrl('images/share.png'); ?>" alt="">
-                                                                    <span>share</span>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </li> -->
+                                                
                                             </ul>
                                         </div>
                                      </div>
@@ -1366,28 +1234,22 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                         </h6>
                         
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="Organisation name" name="organisation_name" id="organisation_name">
-                                 <span id="errorOrgName"></span>
+                                 <input type="text" class="form-control" required  placeholder="Organisation name" name="organisation_name" id="organisation_name">
                             </div>
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="Contact person" name="contact_person" id="contact_person">
-                                 <span id="errorOrgPerson"></span>
+                                 <input type="text" class="form-control" required  placeholder="Contact person" name="contact_person" id="contact_person">
                             </div>
                             <div class="form-group">
-                                 <input type="email" class="form-control"  placeholder="E-mail" name="org_email" id="org_email">
-                                 <span id="errorOrgEmail"></span>
+                                 <input type="email" class="form-control" required  placeholder="E-mail" name="org_email" id="org_email">
                             </div>
                             <div class="form-group">
-                                 <input type="number" class="form-control"  placeholder="Phone number" name="org_phone" id="org_phone">
-                                 <span id="errorOrgNumber"></span>
+                                 <input type="number" class="form-control" required  placeholder="Phone number" name="org_phone" id="org_phone">
                             </div>
                             <div class="form-group">
-                                 <input type="text" class="form-control"  placeholder="Address" name="org_address" id="org_address">
-                                 <span id="errorOrgAdd"></span>
+                                 <input type="text" class="form-control" required  placeholder="Address" name="org_address" id="org_address">
                             </div>
                             <div class="form-group">
                                 <textarea class="form-control"  rows="3" placeholder="Notes" name="donation_notes"></textarea>
-
                             </div>
                         
 
@@ -1426,39 +1288,39 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                     <ul class="donation_info list list-unstyled">
                         <li class="top_info">
                             <div class="heading">Donation information</div>
-                            <div class="info"><?php echo $session['organisation_name']?></div>
+                            <div class="info" id="organisationVal"><?php echo $session['organisation_name']?></div>
                         </li>
                         <li>
                             <div class="heading">Donation amount</div>
-                            <div class="info"><?php echo $session['donation_points']?></div>
+                            <div class="info" id="donationPointsVal"><?php echo $session['donation_points']?></div>
                         </li>
                         <li>
                             <div class="heading">Organisation name</div>
-                            <div class="info"><?php echo $session['organisation_name']?></div>
+                            <div class="info" id="organisationVal2"><?php echo $session['organisation_name']?></div>
                         </li>
                         <li>
                             <div class="heading">E-mail</div>
-                            <div class="info"><?php echo $session['org_email']?></div>
+                            <div class="info" id="organisationEmailVal"><?php echo $session['org_email']?></div>
                         </li>
                         <li>
                             <div class="heading">Phone number</div>
-                            <div class="info"><?php echo $session['org_phone']?></div>
+                            <div class="info" id="organisationPhoneVal"><?php echo $session['org_phone']?></div>
                         </li>
                         <li>
                             <div class="heading">Notes</div>
-                            <div class="info"><?php echo $session['donation_notes']?></div>
+                            <div class="info" id="donationNotes"><?php echo $session['donation_notes']?></div>
                         </li>
                     </ul>
-                    <form method="post" action="<?php echo $block->getBaseUrl(); ?>/donationform/submit/donate">
-                        <input type="hidden" name="organisation_name" value="<?php echo $session['organisation_name']?>">
-                        <input type="hidden" name="contact_person" value="<?php echo $session['contact_person']?>">
-                        <input type="hidden" name="donation_points" value="<?php echo $session['donation_points']?>">
-                        <input type="hidden" name="org_email" value="<?php echo $session['org_email']?>">
-                        <input type="hidden" name="org_phone" value="<?php echo $session['org_phone']?>">
-                        <input type="hidden" name="org_address" value="<?php echo $session['org_address']?>">
-                        <input type="hidden" name="donation_notes" value="<?php echo $session['donation_notes']?>">
+                    <form method="post" id="submitDonationData">
+                        <input type="hidden" id="DonationName" name="organisation_name">
+                        <input type="hidden" id="DonationContact" name="contact_person">
+                        <input type="hidden" id="DonationPoints" name="donation_points">
+                        <input type="hidden" id="DonationEmail" name="org_email">
+                        <input type="hidden" id="DonationPhone" name="org_phone">
+                        <input type="hidden" id="DonationAdd" name="org_address">
+                        <input type="hidden" id="DonationNotes" name="donation_notes">
                     <div class="btn-wrap">
-                        <button class="btn btn-primary" id="submitDonation">
+                        <button class="btn btn-primary" id="submitDonation" type="button">
                             Confirm
                             <svg class="ml-2" width="24" height="13" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -1466,7 +1328,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     fill="white" />
                             </svg>
                         </button>
-                        <button class="btn  btn-outline-dark">
+                        <button class="btn btn-outline-dark" id="CancelBtn" type="button">
                             Cancel
                         </button>
                     </div>
@@ -1507,7 +1369,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     fill="white" />
                             </svg>
                         </button>
-                        <p id="referResponseTxt"></p>
+                        
                     </div>
                 </form>
                     
@@ -1515,6 +1377,190 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
             </div>
 
         </div>
+
+<div id="referResponseTxt"></div>
+
+<?php
+    
+    
+
+
+    function getTodayActivities($order_id){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $connection = $resource->getConnection();
+        $storeActivitiesTbl = $connection->getTableName('storeActivities');
+        $getActivities = "SELECT * FROM " . $storeActivitiesTbl . " WHERE order_id ='".$order_id."' AND (createAt >= CURDATE() AND createAt < CURDATE() + INTERVAL 1 DAY)";
+        return $result = $connection->fetchAll($getActivities);
+    }
+    function getYesterdayActivities($order_id){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $connection = $resource->getConnection();
+        $storeActivitiesTbl = $connection->getTableName('storeActivities');
+        $getActivities = "SELECT * FROM " . $storeActivitiesTbl . " WHERE order_id ='".$order_id."' AND (createAt BETWEEN CURDATE() - INTERVAL 1 DAY AND CURDATE())";
+        return $result = $connection->fetchAll($getActivities);
+    }
+    function getRestActivities($order_id){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $connection = $resource->getConnection();
+        $storeActivitiesTbl = $connection->getTableName('storeActivities');
+        $getActivities = "SELECT * FROM " . $storeActivitiesTbl . " WHERE order_id ='".$order_id."' AND (createAt < CURDATE() - INTERVAL 1 DAY AND CURDATE())";
+        return $result = $connection->fetchAll($getActivities);
+    }
+
+
+
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+    if($customerSession->isLoggedIn()) {
+        $customer_email = $customerSession->getCustomer()->getEmail();
+        $customer_telephone = $customerSession->getCustomer()->getTelephone();
+
+        $order_collection = $objectManager->create('Magento\Sales\Model\Order')->getCollection()->addAttributeToFilter('customer_email', $customer_email)->setOrder(
+                        'created_at',
+                        'desc'
+                    );
+        // foreach ($order_collection as $orders){ 
+        //     $invoices = $this->getInvoiceDataByOrderId($orders->getEntityId());
+            
+        //     $order = $objectManager->create('\Magento\Sales\Model\OrderRepository')->get($orders->getEntityId());
+        //     $order->getEntityId();
+        //     $order->getIncrementId();
+        //     $order->getState();
+        //     $order->getStatus();
+        //     $order->getStoreId();
+        //     $order->getGrandTotal();
+        //     $order->getSubtotal();
+        //     $order->getTotalQtyOrdered();
+        //     $order->getOrderCurrencyCode();
+        //     $custLastName = $order->getCustomerLastname();
+        //     $total_qty = 0;
+        // }
+   
+?>
+<!-- notificationPanel slidePanel -->
+
+    <div id="notificationBar" class="rightSlide">
+        <div class="rightSlideOver"></div>
+        <div class="notificationPanel rightPanel">
+            <div class="notificationWrap slidePanel">
+                <div class="topHead d-flex align-items-center justify-content-between">
+                    <h6>Notifications</h6>
+                    <button class="btn btn-link">Mark all as read</button>
+                </div>
+
+                <div class="allNotification">
+                    <?php //foreach ($order_collection as $orders) {  
+                        
+                            
+
+                            
+                            
+                            
+                    ?>
+                    
+                    <div class="notifications_box current">
+                        <span class="notifyHead">Today</span>
+
+                        
+                        
+                            <?php 
+                                foreach ($order_collection as $orders) {
+                                    $order_id = $orders->getEntityId();  
+                                    $getTodayActivities = getTodayActivities($order_id);
+                                    if(!empty($getTodayActivities) ){
+                            foreach($getTodayActivities as $todayNotification){  ?>
+
+                        <div class="message d-flex align-items-start">
+
+                            <p style="color:#000"><?php echo $todayNotification['message'];?> 
+                            </p>
+                            <span> <?php echo $start_time = date("h:i A", strtotime($todayNotification['createAt']));?> </span>
+                        </div>
+                    <?php }  ?>
+                    <?php }  ?>
+                    <?php } ?>
+                    </div>
+                    
+                <?php ?>
+                    <div class="notifications_box current">
+                        <span class="notifyHead">Yesterday</span>
+
+                        
+                        
+                            <?php 
+                            foreach ($order_collection as $orders) {
+                                    $order_id = $orders->getEntityId();  
+                                    $getYesterdayActivities = getYesterdayActivities($order_id);
+                                    if(!empty($getYesterdayActivities) ){
+                            foreach($getYesterdayActivities as $previousNotification){  ?>
+
+                        <div class="message d-flex align-items-start">
+
+                            <p style="color:#000"><?php echo $previousNotification['message'];?>
+                            </p>
+                            <span> <?php echo $start_time = date("h:i A", strtotime($previousNotification['createAt']));?> </span>
+                        </div>
+                    <?php }  ?>
+                    <?php }  ?>
+                    <?php }  ?>
+                    </div>
+
+<?php ?>
+                    <div class="notifications_box current">
+                        <span class="notifyHead">Previous</span>
+
+                        
+                        
+                            <?php 
+                            foreach ($order_collection as $orders) {
+                                    $order_id = $orders->getEntityId();  
+                                    $getRestActivities = getRestActivities($order_id);
+                                    if(!empty($getRestActivities) ){
+                            foreach($getRestActivities as $restNotification){  ?>
+
+                        <div class="message d-flex align-items-start">
+
+                            <p style="color:#000"><?php echo $restNotification['message'];?>
+                            </p>
+                            <span> <?php echo $start_time = date("h:i A", strtotime($restNotification['createAt']));?> </span>
+                        </div>
+                    <?php }  ?>
+                    <?php }  ?>
+                    <?php }  ?>
+                    </div>
+
+                <?php //}  ?>
+                    
+
+                    <!-- <div class="notifications_box">
+                        <span class="notifyHead">Sat 20 aug 2020</span>
+
+                        <div class="message d-flex align-items-start">
+                            <p>
+                                Your order for <strong>pretty serets women blue robe PSS15CH0CO4</strong> has been
+                                dispatched.
+                            </p>
+                            <span> 12:03 </span>
+                        </div>
+
+                        <div class="message d-flex align-items-start">
+                            <p>
+                                Your order for <strong>pretty serets women blue robe PSS15CH0CO4</strong> has been
+                                dispatched.
+                            </p>
+                            <span> 12:03 </span>
+                        </div>
+
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
 
         <!-- Signin Modal -->
   
@@ -1556,35 +1602,6 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         });
 
 
-        // $('.iconWrap .search_box input[type=text]').on('keyup', function(){
-        //     var value = $(this).val().toLowerCase();
-        //     console.log(value);
-        //     $('.search_result > ul li').each(function(){
-        //         if($(this).text().toLocaleLowerCase().search(value) > -1){
-        //             $(this).show();
-        //             $('.search_result').show();
-        //         }else{
-        //             $(this).hide();
-        //         }
-        //         // if($(this).parent('ul').val() < 1){
-        //             //     console.log('No Product');
-        //             // }
-        //         });
-                
-        //         // if($(this).val().length >= 1){
-        //         //     console.log($('.search_result > ul li:visible').length); 
-        //         //     var SearchLength = $('.search_result > ul li:visible').length;
-
-        //         //     if(SearchLength == 0){
-        //         //         console.log('NO');
-        //         //         // $('.search_result').html('No Product Found');
-        //         //     }
-
-        //         // }else{
-        //         //     console.log($('.search_result > ul li:visible').length); 
-        //         // }
-        // });
-
         $('.input_box ').on('click','.close', function(){
             $(this).parents('.search_box').removeClass('show');
             $('body').css('overflow','visible'); 
@@ -1624,6 +1641,16 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         $('.btn-widget').removeClass('d-none');
         $('.btn-widget').addClass('d-block');
     });
+
+    $('#CancelBtn').on('click', function(){
+        $('#donationData').trigger("reset");
+
+        $(this).parents('.rwd_main').removeClass('show');
+        $('.btn-widget').removeClass('d-none');
+        $('.btn-widget').addClass('d-block');
+    });
+
+
 
     // back_btn
     $(document).on('click', '#back_btn', function(){
@@ -1680,107 +1707,201 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
     });
 
     $('#donateButton').click(function(){
-        // alert('clicked');
-                // forgetButton.text(forgetText);
-                // forgetButton.attr("disabled", "disabled");
-                var status = true;
+        var status = true;
 
-                var earnedPoints = "<?php echo $earnedPoints; ?>";
-                var donation_points = $('#donation_points').val();
+        var earnedPoints = "<?php echo $earnedPoints; ?>";
+        var donation_points = $('#donation_points').val();
+        console.log("ddddstatus"+status);
+        if($('#donation_points').val() == '') {
+            // $('#errorPoints').text("Please enter the donation points");
+            $('.response-msg').html("<div class='notify error' style='z-index:999999'><h6>Please enter the donation points</h6></div>");
+            removeMessageResponse();
+            status = false;
+        }else if(donation_points > earnedPoints){
+            $('.response-msg').html("<div class='notify error' style='z-index:999999'><h6>You do not have that much points</h6></div>");
 
-                if($('#donation_points').val() == '') {
-                    $('#errorPoints').text("Please enter the donation points");
-                    status = false;
-                }if(donation_points > earnedPoints){
-                    // $('#errorPoints').text("You do not have that much points");
-                    $('#errorPoints').html("<div class='notify error' style='width:auto;'><h6>You do not have that much points</h6></div>");
-                    
-                    status = false;
-                }if($('#organisation_name').val() == ''){
-                    $('#errorOrgName').text("Please enter the organisation name");
-                    status = false;
-                }if($('#contact_person').val() == ''){
-                    $('#errorOrgPerson').text("Please enter the contact person name.");
-                    status = false;
-                }if($('#org_email').val() == ''){
-                    $('#errorOrgEmail').text("Please enter the orgation email");
-                    status = false;
-                }if($('#org_phone').val() == ''){
-                    $('#errorOrgNumber').text("Please enter the orgation phone number");
-                    status = false;
-                }if($('#org_address').val() == ''){
-                    $('#errorOrgAdd').text("Please enter the orgation address");
-                    status = false;
+            status = false;
+            removeMessageResponse();
+        }else if($('#organisation_name').val() == ''){
+            //$('#errorOrgName').text("Please enter the organisation name");
+            $('.response-msg').html("<div class='notify error' style='z-index:999999'><h6>Please enter the organisation name</h6></div>");
+            status = false;
+            removeMessageResponse();
+        }else if($('#contact_person').val() == ''){
+            //$('#errorOrgPerson').text("Please enter the contact person name.");
+            $('.response-msg').html("<div class='notify error' style='z-index:999999'><h6>Please enter the contact person name.</h6></div>");
+            status = false;
+            removeMessageResponse();
+        }else if($('#org_email').val() == ''){
+            // $('#errorOrgEmail').text("Please enter the organisation email");
+            $('.response-msg').html("<div class='notify error' style='z-index:999999'><h6>Please enter the organisation email</h6></div>");
+            status = false;
+            removeMessageResponse();
+        }else if($('#org_phone').val() == ''){
+            $('.response-msg').html("<div class='notify error' style='z-index:999999'><h6>Please enter the organisation phone number</h6></div>");
+            status = false;
+            removeMessageResponse();
+        }else if($('#org_address').val() == ''){
+            // $('#errorOrgAdd').text("Please enter the organisation address");
+            $('.response-msg').html("<div class='notify error' style='z-index:999999'><h6>Please enter the organisation address</h6></div>");
+            status = false;
+            removeMessageResponse();
+        }
+
+        if(status  == false){
+            return false;
+        }
+        var formData = $("#donationData").serialize()
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $block->getUrl()?>/donation/rewards/donation/",
+            data: formData,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                if(data != 'error'){
+
+                    $('#organisationVal').text(data.output.organisation_name);
+                    $('#donationPointsVal').text(data.output.donation_points);
+                    $('#organisationVal2').text(data.output.organisation_name);
+                    $('#organisationEmailVal').text(data.output.org_email);
+                    $('#organisationPhoneVal').text(data.output.org_phone);
+                    $('#donationNotes').text(data.output.donation_notes);
+
+
+                    $('#DonationName').val(data.output.organisation_name);
+                    $('#DonationPoints').val(data.output.donation_points);
+                    $('#DonationEmail').val(data.output.org_email);
+                    $('#DonationPhone').val(data.output.org_phone);
+                    $('#DonationNotes').val(data.output.donation_notes);
+                    $('#DonationAdd').val(data.output.org_address);
+                    $('#DonationContact').val(data.output.contact_person);
+
+
+                        // <input type="hidden" id="DonationName" name="organisation_name">
+                        // <input type="hidden" id="DonationContact" name="contact_person">
+                        // <input type="hidden" id="DonationPoints" name="donation_points">
+                        // <input type="hidden" id="DonationEmail" name="org_email">
+                        // <input type="hidden" id="DonationPhone" name="org_phone">
+                        // <input type="hidden" id="DonationAdd" name="org_address">
+                        // <input type="hidden" id="DonationNotes" name="donation_notes">
+
+                    $('#rwd_donation').removeClass('show');
+                    $('#rwd_donation_confirm').addClass('show');
                 }
+            }
+        });
+        return false;
+    });
 
+    // $('#submitDonation').click(function(){
+    $('#submitDonation').on("click", function(){
+        var formData = $("#submitDonationData").serialize()
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $block->getBaseUrl(); ?>/donationform/submit/donate",
+            data: formData,
+            dataType: "json",
+            success: function(data) {
+                console.log("donation data"+data);
+                if(data == true){
 
-
-                if(status  == false){
-                    return false;
+                    // $('#referResponseTxt').html('Mail has been sent to your referral friend');
+                    $('#referResponseTxt').html("<div class='notify success' style='style='z-index:999999'; width:auto;'><h6>Congratulations, you have donated for a cause from your reward points</h6></div>");
+                    setTimeout(function(){
+                        $('#referResponseTxt').remove();
+                        reload();
+                    }, 5000);
+                }else if(data == false){
+                    $('#referResponseTxt').html('Some error has occured while donating the points. No points will be deducted from your loyalty points');
+                    setTimeout(function(){
+                        $('#referResponseTxt').remove();
+                    }, 5000);
+                }else{
+                    $('#referResponseTxt').html(data);
+                    setTimeout(function(){
+                        $('#referResponseTxt').remove();
+                    }, 5000);
                 }
-                var formData = $("#donationData").serialize()
-               //console.log(formData);
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo $block->getUrl()?>/donation/rewards/donation/",
-                    data: formData,
-                    dataType: "json",
-                    success: function(data) {
-                            if(data != 'error'){
-                                $('#rwd_donation').removeClass('show');
-                                $('#rwd_donation_confirm').addClass('show');
-                            }
-                    }
-                });
-                return false;
-            });
-
+            }
+        });
+    })
 
     $('#referFriend').click(function(){
         
-                var formData = $("#donateButtonForm").serialize()
-               //console.log(formData);
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo $block->getUrl()?>/refer/submit/refer/",
-                    data: formData,
-                    dataType: "json",
-                    success: function(data) {
-                            if(data == true){
-                                // $('#referResponseTxt').html('Mail has been sent to your referral friend');
-                                $('#referResponseTxt').html("<div class='notify success' style='width:auto;'><h6>Mail has been sent to your referral friend</h6></div>");
-                            }else if(data == false){
-                                $('#referResponseTxt').html('Some error');
-                            }else{
-                                $('#referResponseTxt').html(data);
-                            }
-                    }
-                });
-            });
+        var formData = $("#donateButtonForm").serialize()
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $block->getUrl()?>/refer/submit/refer/",
+            data: formData,
+            dataType: "json",
+            success: function(data) {
+                if(data == true){
+                    // $('#referResponseTxt').html('Mail has been sent to your referral friend');
+                    $('#referResponseTxt').html("<div class='notify success' style='width:auto;'><h6>Mail has been sent to your referral friend</h6></div>");
+                }else if(data == false){
+                    $('#referResponseTxt').html('Some error');
+                }else{
+                    $('#referResponseTxt').html(data);
+                }
+            }
+        });
+    });
 
     $('.shareUrl').click(function(){
-            var getHrefAttr = $(this).attr("href");
-            var getId = this.id;
-                
-               //console.log(formData);
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo $block->getUrl()?>/refer/submit/share/",
-                    data: {sharingMedia:getId},
-                    dataType: "json",
-                    success: function(data) {
-                            if(data == true){
-                                alert("Rewards points will be added to your wallet once you share the link on facebook.");
-                                // $('#referResponseTxt').html('Mail has been sent to your referral friend');
-                            }else{
-                                alert(data);
-                                
-                            }
-                            return false;
-                    }
-                });
-            });
+        var getHrefAttr = $(this).attr("href");
+        var getId = this.id;
+            
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $block->getUrl()?>/refer/submit/share/",
+            data: {sharingMedia:getId},
+            dataType: "json",
+            success: function(data) {
+                if(data == true){
+                    $('.response-msg').html("<div class='notify success' style='width:auto;'><h6>Rewards points will be added to your wallet once you share the link on facebook.</h6></div>");
+                    removeMessageResponse();
+                    // $('#referResponseTxt').html('Mail has been sent to your referral friend');
+                }else{
+                    alert(data);
+                }
+                return false;
+            }
+        });
+    });
 
+    $('.requestQuoteSuccess').click(function(){
+        location.reload();
+    });
+
+    $('#requestQuoteBtn').click(function(){
+            
+        var formData = $("#requestQuoteData").serialize()
+           //console.log(formData);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $block->getUrl()?>/quote/submit/quotation/",
+            data: formData,
+            dataType: "json",
+            success: function(data) {
+                if(data.output == true){
+                    $('#requestQuoteSuccess').removeClass("fade");
+                    $('#requestQuoteSuccess').css("display", "block");
+                }else if(data.output == false){
+                    $('.response-msg').html("<div class='notify error' style='width:auto;'><h6>Something went wrong. Please try again.</h6></div>");
+                    removeMessageResponse();
+                }else{
+                    $('.response-msg').html("<div class='notify error' style='width:auto;'><h6>Please fill the data correctly.</h6></div>");
+                    removeMessageResponse();
+                }
+            }
+        });
+    });
+        function removeMessageResponse(){
+            setTimeout(function(){
+          $('.response-msg').remove();
+        }, 5000);
+        }
     function showResponse(data) {
                 if(data.errors) {
                     $('.response-msg').html("<div class='notify error' style='width:auto;'><h6>"+data.message+"</h6></div>");

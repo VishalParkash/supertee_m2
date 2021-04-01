@@ -59,10 +59,20 @@ class View extends Template
 
   public function getPriceById($id)
 {
-    //$id = '21'; //Product ID
-    $product = $this->_productloader->create();
-    $productPriceById = $product->load($id)->getPrice();
-    return $productPriceById;
+  $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
+  $currentProduct = $objectmanager->get('Magento\Catalog\Api\ProductRepositoryInterface')->getById($id);
+  $pricingArr = [];
+  $_children = $currentProduct->getTypeInstance()->getUsedProducts($currentProduct);
+  if(!empty($_children)){
+      foreach ($_children as $child){
+                          $pricingArr[] = ($child->getPrice());
+      }
+      $configurablePrice = min($pricingArr);
+      return $configurablePrice;
+  } else {
+    return $currentProduct->getFinalPrice();
+  }
+
 }
 
 public function getProductImgById($productId){

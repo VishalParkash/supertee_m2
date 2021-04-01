@@ -1,0 +1,1 @@
+/var/www/html/stee_test/vendor/stripe/module-payments/view/frontend/web/js/view/checkout/cart/totals/initial_fee.js

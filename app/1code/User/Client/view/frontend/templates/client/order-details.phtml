@@ -1,0 +1,198 @@
+<?php include('client-header.phtml');?>
+<?php 
+    // $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $urlInterface = $objectManager->get('Magento\Framework\UrlInterface');
+    $getURL = $urlInterface->getCurrentUrl();
+    $splitUrl =  explode("/", $getURL);
+    if(!empty($splitUrl)){
+        $formNewArr = array();
+        foreach($splitUrl as $param){
+            if(!empty($param)){
+                $formNewArr = $param;
+            }
+        }
+    }
+    
+    if($formNewArr != 'key' && (ctype_digit($formNewArr))) {
+        $OrderId = ($formNewArr);
+    }else{
+        die('pleaase leave');
+    }
+    // echo "<pre>";print_r($formNewArr);
+    // die;
+    // echo $OrderId;die;
+?>
+<?php $orderDetails = $block->getOrderDetails($OrderId);
+$billingaddress = $orderDetails->getBillingAddress();
+$shippingaddress = $orderDetails->getShippingAddress();
+    // echo "<pre>";print_r($orderDetails->getFullTaxInfo());die;
+$currency = $objectManager->create('Magento\Directory\Model\CurrencyFactory')->create()->load($orderDetails->getOrderCurrencyCode());
+$currencySymbol = $currency->getCurrencySymbol();
+
+$helperImport = $objectManager->get('\Magento\Catalog\Helper\Image');
+?>
+<div class="pageContainer">
+    <section class="manageAccountOrderDetail sectionPage">
+        <div class="createNew">
+            <div class="createNewRow">
+                <div class="createNewForm">
+                    <div class="manageAccountOrderDetailDiv">
+                        <div class="d-flex align-items-start manageAccountOrderDetailTop">
+                            <h4 class="d-flex flex1">
+                                Order details
+                                <span class="divider">|</span>
+                                <button class="btn btnText">
+                                    <b class="textBtnBlue">Download invoice</b>
+                                </button>
+                            </h4>
+                            <p>
+                                <b class="textPrimary">Order id</b>
+                                <span class="font-weight-bold"><?php echo $orderDetails->getEntityId()?></span>
+                            </p>
+                        </div>
+                        <div class="manageAccountOrderDetailTitle">
+                            <p>
+                                <b class="textPrimary">Order date</b>
+                                <span class="font-weight-bold"><?php echo date('d M, Y', strtotime($orderDetails->getCreatedAt()))?></span>
+                            </p>
+                        </div>
+                        <div class="orderDetailItem border-0">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="d-flex">
+                                        <div>
+                                            <h4 class="m-0">Price details</h4>
+                                        </div>
+                                        <div class="flex1">
+                                            <div class="orderDetailPriceDetails">
+                                                <p class="d-flex pl-4">
+                                                    <span class="flex1">Total</span>
+                                                    <b><?php echo $currencySymbol;?><?php echo number_format($orderDetails->getSubtotal(),2);?></b>
+                                                </p>
+                                                <p class="d-flex pl-4">
+                                                    <span class="flex1">Tax</span>
+                                                    <b><?php //echo $currencySymbol;?><?php //echo number_format($orderDetails->getSubtotal(),2);?></b>
+                                                </p>
+                                                <p class="d-flex pl-4 align-items-center">
+                                                    <strong class="flex1 textPrimary p-0">
+                                                        Grand total
+                                                    </strong>
+                                                    <b><?php echo $currencySymbol;?><?php echo number_format($orderDetails->getGrandTotal(), 2);?></b>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="orderDetailItem">
+                            <h4>Contact details</h4>
+                            <p><?php echo $orderDetails->getShippingAddress()->getTelephone();?></p>
+                            <p><?php echo $orderDetails->getCustomerEmail();?></p>
+                        </div>
+                        <div class="orderDetailItem">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h4>Billing address</h4>
+                                    <p>
+                                        <?php //echo "<pre>";print_r($billingaddress->getStreet());die;?>
+                                        <?php $countRows = count($billingaddress->getStreet()); ?>
+                                        <?php foreach($billingaddress->getStreet() as $address){
+                                            echo $address;
+                                            echo "<br>";
+                                        }?>
+                                        <?php echo $billingaddress->getCity();?> <?php echo $billingaddress->getPostcode();?>.
+                                    </p>
+                                </div>
+                                <div class="col-md-3 offset-md-6">
+                                    <h4>Shipping address</h4>
+                                    <p>
+                                        <?php //echo $shippingaddress->getStreet();?>
+                                        <?php $countRows = count($shippingaddress->getStreet()); ?>
+                                        <?php foreach($shippingaddress->getStreet() as $addressShipping){
+                                            echo ($addressShipping);
+                                            echo "<br>";
+                                        }?>
+                                        <?php echo ucwords($shippingaddress->getCity());?> <?php echo $shippingaddress->getPostcode();?>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="orderDetailItem">
+                            <h4>Payment mode</h4>
+                            <p><?php echo $paymentMethod = $orderDetails->getPayment()->getMethod();?></p>
+                            <div class="d-flex align-items-end">
+                                <div class="manageAccountOrderDetailTitle flex1 pl-0">
+                                    <p>
+                                        <b>Order status</b>
+                                        <span><strong><?php echo $orderDetails->getState(); ?></strong></span>
+                                    </p>
+                                    <p>
+                                        <b>Total items in this order :</b>
+                                        <b class="font-weight-normal"><?php echo count($orderDetails->getAllItems())?></b>
+                                    </p>
+                                </div>
+                                <div class="orderDetailItemBtn">
+                                    <button class="btn btn-primary">
+                                        <div class="d-flex align-items-center">
+                                            <span>Track order</span>
+                                            <svg width="17" height="21" viewBox="0 0 17 21" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.33334 0.5C6.12396 0.502481 4.00578 1.38125 2.44352 2.94352C0.881252 4.50578 0.00248136 6.62395 0 8.83333C0 14.1794 7.5023 20.076 7.82167 20.3244C7.96796 20.4382 8.148 20.4999 8.33334 20.4999C8.51867 20.4999 8.69872 20.4382 8.84501 20.3244C9.16417 20.076 16.6667 14.1794 16.6667 8.83333C16.6642 6.62395 15.7854 4.50578 14.2232 2.94352C12.6609 1.38125 10.5427 0.502481 8.33334 0.5V0.5ZM8.32917 18.5921C6.07896 16.7125 1.66667 12.31 1.66667 8.83333C1.66667 7.06522 2.36905 5.36953 3.61929 4.11929C4.86953 2.86904 6.56523 2.16667 8.33334 2.16667C10.1014 2.16667 11.7971 2.86904 13.0474 4.11929C14.2976 5.36953 15 7.06522 15 8.83333C15 12.6479 9.96709 17.2083 8.32917 18.5921Z"
+                                                    fill="white" />
+                                                <path
+                                                    d="M11.668 4.66663H5.0013C4.78029 4.66663 4.56833 4.75442 4.41205 4.9107C4.25577 5.06698 4.16797 5.27895 4.16797 5.49996V12.1666C4.16797 12.3876 4.25577 12.5996 4.41205 12.7559C4.56833 12.9122 4.78029 13 5.0013 13H11.668C11.889 13 12.101 12.9122 12.2572 12.7559C12.4135 12.5996 12.5013 12.3876 12.5013 12.1666V5.49996C12.5013 5.27895 12.4135 5.06698 12.2572 4.9107C12.101 4.75442 11.889 4.66663 11.668 4.66663ZM10.8346 11.3333H5.83464V6.33329H7.5013V7.99996H9.16797V6.33329H10.8346V11.3333Z"
+                                                    fill="white" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="orderDetailOrdersList">
+                            <?php foreach ($orderDetails->getAllItems() as $item) { ?>
+                            <div class="orderDetailOrdersListItem d-flex">
+                                <div class="orderDetailOrdersListImg">
+                                    <img src="<?php echo $block->getProductImage($item->getProductId());?>" alt="orderTshirt">
+                                </div>
+                                <div class="flex1">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="orderDetailOrdersListItemLeft">
+                                                <p><b class="flex1 pl-0"><?php echo $item->getName();?></b></p>
+                                                <p>#<?php echo $item->getSku();?></p>
+                                                <p><b>size</b> m/s <span class="divider">|</span>
+                                                    Qty <?php echo round($item->getQtyOrdered());?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p><b><?php echo $currencySymbol ?><?php echo number_format($item->getPrice(), 2) ?></b></p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p><b>Base price </b></p>
+                                            <p><?php echo $currencySymbol ?><?php echo number_format($item->getPrice(), 2) ?></p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p><b>Markup </b></p>
+                                            <p>30%</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p><b>Retail price </b></p>
+                                            <p>$26.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<?php include('client-footer.phtml');?>
