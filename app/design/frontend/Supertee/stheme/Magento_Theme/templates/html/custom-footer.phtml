@@ -487,7 +487,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         <div class="cartItems rightPanel">
             <div class="head d-flex align-items-center justify-content-between">
                 <h6>My wishlist</h6>
-                <span><?=count($wishlistCollection)?> items</span>
+                <span><?php echo count($wishlistCollection);?> items</span>
             </div>
             <div class="similarProduct">
                 <div class="productWrap d-flex align-items-start flex-wrap">
@@ -517,10 +517,10 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                         </div>
                         <div class="productContent">
                             <div class="topWrap d-flex align-items-center justify-content-between">
-                                <h6><?=$item->getProduct()->getName()?></h6>
+                                <h6><?php echo $item->getProduct()->getName();?></h6>
                             </div>
                             <p>
-                                <?=$item->getProduct()->getShortDescription()?>
+                                <?php echo $item->getProduct()->getShortDescription();?>
                             </p>
                             <div class="price">
                             <?php $getFinalPrice = (!empty($configurablePrice)) ?  $configurablePrice :  number_format($product->getFinalPrice(), 2); ?>
@@ -537,7 +537,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     Remove
                                 </a>
                             </div>
-                            <a href="" data-role="tocart" data-post='<? echo $wblock->getAddToCartParams($item) ?>' class="btn btn-primary">
+                            <a href="" data-role="tocart" data-post='<?php echo $wblock->getAddToCartParams($item) ?>' class="btn btn-primary">
                                 Move to cart
                                 <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -552,7 +552,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                         } else {
                     ?> 
                         <p>No record found.</p>
-                    <? }?>
+                    <?php }?>
                 </div>
             </div>
             <div class="emptyCart d-none">
@@ -1185,9 +1185,9 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                             <tbody>
                                 <?php foreach($collection as $key){?>
                                 <tr>
-                                    <td><?=date('d M Y',strtotime($key['created_at']))?></td>
-                                    <td><?=ucwords(str_replace('_',' ',$key['rewards_points_id']))?></td>
-                                    <td><? if($key['reward_type'] =='credit'){echo '+';}else{echo '-';} ?> <?=$key['reward_points']?></td>
+                                    <td><?php echo date('d M Y',strtotime($key['created_at']));?></td>
+                                    <td><?php echo ucwords(str_replace('_',' ',$key['rewards_points_id']));?></td>
+                                    <td><?php if($key['reward_type'] =='credit'){echo '+';}else{echo '-';} ?> <?php echo $key['reward_points']?></td>
                                 </tr>
                                <?php }?>
                             </tbody>
@@ -1218,7 +1218,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                         <div class="user_balance d-flex flex-column">
                             <h6 class="font-18">Balance</h6>
                             <span class="amount"><?php echo number_format($earnedPoints, 2);?></span>
-                            <span class="point_value">value $<? echo ($earnedPoints * 2) / 100;?></span>
+                            <span class="point_value">value $<?php echo ($earnedPoints * 2) / 100;?></span>
                         </div>
                         <div class="donate_point user_balance">
                             <h6 class="font-18">Balance</h6>
@@ -1288,27 +1288,27 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                     <ul class="donation_info list list-unstyled">
                         <li class="top_info">
                             <div class="heading">Donation information</div>
-                            <div class="info" id="organisationVal"><?php echo $session['organisation_name']?></div>
+                            <div class="info" id="organisationVal"><?php if (isset($session['organisation_name'])) {echo $session['organisation_name'];}?></div>
                         </li>
                         <li>
                             <div class="heading">Donation amount</div>
-                            <div class="info" id="donationPointsVal"><?php echo $session['donation_points']?></div>
+                            <div class="info" id="donationPointsVal"><?php if (isset($session['donation_points'])) {echo $session['donation_points'];}?></div>
                         </li>
                         <li>
                             <div class="heading">Organisation name</div>
-                            <div class="info" id="organisationVal2"><?php echo $session['organisation_name']?></div>
+                            <div class="info" id="organisationVal2"><?php if (isset($session['organisation_name'])) {echo $session['organisation_name'];}?></div>
                         </li>
                         <li>
                             <div class="heading">E-mail</div>
-                            <div class="info" id="organisationEmailVal"><?php echo $session['org_email']?></div>
+                            <div class="info" id="organisationEmailVal"><?php if (isset($session['org_email'])) {echo $session['org_email'];}?></div>
                         </li>
                         <li>
                             <div class="heading">Phone number</div>
-                            <div class="info" id="organisationPhoneVal"><?php echo $session['org_phone']?></div>
+                            <div class="info" id="organisationPhoneVal"><?php if (isset($session['org_phone'])) {echo $session['org_phone'];}?></div>
                         </li>
                         <li>
                             <div class="heading">Notes</div>
-                            <div class="info" id="donationNotes"><?php echo $session['donation_notes']?></div>
+                            <div class="info" id="donationNotes"><?php if (isset($session['donation_notes'])) {echo $session['donation_notes'];}?></div>
                         </li>
                     </ul>
                     <form method="post" id="submitDonationData">
@@ -1438,7 +1438,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         //     $custLastName = $order->getCustomerLastname();
         //     $total_qty = 0;
         // }
-   
+        
 ?>
 <!-- notificationPanel slidePanel -->
 
@@ -1754,7 +1754,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         var formData = $("#donationData").serialize()
         $.ajax({
             type: "POST",
-            url: "<?php echo $block->getUrl()?>/donation/rewards/donation/",
+            url: "<?php echo $block->getUrl();?>/donation/rewards/donation/",
             data: formData,
             dataType: "json",
             success: function(data) {
@@ -1832,7 +1832,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         var formData = $("#donateButtonForm").serialize()
         $.ajax({
             type: "POST",
-            url: "<?php echo $block->getUrl()?>/refer/submit/refer/",
+            url: "<?php echo $block->getUrl();?>/refer/submit/refer/",
             data: formData,
             dataType: "json",
             success: function(data) {
@@ -1854,7 +1854,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
             
         $.ajax({
             type: "POST",
-            url: "<?php echo $block->getUrl()?>/refer/submit/share/",
+            url: "<?php echo $block->getUrl();?>/refer/submit/share/",
             data: {sharingMedia:getId},
             dataType: "json",
             success: function(data) {
@@ -1880,7 +1880,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
            //console.log(formData);
         $.ajax({
             type: "POST",
-            url: "<?php echo $block->getUrl()?>/quote/submit/quotation/",
+            url: "<?php echo $block->getUrl();?>/quote/submit/quotation/",
             data: formData,
             dataType: "json",
             success: function(data) {

@@ -1,0 +1,95 @@
+<?php ?> <style> .products-grid-custom ol { display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; width: -webkit-calc(100% + 20px) !important; width: calc(100% + 20px) !important; margin-left: -10px !important; margin-right: -10px !important; } .products-grid-custom ol li { width: 33.3333% !important; padding-left: 10px !important; padding-right: 10px !important; margin-left: 0 !important; margin-right: 0 !important; } .products-grid-custom ol li .product-item-info { width: 100% !important; } .products-grid-custom ol li .product-item-info a { display: block !important; } .products-grid-custom ol li canvas { max-width: 100% !important; /*height: 300px !important;*/ } .canvas{ width: 300px !important; height: : 300px !important; }</style><div class="product-manage"><div id="filter_div" class="deactive"><form class="form search" action="" id="search-form" method="post"><?php $productCollection = $block->getProductCollection (); if ($productCollection->getSize () > 0) { ?> <div class="toolbar top"><?php echo $block->getPagerHtml(); ?></div><div class="products wrapper grid products-grid products-grid-custom"><ol class="products list items product-items"><?php $count = $productCollection->getSize (); $productCollection = $productCollection->getData(); for ($i = 0; $i < $count; $i++ ){ $productRepository = $block->getProductCollection(); $productId = $productCollection[$i]['entity_id']; $product = $block->getLoadProduct($productId); $minimumQuantity = $block->getStockItem(); $productId = $product->getEntityId(); $minimumQuantity = $block->getStockItem(); $getCoordinates = ($block->getCoordinates($productId)); if(!empty($getCoordinates)){ $xCoordinate = $getCoordinates[0]['xCoordinate']; $yCoordinate = $getCoordinates[0]['yCoordinate']; $canvasWidth = $getCoordinates[0]['canvasWidth']; $canvasHeight = $getCoordinates[0]['canvasHeight']; }else{ $xCoordinate = 100; $yCoordinate = 100; $canvasWidth = 120; $canvasHeight = 20; } $imagehelper = $this->helper ( 'Magento\Catalog\Helper\Image' ); $productImage = $imagehelper->init ( $product, 'category_page_list' )->constrainOnly ( FALSE )->keepAspectRatio ( TRUE )->keepFrame ( FALSE )->resize ( 200 )->getUrl (); ?> <li class="item product product-item"><div class="product-item-info" id="product-item-info_<?php echo $productId; ?>" data-container="product-grid"><a href="<?php echo $block->customProductUrl($productId); ?>" class="product photo product-item-photo" tabindex="-1"><canvas id="canvas_<?php echo $productId; ?>" class="canvas" data-img="<?php echo $productImage; ?>" data-x="<?php echo $xCoordinate ?>" data-y="<?php echo $yCoordinate ?>" data-w="<?php echo $canvasWidth ?>" data-h="<?php echo $canvasHeight ?>" data-id="<?php echo $productId; ?>" width="500" height="500"><<!-- span class="product-image-container product-image-container-<?php echo $productId; ?>"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?php</span -->></canvas><script type="text/javascript">
+  prodImageContainers = document.querySelectorAll(".product-image-container-<?php echo $productId; ?>");
+
+
+
+prodImageContainersWrappers = document.querySelectorAll(
+    ".product-image-container-<?php echo $productId; ?>  span.product-image-wrapper"
+);</script></a> <div class="product details product-item-details"><strong class="product name product-item-name"><a class="product-item-link" href="<?php echo $block->customProductUrl($productId); ?>"><?php echo $product->getName(); ?></a></strong> <?php ?> <div class="price-box price-final_price" data-role="priceBox" data-product-id="<?php echo $productId; ?>" data-price-box="product-id-<?php echo $productId; ?>"><span class="price-container price-final_price tax weee"><span id="product-price-<?php echo $productId; ?>" data-price-amount="" data-price-type="finalPrice" class="price-wrapper "><span class="price"><?php ?></span></span></span></div></div></div></li> <?php } ?></ol></div><div class="toolbar-bottom"><div class="toolbar bottom"><?php echo $block->getPagerHtml(); ?></div></div><?php }else{ ?> <br /><p><?php echo __("We couldn't find any records."); ?></p><?php } ?></div></div><?php /** * Bulk product upload form */ ?> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.15/css/jquery.Jcrop.css"><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.15/js/jquery.Jcrop.js"></script><script>
+
+  require([ 'jquery', 'jquery/ui'], function($){ 
+var arr = ["Roboto", "Open Sans", "Lato", "Raleway", "Source Sans Pro", "Ubuntu", "Titillium Web", "Poppins", "Dosis", "Nunito", "Work Sans", "Cabin", "Josefin Sans", "Merriweather Sans", "Exo 2", "Source Code Pro", "Kanit", "Exo", "Rokkitt", "Martel", "Alegreya Sans SC", "Arima Madurai", "Montserrat Alternates", "Martel Sans", "Expletus Sans", "Inknut Antiqua"];
+$('.canvas').each(function(){
+  var fontFamily = arr[Math.floor(Math.random() * arr.length)];
+
+  var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = 'http://fonts.googleapis.com/css?family='+fontFamily;
+console.log(link);
+document.getElementsByTagName('head')[0].appendChild(link);
+
+  var canvasId = this.id;
+  var productImage = $('#'+canvasId).data('img');
+  var xCoordinate = $('#'+canvasId).data('x');
+  var yCoordinate = $('#'+canvasId).data('y');
+  var canvasHeight = $('#'+canvasId).data('h');
+  var canvasWidth = $('#'+canvasId).data('w');
+
+  console.log("x "+xCoordinate);
+  console.log("y "+yCoordinate);
+  console.log("h "+canvasHeight);
+  console.log("w "+canvasWidth);
+
+  
+  var canvas = document.getElementById(canvasId);
+  var width = canvas.width;
+  var height = canvas.height;
+   ?>";
+  var getVendorLogoPath = "<?php echo $block->getVendorLogoPath($block->getVendorLogo(18)[0]['Vendorlogo'])?>";
+  var firstTagline = "<?php echo trim(($block->getVendorLogo(18)[0]['firstTagline']))?>";
+
+  const getContext = () => document.getElementById(canvasId).getContext('2d');
+
+
+const loadImage = url => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error(`load ${url} fail`));
+    img.src = url;
+  });
+};
+
+
+var counting = 1;
+const depict = options => {
+  const ctx = getContext();
+  
+  
+  const myOptions = Object.assign({}, options);
+  
+  
+  return loadImage(myOptions.uri).then(img => {
+    
+    
+    
+    var fontWeight = 'Regular 400';
+    var fontSize = '30px';
+    
+    console.log('family'+fontFamily)
+    
+    console.log(arr[Math.floor(Math.random() * arr.length)]);
+    ctx.drawImage(img, myOptions.x, myOptions.y, myOptions.sw, myOptions.sh);
+    if(counting == 1){
+      ctx.textAlign = 'center';
+      ctx.font = '20px '+fontFamily;
+      
+      ctx.fillStyle = '<?php echo $block->getVendorLogo(18)[0]['textColorSelector']?>';
+      ctx.fillText(firstTagline, xCoordinate, yCoordinate, canvasWidth);
+      
+      
+      counting = 0;
+    }
+    
+  });
+};
+
+const imgs = [
+  { uri: productImage, x: 0, y:  0, sw: width, sh: height},
+  { uri: getVendorLogoPath, x:xCoordinate, y:yCoordinate, sw: 20, sh: 20 }
+];
+
+imgs.forEach(depict);
+})
+})</script>

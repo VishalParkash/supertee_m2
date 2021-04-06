@@ -1,1 +1,17 @@
-/var/www/html/stee_test/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/action/select-shipping-address.js
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @api
+ */
+define([
+    'Magento_Checkout/js/model/quote'
+], function (quote) {
+    'use strict';
+
+    return function (shippingAddress) {
+        quote.shippingAddress(shippingAddress);
+    };
+});

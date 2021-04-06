@@ -1,0 +1,491 @@
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); $customSession = $objectManager->create('Forms\Registration\Model\Session'); $mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface') ->getStore() ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA); $baseUrl = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue("web/unsecure/base_url"); $storeManager = $objectManager->create("\Magento\Store\Model\StoreManagerInterface"); $storecode = ''; $clientId = ''; if(!empty($customSession->getData()['getMyStore'])){ $storecode = $customSession->getData()['getMyStore']; }if(!empty($customSession->getData()['getMyClientId'])){ $clientId = $customSession->getData()['getMyClientId']; } /*Uncomment after*/ if(empty($storecode) && (empty($clientId))){ echo "You are not authorised to access this page."; die; } /*Uncomment after*/ $stores = $storeManager->getStores(true, true); if(isset($stores[$storecode])) { $store_id = $stores[$storecode]->getId(); } ?> <div class="mainSite"><div class="sideBar"><div class="sideBarInner"><div class="sideBarTop"><a href="index.html"><img src="<?php echo $this->getViewFileUrl('Forms_Registration::images/logoWhite.png'); ?>" alt="logoWhite" /></a></div><div class="sideBarMiddle flex1"><h4>risk-free. Stress-free.</h4><h2> get started with your own custom printed apparel and accessories store</h2><ul class="listCheck"><li> set up your store in minutes. choose your products, your markup and start selling.</li> <li> No hassle of managing production or shipment. We take care of all of that.</li> <li> Get payouts at regular intervals based on your markup percentage.</li></ul></div><div><button class="btn btn-outline-light newprevv" id="markup" style="display:none"><svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="fillHover" d="M0.274963 5.33638C0.275244 5.3361 0.275479 5.33577 0.275807 5.33549L5.17443 0.460497C5.54142 0.0952939 6.135 0.096653 6.50029 0.463684C6.86554 0.830668 6.86414 1.42425 6.49715 1.78949L3.20821 5.06249L23.0625 5.06249C23.5803 5.06249 24 5.48221 24 5.99999C24 6.51777 23.5803 6.93749 23.0625 6.93749L3.20826 6.93749L6.49711 10.2105C6.86409 10.5757 6.8655 11.1693 6.50025 11.5363C6.13495 11.9034 5.54132 11.9046 5.17439 11.5395L0.27576 6.66449C0.275479 6.66421 0.275244 6.66388 0.274916 6.6636C-0.0922562 6.29713 -0.091084 5.70163 0.274963 5.33638Z" fill="white" /></svg><b>previous</b></button></div></div></div><div class="main"><div class="selectProducts pageContent"><ul class="storeNav"><li class="selectProd" ><a href="select-products.html" class="active">01 select products</a></li> <li class="markup" ><a href="#">02 markup</a></li> <li class="theme"><a href="theme.html">03 theme& logo</a></li> <li class="customize"><a href="#">04 customization</a></li> <li class="setting"><a href="generalSetting.html">05 general settings</a></li></ul><div class="flex1 overflowY mb15"><!-- selectProd --><form method="post" id="firstSelectProducts"><input type="hidden" name="productsCollected" id="productsCollected" /><input type="hidden" name="categoriesCollected" id="categoriesCollected" /><input type="hidden" name="tempSID" id="tempSID" value="<?php echo $store_id?>" /><input type="hidden" name="productsData" value="true" /><section class="selectProductsContent selectProd active" id="selectProd"><h1 class="mb15">select the products you want to add to your store</h1><p class="f18 colorGray mb48 fontSecondary"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p><div><label class="customCheckBox"><input type="radio" name="firstSelectProducts" class="selectProductsId" value="allProducts" /><div class="customCheckBoxDiv"><span class="checkBoxItem"></span> <h4 class="mb15 fontSecondary">add all products from supertee website</h4><p> this option enables you to add all products offered by supertee to your website</p></div></label> <label class="customCheckBox"><input type="radio" name="firstSelectProducts" class="selectProductsId" value="specificProduct" /><div class="customCheckBoxDiv"><span class="checkBoxItem"></span> <h4 class="mb15 fontSecondary">select specific product</h4><p> this option enables you to access all products offered by supertee to your website and you can choose specific products for your store.</p><div class="customCheckBoxHide"><button class="btn btn-secondary openModal" data-toggle="modal" data-target="#selectProductsModal" type="button"><b>select products</b> <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="fillHover" d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" fill="white" /></svg></button> <div class="productCategory"><div class="productCategoryItem"><p>selected category</p><span class="category_selected">00</span></div><div class="productCategoryItem"><p>selected product</p><span class="product_selected">00</span></div></div></div></div></label></div></section></form><!-- Markup --><form method="post" id="SetMarkUp"><input type="hidden" name="TempSSID" id="TempSSID"><input type="hidden" name="tempSID" id="tempSID" value="<?php echo $store_id?>" /><input type="hidden" name="markUpSetting" id="markUpSetting" value="true"><section class="selectProductsContent markup" id="markup"><h1 class="mb15">set markup for the products on your store</h1><p class="f18 colorGray mb48 fontSecondary"> sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p><div><label class="customCheckBox"><input type="radio" name="setMarkUp" checked value="allProducts" /><div class="customCheckBoxDiv"><span class="checkBoxItem"></span> <h4 class="mb15 fontSecondary">apply same markup across store</h4><p> this option enables you to apply same markup value for all the products and categories across store</p><div class="customCheckBoxHide"><input type="text" name="singleMarkUpAmt" class="form-control" placeholder="enter markup percentage" /></div></div></label> <label class="customCheckBox"><input type="radio" name="setMarkUp" value="specificProduct" /><div class="customCheckBoxDiv"><span class="checkBoxItem"></span> <h4 class="mb15 fontSecondary">apply specific markup for each product</h4><p> this option enables you to apply customized markup value for each product available on your store</p><div class="customCheckBoxHide"><button class="btn btn-secondary openModal" data-toggle="modal" data-target="#markupModal" type="button"><b>select markup</b> <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="fillHover" d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" fill="white" /></svg></button></div></div></label></div></section></form><!-- Theme&logo --><form method="post" id="themeSelection" enctype="multipart/form-data"><input type="hidden" name="tempSID" id="tempSID" value="<?php echo $store_id?>" /><input type="hidden" name="SSID" id="ThemeSSID"><input type="hidden" name="selectTheTheme" id="selectTheTheme" value="true"><section class="selectTheme theme themeWrap" id="theme"><div class="selectTheme"><div class="topWrap d-flex align-items-center justify-content-between"><div class="head"><h1>select a store theme</h1><p>choose theme provided by supertee</p></div><div class="customSliderNav"><a href="" class="prev"><svg width="14" height="8" viewBox="0 0 14 8" fill="#151515" xmlns="http://www.w3.org/2000/svg"><path d="M12.9014 3.60421C12.9012 3.60406 12.9011 3.60388 12.9009 3.60373L10.3081 1.0234C10.1139 0.830102 9.79968 0.830821 9.60633 1.02509C9.41301 1.21933 9.41375 1.53351 9.60799 1.72684L11.3488 3.45924L0.839968 3.45924C0.565907 3.45924 0.34375 3.68139 0.34375 3.95545C0.34375 4.22951 0.565907 4.45167 0.839968 4.45167L11.3488 4.45167L9.60802 6.18407C9.41377 6.37739 9.41303 6.69157 9.60636 6.88582C9.79971 7.08011 10.1139 7.08078 10.3081 6.8875L12.901 4.30717C12.9011 4.30702 12.9012 4.30685 12.9014 4.3067C13.0958 4.11273 13.0951 3.79753 12.9014 3.60421Z" /></svg></a> <a href="" class="next"><svg width="14" height="8" viewBox="0 0 14 8" fill="#151515" xmlns="http://www.w3.org/2000/svg"><path d="M12.9014 3.60421C12.9012 3.60406 12.9011 3.60388 12.9009 3.60373L10.3081 1.0234C10.1139 0.830102 9.79968 0.830821 9.60633 1.02509C9.41301 1.21933 9.41375 1.53351 9.60799 1.72684L11.3488 3.45924L0.839968 3.45924C0.565907 3.45924 0.34375 3.68139 0.34375 3.95545C0.34375 4.22951 0.565907 4.45167 0.839968 4.45167L11.3488 4.45167L9.60802 6.18407C9.41377 6.37739 9.41303 6.69157 9.60636 6.88582C9.79971 7.08011 10.1139 7.08078 10.3081 6.8875L12.901 4.30717C12.9011 4.30702 12.9012 4.30685 12.9014 4.3067C13.0958 4.11273 13.0951 3.79753 12.9014 3.60421Z" /></svg></a></div></div><div class="themes themeSlider"><div class="theme_box"><input type="radio" id="theme1" name="getTheme" value="5" checked><label for="theme1" class="d-flex flex-column align-items-center justify-content-center"><div class="storeTheme bgYellowLight2"></div><div class="nameWrap d-flex align-items-center"><svg class="mr-2" width="20" height="19" viewBox="0 0 20 19" fill="#A8A8A8" xmlns="http://www.w3.org/2000/svg"><path d="M9.54584 19C14.8259 19 19.0917 14.7196 19.0917 9.5C19.0917 4.24529 14.8259 0 9.54584 0C4.26578 0 0 4.24529 0 9.5C0 14.7198 4.26578 19 9.54584 19ZM5.59462 8.76872L8.04206 11.2044L13.4971 5.77561L14.7555 7.02804L14.651 7.13211L8.04206 13.676L4.33593 9.98696L5.59462 8.76872Z" /></svg><span>breeze</span></div></label></div><div class="theme_box"><input type="radio" id="theme2" name="getTheme" value="7" ><label for="theme2" class="d-flex flex-column align-items-center justify-content-center"><div class="storeTheme" style="background: url('<?php echo $this->getViewFileUrl('Forms_Registration::images/storeProfileTheme2.jpg'); ?>') no-repeat; background-size: cover;"></div><div class="nameWrap d-flex align-items-center"><svg class="mr-2" width="20" height="19" viewBox="0 0 20 19" fill="#A8A8A8" xmlns="http://www.w3.org/2000/svg"><path d="M9.54584 19C14.8259 19 19.0917 14.7196 19.0917 9.5C19.0917 4.24529 14.8259 0 9.54584 0C4.26578 0 0 4.24529 0 9.5C0 14.7198 4.26578 19 9.54584 19ZM5.59462 8.76872L8.04206 11.2044L13.4971 5.77561L14.7555 7.02804L14.651 7.13211L8.04206 13.676L4.33593 9.98696L5.59462 8.76872Z" /></svg><span>luxury</span></div></label></div><div class="theme_box"><input type="radio" id="theme3" name="theme" value="8"><label for="theme3" class="d-flex flex-column align-items-center justify-content-center"><div class="storeTheme" style="background: url('<?php echo $this->getViewFileUrl('Forms_Registration::images/storeProfileTheme3.jpg'); ?>') no-repeat; background-size: cover;"></div><div class="nameWrap d-flex align-items-center"><svg class="mr-2" width="20" height="19" viewBox="0 0 20 19" fill="#A8A8A8" xmlns="http://www.w3.org/2000/svg"><path d="M9.54584 19C14.8259 19 19.0917 14.7196 19.0917 9.5C19.0917 4.24529 14.8259 0 9.54584 0C4.26578 0 0 4.24529 0 9.5C0 14.7198 4.26578 19 9.54584 19ZM5.59462 8.76872L8.04206 11.2044L13.4971 5.77561L14.7555 7.02804L14.651 7.13211L8.04206 13.676L4.33593 9.98696L5.59462 8.76872Z" /></svg><span>indie</span></div></label></div><div class="theme_box"><input type="radio" id="theme4" name="theme" value="9"><label for="theme4" class="d-flex flex-column align-items-center justify-content-center"><div class="storeTheme" style="background: url('<?php echo $this->getViewFileUrl('Forms_Registration::images/storeProfileTheme4.jpg'); ?>') no-repeat; background-size: cover;"></div><div class="nameWrap d-flex align-items-center"><svg class="mr-2" width="20" height="19" viewBox="0 0 20 19" fill="#A8A8A8" xmlns="http://www.w3.org/2000/svg"><path d="M9.54584 19C14.8259 19 19.0917 14.7196 19.0917 9.5C19.0917 4.24529 14.8259 0 9.54584 0C4.26578 0 0 4.24529 0 9.5C0 14.7198 4.26578 19 9.54584 19ZM5.59462 8.76872L8.04206 11.2044L13.4971 5.77561L14.7555 7.02804L14.651 7.13211L8.04206 13.676L4.33593 9.98696L5.59462 8.76872Z" /></svg><span>grand</span></div></label></div></div></div><div class="uploadStoreLogo d-flex"><div class="leftWrap"><div class="head"><h1>upload store logo</h1><p>upload your logo</p></div><div class="btnWrap"><button type="button" class="btn btn-secondary position-relative"><input type="file" id="storeLogo" name="storeLogo"><b>upload logo</b></button></div></div><div class="divider"></div><div class="rightWrap"><img src="" alt="" class="img-fluid" id="StorelogoImg"></div></div><div class="preview"><p><a href="#;" class="openModal" data-toggle="modal" data-target="#storePreview">click here</a> to preview your store</p></div></section></form><!-- customize --><section class="customize" id="customize"><div class="storeProfileThemeDesignPluginIntegration d-flex flex-column align-item-center justify-content-center"><h2>design plugin<br>integration</h2></div></section><!-- General Setting --><form method="post" id="generalSetting"><input type="hidden" name="setGeneralSetting" id="setGeneralSettingId" value="true"><input type="hidden" name="tempSID" id="tempSID" value="<?php echo $store_id?>" /><input type="hidden" name="SSID" id="SettingSSID"><section class="setting gsetting" id="setting"><h1>general settings</h1><ul class="list-unstyled settingWrap"><li class=""><div class="setupAccount d-flex align-items-center justify-content-between"><div class="content"><h6>set up stripe account</h6></div><div class="btnWrap"><a href="<?php echo $block->getstripeUrl(); ?>" target="_blank" class="btn btn-dark">Link Account</a></div></div><!-- <div class="accountInfo d-flex"><div class="emailId d-flex flex-column"><span class="head">email id</span> <span>gavin.cruz@demo.com</span></div><div class="accountId d-flex flex-column"><span class="head">account id</span> <span>1234567890123456</span></div><div class="bankName d-flex flex-column"><span class="head">bank name</span> <span>u.s.a bank</span></div></div> --></li> <li> <div class="wrap"><div class="content"><h6>service and app updates</h6></div><div class="btnWrap"><div class="tg-list-item toggleSwitch"><input class="tgl tgl-ios" id="setting1" type="checkbox" name="updatesNotification" /><label class="tgl-btn mb-0 mx-2" for="setting1"></label></div></div></div></li> <li> <div class="wrap"><div class="content"><h6>set up stripe account</h6><p>You need will recieve notifications on your registered email address</p></div><div class="btnWrap"><div class="tg-list-item toggleSwitch"><input class="tgl tgl-ios" id="setting2" type="checkbox" name="stripeNotification" /><label class="tgl-btn mb-0 mx-2" for="setting2"></label></div></div></div></li> <li> <div class="wrap"><div class="content"><h6>enable desktop notifications</h6><p>You need will recieve notifications on your desktop</p></div><div class="btnWrap"><div class="tg-list-item toggleSwitch"><input class="tgl tgl-ios" id="setting3" type="checkbox" name="desktopNotification" /><label class="tgl-btn mb-0 mx-2" for="setting3"></label></div></div></div></li> <li> <div class="wrap"><div class="content"><h6>enable push notifications</h6><p>You need will recieve notifications on your registered phone number</p></div><div class="btnWrap"><div class="tg-list-item toggleSwitch"><input class="tgl tgl-ios" id="setting4" type="checkbox" name="pushNotification" /><label class="tgl-btn mb-0 mx-2" for="setting4"></label></div></div></div></li></ul></section></form></div><div class="text-right formBtn"><button class="btn btn-link btn-secondary"><a href="<?php echo $block->getBaseUrl().'client/dashboard/' ?>"><b>cancel</b></a></button> <button class="btn btn-secondary nextSection" id="selectProd"><b>next</b> <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="fillHover" d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" fill="white" /></svg></button></div></div><!-- StoreCreated --><section class="storeCreated pageContent px30 storeCreated" style="display:none"><div class="flex1 d-flex flex-column justify-content-center"><div class="storeCreatedInner"><div><div class="mb15 d-flex"><svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M31 0C13.9059 0 0 13.9059 0 31C0 48.0941 13.9059 62 31 62C48.0941 62 62 48.0941 62 31C62 13.9059 48.0941 0 31 0Z" fill="#1AAAAD" /><path d="M46.7122 24.4307L29.9204 41.2221C29.4166 41.7258 28.7553 41.9794 28.0941 41.9794C27.4328 41.9794 26.7715 41.7258 26.2677 41.2221L17.872 32.8264C16.8617 31.8165 16.8617 30.1836 17.872 29.1737C18.8819 28.1633 20.5143 28.1633 21.5247 29.1737L28.0941 35.7431L43.0595 20.778C44.0694 19.7677 45.7018 19.7677 46.7122 20.778C47.7221 21.7879 47.7221 23.4203 46.7122 24.4307Z" fill="#FAFAFA" /></svg><div class="pl24"><h1>yay! your store has been set up</h1><div class="d-flex align-items-center storeCreatedCode"><p class="f18 colorGray m-0"><?php echo $baseUrl.$storecode; ?></p><span class="divider"></span> <button class="btn btn-link btn-secondary"><b>copy</b></button></div><p class="f18 colorGray m-0"> promote your store on social media</p><ul class="socialLinks"><li> <a href="#"><svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.375 42.75C33.1801 42.75 42.75 33.1801 42.75 21.375C42.75 9.56991 33.1801 0 21.375 0C9.56991 0 0 9.56991 0 21.375C0 33.1801 9.56991 42.75 21.375 42.75ZM21.375 40.185C31.7635 40.185 40.185 31.7635 40.185 21.375C40.185 10.9865 31.7635 2.565 21.375 2.565C10.9865 2.565 2.565 10.9865 2.565 21.375C2.565 31.7635 10.9865 40.185 21.375 40.185ZM22.9264 30.78V21.3739H25.7088L26.0775 18.1325H22.9264L22.9311 16.5102C22.9311 15.6648 23.0172 15.2118 24.3184 15.2118H26.0578V11.97H23.275C19.9325 11.97 18.756 13.5424 18.756 16.1868V18.1329H16.6725V21.3743H18.756V30.78H22.9264Z" fill="#151515" /></svg></a></li> <li> <a href="#"><svg width="44" height="43" viewBox="0 0 44 43" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.0752 42.75C33.8803 42.75 43.4502 33.1801 43.4502 21.375C43.4502 9.56991 33.8803 0 22.0752 0C10.2701 0 0.700195 9.56991 0.700195 21.375C0.700195 33.1801 10.2701 42.75 22.0752 42.75ZM22.0752 40.185C32.4637 40.185 40.8852 31.7635 40.8852 21.375C40.8852 10.9865 32.4637 2.565 22.0752 2.565C11.6867 2.565 3.2652 10.9865 3.2652 21.375C3.2652 31.7635 11.6867 40.185 22.0752 40.185ZM21.8035 17.5739L21.8443 18.2766L21.1647 18.1905C18.6911 17.8607 16.5301 16.7422 14.6953 14.8637L13.7983 13.9317L13.5672 14.62C13.0779 16.1543 13.3905 17.7747 14.4099 18.8645C14.9535 19.4668 14.8312 19.5528 13.8934 19.1943C13.5672 19.0796 13.2818 18.9935 13.2546 19.0366C13.1595 19.1369 13.4857 20.4419 13.7439 20.9581C14.0973 21.6751 14.8176 22.3777 15.6059 22.7936L16.2719 23.1234L15.4836 23.1377C14.7225 23.1377 14.6953 23.152 14.7768 23.4532C15.0487 24.3853 16.1224 25.3747 17.3184 25.8049L18.1611 26.106L17.4271 26.5649C16.3398 27.2245 15.0623 27.5973 13.7847 27.626C13.1731 27.6403 12.6702 27.6977 12.6702 27.7407C12.6702 27.8841 14.3283 28.6871 15.2933 29.0026C18.1882 29.9347 21.6268 29.5332 24.2092 27.9415C26.044 26.8086 27.8788 24.5573 28.7351 22.3777C29.1972 21.2162 29.6593 19.0939 29.6593 18.0758C29.6593 17.4162 29.7 17.3302 30.4612 16.5415C30.9097 16.0826 31.331 15.5807 31.4125 15.4373C31.5485 15.1649 31.5349 15.1649 30.8417 15.4086C29.6865 15.8388 29.5234 15.7815 30.0942 15.1362C30.5155 14.6773 31.0184 13.8456 31.0184 13.6018C31.0184 13.5588 30.8145 13.6305 30.5835 13.7596C30.3388 13.903 29.7952 14.1181 29.3874 14.2471L28.6535 14.4909L27.9875 14.0177C27.6206 13.7596 27.1041 13.4728 26.8323 13.3868C26.1391 13.186 25.079 13.2147 24.4538 13.4441C22.7549 14.0894 21.6812 15.7528 21.8035 17.5739C21.8035 17.5739 21.6812 15.7528 21.8035 17.5739Z" fill="#151515" /></svg></a></li> <li> <a href="#"><svg width="44" height="43" viewBox="0 0 44 43" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.7754 42.75C33.5805 42.75 43.1504 33.1801 43.1504 21.375C43.1504 9.56991 33.5805 0 21.7754 0C9.9703 0 0.400391 9.56991 0.400391 21.375C0.400391 33.1801 9.9703 42.75 21.7754 42.75ZM21.7754 40.185C32.1639 40.185 40.5854 31.7635 40.5854 21.375C40.5854 10.9865 32.1639 2.565 21.7754 2.565C11.3869 2.565 2.96539 10.9865 2.96539 21.375C2.96539 31.7635 11.3869 40.185 21.7754 40.185ZM12.3704 17.2009V29.6327H16.3975V17.2009H12.3704ZM14.6487 11.115C13.2711 11.115 12.3704 12.0434 12.3704 13.2623C12.3704 14.456 13.2444 15.4112 14.5964 15.4112H14.6222C16.0264 15.4112 16.9009 14.456 16.9009 13.2623C16.8747 12.0434 16.0264 11.115 14.6487 11.115ZM26.5437 17.2009C24.4055 17.2009 23.4482 18.4076 22.9137 19.254V17.4932H18.8861C18.9392 18.6597 18.8861 29.925 18.8861 29.925H22.9137V22.982C22.9137 22.6105 22.9399 22.2399 23.0464 21.9739C23.3374 21.2316 24.0001 20.4631 25.1127 20.4631C26.5705 20.4631 27.1533 21.603 27.1533 23.2736V29.9247H31.1802L31.1804 22.7966C31.1804 18.9781 29.1937 17.2009 26.5437 17.2009Z" fill="#151515" /></svg></a></li></ul></div></div></div></div></div><div class="text-right formBtn"><!-- <button class="btn btn-link btn-secondary"><b>maybe, later</b></button> --><button class="btn btn-secondary viewDash" id="viewDash"><a href="<?php echo $block->getBaseUrl().'client/dashboard/' ?>"><b>view dashboard</b></a> <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="fillHover" d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" fill="white" /></svg></button></div></section></div></div><!-- Modal --><div class="modal fade selectProductsModal modalLg" id="selectProductsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="17.6777" cy="17.6777" r="12" transform="rotate(45 17.6777 17.6777)" fill="white" stroke="#DBDBDB" /><path fill-rule="evenodd" clip-rule="evenodd" d="M21.7145 15.0559C21.9098 14.8606 21.9098 14.544 21.7145 14.3488C21.5192 14.1535 21.2027 14.1535 21.0074 14.3488L17.6485 17.7077L14.3188 14.3781C14.1235 14.1828 13.807 14.1828 13.6117 14.3781C13.4164 14.5733 13.4164 14.8899 13.6117 15.0852L16.9413 18.4148L13.7168 21.6394C13.5215 21.8346 13.5215 22.1512 13.7168 22.3465C13.912 22.5418 14.2286 22.5418 14.4239 22.3465L17.6485 19.1219L20.7964 22.2699C20.9917 22.4651 21.3082 22.4651 21.5035 22.2699C21.6988 22.0746 21.6988 21.758 21.5035 21.5628L18.3556 18.4148L21.7145 15.0559Z" fill="#151515" /></svg></button> <div class="modal-body"><div class="selectProductsModalInner"><div class="selectProductsModalLeft"><div class="searchDiv mb48"><input type="text" class="form-control" placeholder="Search categories, product names, product id" /><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7872 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59247 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7872 23.7871C24.0639 23.5104 24.0639 23.0528 23.7872 22.7761ZM1.43149 10.2333C1.43149 5.38005 5.38005 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38005 19.035 1.43149 15.0865 1.43149 10.2333Z" fill="#A8A8A8" /></svg></div><div class="flex1 overflowY"><div class="selectProductsModalRow"><div class="selectProductsModalSelectCategory"><h4>select category</h4><div class="accordionCustom"><?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); $categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category'); $categories = $categoryHelper->getStoreCategories(); foreach ($categories as $category) { ?> <div class="selectProductsModalSelectCategoryItem accordionCustomItem"><div class="d-flex align-items-center"><label class="checkBoxCustom flex1"><input type="checkbox" name="selectTheCategory" id="cat_id_<?php echo $category->getId();?>" class="category_select" value="<?php echo $category->getId();?>"/><span class="checkBoxCustomCheck"></span> <h5><?php echo $category->getName();?></h5></label> <button class="btnAccordion"></button></div><div class="accordionCustomItemData"><div class="accordionCustomItemDataContent"><?php $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($category->getId()); $subcats = $subcategory->getChildrenCategories(); foreach ($subcats as $subcat) { if ($subcat->getIsActive()) { ?> <div class="d-flex align-items-center accordionCustomItemDataContentItem"><label class="checkBoxCustom flex1"><input type="checkbox" name="selectTheSubCategory" class="subcategory_select cat_id_<?php echo $category->getId();?>" value="<?php echo $subcat->getId();?>"/><span class="checkBoxCustomCheck"></span> <p><?php echo $subcat->getName(); ?></p></label></div><?php } } ?></div></div></div><?php }?></div></div><div class="selectProductsModalProducts"><h4>selected products</h4><div class="selectProductsModalProductsList"><?php $categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category'); $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory'); $categories = $categoryHelper->getStoreCategories(); $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore(); foreach ($categories as $categoryy) { $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryy->getId()); $subcats = $subcategory->getChildrenCategories(); if(!empty($subcats->getData())) { foreach ($subcats as $subcat) { if ($subcat->getIsActive()) { $categoryId = $subcat->getId(); $category = $categoryFactory->create()->load($categoryId); $categoryProducts = $category->getProductCollection()->addAttributeToSelect('*'); foreach ($categoryProducts as $product) { if(!empty($product->getData()['special_price'])){ $price = $product->getData()['special_price']; }else{ $price = $product->getData()['price']; } ?> <div class="selectProductsModalProductsItem align-items-center d-none <?php echo"subcat_".$categoryId;?> <?php echo"cat_".$categoryy->getId(); ?>" ><div class="selectProductsModalProductsItemCheck"><label class="checkBoxCustom"><!-- <input type="checkbox" name="[]" class="product_select" value="<?php ?>"> --><input type="checkbox" name="selectTheProduct" class="product_select" value="<?php echo($product->getData()['entity_id']); ?>"><span class="checkBoxCustomCheck"></span></label></div><div class="flex1 d-flex align-items-center"><div class="selectProductsModalProductsItemImg"><img src="<?php echo($store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' .$product->getData()['image']); ?>" ></div><div class="flex1"><h5><?php echo($product->getData()['name']); ?></h5></div><div class="selectProductsModalProductsItemPrice"><h5 class="font-weight-normal"><?php echo number_format($price, 2); ?></h5></div><div class="selectProductsModalProductsItemAction"><a href="#" class="btn btn-link btn-info btn-sm font-weight-bold">view</a></div></div></div><?php } } } }else{ $categoryId = $categoryy->getId(); $category = $categoryFactory->create()->load($categoryId); $categoryProducts = $category->getProductCollection()->addAttributeToSelect('*'); foreach ($categoryProducts as $product) { if(!empty($product->getData()['special_price'])){ $price = $product->getData()['special_price']; }else{ $price = "190.00"; } ?> <div class="selectProductsModalProductsItem align-items-center d-none <?php echo"subcat_".$categoryId;?> <?php echo"cat_".$categoryy->getId(); ?>" ><div class="selectProductsModalProductsItemCheck"><label class="checkBoxCustom"><!-- <input type="checkbox" name="getSelectedProducts" class="product_select" value="<?php ?>"> --><input type="checkbox" name="selectTheProduct" class="product_select" value="<?php echo($product->getData()['entity_id']); ?>"><span class="checkBoxCustomCheck"></span></label></div><div class="flex1 d-flex align-items-center"><div class="selectProductsModalProductsItemImg"><img src="<?php echo($store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' .$product->getData()['image']); ?>" ></div><div class="flex1"><h5><?php echo($product->getData()['name']); ?></h5></div><div class="selectProductsModalProductsItemPrice"><h5 class="font-weight-normal"><?php echo number_format($price, 2); ?></h5></div><div class="selectProductsModalProductsItemAction"><a href="#" class="btn btn-link btn-info btn-sm font-weight-bold">view</a></div></div></div><?php } } } ?></div></div></div></div></div><div class="selectProductsModalRight pb-0"><div class="flex1 overflowY d-flex flex-column"><div><div class="d-flex selectProductsModalRightCategory"><h4 class="flex1">selected category</h4><h4 class="pl-4 category_selected">0</h4></div><div class="d-flex selectProductsModalRightCategory"><h4 class="flex1">selected products</h4><h4 class="pl-4 product_selected">0</h4></div></div><div class="flex1 overflowY d-flex flex-column selectProductsModalRightProducts"><div class="flex1 overflowY mb15"><div class="accordionCustom"><?php $categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category'); $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory'); $categories = $categoryHelper->getStoreCategories(); $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore(); foreach ($categories as $categoryy) { $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryy->getId()); ?> <div class="accordionCustomItem" ><div class="align-items-center d-none category_<?php echo($categoryy->getId()); ?>"><label class="checkBoxCustom flex1"><input type="checkbox" name="selectCategory" checked ><span class="checkBoxCustomCheck"></span> <h5><?php echo $categoryy->getName(); ?></h5></label> <button class="btnAccordion"></button></div><div class="accordionCustomItemData"><div class="accordionCustomItemDataContent"><?php $subcats = $subcategory->getChildrenCategories(); if(!empty($subcats->getData())){ foreach ($subcats as $subcat) { if ($subcat->getIsActive()) { $categoryId = $subcat->getId(); $category = $categoryFactory->create()->load($categoryId); $categoryProducts = $category->getProductCollection() ->addAttributeToSelect('*'); ?> <div class="accordionCustomItemDataContentItem"><div class="accordionCustomSub"><div class="accordionCustomItemSub"><div class="d-none align-items-center category_<?php echo($categoryy->getId()); ?>" id="subcategory_<?php echo($subcat->getId()); ?>" ><label class="checkBoxCustom flex1"><input type="checkbox" name="selectCategory" checked><span class="checkBoxCustomCheck"></span> <p><?php echo $subcat->getName(); ?></p></label> <button class="btnAccordionSub"></button></div><div class="accordionCustomItemDataSub"><div class="accordionCustomItemDataContentSub"><?php foreach ($categoryProducts as $product) { ?> <div class="mt15 d-none" id="<?php echo $product->getData()['entity_id']; ?>"><?php echo($product->getData()['name']); ?></div><?php } ?></div></div></div></div></div><?php }} }else{ $categoryId = $categoryy->getId(); $category = $categoryFactory->create()->load($categoryId); $categoryProducts = $category->getProductCollection() ->addAttributeToSelect('*'); ?> <div class="accordionCustomItemDataContentItem"><div class="accordionCustomSub"><div class="accordionCustomItemSub"><div class="d-none align-items-center category_<?php echo($categoryy->getId()); ?>" id="subcategory_<?php echo($categoryy->getId()); ?>" ><label class="checkBoxCustom flex1"><input type="checkbox" name="selectCategory" checked><span class="checkBoxCustomCheck"></span> <p><?php echo $categoryy->getName(); ?></p></label> <button class="btnAccordionSub"></button></div><div class="accordionCustomItemDataSub"><div class="accordionCustomItemDataContentSub"><?php foreach ($categoryProducts as $product) { ?> <div class="mt15 d-none" id="<?php echo $product->getData()['entity_id']; ?>"><?php echo($product->getData()['name']); ?></div><?php } ?></div></div></div></div></div><?php } ?></div></div></div><?php }?></div></div><div class="text-right"><!-- <button class="btn btn-secondary" id="closemodal"> --><button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close"><b>done</b> <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="fillHover" d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" fill="white" /></svg></button></div></div></div><!-- <div class="text-right"><button class="btn btn-secondary" disabled><b>done</b> <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="fillHover" d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" fill="white" /></svg></button></div> --></div></div><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div><!-- markupModal --><div class="modal fade markupModal modalLg" id="markupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="17.6777" cy="17.6777" r="12" transform="rotate(45 17.6777 17.6777)" fill="white" stroke="#DBDBDB" /><path fill-rule="evenodd" clip-rule="evenodd" d="M21.7145 15.0559C21.9098 14.8606 21.9098 14.544 21.7145 14.3488C21.5192 14.1535 21.2027 14.1535 21.0074 14.3488L17.6485 17.7077L14.3188 14.3781C14.1235 14.1828 13.807 14.1828 13.6117 14.3781C13.4164 14.5733 13.4164 14.8899 13.6117 15.0852L16.9413 18.4148L13.7168 21.6394C13.5215 21.8346 13.5215 22.1512 13.7168 22.3465C13.912 22.5418 14.2286 22.5418 14.4239 22.3465L17.6485 19.1219L20.7964 22.2699C20.9917 22.4651 21.3082 22.4651 21.5035 22.2699C21.6988 22.0746 21.6988 21.758 21.5035 21.5628L18.3556 18.4148L21.7145 15.0559Z" fill="#151515" /></svg></button> <div class="modal-body"><div class="markupModalInner d-flex flex-column"><div class="searchDiv"><input type="text" class="form-control" placeholder="Search categories, product names, product id" /><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7872 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59247 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7872 23.7871C24.0639 23.5104 24.0639 23.0528 23.7872 22.7761ZM1.43149 10.2333C1.43149 5.38005 5.38005 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38005 19.035 1.43149 15.0865 1.43149 10.2333Z" fill="#A8A8A8"></path></svg></div><div class="divTable d-flex flex-column flex1 overflowY"><div class="divTableRow borderBottom py24"><div class="divTableCol"><h4>category markup</h4></div><div class="divTableCol"><h4>avg. cost price</h4></div><div class="divTableCol"><h4>markup %</h4></div><div class="divTableCol text-center"><h4>retail price</h4></div></div><?php $categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category'); $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory'); $categories = $categoryHelper->getStoreCategories(); $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore(); foreach ($categories as $categoryy){ $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryy->getId()); $product_count = 0; $total_product_price =0; $subcats = $subcategory->getChildrenCategories(); ?> <div class="accordionCustom"><div class="accordionCustomItem borderBottom"><div class="divTableRow py24 d-none" id="markup_div_<?php echo($categoryy->getId()); ?>"><div class="divTableCol"><div class="d-flex align-items-center"><button class="btnAccordion"></button> <p><?php echo $categoryy->getName(); ?></p></div></div><div class="divTableCol"><p class="text-muted"><?php ?></p></div><div class="divTableCol"><input type="text" class="form-control" name="markupValue" /></div><div class="divTableCol text-center"><p>-</p></div></div><?php if(!empty($subcats)){ foreach ($subcats as $subcat) { if ($subcat->getIsActive()) { $categoryId = $subcat->getId(); $category = $categoryFactory->create()->load($categoryId); $categoryProducts = $category->getProductCollection() ->addAttributeToSelect('*'); $sub_product_count = 0; $sub_total_product_price =0; foreach ($categoryProducts as $product) { $sub_product_count +=1; $sub_total_product_price +=$product->getData()['price']; } $sub_avg_price =$sub_total_product_price/$sub_product_count; ?> <div class="accordionCustomItemData"><div class="accordionCustomItemDataContent"><div class="accordionCustomSub"><div class="accordionCustomItemSub" id="markup_sub_div_<?php echo($subcat->getId()); ?>"><div class="divTableRow"><div class="divTableCol"><div class="d-flex align-items-center"><button class="btnAccordionSub"></button> <p><?php echo $subcat->getName(); ?></p></div></div><div class="divTableCol"><p><?php echo $sub_avg_price; ?></p></div><div class="divTableCol"><input type="text" class="form-control" value="10%" /></div><div class="divTableCol text-center"><p>-</p></div></div><div class="accordionCustomItemDataSub"><?php foreach ($categoryProducts as $product) { ?> <div class="divTableRow d-none" id="product_id_<?php echo($product->getData()['entity_id']); ?>"><div class="divTableCol"><div class="d-flex align-items-center"><p><?php echo($product->getData()['name']); ?></p></div></div><div class="divTableCol"><p id="amount_<?php echo($product->getData()['entity_id']); ?>"><?php echo($product->getData()['price']); ?></p></div><div class="divTableCol"><input type="text" class="form-control myTextBox" id="<?php echo($product->getData()['entity_id']); ?>"/></div><div class="divTableCol text-center"><input type="text" class="form-control myTexttoprecentage" id="comission_<?php echo($product->getData()['entity_id']); ?>"/></div></div><?php } ?></div></div></div></div></div><?php } } }else{ ?> <?php $category = $categoryFactory->create()->load($categoryy->getId()); $categoryProducts = $category->getProductCollection() ->addAttributeToSelect('*'); foreach ($categoryProducts as $product) { ?> <div class="divTableRow d-none" id="product_id_<?php echo($product->getData()['entity_id']); ?>"><div class="divTableCol"><div class="d-flex align-items-center"><p><?php echo($product->getData()['name']); ?></p></div></div><div class="divTableCol"><p id="amount_<?php echo($product->getData()['entity_id']); ?>"><?php echo($product->getData()['price']); ?></p></div><div class="divTableCol"><input type="text" class="form-control myTextBox" id="<?php echo($product->getData()['entity_id']); ?>"/></div><div class="divTableCol text-center"><input type="text" class="form-control myTexttoprecentage" id="comission_<?php echo($product->getData()['entity_id']); ?>"/></div></div><?php } ?> <?php } ?></div></div><?php } ?></div><div class="text-right"><button class="btn btn-secondary"><b>done</b> <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="fillHover" d="M23.725 5.33638C23.7248 5.3361 23.7245 5.33577 23.7242 5.33549L18.8256 0.460497C18.4586 0.0952939 17.865 0.096653 17.4997 0.463684C17.1345 0.830668 17.1359 1.42425 17.5028 1.78949L20.7918 5.06249L0.9375 5.06249C0.419719 5.06249 0 5.48221 0 5.99999C0 6.51777 0.419719 6.93749 0.9375 6.93749L20.7917 6.93749L17.5029 10.2105C17.1359 10.5757 17.1345 11.1693 17.4998 11.5363C17.8651 11.9034 18.4587 11.9046 18.8256 11.5395L23.7242 6.66449C23.7245 6.66421 23.7248 6.66388 23.7251 6.6636C24.0923 6.29713 24.0911 5.70163 23.725 5.33638Z" fill="white" /></svg></button></div></div></div></div></div></div><!-- StorePreviewModal --><div class="modal fade storePreview modalLg" id="storePreview" tabindex="-1" role="dialog" aria-labelledby="storePreview" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="17.6777" cy="17.6777" r="12" transform="rotate(45 17.6777 17.6777)" fill="white" stroke="#DBDBDB" /><path fill-rule="evenodd" clip-rule="evenodd" d="M21.7145 15.0559C21.9098 14.8606 21.9098 14.544 21.7145 14.3488C21.5192 14.1535 21.2027 14.1535 21.0074 14.3488L17.6485 17.7077L14.3188 14.3781C14.1235 14.1828 13.807 14.1828 13.6117 14.3781C13.4164 14.5733 13.4164 14.8899 13.6117 15.0852L16.9413 18.4148L13.7168 21.6394C13.5215 21.8346 13.5215 22.1512 13.7168 22.3465C13.912 22.5418 14.2286 22.5418 14.4239 22.3465L17.6485 19.1219L20.7964 22.2699C20.9917 22.4651 21.3082 22.4651 21.5035 22.2699C21.6988 22.0746 21.6988 21.758 21.5035 21.5628L18.3556 18.4148L21.7145 15.0559Z" fill="#151515" /></svg></button> <div class="modal-body"><iframe src="https://dev.evantiv.com/supert_dev/setupstore/setup/page" frameborder="0"></iframe></div></div></div></div><script type="text/javascript">
+
+    function removeVal(arr, val){
+            for(var i = 0; i < arr.length; i++){
+                if (arr[i] == val){
+                    arr.splice(i, 1);
+                    return false;
+                }
+                
+            }
+        }
+
+    require([ 'jquery', 'jquery/ui', 'slick', 'Magento_Ui/js/modal/modal'], function($, modal){ 
+
+            $( document ).ready(function() {
+                console.log('loaded');  
+                var productsArr = new Array();
+                var categoryArr = [];
+                var subCategoriesArr = new Array();
+                $("input[name*='selectTheProduct']").click(function() {
+                    if ($(this).attr('checked')){
+                        productsArr.push($(this).val());
+                    }else{
+                        removeVal(productsArr, $(this).val());
+                    }
+                    $('#productsCollected').val(productsArr);
+                    console.log("arrat "+productsArr);
+                });
+                
+                $("input[name*='selectTheCategory']").click(function() {
+                    
+                    if ($(this).attr('checked')){
+                        categoryArr.push($(this).val());
+                    }else{
+                        removeVal(categoryArr, $(this).val());
+                    }
+                    $('#categoriesCollected').val(categoryArr);
+                    console.log("categoryArr "+categoryArr);
+                });
+
+                $("input[name*='selectTheSubCategory']").click(function() {
+                    
+                    if ($(this).attr('checked')){
+                        subCategoriesArr.push($(this).val());
+                    }else{
+                        removeVal(subCategoriesArr, $(this).val());
+                    }
+                    $('#categoriesCollected').val(subCategoriesArr);
+                    console.log("subCategoriesArr "+subCategoriesArr);
+                });
+
+
+                
+                $('.nextSection').on('click', function() {
+                    var linkId = $('.storeNav li.'+this.id).attr('class');
+                    console.log('NextId'+this.id);
+
+                    if(this.id == 'selectProd'){
+                        
+                        
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                            
+                            
+                            var formData = $("#firstSelectProducts").serialize();
+                      
+                            var url = "<?php echo $block->getBaseUrl().'setupstore/setup/store/' ?>";
+                            jQuery.ajax({
+                                url: url,
+                                type: "POST",
+                                data: formData,
+                                showLoader: true,
+                                cache: false,
+                                success: function(response){
+                                    console.log(response);
+                                    if(response.output == false){
+                                        alert("error occured");
+                                        return false;
+                                    }else{
+                                        $('#TempSSID').val(response.output);
+                                        $('#ThemeSSID').val(response.output);
+                                        $('#SettingSSID').val(response.output);
+                                        
+                                        
+                                        
+                                        return false;
+                                    }
+                                }
+                            });
+                        $(this).attr("id", "markup");
+                        $(".sideBar .newprevv").attr("id", "markup");
+                     } else if(this.id == 'markup'){
+                        
+                            var formData = $("#SetMarkUp").serialize();
+                      
+                            var url = "<?php echo $block->getBaseUrl().'setupstore/setup/store/' ?>";
+                            jQuery.ajax({
+                                url: url,
+                                type: "POST",
+                                data: formData,
+                                showLoader: true,
+                                cache: false,
+
+                                success: function(response){
+                                    console.log(response);
+                                    if(response.output == false){
+                                        return false;
+                                    }else{
+                                        console.log("ksks");
+                                        return false;
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                }
+                            });
+                           
+
+                            
+                        
+                        $(this).attr("id", "theme");
+                        $(".sideBar .newprevv").attr("id", "selectProd");
+                     }else if(this.id == 'theme'){
+                        
+                        var mediaUrl = "<?php echo $mediaUrl; ?>storesLogo";
+                        var form = $('#themeSelection')[0];
+                        var file_data = $('#storeLogo').prop('files')[0];
+                        
+                        var formData = new FormData(form);
+                        
+                      
+                            var url = "<?php echo $block->getBaseUrl().'setupstore/setup/store/' ?>";
+                            jQuery.ajax({
+                                url: url,
+                                type: "POST",
+                                data: formData,
+                                showLoader: true,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function(response){
+                                    console.log(response);
+                                    if(response.output == false){
+                                        return false;
+                                    }else{
+                                        $('#StorelogoImg').attr('src', mediaUrl+response.output);
+                                        console.log('we are indone');
+                                        return false;
+                                    }
+                                }
+                            });
+
+                            
+                        $(this).attr("id", "customize");
+                        $(".sideBar .newprevv").attr("id", "markup");
+                    }else if(this.id == 'customize'){
+                        
+                        $(this).attr("id", "setting");                        
+                        $(".sideBar .newprevv").attr("id", "theme");
+                    }
+                    else if(this.id == 'setting'){
+                            
+                            var formData = $("#generalSetting").serialize();
+                        
+                            var url = "<?php echo $block->getBaseUrl().'setupstore/setup/store/' ?>";
+                            jQuery.ajax({
+                                url: url,
+                                type: "POST",
+                                data: formData,
+                                showLoader: true,
+                                cache: false,
+
+                                success: function(response){
+                                    console.log(response);
+                                    if(response.output == false){
+                                        return false;
+                                    }else{
+                                        console.log("ksks");
+                                        return false;
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                }
+                            });
+
+
+                        $(this).attr("id", "storeCreated");   
+                        $(".sideBar .newprevv").attr("id", "customize");
+                    } else if(this.id == 'storeCreated'){
+                        $('.storeCreated').addClass('d-flex');
+                        $('.main .selectProducts').addClass('d-none');
+                         $(".sideBar .newprevv").attr("id", "setting"); 
+                    }
+
+                    
+                    $('.pageContent section').removeClass("active");
+                    $('.pageContent section.'+this.id).addClass("active");
+
+                    if($('.pageContent section.'+this.id).hasClass('active')){
+                        console.log('nextSection');
+                        $(".newprevv").addClass( 'd-inline' );
+
+                    }
+
+                    if($('.pageContent section.theme').hasClass('active')){
+                        console.log('ThemeActive');
+                        
+                        $('.themeSlider').on('init', function(event, slick){
+                            console.log("initialized")
+                        });
+                        $(".themeSlider").not('.slick-initialized').slick({
+                            dots: false,
+                            
+                            infinite: false,
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            prevArrow: $(".customSliderNav .prev "),
+                            nextArrow: $(".customSliderNav .next "),
+                        });
+                    }
+                
+                    if(linkId == this.id)
+                    {    
+                        $('.storeNav li a').removeClass("active");
+                        $('.storeNav li.'+this.id).find('a').addClass("active");
+        
+                    }
+
+
+                    
+                }); 
+
+
+
+                
+                $('.newprevv').click(function(){
+                    if($('.pageContent section.'+this.id).hasClass('selectProd')){
+                        $(".newprevv").removeClass('d-inline').addClass('d-none');
+                    }
+                     var id = $('.newprevv').attr("id");
+                                console.log('prevBtnId'+id);
+                                console.log('PrevId'+this.id);
+
+         
+                    $('.pageContent section').removeClass("active");
+                    $('.pageContent section.'+this.id).addClass("active");
+         
+                        
+                    if(id == this.id){
+                        $('.storeNav li a').removeClass("active");
+                        $('.storeNav li.'+id).find('a').addClass("active");
+                    } 
+
+                    if(this.id == 'setting'){
+                        $('.storeCreated').removeClass('d-flex');
+                        $('.main .selectProducts').removeClass('d-none');
+                        $('.pageContent section.setting').addClass("active");
+                        $('.storeNav li.setting a').addClass("active");
+                        $(".sideBar .newprevv").attr("id", "customize");
+                        $(".formBtn .nextSection").attr("id", "storeCreated");
+                    }else if(this.id == 'selectProd'){
+
+                         $(".formBtn .nextSection").attr("id", "markup");
+                    }else if(this.id == 'customize'){
+                        $(".sideBar .newprevv").attr("id", "theme");
+                        $(".formBtn .nextSection").attr("id", "setting");
+                    }else if(this.id == 'theme'){
+                        $(".sideBar .newprevv").attr("id", "markup");
+                        $(".formBtn .nextSection").attr("id", "customize");
+
+                    }else if(this.id == 'markup'){
+                        $(".sideBar .newprevv").attr("id", "selectProd");
+                        $(".formBtn .nextSection").attr("id", "theme");
+                    }else if(this.id == 'storeCreated'){
+                        $(".sideBar .newprevv").attr("id", "setting");
+                    }
+
+                });
+
+            
+            $('.viewDash').on('click', function(){
+
+            });
+
+            
+            $('.openModal').on('click', function(e){
+                var target = $(this).attr('data-target');
+                console.log(target);
+                e.stopPropagation(); 
+                $(target).addClass('show d-block');
+                $('body').append('<div class="modal-backdrop fade show"></div>');
+            });
+
+            $('.close').on('click', function(){
+                $(this).parents('.modal').removeClass('show d-block');
+                $('.modal-backdrop').remove();
+            });
+
+            $(document).on('keydown',function(event){
+                if (event.keyCode == 27){
+                    $('.modal').removeClass('show d-block');
+                    $('.modal-backdrop').remove();
+                }
+            });
+
+            
+            $(".btnAccordion").on("click", function () {
+                if ($(this).hasClass("active") === true) {
+                    $(this).closest(".accordionCustomItem").removeClass("active");
+                    $(this).removeClass("active");
+                }
+                else {
+                    
+                    
+                    
+                    
+                    $(this).closest(".accordionCustomItem").addClass("active");
+                    $(this).addClass("active");
+                }
+            });
+
+            $(".btnAccordionSub").on("click", function () {
+                if ($(this).hasClass("active") === true) {
+                    $(this).closest(".accordionCustomItemSub").removeClass("active");
+                    $(this).removeClass("active");
+                }
+                else {
+                    $(this).closest(".accordionCustomItemSub").addClass("active");
+                    $(this).addClass("active");
+                }
+            });
+
+            });
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            var count =0;
+            $(".product_select").change(function() {
+                console.log($(this).val());
+                var ischecked= $(this).is(':checked');
+                if(!ischecked){
+                   count -= 1;
+                    $('.product_selected').text(count);
+                    $('#'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                    $('#product_id_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                    
+                }else{
+                    var productsArr = new Array();
+                  count += 1;
+                    $('.product_selected').text(count);
+                    $('#'+$(this).val()).removeClass('d-none').addClass('d-flex');
+                    $('#product_id_'+$(this).val()).removeClass('d-none').addClass('d-flex');
+                    
+
+                }
+                
+            }); 
+            var cat_count =0;
+            $(".category_select").change(function() {
+                var ischecked= $(this).is(':checked');
+                console.log(ischecked);
+                if(!ischecked){
+                   
+                   if(cat_count !=0){
+                    cat_count -= 1;
+                   }
+                    $('.category_selected').text(cat_count);
+                    $('.subcat_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                    $('.category_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                    $('.cat_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                    $('.cat_id_'+$(this).val()).prop('checked', false);
+                    $('#markup_div_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                    
+                    console.log('uncheckd ' + $(this).val()+'dfdfd'+'.sub_cat_'+$(this).val());
+
+                    
+                }else{
+                  
+                  var categoriesArr  = new Array();
+                    cat_count += 1;
+                    $('.category_selected').text(cat_count);
+                    $('#markup_div_'+$(this).val()).addClass('d-flex').removeClass('d-none');
+                    $('.category_'+$(this).val()).addClass('d-flex').removeClass('d-none');
+                    console.log('checkd ' + $(this).val()+'dfdfd'+'.sub_cat_'+$(this).val());
+                    $('.cat_id_'+$(this).val()).prop('checked', true);
+                    $('.subcat_'+$(this).val()).addClass('d-flex').removeClass('d-none');
+                    $('.cat_'+$(this).val()).addClass('d-flex').removeClass('d-none');
+
+                    categoriesArr.push($(this).val());
+                    console.log("new array"+ categoriesArr);
+
+                }
+                
+            });
+            $(".subcategory_select").change(function() {
+                var subCategoriesArr= new Array();
+                var ischecked= $(this).is(':checked');
+                var sub_cat_id = $(this).attr('class').split(" ")[1];
+                var ret = sub_cat_id.replace('cat_id','');
+                console.log(ret);   
+                console.log($(this).val());
+                console.log(sub_cat_id);
+                if(!$('#'+sub_cat_id).is(':checked')){
+                    $('#'+sub_cat_id).prop('checked', true);
+                    $('.subcat_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                }else{
+                   $('#'+sub_cat_id).prop('checked', false);
+                   $('.subcat_'+$(this).val()).addClass('d-flex').removeClass('d-none');
+
+
+                }
+                if(!ischecked){
+                   $('.subcat_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                   $('#subcategory_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                   $('.category'+ret).removeClass('d-flex').addClass('d-none');
+                   $('#markup_sub_div_'+$(this).val()).removeClass('d-flex').addClass('d-none');                   
+                    console.log("subcat "+$(this).val());
+                }else{
+                  $('.subcat_'+$(this).val()).addClass('d-flex').removeClass('d-none');
+                  $('#subcategory_'+$(this).val()).addClass('d-flex').removeClass('d-none');
+                  $('.category'+ret).addClass('d-flex').removeClass('d-none');
+                  $('#markup_sub_div_'+$(this).val()).removeClass('d-flex').addClass('d-none');
+                  cat_count += 1;
+                    $('.category_selected').text(cat_count);
+                    subCategoriesArr.push($(this).val());
+                    console.log("new subarray"+ subCategoriesArr);
+
+                }
+                
+            });
+
+
+            
+            
+            
+            $(".myTexttoprecentage").keyup(function(){
+                
+               
+                var per = parseInt($(this).val());
+                var amoount = parseInt($('#amount_'+$(this).attr('id').substring($(this).attr('id').indexOf("_") + 1)).text());
+                
+                var diff = parseInt(per - amoount);
+                var new_price = parseInt(diff/per)*100;
+                console.log(new_price);
+                $('#'+$('#amount_'+$(this).attr('id').substring($(this).attr('id').indexOf("_") + 1)).text()).val(new_price); 
+            });
+            
+            $(".myTextBox").keyup(function(){
+                console.log($(this).attr('id'));
+                
+                var per = $(this).val();
+                var amoount = parseInt($('#amount_'+$(this).attr('id')).text());
+                var percentage = (amoount/100)*per;
+                var new_price = amoount+percentage;
+                
+
+                $('#comission_'+$(this).attr('id')).val(new_price);
+                
+                });
+           
+           $('#closemodal').click(function() {
+               
+               
+                $('#selectProductsModal').modal('closeModal');
+
+            });  
+           
+        });</script>

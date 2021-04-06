@@ -1,1 +1,24 @@
-/var/www/html/stee_test/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/view/summary/item/details.js
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+define([
+    'uiComponent'
+], function (Component) {
+    'use strict';
+
+    return Component.extend({
+        defaults: {
+            template: 'Magento_Checkout/summary/item/details'
+        },
+
+        /**
+         * @param {Object} quoteItem
+         * @return {String}
+         */
+        getValue: function (quoteItem) {
+            return quoteItem.name;
+        }
+    });
+});

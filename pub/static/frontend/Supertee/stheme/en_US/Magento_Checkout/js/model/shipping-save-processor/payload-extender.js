@@ -1,1 +1,9 @@
-/var/www/html/stee_test/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/model/shipping-save-processor/payload-extender.js
+define([], function () {
+    'use strict';
+
+    return function (payload) {
+        payload.addressInformation['extension_attributes'] = {};
+
+        return payload;
+    };
+});

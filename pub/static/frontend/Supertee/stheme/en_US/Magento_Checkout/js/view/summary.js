@@ -1,1 +1,15 @@
-/var/www/html/stee_test/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/view/summary.js
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+define([
+    'uiComponent',
+    'Magento_Checkout/js/model/totals'
+], function (Component, totals) {
+    'use strict';
+
+    return Component.extend({
+        isLoading: totals.isLoading
+    });
+});

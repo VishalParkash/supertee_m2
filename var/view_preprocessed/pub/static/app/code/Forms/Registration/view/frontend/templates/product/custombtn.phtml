@@ -1,0 +1,56 @@
+ <!-- <canvas id="canvas" width="700" height="700"></canvas> --><style type="text/css"> canvas { background: #f8f8f8; padding: 0; margin: 0 auto; margin-bottom: 1rem; display: block; }</style><a href="<?php echo $block->customProductUrl($block->getCurrentProductId());?>"><button>Customise It</button></a> <!-- <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Courgette|Dancing+Script|Great+Vibes|Lobster+Two|Open+Sans|Pinyon+Script|Satisfy" rel="stylesheet"> --><script type="text/javascript">
+	const canvas2 = document.getElementById('canvas');
+  	
+var arr = ["Roboto", "Open+Sans", "Lato", "Raleway", "Source+Sans+Pro", "Ubuntu", "Titillium+Web", "Poppins", "Dosis", "Nunito", "Work+Sans", "Cabin", "Josefin+Sans", "Merriweather+Sans", "Exo+2", "Source+Code+Pro", "Kanit", "Exo", "Rokkitt", "Martel", "Alegreya+Sans+SC", "Arima+Madurai", "Montserrat+Alternates", "Martel+Sans", "Expletus+Sans", "Inknut+Antiqua", 'Krona+One', 'Abril+Fatface', 'Courgette', 'Dancing+Script','Great+Vibes', 'Lobster+Two', 'Pinyon+Script', 'Satisfy' ];
+function drawImage(){
+
+	var fontFamily = arr[Math.floor(Math.random() * arr.length)];
+
+	var link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = 'https://fonts.googleapis.com/css?family='+fontFamily;
+	console.log(link);
+	document.getElementsByTagName('head')[0].appendChild(link);
+
+    const ctx = canvas2.getContext('2d')
+    img = new Image();
+    
+    img.onload = function(){
+        ctx.drawImage(img, 0, 0, 700, 700);
+        ctx.textAlign = 'center';
+        fontFamily.replace('+', ' ');
+
+	      ctx.font = '40px '+fontFamily;
+	      console.log(ctx.font);
+	      
+	      ctx.fillText("<?php echo $block->getTaglines();?>", 350, 350);
+    };
+    img.src = "<?php echo $block->getProductImage();?>";
+}
+
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      
+       ?>',</script>

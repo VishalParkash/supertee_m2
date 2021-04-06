@@ -1,1 +1,17 @@
-/var/www/html/stee_test/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/action/select-shipping-method.js
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @api
+ */
+define([
+    '../model/quote'
+], function (quote) {
+    'use strict';
+
+    return function (shippingMethod) {
+        quote.shippingMethod(shippingMethod);
+    };
+});

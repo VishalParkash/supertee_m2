@@ -1,1 +1,10 @@
-/var/www/html/stee_test/vendor/magento/module-configurable-product/view/adminhtml/web/css/configurable-product.css
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+#configurable-attributes-container .col-name {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

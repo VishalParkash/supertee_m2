@@ -130,19 +130,39 @@ class Validator
      * @param string|array $directories
      * @return bool
      */
+    // protected function isPathInDirectories($path, $directories)
+    // {
+    //     if (!is_array($directories)) {
+    //         $directories = (array)$directories;
+    //     }
+    //     $realPath = $this->fileDriver->getRealPath($path);
+    //     foreach ($directories as $directory) {
+    //         if (0 === strpos($realPath, $directory)) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
     protected function isPathInDirectories($path, $directories)
-    {
-        if (!is_array($directories)) {
-            $directories = (array)$directories;
-        }
-        $realPath = $this->fileDriver->getRealPath($path);
-        foreach ($directories as $directory) {
-            if (0 === strpos($realPath, $directory)) {
-                return true;
-            }
-        }
-        return false;
-    }
+{
+         if (!is_array($directories)) {
+             $directories = (array)$directories;
+         }
+
+         if((PHP_OS_FAMILY === 'Windows') || (strtolower(substr(PHP_OS, 0, 3)) === 'win')){
+           $realPath = str_replace('\\', '/', $this->fileDriver->getRealPath($path));
+         }else{
+           $realPath = $this->fileDriver->getRealPath($path);
+         }
+
+         foreach ($directories as $directory) {
+             if (0 === strpos($realPath, $directory)) {
+                 return true;
+             }
+         }
+         return false;
+ }
 
     /**
      * Instantiates filesystem directory

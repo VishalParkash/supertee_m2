@@ -1,1 +1,14 @@
-/var/www/html/stee_test/vendor/magento/module-weee/view/frontend/web/template/checkout/summary/weee.html
+<!--
+/**
+* Copyright © Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+*/
+-->
+<!-- ko if: isDisplayed() -->
+<tr class="totals">
+    <th data-bind="text: title" class="mark" scope="row"></th>
+    <td class="amount" data-bind="attr: {'data-th': title}">
+        <span class="price" data-bind="text: getValue()"></span>
+    </td>
+</tr>
+<!-- /ko -->

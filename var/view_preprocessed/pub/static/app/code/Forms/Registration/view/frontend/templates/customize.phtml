@@ -1,0 +1,33 @@
+<!-- header html layout... --><div class="container"><div id="zakeke-container"></div></div><!-- footer html layout... --><script src="https://portal.zakeke.com/scripts/config.js"></script><script
+ src="https://portal.zakeke.com/scripts/integration/api/customizer.js"></script><script>
+    var config = {
+  "tokenoauth": "<?php echo $block->getAccessToken();?>",
+   ?>",
+  "mobileversion": false,
+  "cartbuttontext": "Submit",
+  "shoppingcarturl": "<?php echo $block->getBaseUrl();?>/cstproduct/zeke/customproduct",
+   ?>/customize/zeke/customize",
+  "editshoppingcarturl": "<?php echo $block->getBaseUrl();?>/cstproduct/zeke/customproduct",
+  
+  "savedesigncallback": {   
+    "finalprice": 100,
+    "isoutofstock": true
+},
+  "productinfourl": "[url-endpoint-info-product]",
+  "additionaldata":  {},
+  "canSaveDesign": false,
+  "culture": "en-US",
+  "currency": "USD",
+  "designid": "",
+  "pricetaxincluded": false,
+  "labeltax": "hidden",
+  "quantity": 1,
+  "sides": ['1'],
+  "selectedattributes": {
+      "color": "White",
+      
+      
+  }
+};
+    var productJson = {"id":"Sample T-Shirt", "name":"Sample T-Shirt"};
+    var customizer = new zakekeDesigner(config, productJson);</script><style> div#dlg-select-colors{ display: none !important; }</style>

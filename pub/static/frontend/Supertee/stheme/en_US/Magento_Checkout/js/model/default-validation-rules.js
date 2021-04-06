@@ -1,1 +1,21 @@
-/var/www/html/stee_test/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/model/default-validation-rules.js
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+define([], function () {
+    'use strict';
+
+    return {
+        /**
+         * @return {Object}
+         */
+        getRules: function () {
+            return {
+                'country_id': {
+                    'required': true
+                }
+            };
+        }
+    };
+});

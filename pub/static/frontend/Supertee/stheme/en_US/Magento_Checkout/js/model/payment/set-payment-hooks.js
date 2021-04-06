@@ -1,1 +1,13 @@
-/var/www/html/stee_test/app/design/frontend/Supertee/stheme/Magento_Checkout/web/js/model/payment/set-payment-hooks.js
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+define([], function () {
+    'use strict';
+
+    return {
+        requestModifiers: [],
+        afterRequestListeners: []
+    };
+});
