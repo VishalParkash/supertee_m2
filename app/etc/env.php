@@ -14,9 +14,9 @@ return [
         'connection' => [
             'default' => [
                 'host' => '127.0.0.1',
-                'dbname' => 'm2_supertee_test',
-                'username' => 'development',
-                'password' => 'Milli@123',
+                'dbname' => 'supertee',
+                'username' => 'root',
+                'password' => '',
                 'model' => 'mysql4',
                 'engine' => 'innodb',
                 'initStatements' => 'SET NAMES utf8;',
