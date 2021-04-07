@@ -29,7 +29,7 @@ public function __construct(\Magento\Framework\App\Action\Context $context,
 }
 
     public function execute() {
-
+        
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $request = $objectManager->get('Magento\Framework\App\Request\Http');
 
@@ -66,7 +66,8 @@ public function __construct(\Magento\Framework\App\Action\Context $context,
             
             
         }
-
+        //session_start();
+        $_SESSION["cart_success"] = "Item added to cart successfully";
         header("Location:".$request->getServer('HTTP_REFERER'));
         die;
 

@@ -1212,14 +1212,22 @@ $customerId = $customerSession->getId();
             </div>
         </div>
     </div>
-
-    
+    <?php if(!empty($_SESSION["cart_success"])){?>
+        <input type='hidden' value="<?php echo $_SESSION["cart_success"];?>" id="cart_success"/>
+    <?php unset($_SESSION["cart_success"]);} else {?>
+        <input type='hidden' value="" id="cart_success"/>
+    <?php }?>
+    <div class="response-msg"></div>
     <script>
         require([ 'jquery', 'jquery/ui', 'bootstrap4', 'fabric'], function($){
 
         
 
         $( document ).ready(function() {
+            if ($("#cart_success").val()) {
+                $('.response-msg').html("<div class='notify error' style='width:auto;'><h6>"+$("#cart_success").val()+"</h6></div>");
+                removeMessageResponse();
+            }
             var currencySymbol = '<?php echo $currencySymbol;?>';
             var canvas = new fabric.Canvas('loadingCanvas');
             // var canvas = new fabric.Canvas('inner');
@@ -1262,7 +1270,11 @@ $customerId = $customerSession->getId();
              mtr: false,
         };
 
-
+        function removeMessageResponse(){
+            setTimeout(function(){
+          $('.response-msg').remove();
+        }, 5000);
+        }
 
         function clipRectangle(left, top, width, height){
 

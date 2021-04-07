@@ -62,7 +62,6 @@ if(!empty($_REQUEST['referred']) && ($_REQUEST['referred'] =='1')){
 }
 
 ?>
-<?php //echo $this->getChildHtml("catalog.topnav"); die; ?>
 <?php 
 $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
 <?php $_menu = $block->getHtml('nav-item', 'menu', $columnsLimit) ?>
@@ -167,7 +166,32 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
             </div>
         </div>
     </div>
-
+<style>
+.search_box .search_result_prev {
+  flex-grow: 1;
+  background: #fff;
+  overflow-y: auto;
+}
+@media (min-width: 992px) {
+  .search_box .search_result_prev {
+    padding-left: 96px;
+    padding-right: 50px;
+  }
+}
+.search_box .search_result_prev .ui-widget {
+  flex-direction: column;
+}
+.search_box .search_result_prev .ui-widget li {
+  line-height: normal;
+}
+.search_box .search_result_prev .ui-widget li:not(:last-child) {
+  margin-bottom: 10px;
+}
+.search_box .search_result_prev ul {
+  margin-top: 22px;
+  margin-bottom: 70px;
+}
+</style>
     
 <header>
         <div class="outerContainer">
@@ -242,8 +266,11 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
     </svg>
                                                 
                                         </div>
+                                        <div class="search_result_prev" style="display:none;">
+                                        	 <?php echo $block->getChildHtml(); ?>
+                                        </div>
                                         <div class="search_result">
-                                        	 <?= $block->getChildHtml() ?>
+                                            <?php echo $block->getChildHtml(); ?>
                                         </div>
                                     </div>
                                 </div><?php 
@@ -329,7 +356,15 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
 
     <script>
         require([ 'jquery', 'jquery/ui', 'bootstrap4', 'fabric'], function($){
-            $(document).ready(function () {  
+            $(document).ready(function () {
+                $('#search').on("keyup", function(){
+                    $(".search_result_prev").hide();
+                });
+                $('.close').on("click", function(){
+                    $(".search_result_prev").show();
+                    $(".search_result").html("");
+                    $(".search_result").hide();
+                });
                 $("form").bind("keypress", function (e) {  
                 if (e.keyCode == 13) {  
                 return false;  

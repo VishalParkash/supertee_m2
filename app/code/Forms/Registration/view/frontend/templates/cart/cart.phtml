@@ -276,12 +276,12 @@ echo $this->getBlockHtml('formkey');
                                    
                                     <tbody>
                                     	 <?php 
-
                                     foreach($quote->getAllVisibleItems() as $item) {
                                         $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                                         $image_url = $imageHelper->init($item->getProduct(), 'product_thumbnail_image')->getUrl();
 
                                         $productId = $item->getProductId();
+                                        // echo $productId;die();
                                         $product = $objectManager->create('Magento\ConfigurableProduct\Model\ResourceModel\Product\Type\Configurable')->getParentIdsByChild($productId);
                                          if(isset($product[0])){
                                             $itemQty = getQty($product[0], $QtyArr);
