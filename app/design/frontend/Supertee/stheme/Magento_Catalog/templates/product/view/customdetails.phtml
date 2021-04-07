@@ -185,7 +185,7 @@ $customerId = $customerSession->getId();
                                         <!-- <img src="<?php //echo $images['url'];?>" id="side_<?php echo $count; ?>" data-side ="<?php //echo $images['url'];?>" class="img-fluid" data-toggle="modal"
                                                     data-target="#productImageModal"/>
                                             -->
-                                            <canvas id="loadingCanvas" data-image = "<?php echo $block->getProductImgById($product->getId())?>" width="500" height="550" style="width:100%;object-fit:cover;margin: 0 auto;max-width: 100%;" class="img-fluid">
+                                            <canvas id="loadingCanvas" data-image = "<?php echo $block->getProductImgById($product->getId());?>" width="500" height="550" style="width:100%;object-fit:cover;margin: 0 auto;max-width: 100%;" class="img-fluid">
                                                 <!-- <canvas id="inner" height="143" width="46"></canvas> -->
                                             </canvas>
                                             <input type="hidden" id="bgImgWidth">
@@ -210,7 +210,7 @@ $customerId = $customerSession->getId();
                                         <?php if($checkList){?>
                                         
                                         <!-- <a href="javascript:void(0)"  data-post='<?php  //echo $this->helper('Magento\Wishlist\Helper\Data')->getRemoveParams($product) ?>' class="action towishlist addedToWishList" data-action="add-to-wishlist"> -->
-                                        <a href="javascript:void(0)" class="action towishlist addedToWishList" data-id="<?=$customerId.'-'.$product->getId()?>" data-action="add-to-wishlist">
+                                        <a href="javascript:void(0)" class="action towishlist addedToWishList" data-id="<?php echo $customerId.'-'.$product->getId();?>" data-action="add-to-wishlist">
  
                                             <button class="productWishlistBtn">
                                             <svg width="31" height="27" viewBox="0 0 24 21"
@@ -225,9 +225,9 @@ $customerId = $customerSession->getId();
                                         <?php }else{?>
                                         <?php if (!empty($customerId)){?>
                                             <a href="" data-post='<?php  echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product) ?>' class="action towishlist" data-action="add-to-wishlist">
-                                        <? }else{?>
+                                        <?php }else{?>
                                            <a href="#" class="action towishlist showlogin">
-                                        <? }?> 
+                                        <?php }?> 
                                             <button class="productWishlistBtn">
                                                 <svg width="31" height="27" viewBox="0 0 31 27" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -271,17 +271,17 @@ $customerId = $customerSession->getId();
                                         if(!empty($tier_price)){
                                             $min = round(min(array_column($tier_price, 'price_qty')));
                                         ?>
-                                        <input value="<?=$min?>" id="tierMinPrice" type="hidden"/>
+                                        <input value="<?php echo $min;?>" id="tierMinPrice" type="hidden"/>
                                         <?php
                                             for ($j=0; $j<count($tier_price); $j++) { 
                                         ?>
                                             <tr>
-                                                <td><?=round($tier_price[$j]['price_qty'])?></td>
-                                                <td><? $maxqty = (!empty($tier_price[$j+1]['price_qty']))?round($tier_price[$j+1]['price_qty'] - 1):'+'; echo $maxqty;?></td>
-                                                <td><?php echo number_format($tier_price[$j]['price'], 2)?></td>
+                                                <td><?php echo round($tier_price[$j]['price_qty']);?></td>
+                                                <td><?php $maxqty = (!empty($tier_price[$j+1]['price_qty']))?round($tier_price[$j+1]['price_qty'] - 1):'+'; echo $maxqty;?></td>
+                                                <td><?php echo number_format($tier_price[$j]['price'], 2);?></td>
                                                 <?php if (!empty($tier_price[$j]['percentage_value']) && $tier_price[$j]['percentage_value'] > 0){?>
                                                 <td>
-                                                    <?=round($tier_price[$j]['percentage_value']).'%'?>
+                                                    <?php echo round($tier_price[$j]['percentage_value']).'%';?>
                                                 </td>
                                                 <?php
                                                     }
@@ -368,7 +368,7 @@ $customerId = $customerSession->getId();
                                             </svg>
                                         </button>
                                         <div class="shareProductIcons">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($block->getProductUrl());?>&t=<?php echo urlencode($block->getName())?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on facebook" id="fbShare">
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($block->getProductUrl());?>&t=<?php echo urlencode($block->getName());?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on facebook" id="fbShare">
 
                                                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -377,7 +377,7 @@ $customerId = $customerSession->getId();
                                                         fill="#667CEC" />
                                                 </svg>
                                             </a>
-                                            <a href="http://twitter.com/home/?status=<?php echo urlencode($block->getProductUrl());?>(<?php echo urlencode($block->getName())?>)" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on Twitter">
+                                            <a href="http://twitter.com/home/?status=<?php echo urlencode($block->getProductUrl());?>(<?php echo urlencode($block->getName());?>)" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on Twitter">
                                                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -442,7 +442,7 @@ $customerId = $customerSession->getId();
                                         <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post" id="addToCart">
                                         <input type="hidden" name="updatedPrice" id="updatedPrice" value="<?php echo $currencySymbol;?><?php $totalP = (isset($currentProduct))?$currentProduct->getPrice():$block->getPrice();echo number_format($totalP, 2); ?>">
                                         <input type="hidden" name="newPrice" id="newPrice">
-                                        <?php echo $block->getBlockHtml('formkey')?>
+                                        <?php echo $block->getBlockHtml('formkey');?>
                                             <button type="submit" title="Add to Cart" class="btn btn-primary d-flex align-items-center">
                                                 <svg width="29" height="25" viewBox="0 0 29 25" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -911,7 +911,7 @@ $customerId = $customerSession->getId();
                                                 ?>
                                                   
                                                     <span  class="cimageUrl" data-image = "<?php echo $ThumbImage;?>" data-id = "<?php echo $getId;?>">
-                                                        <img src="<?=$ThumbImage?>" style="width:100%;height:100%;"/>
+                                                        <img src="<?php echo $ThumbImage;?>" style="width:100%;height:100%;"/>
                                                     </span>
                                               <?php // echo ' : '.$pr->getPrice()."\n";
                                                     }  
@@ -995,13 +995,13 @@ $customerId = $customerSession->getId();
                                                        <tr>
                                                             <td>
                                                                 <label class="checkBoxCustom">
-                                                                    <input type="checkbox" name="productSize" id="checkSizeBox_<?=$count?>" class="checkSizeBox" />
+                                                                    <input type="checkbox" name="productSize" id="checkSizeBox_<?php echo $count;?>" class="checkSizeBox" />
                                                                     <span class="checkBoxCustomCheck"></span>
                                                                     <b><?php echo $sku['size']; ?></b>
                                                                 </label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" placeholder="-"  class="tierPriceChecker" id="tierPriceChecker_<?=$count?>" name="productQuantity[<?php echo $sku['size']; ?>_<?php echo $customArr[$tmpLoop]?>]" data-pid="<?php echo $sku['id']?>"/>
+                                                                <input type="text" placeholder="-"  class="tierPriceChecker" id="tierPriceChecker_<?php echo $count;?>" name="productQuantity[<?php echo $sku['size']; ?>_<?php echo $customArr[$tmpLoop]?>]" data-pid="<?php echo $sku['id']?>"/>
                                                                 <input type="hidden" name="getChildProductsId[<?php echo $sku['id']?>]" value="<?php echo $sku['id']?>">
 
                                                                 
@@ -1009,8 +1009,8 @@ $customerId = $customerSession->getId();
                                                             <td>
                                                                  
                                                                 
-                                                                <input type="text" disabled placeholder="-" id="tierPrice_<?=$count?>" class="tierPriceNew" name="tierPriceValue[<?php echo $sku['size']; ?>]" value="$<?php echo number_format($sku['price'], 2); ?>" style="width: 100%;"/>
-                                                                <input type="hidden" value="<?php echo number_format($sku['price'], 2); ?>" placeholder="-"  id="tierPriceOld_<?=$count?>" name="AttrPricing[<?php echo $sku['size']; ?>]"/>
+                                                                <input type="text" disabled placeholder="-" id="tierPrice_<?php echo $count;?>" class="tierPriceNew" name="tierPriceValue[<?php echo $sku['size']; ?>]" value="$<?php echo number_format($sku['price'], 2); ?>" style="width: 100%;"/>
+                                                                <input type="hidden" value="<?php echo number_format($sku['price'], 2); ?>" placeholder="-"  id="tierPriceOld_<?php echo $count;?>" name="AttrPricing[<?php echo $sku['size']; ?>]"/>
                                                             </td>
                                                         </tr>
                                                     <?php 

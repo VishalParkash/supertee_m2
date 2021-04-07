@@ -97,7 +97,7 @@ class CustomPrice implements ObserverInterface
         foreach($parentProductIds as $key => $var){
             $sum = 0;
             foreach($var as $value){
-                $sum += $value;
+                if(!empty($value)){$sum += $value;}
                 
             }
             $QtyArr[$key] = $sum;

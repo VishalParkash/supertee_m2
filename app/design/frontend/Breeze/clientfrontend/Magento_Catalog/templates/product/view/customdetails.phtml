@@ -230,7 +230,7 @@ $relatedProducts = '';
                                             </svg>
                                         </button>
                                         <div class="shareProductIcons">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($block->getProductUrl());?>&t=<?php echo urlencode($block->getName())?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on facebook" id="fbShare">
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($block->getProductUrl());?>&t=<?php echo urlencode($block->getName());?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on facebook" id="fbShare">
 
                                                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -239,7 +239,7 @@ $relatedProducts = '';
                                                         fill="#667CEC" />
                                                 </svg>
                                             </a>
-                                            <a href="http://twitter.com/home/?status=<?php echo urlencode($block->getProductUrl());?>(<?php echo urlencode($block->getName())?>)" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on Twitter">
+                                            <a href="http://twitter.com/home/?status=<?php echo urlencode($block->getProductUrl());?>(<?php echo urlencode($block->getName());?>)" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on Twitter">
                                                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -275,7 +275,7 @@ $relatedProducts = '';
                                     <!-- <a href="#;" class="btn btn-primary d-flex align-items-center"> -->
                                         
                                         <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post"> 
-								    	<?php echo $block->getBlockHtml('formkey')?>
+								    	<?php echo $block->getBlockHtml('formkey');?>
 								     		<button type="submit" title="Add to Cart" class="btn btn-primary d-flex align-items-center">
 								     			<svg width="29" height="25" viewBox="0 0 29 25" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
