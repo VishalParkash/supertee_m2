@@ -1,1 +1,0 @@
-/var/www/html/supertee/lib/web/jquery/jquery.tabs.js

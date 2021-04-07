@@ -1,1 +1,0 @@
-/var/www/html/supertee/lib/web/mage/ie-class-fixer.js
