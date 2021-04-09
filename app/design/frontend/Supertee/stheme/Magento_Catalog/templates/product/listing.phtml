@@ -274,7 +274,7 @@ if($getViewSet == 1){
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item sorting" href="javascript:void(0)" id="Recomended" data-type="recomended">Recommended</a>
-                                                <a class="dropdown-item sorting" href="javascript:void(0)" data-id="Default" data-type="default">Default</a>
+                                                <!--<a class="dropdown-item sorting" href="javascript:void(0)" data-id="Default" data-type="default">Default</a> -->
                                                 <a class="dropdown-item sorting" href="javascript:void(0)" data-id="What's New" data-type="new">What's New</a>
                                                 <!-- <a class="dropdown-item sorting" href="javascript:void(0)" data-type="mostviewd" data-id="Popularity">Popularity</a> -->
                                                 <a class="dropdown-item sorting" href="javascript:void(0)" data-type="lowtohigh" data-id="Price low to high">Price low to high</a>
@@ -421,7 +421,7 @@ if($getViewSet == 1){
                                                             <b class="discount"><!-- (20% off) --></b>
 <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post"> 
                                         <?php echo $block->getBlockHtml('formkey')?>
-                                        <button type="submit" title="Add to Cart" class="addCart btn btn-primary align-items-center">
+                                        <!-- <button type="submit" title="Add to Cart" class="addCart btn btn-primary align-items-center"> 
                                                            
                                                                 <svg class="mr-3" width="36" height="32"
                                                                     viewBox="0 0 36 32" fill="#fff"
@@ -433,7 +433,7 @@ if($getViewSet == 1){
                                                                 
                                                                 Add to cart
                                                             
-                                                        </button>
+                                                        </button>-->
                                                         </form>
                                                         </div>
                                                     </div>
@@ -517,7 +517,6 @@ if($getViewSet == 1){
    <script>
 require([ 'jquery'], function($){ 
 $(document).ready(function() {
-   
     $(".brandsAttr").on('click',function(){
         $(".loading-mask").show();       
         var id = this.id;
