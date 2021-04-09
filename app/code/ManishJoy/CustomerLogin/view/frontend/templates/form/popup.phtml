@@ -128,35 +128,47 @@ form.password.forget{
 @media (min-width: 768px){
     form.password.forget {
         max-width: 720px;
-    }    
+    }
 }
 
 
 @media (min-width: 992px){
     form.password.forget {
         max-width: 960px;
-    }    
+    }
 }
 
 
 @media (min-width: 1200px){
     form.password.forget {
         max-width: 95%;
-    }    
+    }
 }
 
 @media (min-width: 1400px){
     form.password.forget {
         max-width: 1710px;
-    }    
+    }
+}
+.register-form-group {
+  display: block ruby;
+}
+.register-form-group .form-control {
+  width: 50%;
+}
+.form-control {
+  border-radius: .25rem !important;
+}
+.register-btn {
+  margin: 10px 0 !important;
 }
 </style>
 <?php if(!$block->isLoggedIn()): ?>
     <div class="modal fade login_process"  id="signin" tabindex="-1" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
-    <div class="response-msg"></div>        
+    <div class="response-msg"></div>
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-         
+
         <div class="modal-body">
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -165,10 +177,10 @@ form.password.forget{
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
-                </li> 
+                </li>
             </ul>
 
-            
+
 
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active " id="login" role="tabpanel" aria-labelledby="login-tab">
@@ -180,18 +192,18 @@ form.password.forget{
                              </div>
                             <form class="login-form" method="POST" action="">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username" name="username" required>
+                                    <input type="text" class="form-control" placeholder="Your Email" name="username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" id="passInput" name="password" required>
+                                    <input type="password" class="form-control" onkeypress="return noSpace(event)" placeholder="Your Password" id="passInput" name="password" required>
                                     <svg class="icon passHide" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13.6202 0.748155C13.7572 0.508396 13.6739 0.202969 13.4341 0.065964C13.1944 -0.071041 12.8889 0.0122574 12.7519 0.252016L12.1114 1.37299C11.1679 1.01323 10.2163 0.817895 9.27273 0.817895C7.10426 0.817895 4.89291 1.84971 2.83653 3.53793C1.3451 4.76245 0 6.32852 0 6.81789C0 7.30727 1.34521 8.87328 2.83653 10.0979C3.85819 10.9366 4.91805 11.6134 5.99192 12.082L5.24807 13.3838C5.11106 13.6235 5.19436 13.929 5.43412 14.066C5.67388 14.203 5.97931 14.1197 6.11631 13.8799L6.93945 12.4394C7.71663 12.686 8.4974 12.8179 9.27273 12.8179C11.4412 12.8179 13.6525 11.7861 15.7089 10.0979C17.2004 8.87334 18.5455 7.30727 18.5455 6.81789C18.5455 6.32852 17.2003 4.76251 15.7089 3.53793C14.8395 2.82408 13.9423 2.22761 13.0323 1.77688L13.6202 0.748155ZM11.6806 2.12681C10.8715 1.83316 10.0638 1.67522 9.27273 1.67522C7.32944 1.67522 5.28642 2.62821 3.366 4.20478C2.64444 4.79778 1.98454 5.44625 1.46688 6.04888C1.25428 6.29636 1.07804 6.52216 0.957135 6.69975C0.943809 6.71927 0.931215 6.73856 0.919597 6.75635C0.903664 6.78076 0.889566 6.80235 0.877928 6.81787C0.889566 6.83339 0.903665 6.85498 0.919598 6.87939C0.931216 6.89718 0.943809 6.91647 0.957135 6.93599C1.07805 7.11357 1.2543 7.33936 1.46688 7.58686C1.98454 8.18951 2.64444 8.83796 3.366 9.43096C4.36124 10.248 5.38938 10.8975 6.4195 11.3338L7.37883 9.65494C6.48663 9.03793 5.90046 7.99731 5.90046 6.81789C5.90046 4.92475 7.41074 3.38921 9.27273 3.38921C9.80611 3.38921 10.3106 3.51521 10.7591 3.73953L11.6806 2.12681ZM11.5803 4.31794L12.607 2.52116C13.4756 2.94461 14.3392 3.51502 15.1795 4.20478C15.901 4.79778 16.5609 5.44623 17.0786 6.04888C17.2912 6.29638 17.4674 6.52217 17.5883 6.69975C17.6016 6.71927 17.6142 6.73855 17.6259 6.75635C17.6418 6.78076 17.6559 6.80235 17.6675 6.81787C17.6559 6.83339 17.6418 6.85498 17.6259 6.87939C17.6142 6.89719 17.6016 6.91647 17.5883 6.93599C17.4674 7.11357 17.2912 7.33938 17.0786 7.58686C16.5609 8.18949 15.901 8.83796 15.1795 9.43096C13.259 11.0075 11.2161 11.9605 9.27273 11.9605C8.64819 11.9605 8.01336 11.8621 7.3756 11.6762L8.27901 10.0952C8.59316 10.1936 8.92688 10.2466 9.27273 10.2466C11.1347 10.2466 12.645 8.71104 12.645 6.81789C12.645 5.83222 12.2356 4.94349 11.5803 4.31794ZM10.334 4.48336C10.0113 4.33139 9.65172 4.24658 9.27273 4.24658C7.87626 4.24658 6.74373 5.39806 6.74373 6.81789C6.74373 7.68088 7.16212 8.44473 7.80386 8.91114L10.334 4.48336ZM8.71792 9.32711L11.1416 5.08568C11.5516 5.54273 11.8017 6.15068 11.8017 6.81789C11.8017 8.23773 10.6692 9.3892 9.27273 9.3892C9.08214 9.3892 8.89647 9.36776 8.71792 9.32711Z" fill="#A8A8A8"/>
                                     </svg>
 
                                     <svg class="icon passShow d-none" width="19" height="13" viewBox="0 0 19 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.27273 12.8179C7.10406 12.8179 4.89291 11.7862 2.83653 10.0979C1.34521 8.87328 0 7.30727 0 6.81789C0 6.32852 1.3451 4.76245 2.83653 3.53793C4.89291 1.84971 7.10426 0.817894 9.27273 0.817894C11.4412 0.817894 13.6525 1.84963 15.7089 3.53793C17.2003 4.76251 18.5455 6.32852 18.5455 6.81789C18.5455 7.30727 17.2004 8.87334 15.7089 10.0979C13.6525 11.7861 11.4412 12.8179 9.27273 12.8179ZM9.27273 11.9605C11.2161 11.9605 13.259 11.0075 15.1795 9.43096C15.901 8.83796 16.5609 8.18949 17.0786 7.58686C17.2912 7.33938 17.4674 7.11357 17.5883 6.93599C17.6547 6.83876 17.7029 6.74716 17.7029 6.81787C17.7029 6.88858 17.6547 6.79698 17.5883 6.69975C17.4674 6.52217 17.2912 6.29638 17.0786 6.04888C16.5609 5.44622 15.901 4.79778 15.1795 4.20478C13.259 2.62823 11.216 1.67522 9.27273 1.67522C7.32945 1.67522 5.28642 2.62821 3.366 4.20478C2.64444 4.79778 1.98454 5.44625 1.46688 6.04888C1.25428 6.29636 1.07804 6.52216 0.957135 6.69975C0.890748 6.79698 0.842539 6.88858 0.842539 6.81787C0.842539 6.74716 0.890748 6.83876 0.957135 6.93599C1.07805 7.11357 1.2543 7.33936 1.46688 7.58686C1.98454 8.18951 2.64444 8.83796 3.366 9.43096C5.28646 11.0075 7.32945 11.9605 9.27273 11.9605V11.9605ZM9.27273 10.2466C7.41076 10.2466 5.90046 8.71104 5.90046 6.81789C5.90046 4.92475 7.41074 3.38921 9.27273 3.38921C11.1347 3.38921 12.645 4.92475 12.645 6.81789C12.645 8.71104 11.1347 10.2466 9.27273 10.2466V10.2466ZM9.27273 9.38921C10.6692 9.38921 11.8017 8.23773 11.8017 6.81789C11.8017 5.39806 10.6692 4.24658 9.27273 4.24658C7.87626 4.24658 6.74373 5.39806 6.74373 6.81789C6.74373 8.23773 7.87626 9.38921 9.27273 9.38921Z" fill="#A8A8A8"/>
-                                    </svg>  
-                                        
+                                    </svg>
+
                                 </div>
 
                                 <div class="linkWrap d-flex align-items-center justify-content-between">
@@ -238,7 +250,7 @@ form.password.forget{
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade " id="register" role="tabpanel" aria-labelledby="register-tab"> 
+                <div class="tab-pane fade " id="register" role="tabpanel" aria-labelledby="register-tab">
                         <div
                         class="rightWrap text-center d-flex flex-column align-items-center justify-content-center h-100 ">
                         <div class="loginContent my-auto">
@@ -247,37 +259,292 @@ form.password.forget{
                                 <p>Enter your details below</p>
                              </div>
                             <form class="register-form" method="POST" action="">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username" id="firstname" name="firstname" required>
+                                <div class="form-group register-form-group">
+                                    <input type="text" class="form-control" placeholder="First Name" id="firstname" name="firstname" required>
+                                    <input type="text" class="form-control" placeholder="Last Name" id="lastname" name="lastname" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group register-form-group">
                                     <input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+                                    <input type="text" class="form-control" onkeypress="return isNumber(event)" placeholder="Contact number" id="contact" name="contact" required>
                                 </div>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" placeholder="Contact number" id="contact" name="contact" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" id="setPassword" name="password" required>
+                                <div class="form-group register-form-group">
+                                    <input type="password" class="form-control" onkeypress="return noSpace(event)" placeholder="Password" id="setPassword" name="password" required>
                                     <svg class="icon passHide" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13.6202 0.748155C13.7572 0.508396 13.6739 0.202969 13.4341 0.065964C13.1944 -0.071041 12.8889 0.0122574 12.7519 0.252016L12.1114 1.37299C11.1679 1.01323 10.2163 0.817895 9.27273 0.817895C7.10426 0.817895 4.89291 1.84971 2.83653 3.53793C1.3451 4.76245 0 6.32852 0 6.81789C0 7.30727 1.34521 8.87328 2.83653 10.0979C3.85819 10.9366 4.91805 11.6134 5.99192 12.082L5.24807 13.3838C5.11106 13.6235 5.19436 13.929 5.43412 14.066C5.67388 14.203 5.97931 14.1197 6.11631 13.8799L6.93945 12.4394C7.71663 12.686 8.4974 12.8179 9.27273 12.8179C11.4412 12.8179 13.6525 11.7861 15.7089 10.0979C17.2004 8.87334 18.5455 7.30727 18.5455 6.81789C18.5455 6.32852 17.2003 4.76251 15.7089 3.53793C14.8395 2.82408 13.9423 2.22761 13.0323 1.77688L13.6202 0.748155ZM11.6806 2.12681C10.8715 1.83316 10.0638 1.67522 9.27273 1.67522C7.32944 1.67522 5.28642 2.62821 3.366 4.20478C2.64444 4.79778 1.98454 5.44625 1.46688 6.04888C1.25428 6.29636 1.07804 6.52216 0.957135 6.69975C0.943809 6.71927 0.931215 6.73856 0.919597 6.75635C0.903664 6.78076 0.889566 6.80235 0.877928 6.81787C0.889566 6.83339 0.903665 6.85498 0.919598 6.87939C0.931216 6.89718 0.943809 6.91647 0.957135 6.93599C1.07805 7.11357 1.2543 7.33936 1.46688 7.58686C1.98454 8.18951 2.64444 8.83796 3.366 9.43096C4.36124 10.248 5.38938 10.8975 6.4195 11.3338L7.37883 9.65494C6.48663 9.03793 5.90046 7.99731 5.90046 6.81789C5.90046 4.92475 7.41074 3.38921 9.27273 3.38921C9.80611 3.38921 10.3106 3.51521 10.7591 3.73953L11.6806 2.12681ZM11.5803 4.31794L12.607 2.52116C13.4756 2.94461 14.3392 3.51502 15.1795 4.20478C15.901 4.79778 16.5609 5.44623 17.0786 6.04888C17.2912 6.29638 17.4674 6.52217 17.5883 6.69975C17.6016 6.71927 17.6142 6.73855 17.6259 6.75635C17.6418 6.78076 17.6559 6.80235 17.6675 6.81787C17.6559 6.83339 17.6418 6.85498 17.6259 6.87939C17.6142 6.89719 17.6016 6.91647 17.5883 6.93599C17.4674 7.11357 17.2912 7.33938 17.0786 7.58686C16.5609 8.18949 15.901 8.83796 15.1795 9.43096C13.259 11.0075 11.2161 11.9605 9.27273 11.9605C8.64819 11.9605 8.01336 11.8621 7.3756 11.6762L8.27901 10.0952C8.59316 10.1936 8.92688 10.2466 9.27273 10.2466C11.1347 10.2466 12.645 8.71104 12.645 6.81789C12.645 5.83222 12.2356 4.94349 11.5803 4.31794ZM10.334 4.48336C10.0113 4.33139 9.65172 4.24658 9.27273 4.24658C7.87626 4.24658 6.74373 5.39806 6.74373 6.81789C6.74373 7.68088 7.16212 8.44473 7.80386 8.91114L10.334 4.48336ZM8.71792 9.32711L11.1416 5.08568C11.5516 5.54273 11.8017 6.15068 11.8017 6.81789C11.8017 8.23773 10.6692 9.3892 9.27273 9.3892C9.08214 9.3892 8.89647 9.36776 8.71792 9.32711Z" fill="#A8A8A8"/>
                                     </svg>
 
                                     <svg class="icon passShow d-none" width="19" height="13" viewBox="0 0 19 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.27273 12.8179C7.10406 12.8179 4.89291 11.7862 2.83653 10.0979C1.34521 8.87328 0 7.30727 0 6.81789C0 6.32852 1.3451 4.76245 2.83653 3.53793C4.89291 1.84971 7.10426 0.817894 9.27273 0.817894C11.4412 0.817894 13.6525 1.84963 15.7089 3.53793C17.2003 4.76251 18.5455 6.32852 18.5455 6.81789C18.5455 7.30727 17.2004 8.87334 15.7089 10.0979C13.6525 11.7861 11.4412 12.8179 9.27273 12.8179ZM9.27273 11.9605C11.2161 11.9605 13.259 11.0075 15.1795 9.43096C15.901 8.83796 16.5609 8.18949 17.0786 7.58686C17.2912 7.33938 17.4674 7.11357 17.5883 6.93599C17.6547 6.83876 17.7029 6.74716 17.7029 6.81787C17.7029 6.88858 17.6547 6.79698 17.5883 6.69975C17.4674 6.52217 17.2912 6.29638 17.0786 6.04888C16.5609 5.44622 15.901 4.79778 15.1795 4.20478C13.259 2.62823 11.216 1.67522 9.27273 1.67522C7.32945 1.67522 5.28642 2.62821 3.366 4.20478C2.64444 4.79778 1.98454 5.44625 1.46688 6.04888C1.25428 6.29636 1.07804 6.52216 0.957135 6.69975C0.890748 6.79698 0.842539 6.88858 0.842539 6.81787C0.842539 6.74716 0.890748 6.83876 0.957135 6.93599C1.07805 7.11357 1.2543 7.33936 1.46688 7.58686C1.98454 8.18951 2.64444 8.83796 3.366 9.43096C5.28646 11.0075 7.32945 11.9605 9.27273 11.9605V11.9605ZM9.27273 10.2466C7.41076 10.2466 5.90046 8.71104 5.90046 6.81789C5.90046 4.92475 7.41074 3.38921 9.27273 3.38921C11.1347 3.38921 12.645 4.92475 12.645 6.81789C12.645 8.71104 11.1347 10.2466 9.27273 10.2466V10.2466ZM9.27273 9.38921C10.6692 9.38921 11.8017 8.23773 11.8017 6.81789C11.8017 5.39806 10.6692 4.24658 9.27273 4.24658C7.87626 4.24658 6.74373 5.39806 6.74373 6.81789C6.74373 8.23773 7.87626 9.38921 9.27273 9.38921Z" fill="#A8A8A8"/>
-                                    </svg>  
+                                    </svg>
 
                                     <svg class="info" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M8 0C3.58217 0 0 3.58182 0 7.99965C0 12.4178 3.58217 16 8 16C12.4178 16 16 12.4178 16 7.99965C16 3.58182 12.4182 0 8 0ZM9.22293 12.3679C9.22293 13.0387 8.67362 13.5824 8.00349 13.5824C7.33301 13.5824 6.78406 13.0387 6.78406 12.3679V7.05435C6.78406 6.38387 7.33301 5.84015 8.00349 5.84015C8.67362 5.84015 9.22293 6.38352 9.22293 7.05435V12.3679ZM8 4.83688C7.26003 4.83688 6.66009 4.23694 6.66009 3.49732C6.66009 2.757 7.26003 2.15775 8 2.15775C8.73962 2.15775 9.33991 2.757 9.33991 3.49732C9.33991 4.23694 8.73962 4.83688 8 4.83688Z" fill="#A8A8A8"/>
                                     </svg>
                                     <div class="icon-detail">
-                                    Password must contain at least one number and one uppercase and lowercase letter and special character, and at least 8 or more characters.                                    </div>
-                                        
-                                </div> 
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Confirm password" name="password_confirmation" id="password_confirmation" required>
-                                </div> 
+                                      Password must contain at least one number and one uppercase and lowercase letter and special character, and at least 8 or more characters.
+                                    </div>
 
-                                <button type="submit" class="btn btn-primary submitBtn">
+                                  <input type="password" class="form-control" onkeypress="return noSpace(event)" placeholder="Confirm password" name="password_confirmation" id="password_confirmation" required>
+                                </div>
+                                <div class="form-group register-form-group">
+                                  <select name="country" id="country" class="form-control" required>
+                                    <option value="" disabled>Select country</option>
+                                    <option value="AF" >Afghanistan</option>
+                                    <option value="AX" >Åland Islands</option>
+                                    <option value="AL" >Albania</option>
+                                    <option value="DZ" >Algeria</option>
+                                    <option value="AS" >American Samoa</option>
+                                    <option value="AD" >Andorra</option>
+                                    <option value="AO" >Angola</option>
+                                    <option value="AI" >Anguilla</option>
+                                    <option value="AQ" >Antarctica</option>
+                                    <option value="AG" >Antigua & Barbuda</option>
+                                    <option value="AR" >Argentina</option>
+                                    <option value="AM" >Armenia</option>
+                                    <option value="AW" >Aruba</option>
+                                    <option value="AU" >Australia</option>
+                                    <option value="AT" >Austria</option>
+                                    <option value="AZ" >Azerbaijan</option>
+                                    <option value="BS" >Bahamas</option>
+                                    <option value="BH" >Bahrain</option>
+                                    <option value="BD" >Bangladesh</option>
+                                    <option value="BB" >Barbados</option>
+                                    <option value="BY" >Belarus</option>
+                                    <option value="BE" >Belgium</option>
+                                    <option value="BZ" >Belize</option>
+                                    <option value="BJ" >Benin</option>
+                                    <option value="BM" >Bermuda</option>
+                                    <option value="BT" >Bhutan</option>
+                                    <option value="BO" >Bolivia</option>
+                                    <option value="BA" >Bosnia & Herzegovina</option>
+                                    <option value="BW" >Botswana</option>
+                                    <option value="BV" >Bouvet Island</option>
+                                    <option value="BR" >Brazil</option>
+                                    <option value="IO" >British Indian Ocean Territory</option>
+                                    <option value="VG" >British Virgin Islands</option>
+                                    <option value="BN" >Brunei</option>
+                                    <option value="BG" >Bulgaria</option>
+                                    <option value="BF" >Burkina Faso</option>
+                                    <option value="BI" >Burundi</option>
+                                    <option value="KH" >Cambodia</option>
+                                    <option value="CM" >Cameroon</option>
+                                    <option value="CA" >Canada</option>
+                                    <option value="CV" >Cape Verde</option>
+                                    <option value="BQ" >Caribbean Netherlands</option>
+                                    <option value="KY" >Cayman Islands</option>
+                                    <option value="CF" >Central African Republic</option>
+                                    <option value="TD" >Chad</option>
+                                    <option value="CL" >Chile</option>
+                                    <option value="CN" >China</option>
+                                    <option value="CX" >Christmas Island</option>
+                                    <option value="CC" >Cocos (Keeling) Islands</option>
+                                    <option value="CO" >Colombia</option>
+                                    <option value="KM" >Comoros</option>
+                                    <option value="CG" >Congo - Brazzaville</option>
+                                    <option value="CD" >Congo - Kinshasa</option>
+                                    <option value="CK" >Cook Islands</option>
+                                    <option value="CR" >Costa Rica</option>
+                                    <option value="CI" >Côte d’Ivoire</option>
+                                    <option value="HR" >Croatia</option>
+                                    <option value="CU" >Cuba</option>
+                                    <option value="CW" >Curaçao</option>
+                                    <option value="CY" >Cyprus</option>
+                                    <option value="CZ" >Czechia</option>
+                                    <option value="DK" >Denmark</option>
+                                    <option value="DJ" >Djibouti</option>
+                                    <option value="DM" >Dominica</option>
+                                    <option value="DO" >Dominican Republic</option>
+                                    <option value="EC" >Ecuador</option>
+                                    <option value="EG" >Egypt</option>
+                                    <option value="SV" >El Salvador</option>
+                                    <option value="GQ" >Equatorial Guinea</option>
+                                    <option value="ER" >Eritrea</option>
+                                    <option value="EE" >Estonia</option>
+                                    <option value="SZ" >Eswatini</option>
+                                    <option value="ET" >Ethiopia</option>
+                                    <option value="FK" >Falkland Islands</option>
+                                    <option value="FO" >Faroe Islands</option>
+                                    <option value="FJ" >Fiji</option>
+                                    <option value="FI" >Finland</option>
+                                    <option value="FR" >France</option>
+                                    <option value="GF" >French Guiana</option>
+                                    <option value="PF" >French Polynesia</option>
+                                    <option value="TF" >French Southern Territories</option>
+                                    <option value="GA" >Gabon</option>
+                                    <option value="GM" >Gambia</option>
+                                    <option value="GE" >Georgia</option>
+                                    <option value="DE" >Germany</option>
+                                    <option value="GH" >Ghana</option>
+                                    <option value="GI" >Gibraltar</option>
+                                    <option value="GR" >Greece</option>
+                                    <option value="GL" >Greenland</option>
+                                    <option value="GD" >Grenada</option>
+                                    <option value="GP" >Guadeloupe</option>
+                                    <option value="GU" >Guam</option>
+                                    <option value="GT" >Guatemala</option>
+                                    <option value="GG" >Guernsey</option>
+                                    <option value="GN" >Guinea</option>
+                                    <option value="GW" >Guinea-Bissau</option>
+                                    <option value="GY" >Guyana</option>
+                                    <option value="HT" >Haiti</option>
+                                    <option value="HM" >Heard & McDonald Islands</option>
+                                    <option value="HN" >Honduras</option>
+                                    <option value="HK" >Hong Kong SAR China</option>
+                                    <option value="HU" >Hungary</option>
+                                    <option value="IS" >Iceland</option>
+                                    <option value="IN" >India</option>
+                                    <option value="ID" >Indonesia</option>
+                                    <option value="IR" >Iran</option>
+                                    <option value="IQ" >Iraq</option>
+                                    <option value="IE" >Ireland</option>
+                                    <option value="IM" >Isle of Man</option>
+                                    <option value="IL" >Israel</option>
+                                    <option value="IT" >Italy</option>
+                                    <option value="JM" >Jamaica</option>
+                                    <option value="JP" >Japan</option>
+                                    <option value="JE" >Jersey</option>
+                                    <option value="JO" >Jordan</option>
+                                    <option value="KZ" >Kazakhstan</option>
+                                    <option value="KE" >Kenya</option>
+                                    <option value="KI" >Kiribati</option>
+                                    <option value="XK" >Kosovo</option>
+                                    <option value="KW" >Kuwait</option>
+                                    <option value="KG" >Kyrgyzstan</option>
+                                    <option value="LA" >Laos</option>
+                                    <option value="LV" >Latvia</option>
+                                    <option value="LB" >Lebanon</option>
+                                    <option value="LS" >Lesotho</option>
+                                    <option value="LR" >Liberia</option>
+                                    <option value="LY" >Libya</option>
+                                    <option value="LI" >Liechtenstein</option>
+                                    <option value="LT" >Lithuania</option>
+                                    <option value="LU" >Luxembourg</option>
+                                    <option value="MO" >Macao SAR China</option>
+                                    <option value="MG" >Madagascar</option>
+                                    <option value="MW" >Malawi</option>
+                                    <option value="MY" >Malaysia</option>
+                                    <option value="MV" >Maldives</option>
+                                    <option value="ML" >Mali</option>
+                                    <option value="MT" >Malta</option>
+                                    <option value="MH" >Marshall Islands</option>
+                                    <option value="MQ" >Martinique</option>
+                                    <option value="MR" >Mauritania</option>
+                                    <option value="MU" >Mauritius</option>
+                                    <option value="YT" >Mayotte</option>
+                                    <option value="MX" >Mexico</option>
+                                    <option value="FM" >Micronesia</option>
+                                    <option value="MD" >Moldova</option>
+                                    <option value="MC" >Monaco</option>
+                                    <option value="MN" >Mongolia</option>
+                                    <option value="ME" >Montenegro</option>
+                                    <option value="MS" >Montserrat</option>
+                                    <option value="MA" >Morocco</option>
+                                    <option value="MZ" >Mozambique</option>
+                                    <option value="MM" >Myanmar (Burma)</option>
+                                    <option value="NA" >Namibia</option>
+                                    <option value="NR" >Nauru</option>
+                                    <option value="NP" >Nepal</option>
+                                    <option value="NL" >Netherlands</option>
+                                    <option value="NC" >New Caledonia</option>
+                                    <option value="NZ" >New Zealand</option>
+                                    <option value="NI" >Nicaragua</option>
+                                    <option value="NE" >Niger</option>
+                                    <option value="NG" >Nigeria</option>
+                                    <option value="NU" >Niue</option>
+                                    <option value="NF" >Norfolk Island</option>
+                                    <option value="MP" >Northern Mariana Islands</option>
+                                    <option value="KP" >North Korea</option>
+                                    <option value="MK" >North Macedonia</option>
+                                    <option value="NO" >Norway</option>
+                                    <option value="OM" >Oman</option>
+                                    <option value="PK" >Pakistan</option>
+                                    <option value="PW" >Palau</option>
+                                    <option value="PS" >Palestinian Territories</option>
+                                    <option value="PA" >Panama</option>
+                                    <option value="PG" >Papua New Guinea</option>
+                                    <option value="PY" >Paraguay</option>
+                                    <option value="PE" >Peru</option>
+                                    <option value="PH" >Philippines</option>
+                                    <option value="PN" >Pitcairn Islands</option>
+                                    <option value="PL" >Poland</option>
+                                    <option value="PT" >Portugal</option>
+                                    <option value="QA" >Qatar</option>
+                                    <option value="RE" >Réunion</option>
+                                    <option value="RO" >Romania</option>
+                                    <option value="RU" >Russia</option>
+                                    <option value="RW" >Rwanda</option>
+                                    <option value="WS" >Samoa</option>
+                                    <option value="SM" >San Marino</option>
+                                    <option value="ST" >São Tomé & Príncipe</option>
+                                    <option value="SA" >Saudi Arabia</option>
+                                    <option value="SN" >Senegal</option>
+                                    <option value="RS" >Serbia</option>
+                                    <option value="SC" >Seychelles</option>
+                                    <option value="SL" >Sierra Leone</option>
+                                    <option value="SG" >Singapore</option>
+                                    <option value="SX" >Sint Maarten</option>
+                                    <option value="SK" >Slovakia</option>
+                                    <option value="SI" >Slovenia</option>
+                                    <option value="SB" >Solomon Islands</option>
+                                    <option value="SO" >Somalia</option>
+                                    <option value="ZA" >South Africa</option>
+                                    <option value="GS" >South Georgia & South Sandwich Islands</option>
+                                    <option value="KR" >South Korea</option>
+                                    <option value="ES" >Spain</option>
+                                    <option value="LK" >Sri Lanka</option>
+                                    <option value="BL" >St. Barthélemy</option>
+                                    <option value="SH" >St. Helena</option>
+                                    <option value="KN" >St. Kitts & Nevis</option>
+                                    <option value="LC" >St. Lucia</option>
+                                    <option value="MF" >St. Martin</option>
+                                    <option value="PM" >St. Pierre & Miquelon</option>
+                                    <option value="VC" >St. Vincent & Grenadines</option>
+                                    <option value="SD" >Sudan</option>
+                                    <option value="SR" >Suriname</option>
+                                    <option value="SJ" >Svalbard & Jan Mayen</option>
+                                    <option value="SE" >Sweden</option>
+                                    <option value="CH" >Switzerland</option>
+                                    <option value="SY" >Syria</option>
+                                    <option value="TW" >Taiwan, Province of China</option>
+                                    <option value="TJ" >Tajikistan</option>
+                                    <option value="TZ" >Tanzania</option>
+                                    <option value="TH" >Thailand</option>
+                                    <option value="TL" >Timor-Leste</option>
+                                    <option value="TG" >Togo</option>
+                                    <option value="TK" >Tokelau</option>
+                                    <option value="TO" >Tonga</option>
+                                    <option value="TT" >Trinidad & Tobago</option>
+                                    <option value="TN" >Tunisia</option>
+                                    <option value="TR" >Turkey</option>
+                                    <option value="TM" >Turkmenistan</option>
+                                    <option value="TC" >Turks & Caicos Islands</option>
+                                    <option value="TV" >Tuvalu</option>
+                                    <option value="UG" >Uganda</option>
+                                    <option value="UA" >Ukraine</option>
+                                    <option value="AE" >United Arab Emirates</option>
+                                    <option value="GB" >United Kingdom</option>
+                                    <option value="US" >United States</option>
+                                    <option value="UY" >Uruguay</option>
+                                    <option value="UM" >U.S. Outlying Islands</option>
+                                    <option value="VI" >U.S. Virgin Islands</option>
+                                    <option value="UZ" >Uzbekistan</option>
+                                    <option value="VU" >Vanuatu</option>
+                                    <option value="VA" >Vatican City</option>
+                                    <option value="VE" >Venezuela</option>
+                                    <option value="VN" >Vietnam</option>
+                                    <option value="WF" >Wallis & Futuna</option>
+                                    <option value="EH" >Western Sahara</option>
+                                    <option value="YE" >Yemen</option>
+                                    <option value="ZM" >Zambia</option>
+                                    <option value="ZW" >Zimbabwe</option>
+                                  </select>
+                                  <input type="text" class="form-control" placeholder="City" id="city" name="city" required>
+                                </div>
+                                <div class="form-group register-form-group">
+                                  <input type="text" class="form-control" placeholder="Street" id="street" name="street" required>
+                                  <input type="text" class="form-control" placeholder="Post Code" id="postcode" name="postcode" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary submitBtn register-btn">
                                     Sign up
                                     <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12" fill="#fff"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -311,17 +578,17 @@ form.password.forget{
                     </div>
                 </div>
              </div>
-        </div> 
+        </div>
       </div>
     </div>
   </div>
 
   <!-- forgetmodal -->
   <div class="modal fade login_process "  id="forgetmodal" tabindex="-1" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
-    <div class="response-msg"></div> 
+    <div class="response-msg"></div>
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                
+
             <div class="modal-body">
                 <div
                     class="rightWrap forget text-center d-flex flex-column align-items-center justify-content-center h-100 ">
@@ -358,7 +625,7 @@ form.password.forget{
                     </svg>
                     <span>Back</span>
                 </a>
-            </div> 
+            </div>
             </div>
         </div>
     </div>
@@ -367,7 +634,7 @@ form.password.forget{
     <div class="modal fade login_process "  id="resetLink" tabindex="-1" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    
+
                 <div class="modal-body">
                     <div
                         class="rightWrap forget text-center d-flex flex-column align-items-center justify-content-center h-100 ">
@@ -394,8 +661,8 @@ form.password.forget{
                             <p class="mb-0">Back to <a href="#;" id="modalOpen" data-target="#signin"> <strong>login</strong> </a> </p>
                         </div>
                     </div>
-                    
-                </div> 
+
+                </div>
                 </div>
             </div>
     </div>
@@ -407,11 +674,11 @@ form.password.forget{
                     <h6>request has been approved</h6>
                     <p>Viverra leo mus magnis rhoncus arcu velit. Nullam senectus bibendum nullam mauris.</p>
                     <svg class="close" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M1.33352 0.211923L5.00009 3.87813L8.66666 0.223033C8.73885 0.149586 8.8255 0.0919159 8.92112 0.05367C9.01674 0.0154241 9.11927 -0.00256573 9.2222 0.000838218C9.42418 0.0139081 9.6145 0.100038 9.75762 0.243146C9.90075 0.386254 9.98689 0.576556 9.99996 0.778519C10.001 0.87782 9.98178 0.97629 9.94358 1.06796C9.90539 1.15962 9.84896 1.24258 9.77774 1.31179L6.10006 5.00022L9.77774 8.68864C9.92218 8.82863 10.0022 9.02194 9.99996 9.22191C9.98689 9.42387 9.90075 9.61418 9.75762 9.75729C9.6145 9.90039 9.42418 9.98652 9.2222 9.99959C9.11927 10.003 9.01674 9.98501 8.92112 9.94676C8.8255 9.90851 8.73885 9.85085 8.66666 9.7774L5.00009 6.1223L1.34464 9.7774C1.27244 9.85085 1.1858 9.90851 1.09017 9.94676C0.99455 9.98501 0.892029 10.003 0.789095 9.99959C0.583345 9.98888 0.388856 9.90234 0.243172 9.75667C0.0974876 9.611 0.0109371 9.41653 0.000227414 9.2108C-0.000777895 9.1115 0.0184003 9.01303 0.0565986 8.92136C0.094797 8.8297 0.151219 8.74674 0.222444 8.67754L3.90012 5.00022L0.211333 1.31179C0.142114 1.24164 0.0877451 1.15827 0.0514738 1.06665C0.0152026 0.975023 -0.00222666 0.877029 0.000227414 0.778519C0.0132986 0.576556 0.0994371 0.386254 0.242559 0.243146C0.385681 0.100038 0.576002 0.0139081 0.777984 0.000838218C0.880117 -0.00401225 0.982154 0.0122271 1.07773 0.0485439C1.17331 0.0848608 1.26039 0.140476 1.33352 0.211923Z" fill="black"/></svg>
-                        
+
                 </div>     -->
         <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    
+
                 <div class="modal-body">
                     <div
                         class="rightWrap forget text-center d-flex flex-column align-items-center justify-content-center h-100 ">
@@ -427,11 +694,11 @@ form.password.forget{
                                             <path d="M8 0C3.58217 0 0 3.58182 0 7.99965C0 12.4178 3.58217 16 8 16C12.4178 16 16 12.4178 16 7.99965C16 3.58182 12.4182 0 8 0ZM9.22293 12.3679C9.22293 13.0387 8.67362 13.5824 8.00349 13.5824C7.33301 13.5824 6.78406 13.0387 6.78406 12.3679V7.05435C6.78406 6.38387 7.33301 5.84015 8.00349 5.84015C8.67362 5.84015 9.22293 6.38352 9.22293 7.05435V12.3679ZM8 4.83688C7.26003 4.83688 6.66009 4.23694 6.66009 3.49732C6.66009 2.757 7.26003 2.15775 8 2.15775C8.73962 2.15775 9.33991 2.757 9.33991 3.49732C9.33991 4.23694 8.73962 4.83688 8 4.83688Z" fill="#A8A8A8"/>
                                         </svg>
                                     </div>
-    
+
                                     <div class="form-group">
                                         <input type="password" class="form-control" placeholder="Confirm password">
                                     </div>
-    
+
                                     <button type="submit" class="btn btn-primary submitBtn">
                                         Submit
                                         <svg class="ml-4" width="24" height="12" viewBox="0 0 24 12" fill="#fff"
@@ -441,10 +708,10 @@ form.password.forget{
                                         </svg>
                                     </button>
                                 </form>
-    
+
                         </div>
-    
-    
+
+
                         <div class="bottomText">
                             <p class="mb-0">back to <a href="login.html"> <strong>login</strong> </a> </p>
                         </div>
@@ -455,14 +722,14 @@ form.password.forget{
                         </svg>
                         <span>back</span>
                     </a>
-                </div> 
+                </div>
                 </div>
             </div>
     </div>
 
 
      <script type="text/javascript">
-        require(['jquery', 'bootstrap4'], function($) {
+         require(['jquery', 'bootstrap4'], function($) {
 
             $(window).on('load',function(){
                 $('.reset_process').modal('hide');
@@ -477,14 +744,14 @@ form.password.forget{
             var loginButton = $('.login-form').find('button[type=submit]');
             var registerButton = $('.register-form').find('button[type=submit]');
             var forgetButton = $('.forget-form').find('button[type=submit]');
-            
+
             var loginUrl = "<?php echo $block->getUrl('customerlogin/ajax/login/') ?>";
             var registerUrl = "<?php echo $block->getUrl('customerlogin/ajax/register/')?>";
             var forgetUrl = "<?php echo $block->getUrl('customerlogin/ajax/forget/')?>";
             // var loginUrl = "https://dev.evantiv.com/supertee/customerlogin/ajax/login/";
 
             // var registerUrl = "https://dev.evantiv.com/supertee/customerlogin/ajax/register/";
-            
+
             // var forgetUrl = "https://dev.evantiv.com/supertee/customerlogin/ajax/forget/";
 
             // Texts
@@ -502,7 +769,7 @@ form.password.forget{
                 e.preventDefault(e);
                 loginOverlay.show();
                 loginBox.show();
-                e.stopPropagation(); 
+                e.stopPropagation();
                 var target = $(this).attr('data-target');
                 $(target).addClass('show d-block');
                 $('body').addClass("modal-open");
@@ -533,7 +800,7 @@ form.password.forget{
                 registerBox.show();
             });
 
-            
+
 
             $('.login-form').submit(function(){
                 loginButton.text(loggingText);
@@ -600,7 +867,9 @@ form.password.forget{
 
                 registerButton.text(registeringText);
                 registerButton.attr("disabled", "disabled");
-                var formData = getFormData($(this));
+                // var formData = getFormData($(this));
+                var form = $(this).closest("form");
+                var formData = form.serialize();
                // console.log(formData);
                 $.ajax({
                     type: "POST",
@@ -675,13 +944,13 @@ form.password.forget{
 
             // resetlink modal
             function resetLinkModal(e){
-                 // e.stopPropagation(); 
+                 // e.stopPropagation();
                 $('.login_process').removeClass('show d-block');
                 $('#resetLink').addClass('show d-block');
              }
-            
-              
-            
+
+
+
 
 
 
@@ -691,12 +960,12 @@ form.password.forget{
                 var target = $(this).attr('data-target');
 
                 console.log(target);
-                e.stopPropagation(); 
+                e.stopPropagation();
                 $(target).addClass('show d-block');
                 $('body').addClass("modal-open");
                 $('body').append('<div class="modal-backdrop fade show"></div>');
 
-                
+
             });
 
             // reward_donation_signup
@@ -705,7 +974,7 @@ form.password.forget{
                 var viewId = $(this).attr('view-id');
                 console.log(viewId);
 
-                e.stopPropagation(); 
+                e.stopPropagation();
                 $(target).addClass('show d-block');
 
                 $('.login_process .nav-tabs .nav-item a').removeClass('active');
@@ -723,7 +992,7 @@ form.password.forget{
                     // $('.btn-widget').addClass('d-block user_logged_in');
                     // $('.btn-widget span').html('you have $2.00 in points');
                 }
-            }); 
+            });
 
             // reward_donation_signup
                 $('.rwd_main #modalOpenSignin').on('click', function(e){
@@ -731,7 +1000,7 @@ form.password.forget{
                     var viewId = $(this).attr('view-id');
                     console.log(viewId);
 
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                     $(target).addClass('show d-block');
 
 
@@ -750,7 +1019,7 @@ form.password.forget{
                         // $('.btn-widget').addClass('d-block user_logged_in');
                         // $('.btn-widget span').html('you have $2.00 in points');
                     }
-                }); 
+                });
 
 
 
@@ -758,10 +1027,10 @@ form.password.forget{
             $('.login_process #modalOpen').on('click', function(e){
                 var target = $(this).attr('data-target');
                 console.log(target);
-                e.stopPropagation(); 
+                e.stopPropagation();
                 $('.login_process').removeClass('show d-block');
                 $(target).addClass('show d-block');
-            }); 
+            });
 
 
 
@@ -774,7 +1043,7 @@ form.password.forget{
             $('.btn-widget').addClass('d-block user_logged_in');
 
         });
-        
+
         // Stop propagation to prevent hiding "#tooltip" when clicking on it
         $('.modal-dialog').on('click touch', function(event) {
             event.stopPropagation();
@@ -815,7 +1084,7 @@ form.password.forget{
         $(this).addClass('d-none');
         $('.passShow').removeClass('d-none');
         $(this).parent('.form-group').find('input').attr('type','text');
-        
+
 
        });
        // Hidepassword
@@ -826,5 +1095,23 @@ form.password.forget{
        })
 
    });
+
+     function isNumber(evt) {
+       evt = (evt) ? evt : window.event;
+       var charCode = (evt.which) ? evt.which : evt.keyCode;
+       if (charCode > 31 && (charCode < 46 || charCode > 57 || charCode == 47)) {
+           return false;
+       }
+       return true;
+     }
+
+     // function noSpace(evnt) {
+     //   evnt = (evnt) ? evnt : window.event;
+     //   var charCodes = (evt.which) ? evt.which : evt.keyCode;
+     //   if (charCodes == 32)) {
+     //       return false;
+     //   }
+     //   return true;
+     // }
     </script>
 <?php endif; ?>

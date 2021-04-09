@@ -63,18 +63,24 @@ class Change extends \Magento\Framework\App\Action\Action
 
         // echo "<pre>";print_r($post);die;
         if (!empty($post)) {
-            
+
             $current_password   = $post['current_password'];
             $new_password    = $post['new_password'];
             $confirm_password    = $post['confirm_password'];
             $current_user_pass_hash = $this->_customerSession->getCustomer()->getPasswordHash();
             if ($this->encryptor->validateHash($current_password, $current_user_pass_hash)) {
-                if($new_password !=$confirm_password){
+                if($new_password != $confirm_password){
                     $response = [
                         'errors' => true,
-                        'message' => 'New Password and confirm password does not matched'
+                        'message' => 'New Password and confirm password are not matching.'
                     ];
-                    // $this->messageManager->addError(__('New Password and confirm password does not matched')); 
+                    // $this->messageManager->addError(__('New Password and confirm password does not matched'));
+                }else if($new_password == $current_password){
+                    $response = [
+                        'errors' => true,
+                        'message' => 'New Password and current password cannot not be same.'
+                    ];
+                    // $this->messageManager->addError(__('New Password and confirm password does not matched'));
                 }else{
                     $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
                     $objectManager = $bootstrap->getObjectManager();
@@ -92,7 +98,7 @@ class Change extends \Magento\Framework\App\Action\Action
                     $customerRepositoryInterface->save($customer);
                     $response = [
                         'errors' => false,
-                        'message' => 'Your Password is successfully change.'
+                        'message' => 'Your password has been changed successfully.'
                     ];
                 }
 
@@ -100,7 +106,7 @@ class Change extends \Magento\Framework\App\Action\Action
                 //$this->messageManager->addSuccess(__('Current password does not matched.'));
                 $response = [
                     'errors' => true,
-                    'message' => 'Current password does not matched.'
+                    'message' => 'Current password is not matching.'
                 ];
             }
             $response_val = json_encode($response);

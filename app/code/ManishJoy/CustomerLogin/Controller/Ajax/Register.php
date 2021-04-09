@@ -106,18 +106,22 @@ class Register extends \Magento\Framework\App\Action\Action
                 'errors' => true,
                 'message' => __('A user already exists with this email id.')
             ];
-        } else {
+        } else if($this->getRequest()->getPost('email') == ''){
+          $response = [
+              'errors' => true,
+              'message' => __('Please select your country.')
+          ];
+        }else {
             /** @var \Magento\Framework\Controller\Result\Raw $resultRaw */
             $resultRaw = $this->resultRawFactory->create();
             try {
                 $userData = [
-                                    'firstname' => $this->getRequest()->getPost('firstname'),
-                                    'lastname' => $this->getRequest()->getPost('firstname'),
-                                    'email' => $this->getRequest()->getPost('email'),
-                                    'telephone'=> $this->getRequest()->getPost('contact'),
-                                    'password' => $this->getRequest()->getPost('password'),
-                                    'password_confirmation' => $this->getRequest()->getPost('password_confirmation')
-                                ];
+                                'firstname' => $this->getRequest()->getPost('firstname'),
+                                'lastname' => $this->getRequest()->getPost('lastname'),
+                                'email' => $this->getRequest()->getPost('email'),
+                                'password' => $this->getRequest()->getPost('password'),
+                                'password_confirmation' => $this->getRequest()->getPost('password_confirmation')
+                            ];
                // print_r($userData);die();
             } catch (\Exception $e) {
                 return $resultRaw->setHttpResponseCode($httpBadRequestCode);
@@ -137,7 +141,7 @@ class Register extends \Magento\Framework\App\Action\Action
                     $customer = $this->customerAccountManagement->authenticate(
                         $userData['email'],
                         $userData['password']
-                    );
+                );
 
                 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
                 $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
@@ -168,15 +172,42 @@ class Register extends \Magento\Framework\App\Action\Action
                 // }
                 $sql = "INSERT INTO " . $themeTable2 . "(customer_id, reward_points, reward_type, rewards_points_id) VALUES (".$customer->getId().", 100, 'credit', 'signUp_reward')";
                 $connection->query($sql);
-                
-                // Sent Mail
 
+
+                $mobile = $_POST['contact'];
+                $city = $_POST['city'];
+                $country = $_POST['country'];
+                $street = $_POST['street'];
+                $postcode = $_POST['postcode'];
+                $firstname = $_POST['firstname'];
+                $lastname = $_POST['lastname'];
+
+
+                $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
+                $objectManager = $bootstrap->getObjectManager();
+                $addresss = $objectManager->get('\Magento\Customer\Model\AddressFactory');
+
+                $address = $addresss->create();
+                $address->setCustomerId($customer->getId())
+                        ->setTelephone($mobile)
+                        ->setCity($city)
+                        ->setCountryId($country)
+                        ->setStreet($street)
+                        ->setPostcode($postcode)
+                        ->setFirstname($firstname)
+                        ->setLastname($lastname)
+                        ->setIsDefaultBilling('1')
+                        ->setSaveInAddressBook('1');
+                $address->save();
+
+                // Sent Mail
                 // die;
+
                 $senderEmail = "hr@millipixels.com";
                 $loginUrl = $this->getBaseUrl();
                 $msg = '';
                 $msg .= "<p>Hi</p>";
-                $msg .= "<p>Thank you for register with us. Please login with below link:-</p>";
+                $msg .= "<p>Thank you for registering with us. Please login with below link:-</p>";
                 $msg .= "<p><a href='".$loginUrl."' target='_blank'>Click here to login.</a></p>";
                 $msg .= "<p>Regards</p>";
                 $msg .= "<p>Team Supertee</p>";
@@ -205,7 +236,7 @@ class Register extends \Magento\Framework\App\Action\Action
             }
         }
 
-            
+
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */
         $resultJson = $this->resultJsonFactory->create();
         return $resultJson->setData($response);

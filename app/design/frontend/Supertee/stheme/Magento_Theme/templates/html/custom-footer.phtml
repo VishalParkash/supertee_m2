@@ -486,7 +486,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         <div class="cartItems rightPanel">
             <div class="head d-flex align-items-center justify-content-between">
                 <h6>My wishlist</h6>
-                <span><?php echo count($wishlistCollection);?> items</span>
+                <!-- <span id="totalw"><?php echo count($wishlistCollection);?> items</span> -->
             </div>
             <div class="similarProduct">
                 <div class="productWrap d-flex align-items-start flex-wrap">
@@ -1905,6 +1905,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                 $(".messages").hide();
                 total = parseInt($(".totalwishlistitem").html())-parseInt(1);
                 value = (total>0)?total:'';
+                //$(".totalw").html('5 hhh');
                 if (value<=0){$(".totalwishlistitem").hide();}else{$(".totalwishlistitem").html(value);}
                 if ($(".wishlistprod").length <= 0) {
                     $(".productWrap").html("<p>No record found</p>");
