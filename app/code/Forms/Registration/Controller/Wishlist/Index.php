@@ -75,14 +75,26 @@ class Index extends \Magento\Framework\App\Action\Action
             'pid' => $pid
         ];
         foreach ($wishlistCollection as $item) {
-            if ($item->getProductId() == $pid) {
-                $item->delete();
-                $response = [
-                    'errors' => true,
-                    'pid' => $pid
-                ];
-                break;
+            if (!empty($post['type'])) {
+                if ($item->getId() == $pid) {
+                    $item->delete();
+                    $response = [
+                        'errors' => true,
+                        'pid' => $pid
+                    ];
+                    break;
+                }
+            } else {
+                if ($item->getProductId() == $pid) {
+                    $item->delete();
+                    $response = [
+                        'errors' => true,
+                        'pid' => $pid
+                    ];
+                    break;
+                }
             }
+            
         }
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */
         $resultJson = $this->resultJsonFactory->create();

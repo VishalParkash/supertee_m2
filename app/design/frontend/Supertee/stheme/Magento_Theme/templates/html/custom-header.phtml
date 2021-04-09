@@ -62,6 +62,9 @@ if(!empty($_REQUEST['referred']) && ($_REQUEST['referred'] =='1')){
 }
 
 ?>
+<style>
+.messages {display:none;}
+</style>
 <?php 
 $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
 <?php $_menu = $block->getHtml('nav-item', 'menu', $columnsLimit) ?>
@@ -309,7 +312,7 @@ $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
                                             <?php if(($customerSession->isLoggedIn())) { ?>
                                             <?php 
                                if($wishlist_collection->count() > 0 ){ ?>
-                               <div class="badges position-absolute">
+                               <div class="badges position-absolute totalwishlistitem">
                                     <?php echo $wishlist_collection->count();?>                                   
                                </div>
                            <?php } ?>

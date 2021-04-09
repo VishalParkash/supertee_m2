@@ -511,11 +511,11 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     $configurablePrice = number_format(min($pricingArr), 2);
                                 }
                     ?>
-                    <div class="product">
+                    <div class="product" id="product_<?php echo $item->getId();?>">
                         <div class="productImg">
                             <img src="<?php echo $image_url;?>" alt="" class="img-fluid">
                         </div>
-                        <div class="productContent">
+                        <div class="productContent wishlistprod">
                             <div class="topWrap d-flex align-items-center justify-content-between">
                                 <h6><?php echo $item->getProduct()->getName();?></h6>
                             </div>
@@ -527,7 +527,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                 $<?php echo $getFinalPrice; ?>
                             </div>
                             <div class="box_wrap d-flex align-items-center justify-content-between">
-                            <a href="#"  data-role="remove" data-post='<?php echo $wblock->getRemoveParams($item); ?>' title="" class="btn-remove action delete">
+                            <a href="#"  data-role="remove" data-id="<?php echo $customerId.'_'.$item->getProduct()->getId();?>" data-url='<?php echo $wblock->getRemoveParams($item); ?>' title="" class="btn-remove action delete">
                                     <svg width="8" height="8" viewBox="0 0 8 8" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -537,7 +537,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                     Remove
                                 </a>
                             </div>
-                            <a href="" data-role="tocart" data-post='<?php echo $wblock->getAddToCartParams($item) ?>' class="btn btn-primary">
+                            <!-- <a href="" data-role="tocart" data-post='<?php echo $wblock->getAddToCartParams($item) ?>' class="btn btn-primary">
                                 Move to cart
                                 <svg width="24" height="13" viewBox="0 0 24 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -545,7 +545,7 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
                                         d="M23.725 5.83638C23.7248 5.8361 23.7245 5.83577 23.7242 5.83549L18.8256 0.960497C18.4586 0.595294 17.865 0.596653 17.4997 0.963684C17.1345 1.33067 17.1359 1.92425 17.5028 2.28949L20.7918 5.56249L0.9375 5.56249C0.419719 5.56249 0 5.98221 0 6.49999C0 7.01777 0.419719 7.43749 0.9375 7.43749L20.7917 7.43749L17.5029 10.7105C17.1359 11.0757 17.1345 11.6693 17.4998 12.0363C17.8651 12.4034 18.4587 12.4046 18.8256 12.0395L23.7242 7.16449C23.7245 7.16421 23.7248 7.16388 23.7251 7.1636C24.0923 6.79713 24.0911 6.20163 23.725 5.83638Z"
                                         fill="white" />
                                 </svg>
-                            </a>
+                            </a> -->
                         </div>
                     </div>
                     <?php }
@@ -1874,6 +1874,46 @@ $wishlistCollection = $wishlist->loadByCustomerId($customerId)->getItemCollectio
         location.reload();
     });
 
+    // remove item from wishlist
+   
+    $('.btn-remove').click(function(){
+       // trim = $.trim(str);
+        var actiondata = jQuery.parseJSON(jQuery(this).attr('data-url'));
+        var addurl = "<?php echo $block->getBaseUrl().'removeitem/wishlist/' ?>";
+        var data = actiondata.data;
+        var p_id = data.item;
+        var data_id = $(this).attr('data-id');
+        var split = data_id.split('_');
+        var cust_id = split[0];
+        var prodid = split[1];
+        data['isAjax'] = true;
+            jQuery.ajax({
+                url: addurl,
+                data: {cust_id:cust_id,p_id:p_id,'type':'oneitem'},
+                type: "POST",
+                dataType: 'json'
+            }).done(function (data) {
+                $('#product_'+p_id).hide();
+                $('#product_'+p_id).html("");
+                $('.response-msg').html("<div class='notify success' style='width:auto;'><h6>Selected item deleted from your wishlist.</h6></div>");
+                removeMessageResponse();
+                checkVal = 0;
+                // $( ".product" ).each(function( index ) {
+                //     checkVal += parseInt(checkVal);
+                // });
+                $("#towishlist_"+prodid).show();
+                $("#addwishlist_"+prodid).hide();
+                $(".messages").hide();
+                total = parseInt($(".totalwishlistitem").html())-parseInt(1);
+                value = (total>0)?total:'';
+                if (value<=0){$(".totalwishlistitem").hide();}else{$(".totalwishlistitem").html(value);}
+                if ($(".wishlistprod").length <= 0) {
+                    $(".productWrap").html("<p>No record found</p>");
+                }
+                //No record found.
+        });
+        return false;
+    });
     $('#requestQuoteBtn').click(function(){
             
         var formData = $("#requestQuoteData").serialize()
