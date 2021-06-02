@@ -1,0 +1,5 @@
+app\etc\env.php
+vendor\*
+var\cache\*
+pub\*
+generated\*
